@@ -1,3 +1,7 @@
+*{
+    font-family: 'Noto Sans KR','Poppins';
+}
+
 .container{
     display: flex;
     margin: 0 auto;
@@ -8,4 +12,52 @@
     border-radius: 10px;
     align-items: center;
     margin-top: 20px;
+}
+
+.textBox1{
+    display: ruby-text;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.text1{
+    font-size: 24px;
+    font-weight: bold;
+    color: #005600;
+    margin-bottom: 0;
+}
+
+.text2{
+    font-size: 16px;
+    color: #999999;
+    font-weight: normal;
+}
+
+.textBox2{
+    margin-left: 135px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.logo1{
+    width: 350px;
+}
+
+.text3{
+    color: #999999;
+    font-size: 16px;
+    padding-left: 50px;
+    line-height: 25px;
+}
+
+.colorchip{
+    margin-top: 40px;
+
+}
+
+.video1{
+    width: 1180px;
+    border-radius: 10px;
+    margin-top: 30px;
 }
