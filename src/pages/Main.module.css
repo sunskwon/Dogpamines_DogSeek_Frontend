@@ -1,3 +1,251 @@
+*{
+    font-family: 'Noto Sans Kr', 'Poppins';
+}
+
 .container{
-    
+    display: flex;
+    width: 1180px;
+    margin: 0 auto;
+}
+
+.container1{
+    width: 1180px;
+    margin: 0 auto;
+}
+
+.container2{
+    width: 1180px;
+    margin: 0 auto;
+    margin-bottom: 40px;
+}
+
+.title{
+    height: 400px;
+    display: flex;
+    position: relative;
+}
+
+.title1{
+    font-size: 28px;
+    font-weight: bold;
+    color: #005600;
+    padding-left: 240px;
+    display: flex;
+    margin-top: 13%;
+}
+
+.button1{
+    width: 140px;
+    height: 40px;
+    position: absolute;
+    top: 66%;
+    left: 23.5%;
+    border-radius: 10px;
+    background-color: #005600;
+    color: white;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.img1{
+    height: 300px;
+    padding-top: 50px;
+    padding-left: 290px;
+}
+
+.line1{
+    color: #D4D4D4;
+}
+
+.title2{
+    padding-left: 120px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.iconContainer{
+    display: flex;
+    justify-content: space-evenly;
+    width: 500px;
+    margin: 0 auto;
+}
+
+.iconContainer1{
+    display: flex;
+    justify-content: space-evenly;
+    width: 500px;
+    margin: 0 auto;
+    margin-top: 20px;
+    position: static;
+    padding-right: 1%;
+    margin-bottom: 40px;
+}
+
+.icon1{
+    cursor: pointer;
+}
+
+.text1{
+    color: #999999;
+    font-size: 16px;
+    cursor: pointer;;
+}
+
+.line2{
+    color: #D4D4D4;
+    margin-bottom: 20px;
+}
+
+.title3{
+    padding-left: 120px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.title4{
+    font-size: 20px;
+    font-weight: bold;
+    color: #63C54A;
+}
+
+.prodContainer{
+    width: 880px;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.prodContainer2{
+    width: 880px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+
+.prods{
+    width: 250px;
+    border: 1px solid #D4D4D4;
+    border-radius: 10px;
+}
+
+.text2{
+    width: 250px;
+    color: #999999;
+    font-size: 16px;
+    text-align: center;
+}
+
+.button2{
+    height: 40px;
+    width: 140px;
+    border: 1px solid #63C54A;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #63C54A;
+    background-color: white;
+    display: flex;
+    margin: 0 auto;
+    margin-top: 12px;
+    align-items: center;
+    padding-left: 23px;
+    cursor: pointer;
+}
+
+.line3{
+    color: #D4D4D4;
+    margin-bottom: 20px;
+}
+
+.dogsContainer{
+    padding-left: 120px;
+    display: flex;
+}
+
+.title5{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.img2{
+    position: relative;
+    margin-top: 20px;
+    margin-left: 500px;
+}
+
+.text3{
+    padding-left: 20px;
+    font-size: 14px;
+    margin-top: 50px;
+    margin-bottom: 60px;
+}
+
+.dogsdoc{
+    margin-top: 60px;
+    position: absolute;
+}
+
+.button3{
+    width: 140px;
+    height: 40px;
+    background-color: #005600;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.line4{
+    color: #D4D4D4;
+    margin-bottom: 40px;
+}
+
+.img3{
+    cursor: pointer;
+}
+
+.line5{
+    color: #D4D4D4;
+    margin-bottom: 40px;
+}
+
+.companyinfo{
+    display: flex;
+}
+
+.logo1{
+    padding-left: 40px;
+    width: 300px;
+}
+
+.title6{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.text4{
+    font-size: 20px;
+    margin-top: 50px;
+    margin-bottom: 60px;
+    color: #999999;
+}
+
+.button4{
+    width: 140px;
+    height: 40px;
+    background-color: white;
+    border: 1px solid #63C54A;
+    color: #63C54A;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
 }
