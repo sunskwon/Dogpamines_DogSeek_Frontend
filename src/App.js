@@ -10,6 +10,8 @@ import Products from "./pages/Products/Products.js";
 import Mypage from "./pages/Mypage/Mypage.js";
 import Login from "./pages/Auth/Login.js";
 import SignUp from "./pages/Auth/SignUp.js";
+import Terms from "./pages/Etc/Terms.js";
+import PrivacyPolicy from "./pages/Etc/PrivacyPolicy.js";
 
 function App() {
   return (
@@ -37,6 +39,8 @@ function App() {
             <Route path="/dogs" element={<Dogs/>}/>
             <Route path="/board" element={<Board/>}/>
             <Route path="/company" element={<Company/>} />
+            <Route path="/terms" element={<Terms/>}/>
+            <Route path="/privacypolicy" element={<PrivacyPolicy/>}/>
           </Route>
 
           {/* 관리자 */}

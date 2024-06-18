@@ -1,0 +1,54 @@
+*{
+    font-family: 'Noto Sans KR','Poppins';
+}
+
+.container{
+    margin: 0 auto;
+    width: 1180px;
+}
+
+.textBox{
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.text1{
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 20px;
+    margin-bottom: 10px;
+}
+
+.text2{
+    margin-top: 0;
+    margin-bottom: 40px;
+    font-size: 20px;
+    letter-spacing: 12px;
+}
+
+.line{
+    width: 1180px;
+    color: #D4D4D4;
+}
+
+.textBox1{
+    margin-left: 30px;
+    width: 1180px;
+}
+
+.title{
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 10px;
+}
+
+.textBox2{
+    width: 1120px;
+    padding-left: 30px;
+}
+
+.PrivacyPolicy{
+    font-size: 13px;
+    font-weight: light;
+}
