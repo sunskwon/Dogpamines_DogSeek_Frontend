@@ -1,0 +1,84 @@
+*
+{
+font-family: 'Noto Sans KR'
+    
+}
+.dogSaImg 
+{
+    display: flex;
+    padding-top: 20px;
+    justify-content: center;
+    
+}
+.noticeTitle
+{
+    
+    text-align: center;
+    padding-top: 40px;
+    padding-right: 1020px;
+    font-size: 22px;
+}
+.boardTitle
+{
+    text-align: center;
+    padding-top: 40px;
+    padding-right: 1020px;
+    font-size: 22px;
+}
+.boardSeachs
+{
+    width: 240px;
+    height: 32px;
+    background-color: white;
+    border: solid 1px;
+    border-radius: 10px;
+    border-color: #005600;
+}
+/*---- 게시판css ----*/
+/* 게시판 정렬 */
+.boardboxlines
+{
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+
+.boarBox {
+    width: 1180px;
+    margin: 0 auto;
+}
+/* 게시글 박스 */
+.boardbox
+{
+    margin-bottom: 20px;
+    width: 1120px;
+    height: 140px;
+    border-radius: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+.boardboxTitle
+{
+    margin: 16px;
+    width: 190px;
+    height: 30px;
+    background-color: #005600;
+    border-radius: 10px;
+}
+.titletext{
+    color: white;
+    font-size: 16px;
+}
+/* 타이틀*/
+.boxTitle
+{
+    padding-left: 14px;
+    font-size: 14px;
+    
+    color: #999999;
+}
+/* 닉네임 */
+.nick
+{
+    padding-left: 14px;
+    font-size: 14px;
+}
