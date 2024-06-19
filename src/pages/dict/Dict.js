@@ -1,7 +1,6 @@
 import styles from './dict.module.css';
 import {useState} from "react";
 
-export{dict}
 
 function Dict(){
     
