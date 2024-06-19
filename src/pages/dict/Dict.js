@@ -4,10 +4,18 @@ import {useState} from "react";
 
 function Dict(){
     
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isSmallModalOpen, setIsSmallModalOpen] = useState(false);
+    const [isMediumModalOpen, setIsMediumModalOpen] = useState(false);
+    const [isLargeModalOpen, setIsLargeModalOpen] = useState(false);
 
-    const toggleModal = () => {
-        setIsModalOpen(prevState => !prevState);
+    const toggleSmallModal = () => {
+        setIsSmallModalOpen(prevState => !prevState);
+    };
+    const toggleMediumModal = () => {
+        setIsMediumModalOpen(prevState => !prevState);
+    };
+    const toggleLargeModal = () => {
+        setIsLargeModalOpen(prevState => !prevState);
     };
 
 
@@ -24,27 +32,35 @@ function Dict(){
         </div>
         <div className={styles.container2}>
         <hr color="D4D4D4"/>
-            <button className={styles.size} onClick={toggleModal}>
+            <button className={styles.size} onClick={toggleSmallModal}>
                 소형
             </button>
-            {isModalOpen &&
+            {isSmallModalOpen &&
                 <div className={'modal-container'}  id={styles.modalContainer}>
-                   dfsdfsd
+                   소형견 종류
                 </div>}
 
         </div>
         <div className={styles.container2}>
         <hr color="D4D4D4"/>
-            <button className={styles.size}>
+            <button className={styles.size} onClick={toggleMediumModal}>
                 중형
             </button>
-        
+            {isMediumModalOpen &&
+                <div className={'modal-container'}  id={styles.modalContainer}>
+                   중형견 종류
+                </div>}
         </div>
         <div className={styles.container2}>
         <hr color="D4D4D4"/>
-            <button className={styles.size}>
+            <button className={styles.size} onClick={toggleLargeModal}>
                 대형
             </button>
+            {isLargeModalOpen &&
+                <div className={'modal-container'}  id={styles.modalContainer}>
+                   대형견 종류
+                </div>}
+
         </div>
     
         </>
