@@ -1,6 +1,7 @@
 import Layout1 from "./Layouts/Layout1.js"
 import Layout2 from "./Layouts/Layout2.js";
 import Board from "./pages/Board/Board.js";
+import Post from "./pages/Board/Post.js";
 import Curation from "./pages/Curation/Curation.js";
 import Dogs from "./pages/Dogs/Dogs.js";
 import Company from "./pages/Etc/Company.js";
@@ -38,6 +39,7 @@ function App() {
             <Route path="/products" element={<Products/>}/>
             <Route path="/dogs" element={<Dogs/>}/>
             <Route path="/board" element={<Board/>}/>
+            <Route path="/post" element={<Post/>}/>
             <Route path="/company" element={<Company/>} />
             <Route path="/terms" element={<Terms/>}/>
             <Route path="/privacypolicy" element={<PrivacyPolicy/>}/>
