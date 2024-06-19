@@ -1,0 +1,136 @@
+*{
+    font-family: 'Noto Sans KR', 'Poppins';
+}
+
+.container{
+    width: 1180px;
+    min-height: 720px;
+    margin: 0 auto;
+}
+
+
+.container1{
+    width: 1180px;
+    margin: 0 auto;
+    display: flex;
+}
+
+
+.container2{
+    width: 1180px;
+    margin: 0 auto;
+}
+
+.title{
+    display: flex;
+    position: relative;
+    height: 50px;
+    margin-left: 50px;
+    margin-top: 3%;
+}
+
+.text1{
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.text2{
+    padding-top: 3px;
+    padding-left: 20px;
+    font-size: 14px;
+    color: #999999;
+    cursor: pointer;
+}
+
+.text3{
+    padding-top: 3px;
+    padding-left: 20px;
+    font-size: 14px;
+    color: #005600;
+    cursor: pointer;
+}
+
+.line1{
+    color: #D4D4D4;
+    margin-bottom: 20px;
+}
+
+.text4{
+    margin-left: 30px;
+    font-size: 14px;
+    color: black;
+    border: 1px solid #63C54A;
+    border-radius: 10px;
+    color: #999999;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.text5{
+    margin-left: 130px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+
+.line3{
+    width: 930px;
+    margin: 0 auto;
+    color: #D4D4D4;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.spanBox{
+    width: 980px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.span1{
+    font-size: 14px;
+}
+
+.line4{
+    width: 930px;
+    margin: 0 auto;
+    color: #D4D4D4;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.resultBox{
+    width: 980px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.span2{
+    font-size: 14px;
+}
+
+.span3{
+    font-size: 14px;
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+.btn1{
+    border: none;
+    background-color: white;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+}
+
+.btn2{
+    border: none;
+    background-color: white;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0;
+}

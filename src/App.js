@@ -8,6 +8,7 @@ import Main from "./pages/Main";
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Products from "./pages/Products/Products.js";
 import Mypage from "./pages/Mypage/Mypage.js";
+import Mydog from "./pages/Mypage/Mydog.js"
 import Login from "./pages/Auth/Login.js";
 import SignUp from "./pages/Auth/SignUp.js";
 import Terms from "./pages/Etc/Terms.js";
@@ -40,6 +41,8 @@ function App() {
             <Route path="/board" element={<Board/>}/>
             <Route path="/company" element={<Company/>} />
             <Route path="/terms" element={<Terms/>}/>
+            <Route path="/mypage" element={<Mypage/>}/>
+            <Route path="/mydog" element={<Mydog/>}/>
             <Route path="/privacypolicy" element={<PrivacyPolicy/>}/>
           </Route>
 
