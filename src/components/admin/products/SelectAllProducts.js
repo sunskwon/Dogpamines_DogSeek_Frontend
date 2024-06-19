@@ -37,7 +37,7 @@ function SelectAllProducts({ search, bool }) {
 
         const url = `${baseUrl}/products/prodsearch?type=${search.type}&input=${search.input}`;
         console.log(url);
-    
+
         const response = await fetch(url, {
             method: 'GET',
             headers: {
@@ -85,7 +85,12 @@ function SelectAllProducts({ search, bool }) {
                         <div
                             style={{ width: "200px", height: "30px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
                         >
-                            <a href={product.prodSite}>{product.prodSite}</a>
+                            <a href={product.prodSite}
+                                style={{
+                                    fontSize: "14px",
+                                    color: "rgba(112, 178, 222, 1)",
+                                }}
+                            >{product.prodSite}</a>
                             {/* {product.prodSite} */}
                         </div>
                     </td>
