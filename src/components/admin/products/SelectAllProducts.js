@@ -27,16 +27,11 @@ function SelectAllProducts({ search, bool }) {
         const result = await response.products;
 
         return result;
-    }
-
-    useEffect(() => {
-        call().then(res => setProducts(res));
-    }, []);
+    };
 
     const searchProd = async () => {
 
         const url = `${baseUrl}/products/prodsearch?type=${search.type}&input=${search.input}`;
-        console.log(url);
 
         const response = await fetch(url, {
             method: 'GET',
@@ -50,7 +45,11 @@ function SelectAllProducts({ search, bool }) {
         const result = await response.products;
 
         return result;
-    }
+    };
+
+    useEffect(() => {
+        call().then(res => setProducts(res));
+    }, []);
 
     useEffect(() => {
         searchProd().then(res => setProducts(res));
@@ -95,7 +94,12 @@ function SelectAllProducts({ search, bool }) {
                         </div>
                     </td>
                     <td>
-                        <button className={styles.acceptButton}>
+                        <button
+                            className={styles.acceptButton}
+                            onClick={() => {
+                                navigate("/admin/productdetail", {state: {prodCode: product.prodCode}});
+                            }}
+                        >
                             상세
                         </button>
                     </td>

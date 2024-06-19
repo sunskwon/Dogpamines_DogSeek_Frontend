@@ -101,3 +101,7 @@ input {
     display: block;
     height: 50px;
 }
+
+.productDetail {
+    clear: right;
+}
