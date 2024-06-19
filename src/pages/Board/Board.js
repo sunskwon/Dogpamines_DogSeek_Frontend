@@ -1,8 +1,35 @@
-import { useStatus } from 'react';
+import { useState  } from 'react';
 import styles from "./board.module.css";
-
+import { useNavigate } from 'react-router-dom';
 
 function Board(){
+    const [ isModalOpen, setIsModalOpen ] = useState(false);
+    const [ modalBackground, setModalBackground] = useState();
+    const navigate = useNavigate();
+
+
+    const items = document.querySelectorAll('.question');
+    const onBoardClick = () => {
+        navigate("./post");
+    }
+
+    // 이름의 함수를 정의(공지사항 토글)
+    function OCNotice() {
+        const noticeId = this.id.replace();
+
+        // 스타일이 none인지 확인 이면 요소가 현재 숨겨져 있음
+        if(document.getElementById('noticeId').style.display === 'block') {
+            // 
+            document.getElementById('noticeId').style.display = 'none';
+            document.getElementById(this.id + '-toggle').textContent = '+';
+        } else {
+            document.getElementById('noticeId').style.display = 'block';
+            document.getElementById(this.id + '-toggle').textContent = '-';
+        }
+    }
+
+    items.forEach(item => item.addEventListener('click', OCNotice));
+
 
     return(
         <div className={styles.boardPage}>
@@ -10,19 +37,16 @@ function Board(){
                 <img src={"/images/dogsa.png"}/>
             </div>
 
-        <div className={styles.boardBox}>
+
+
+        <div className={styles.notices}>
             <p className={styles.noticeTitle}>공지사항</p>
-            <hr/>
             <ul>
-                <p>공지1</p>
+                <span></span>
             </ul>
-            <hr/>
-            <p>공지2</p>
-            <hr/>
-            <p>공지2</p>
-            <hr/>
-            
-        </div>
+            </div>
+
+
 
         <div className={styles.boardboxlines}>
             <p className={styles.boardTitle}>게시판</p>
@@ -57,6 +81,9 @@ function Board(){
                 </ul>
                 <p className={styles.boxTitle}>오늘 하루종일 뛰다가 지쳤는지 새근새근 잠듦..ㅎㅎ</p>            
                 <p className={styles.nick}>타로타로</p>
+                <button onClick={onBoardClick}>
+                    post
+                </button>
             </div>
         </div>
 
