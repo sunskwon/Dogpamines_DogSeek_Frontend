@@ -5,13 +5,17 @@ import Curation from "./pages/Curation/Curation.js";
 import Dogs from "./pages/Dogs/Dogs.js";
 import Company from "./pages/Etc/Company.js";
 import Main from "./pages/Main";
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Products from "./pages/Products/Products.js";
 import Mypage from "./pages/Mypage/Mypage.js";
 import Login from "./pages/Auth/Login.js";
 import SignUp from "./pages/Auth/SignUp.js";
 import Terms from "./pages/Etc/Terms.js";
 import PrivacyPolicy from "./pages/Etc/PrivacyPolicy.js";
+
+import Adminlayout from "./Layouts/AdminLayout.js";
+import AdminDashBoard from "./pages/Admin/AdminDashBoard.js";
+import AdminSelectAllProducts from "./pages/Admin/Products/AdminSelectAllProducts.js";
 
 function App() {
   return (
@@ -30,21 +34,27 @@ function App() {
           </Route> */}
 
           {/* 로그인 X */}
-          <Route path="/" element={<Layout1/>}>
-            <Route index element={<Main/>}/>
-            <Route path="/login" element={<Login/>}/>
-            <Route path="/signup" element={<SignUp/>}/>
-            <Route path="/curation" element={<Curation/>}/>
-            <Route path="/products" element={<Products/>}/>
-            <Route path="/dogs" element={<Dogs/>}/>
-            <Route path="/board" element={<Board/>}/>
-            <Route path="/company" element={<Company/>} />
-            <Route path="/terms" element={<Terms/>}/>
-            <Route path="/privacypolicy" element={<PrivacyPolicy/>}/>
+          <Route path="/" element={<Layout1 />}>
+            <Route index element={<Main />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/curation" element={<Curation />} />
+            <Route path="/products" element={<Products />} />
+            <Route path="/dogs" element={<Dogs />} />
+            <Route path="/board" element={<Board />} />
+            <Route path="/company" element={<Company />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           </Route>
+        </Routes>
 
-          {/* 관리자 */}
-          
+        {/* 관리자 */}
+        <Routes>
+          <Route path="/admin" element={<Adminlayout />}>
+            <Route index element={<AdminDashBoard />} />
+            <Route path="/admin/dashboard" element={<AdminDashBoard />} />
+            <Route path="/admin/products" element={<AdminSelectAllProducts />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
