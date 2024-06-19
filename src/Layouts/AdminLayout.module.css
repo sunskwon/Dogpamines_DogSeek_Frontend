@@ -1,0 +1,17 @@
+.adminOuter {
+    width: 1280px;
+    height: 800px;
+}
+
+.nav {
+    width: 230px;
+    height: 800px;
+    float: left;
+}
+
+.main {
+    width: 1020px;
+    height: 800px;
+    float: left;
+    margin-left: 30px;
+}

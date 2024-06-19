@@ -1,0 +1,103 @@
+.subTitle {
+    font-weight: bold;
+    font-size: 16px;
+    color: rgba(99, 197, 74, 1);
+    margin-top: 42px;
+    margin-left: 20px;
+    margin-bottom: 31.5px;
+}
+
+.mainOuter {
+    width: 990px;
+    height: 670px;
+    /* background-color: antiquewhite; */
+}
+
+.mainBox {
+    width: 987px;
+    height: 667px;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 212, 212, 1);
+}
+
+.subjectTitle {
+    font-weight: bold;
+    font-size: 16px;
+    color: rgba(99, 197, 74, 1);
+    margin-top: 15px;
+    margin-left: 20px;
+    float: left;
+}
+
+select {
+    border-radius: 10px;
+    border: 1px solid rgba(212, 212, 212, 1);
+    margin-top: 11px;
+    margin-right: 10px;
+    font-size: 16px;
+    color: rgba(153, 153, 153, 1);
+    padding-left: 5px;
+}
+
+input {
+    border-radius: 10px;
+    border: 1px solid rgba(212, 212, 212, 1);
+    margin-right: 10px;
+    font-size: 16px;
+    color: rgba(153, 153, 153, 1);
+    padding-left: 5px;
+}
+
+.submitButton {
+    border-radius: 10px;
+    border: 0;
+    background-color: rgba(0, 86, 0, 1);
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+}
+
+.productList {
+    clear: both;
+    width: 960px;
+    height: 560px;
+    overflow-y: auto;
+}
+
+.productListTable {
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+.productListTable th {
+    position: sticky;
+    top: -5px;
+    background-color: white;
+    table-layout: fixed;
+    height: 50px;
+}
+
+.productList::-webkit-scrollbar {
+    width: 10px;
+    top: 30px;
+}
+
+.productList::-webkit-scrollbar-thumb {
+    height: 20%;
+    background: rgba(99, 197, 74, 1);
+    border-radius: 10px;
+}
+
+.productList::-webkit-scrollbar-track {
+    background: rgba(212, 212, 212, 1);
+    border-radius: 10px;
+}
+
+.productList::-webkit-scrollbar-button:vertical:start:decrement {
+    display: block;
+    height: 50px;
+}

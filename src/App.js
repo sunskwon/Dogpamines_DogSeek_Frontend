@@ -4,7 +4,7 @@ import Board from "./pages/Board/Board.js";
 import Curation from "./pages/Curation/Curation.js";
 import Company from "./pages/Etc/Company.js";
 import Main from "./pages/Main";
-import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Products from "./pages/Products/Products.js";
 import Mypage from "./pages/Mypage/Mypage.js";
 import Mydog from "./pages/Mypage/Mydog.js"
@@ -13,6 +13,10 @@ import SignUp from "./pages/Auth/SignUp.js";
 import Terms from "./pages/Etc/Terms.js";
 import PrivacyPolicy from "./pages/Etc/PrivacyPolicy.js";
 import Dict from "./pages/dict/Dict.js";
+
+import Adminlayout from "./Layouts/AdminLayout.js";
+import AdminDashBoard from "./pages/Admin/AdminDashBoard.js";
+import AdminSelectAllProducts from "./pages/Admin/Products/AdminSelectAllProducts.js";
 
 function App() {
   return (
@@ -45,9 +49,15 @@ function App() {
             <Route path="/mydog" element={<Mydog/>}/>
             <Route path="/privacypolicy" element={<PrivacyPolicy/>}/>
           </Route>
+        </Routes>
 
-          {/* 관리자 */}
-          
+        {/* 관리자 */}
+        <Routes>
+          <Route path="/admin" element={<Adminlayout />}>
+            <Route index element={<AdminDashBoard />} />
+            <Route path="/admin/dashboard" element={<AdminDashBoard />} />
+            <Route path="/admin/products" element={<AdminSelectAllProducts />} />
+          </Route>
         </Routes>
       </BrowserRouter>
     </>
