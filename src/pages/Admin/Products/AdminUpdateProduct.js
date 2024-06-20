@@ -9,11 +9,46 @@ function AdminUpdateProduct() {
 
     const baseUrl = 'http://localhost:8080';
 
-    const [product, setProduct] = useState({});
+    const [product, setProduct] = useState(
+        {
+            prodCode: 0,
+            prodName: '',
+            prodPrice: 0,
+            prodAge: '',
+            prodEffi: '',
+            prodRecom: '',
+            prodSite: '',
+            prodCook: '',
+            prodVolume: '',
+            prodGrade: 0,
+            prodIngra: '',
+            prodSize: '',
+            prodDate: '2000-01-01',
+            prodImage: '/images/admin/No Image Available.png',
+        }
+    );
 
-    const {state} = useLocation();
-    
+    const { state } = useLocation();
+
     const navigate = useNavigate();
+
+    const submitHandler = async () => {
+
+        const url = `${baseUrl}/products`;
+
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+            },
+            body: JSON.stringify(product),
+        });
+
+        console.log(response);
+        console.log(response.headers);
+        console.log(response.headers.get('Location'));
+    };
 
     return (
         <div>
@@ -26,9 +61,7 @@ function AdminUpdateProduct() {
                             <button
                                 className={styles.submitButton}
                                 style={{ width: "100px", height: "30px", marginTop: "11px", marginRight: "15px", }}
-                                onClick={() => {
-                                    console.log(product);
-                                }}
+                                onClick={submitHandler}
                             >
                                 수정
                             </button>

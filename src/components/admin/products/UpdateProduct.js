@@ -8,6 +8,9 @@ function UpdateProduct({ Location, product, setProduct }) {
 
     const [effiInput, setEffiInput] = useState('');
     const [ingraInput, setIngraInput] = useState('');
+    const [status, setStatus] = useState('');
+    const [cook, setCook] = useState('');
+    const [recom, setRecom] = useState('');
     const [effi, setEffi] = useState([]);
     const [ingra, setIngra] = useState([]);
 
@@ -31,13 +34,26 @@ function UpdateProduct({ Location, product, setProduct }) {
 
     useEffect(() => {
         call().then((res) => {
+
+            // console.log(res);
             
             const tempEffi = res?.prodEffi.split(',');
             const tempIngra = res?.prodIngra.split(',');
+            // const tempStatus = res?.prodStatus;
+            // const tempCook = res?.prodCook;
+            // const tempRecom = res?.prodRecom;
+
+            // document.getElementById('prodCook').defaultChecked = res.prodCook;
+            // console.log(document.getElementById('prodCook').defaultChecked);
 
             setProduct(res);
             setEffi(tempEffi);
             setIngra(tempIngra);
+            // setStatus(tempStatus);
+            // setCook(tempCook);
+            // console.log(cook);
+            // console.log(cook === '화식');
+            // setRecom(tempRecom);
         });
     }, []);
     
@@ -60,13 +76,13 @@ function UpdateProduct({ Location, product, setProduct }) {
                         <input
                             style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                             disabled
-                            value={product.prodCode}
+                            value={product?.prodCode}
                         />
                         <p>등록일</p>
                         <input
                             style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                             disabled
-                            value={product.prodDate}
+                            value={product?.prodDate}
                         />
                         <p>가격(출고가)</p>
                         <input
@@ -74,7 +90,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                             name="prodPrice"
                             onChange={valueChangeHandler}
                             style={{ width: "100px", }}
-                            placeholder={product.prodPrice}
+                            placeholder={product?.prodPrice}
                         />
                         <span>원</span>
                     </div>
@@ -84,7 +100,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                             type="text"
                             name="prodName"
                             onChange={valueChangeHandler}
-                            placeholder={product.prodName}
+                            placeholder={product?.prodName}
                         />
                         <p>조회수</p>
                         <input
@@ -97,7 +113,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                             name="prodVolume"
                             onChange={valueChangeHandler}
                             style={{ width: "100px" }}
-                            placeholder={product.prodVolume}
+                            placeholder={product?.prodVolume?.split('kg')[0]}
                         />
                         <span>kg</span>
                     </div>
@@ -107,16 +123,21 @@ function UpdateProduct({ Location, product, setProduct }) {
                             type="text"
                             name="prodManufac"
                             onChange={valueChangeHandler}
+                            placeholder={product?.prodManufac}
                         />
                         <p>게시여부</p>
-                        <input
-                            style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
-                            disabled
-                        />
+                        <select
+                            name="prodStatus"
+                            onChange={valueChangeHandler}
+                            defaultValue={product?.prodStatus}
+                        >
+                            <option value={'Y'}>게시중</option>
+                            <option value={'N'}>게시중단</option>
+                        </select>
                         <p>평점</p>
                         <div className={styles.detailProductBoxPartGrade}>
                             <img
-                                src={product.prodGrade > 0 ? "/images/admin/star On.png" : "/images/admin/star Off.png"}
+                                src={product?.prodGrade > 0 ? "/images/admin/star On.png" : "/images/admin/star Off.png"}
                                 onClick={() => {
                                     setProduct({
                                         ...product,
@@ -125,7 +146,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                                 }}
                             />
                             <img
-                                src={product.prodGrade > 1 ? "/images/admin/star On.png" : "/images/admin/star Off.png"}
+                                src={product?.prodGrade > 1 ? "/images/admin/star On.png" : "/images/admin/star Off.png"}
                                 onClick={() => {
                                     setProduct({
                                         ...product,
@@ -134,7 +155,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                                 }}
                             />
                             <img
-                                src={product.prodGrade > 2 ? "/images/admin/star On.png" : "/images/admin/star Off.png"}
+                                src={product?.prodGrade > 2 ? "/images/admin/star On.png" : "/images/admin/star Off.png"}
                                 onClick={() => {
                                     setProduct({
                                         ...product,
@@ -143,7 +164,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                                 }}
                             />
                             <img
-                                src={product.prodGrade > 3 ? "/images/admin/star On.png" : "/images/admin/star Off.png"}
+                                src={product?.prodGrade > 3 ? "/images/admin/star On.png" : "/images/admin/star Off.png"}
                                 onClick={() => {
                                     setProduct({
                                         ...product,
@@ -152,7 +173,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                                 }}
                             />
                             <img
-                                src={product.prodGrade > 4 ? "/images/admin/star On.png" : "/images/admin/star Off.png"}
+                                src={product?.prodGrade > 4 ? "/images/admin/star On.png" : "/images/admin/star Off.png"}
                                 onClick={() => {
                                     setProduct({
                                         ...product,
@@ -167,12 +188,14 @@ function UpdateProduct({ Location, product, setProduct }) {
                     <div className={styles.detailProductBoxShort}>
                         <p>조리방식</p>
                         <select
+                            id="prodCook"
                             name="prodCook"
                             onChange={valueChangeHandler}
+                            // defaultValue={product?.prodCook}
                         >
                             <option value={'건식'}>건식</option>
                             <option value={'습식'}>습식</option>
-                            <option value={'화식'}>화식</option>
+                            <option value={'화식'} defaultChecked>화식</option>
                         </select>
                     </div>
                     <div className={styles.detailProductBoxShort}>
@@ -182,6 +205,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                             name="prodSize"
                             onChange={valueChangeHandler}
                             style={{ width: "100px", }}
+                            placeholder={product?.prodSize?.split('mm')[0]}
                         />
                         <span>mm</span>
                     </div>
@@ -192,6 +216,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                             name="prodSite"
                             onChange={valueChangeHandler}
                             style={{ width: "290px", }}
+                            placeholder={product?.prodSite}
                         />
                     </div>
                 </div>
@@ -201,6 +226,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                         <select
                             name="prodRecom"
                             onChange={valueChangeHandler}
+                            defaultValue={product?.prodRecom}
                         >
                             <option value={'전체'}>전체</option>
                             <option value={'소형견'}>소형견</option>
