@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import SelectAllProducts from "../../../components/admin/products/SelectAllProducts";
 
 import styles from "../AdminPages.module.css";
@@ -11,6 +13,8 @@ function AdminSelectAllProducts() {
         input: ''
     });
     const [bool, setBool] = useState(true);
+
+    const navigate = useNavigate();
 
     const valueChangeHandler = e => {
         setSearch({
@@ -66,6 +70,9 @@ function AdminSelectAllProducts() {
                             className={styles.submitButton}
                             style={{
                                 width: "100px", height: "30px", marginTop: "15px", marginRight: "15px", float: "right",
+                            }}
+                            onClick={() => {
+                                navigate("/admin/insertproduct");
                             }}
                         >
                             새 상품 등록
