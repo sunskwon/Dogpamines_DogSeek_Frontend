@@ -19,6 +19,7 @@ import Adminlayout from "./Layouts/AdminLayout.js";
 import AdminDashBoard from "./pages/Admin/AdminDashBoard.js";
 import AdminSelectAllProducts from "./pages/Admin/Products/AdminSelectAllProducts.js";
 import AdminSelectProductByCode from "./pages/Admin/Products/AdminSelectProductByCode.js";
+import AdminInsertProduct from "./pages/Admin/Products/AdminInserProduct.js";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
             <Route path="/admin/dashboard" element={<AdminDashBoard />} />
             <Route path="/admin/products" element={<AdminSelectAllProducts />} />
             <Route path="/admin/productdetail" element={<AdminSelectProductByCode />} />
+            <Route path="/admin/insertproduct" element={<AdminInsertProduct />} />
           </Route>
         </Routes>
       </BrowserRouter>
