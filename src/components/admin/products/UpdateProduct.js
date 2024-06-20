@@ -1,17 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import styles from "./AdminProducts.module.css";
 
-function InsertProduct({ product, setProduct }) {
+function UpdateProduct({ Location, product, setProduct }) {
 
-    const date = new Date;
-    const today = `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)}-${date.getDate()}`;
+    const baseUrl = 'http://localhost:8080';
 
     const [effiInput, setEffiInput] = useState('');
     const [ingraInput, setIngraInput] = useState('');
     const [effi, setEffi] = useState([]);
     const [ingra, setIngra] = useState([]);
 
+    const call = async () => {
+
+        const url = `${baseUrl}${Location}`
+        
+        const response = await fetch (url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+                'Cross-Access-Allow-Origin': '*',
+            }
+        }).then(res => res.json());
+
+        const result = await response.product;
+
+        return result;
+    };
+
+    useEffect(() => {
+        call().then((res) => {
+            
+            const tempEffi = res?.prodEffi.split(',');
+            const tempIngra = res?.prodIngra.split(',');
+
+            setProduct(res);
+            setEffi(tempEffi);
+            setIngra(tempIngra);
+        });
+    }, []);
+    
     const valueChangeHandler = e => {
         setProduct({
             ...product,
@@ -31,12 +60,13 @@ function InsertProduct({ product, setProduct }) {
                         <input
                             style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                             disabled
+                            value={product.prodCode}
                         />
                         <p>등록일</p>
                         <input
                             style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                             disabled
-                            value={today}
+                            value={product.prodDate}
                         />
                         <p>가격(출고가)</p>
                         <input
@@ -44,6 +74,7 @@ function InsertProduct({ product, setProduct }) {
                             name="prodPrice"
                             onChange={valueChangeHandler}
                             style={{ width: "100px", }}
+                            placeholder={product.prodPrice}
                         />
                         <span>원</span>
                     </div>
@@ -53,6 +84,7 @@ function InsertProduct({ product, setProduct }) {
                             type="text"
                             name="prodName"
                             onChange={valueChangeHandler}
+                            placeholder={product.prodName}
                         />
                         <p>조회수</p>
                         <input
@@ -65,6 +97,7 @@ function InsertProduct({ product, setProduct }) {
                             name="prodVolume"
                             onChange={valueChangeHandler}
                             style={{ width: "100px" }}
+                            placeholder={product.prodVolume}
                         />
                         <span>kg</span>
                     </div>
@@ -179,8 +212,8 @@ function InsertProduct({ product, setProduct }) {
                         <p>제품기능</p>
                         <div style={{ marginRight: "10px", float: "left", }}>
                             {effi.map((item, index) => (
-                                <div style={{ display: "flex", float: "left", }}>
-                                    <span key={index}>
+                                <div key={index} style={{ display: "flex", float: "left", }}>
+                                    <span>
                                         {item} &nbsp;
                                         <img
                                             src="/images/admin/Delete.png"
@@ -232,8 +265,8 @@ function InsertProduct({ product, setProduct }) {
                     <p>재료</p>
                     <div style={{ marginRight: "10px", float: "left", }}>
                         {ingra.map((item, index) => (
-                            <div style={{ display: "flex", float: "left", }}>
-                                <span key={index}>
+                            <div key={index} style={{ display: "flex", float: "left", }}>
+                                <span>
                                     {item} &nbsp;
                                     <img
                                         src="/images/admin/Delete.png"
@@ -284,4 +317,4 @@ function InsertProduct({ product, setProduct }) {
     );
 }
 
-export default InsertProduct;
+export default UpdateProduct;

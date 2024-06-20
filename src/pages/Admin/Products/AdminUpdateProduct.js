@@ -1,13 +1,18 @@
+import { useState } from "react";
+
 import { useLocation, useNavigate } from "react-router-dom";
 
-import SelectProductByCode from "../../../components/admin/products/SelectProductByCode";
-
 import styles from "../AdminPages.module.css";
+import UpdateProduct from "../../../components/admin/products/UpdateProduct";
 
-function AdminSelectProductByCode() {
+function AdminUpdateProduct() {
 
-    const { state } = useLocation();
+    const baseUrl = 'http://localhost:8080';
 
+    const [product, setProduct] = useState({});
+
+    const {state} = useLocation();
+    
     const navigate = useNavigate();
 
     return (
@@ -16,23 +21,23 @@ function AdminSelectProductByCode() {
             <div className={styles.mainOuter}>
                 <div className={styles.mainBox}>
                     <div>
-                        <p className={styles.subjectTitle}>상세 사료 정보</p>
+                        <p className={styles.subjectTitle}>사료 정보 수정</p>
                         <div style={{ float: "right", }}>
                             <button
                                 className={styles.submitButton}
                                 style={{ width: "100px", height: "30px", marginTop: "11px", marginRight: "15px", }}
                                 onClick={() => {
-                                    navigate("/admin/updateproduct", {
-                                        state: {Location: state.Location}
-                                    });
+                                    console.log(product);
                                 }}
                             >
                                 수정
                             </button>
                         </div>
                         <div className={styles.productDetail}>
-                            <SelectProductByCode 
+                            <UpdateProduct
                                 Location={state.Location}
+                                product={product}
+                                setProduct={setProduct}
                             />
                         </div>
                     </div>
@@ -42,4 +47,4 @@ function AdminSelectProductByCode() {
     );
 }
 
-export default AdminSelectProductByCode;
+export default AdminUpdateProduct;

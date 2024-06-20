@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import styles from "./AdminProducts.module.css";
@@ -90,14 +90,13 @@ function SelectAllProducts({ search, bool }) {
                                     color: "rgba(112, 178, 222, 1)",
                                 }}
                             >{product.prodSite}</a>
-                            {/* {product.prodSite} */}
                         </div>
                     </td>
                     <td>
                         <button
                             className={styles.acceptButton}
                             onClick={() => {
-                                navigate("/admin/productdetail", {state: {prodCode: product.prodCode}});
+                                navigate("/admin/productdetail", {state: {Location: `/products/${product.prodCode}`}});
                             }}
                         >
                             상세
