@@ -46,6 +46,7 @@ function CurationResult() {
                 disease={disease}
                 ingra={ingra}
                 cook={cook}
+                name={name}
                 />
             </div>
         </div>        
