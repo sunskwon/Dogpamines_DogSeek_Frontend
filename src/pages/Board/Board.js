@@ -1,34 +1,29 @@
 import { useState  } from 'react';
-import styles from "./board.module.css";
+import styles from "./Board.module.css";
 import { useNavigate } from 'react-router-dom';
 
 function Board(){
-    const [ isModalOpen, setIsModalOpen ] = useState(false);
-    const [ modalBackground, setModalBackground] = useState();
+
+    const [isOneNoticeOpen, setIsOneNoticeOpen] = useState(false);
+    const [isTwoNoiceOpen, setIsTwoNoiceOpen] = useState(false);
+    const [isThreeNoiceOpen, setIsThreeNoiceOpen] = useState(false);
+
+    const toggleOneModal = () => {
+        setIsOneNoticeOpen(prevState => !prevState);
+    };
+    const toggleTwoModal = () => {
+        setIsTwoNoiceOpen(prevState => !prevState);
+    };
+    const toggleThreeModal = () => {
+        setIsThreeNoiceOpen(prevState => !prevState);
+    };
+
     const navigate = useNavigate();
 
-
-    const items = document.querySelectorAll('.question');
     const onBoardClick = () => {
-        navigate("./post");
+        navigate("./BoardPost");
     }
 
-    // 이름의 함수를 정의(공지사항 토글)
-    function OCNotice() {
-        const noticeId = this.id.replace();
-
-        // 스타일이 none인지 확인 이면 요소가 현재 숨겨져 있음
-        if(document.getElementById('noticeId').style.display === 'block') {
-            // 
-            document.getElementById('noticeId').style.display = 'none';
-            document.getElementById(this.id + '-toggle').textContent = '+';
-        } else {
-            document.getElementById('noticeId').style.display = 'block';
-            document.getElementById(this.id + '-toggle').textContent = '-';
-        }
-    }
-
-    items.forEach(item => item.addEventListener('click', OCNotice));
 
 
     return(
@@ -36,15 +31,51 @@ function Board(){
             <div className={styles.dogSaImg}>
                 <img src={"/images/dogsa.png"}/>
             </div>
-
-
-
-        <div className={styles.notices}>
-            <p className={styles.noticeTitle}>공지사항</p>
-            <ul>
-                <span></span>
-            </ul>
+            <div className={styles.notices}>
+            <div>
+                <p className={styles.noticeTitle}>공지사항</p>
             </div>
+        </div>
+
+    <div className={styles.toggle}>
+        <div>
+        <hr color="D4D4D4"/>
+            <div>
+                <button className={styles.notice_toggle} onClick={toggleOneModal}>
+                {isOneNoticeOpen ? '-' : '+'}
+                </button>
+            <span className={styles.notice_head}>공지 제목</span>
+        </div>
+            {isOneNoticeOpen &&
+            <div className={styles.notice_content}>
+                공지 내용입니다.
+            </div>}
+        </div>
+            <hr color="D4D4D4"/>
+            <div>
+                <button className={styles.notice_toggle} onClick={toggleTwoModal}>
+                    {isTwoNoiceOpen ? '-' : '+'}
+                </button>
+            <span className={styles.notice_head}>두 번째 공지입니다.</span>
+        </div>
+            {isTwoNoiceOpen &&
+            <div className={styles.notice_content}>
+                두 번째 공지는 직접확인해보시기 바랍니다.
+            </div>}
+        <hr color="D4D4D4"/>
+        <div>
+                <button className={styles.notice_toggle} onClick={toggleThreeModal}>
+                    {isThreeNoiceOpen ? '-' : '+'}
+                </button>
+            <span className={styles.notice_head}>세 번째 공지입니다.</span>
+        </div>
+            {isThreeNoiceOpen &&
+            <div className={styles.notice_content}>
+                첫 번째 공지는 그냥 공지가 아닙니다 알아 두셔야하는 공지입니다.
+            </div>}
+        <hr color="D4D4D4"/>
+    </div>
+
 
 
 
@@ -82,7 +113,7 @@ function Board(){
                 <p className={styles.boxTitle}>오늘 하루종일 뛰다가 지쳤는지 새근새근 잠듦..ㅎㅎ</p>            
                 <p className={styles.nick}>타로타로</p>
                 <button onClick={onBoardClick}>
-                    post
+                    게시물
                 </button>
             </div>
         </div>

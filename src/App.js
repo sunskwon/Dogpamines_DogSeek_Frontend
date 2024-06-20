@@ -1,7 +1,7 @@
 import Layout1 from "./Layouts/Layout1.js"
 import Layout2 from "./Layouts/Layout2.js";
 import Board from "./pages/Board/Board.js";
-import Post from "./pages/Board/Post.js";
+import BoardPost from "./pages/Board/BoardPost.js";
 import Curation from "./pages/Curation/Curation.js";
 import Company from "./pages/Etc/Company.js";
 import Main from "./pages/Main";
@@ -44,7 +44,7 @@ function App() {
             <Route path="/products" element={<Products/>}/>
             <Route path="/dict" element={<Dict/>}/>
             <Route path="/board" element={<Board/>}/>
-            <Route path="/post" element={<Post/>}/>
+            <Route path="/board/boardpost" element={<BoardPost/>}/>
             <Route path="/company" element={<Company/>} />
             <Route path="/terms" element={<Terms/>}/>
             <Route path="/mypage" element={<Mypage/>}/>
