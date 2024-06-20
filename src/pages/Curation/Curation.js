@@ -1,7 +1,23 @@
 import styles from './Curation.module.css'
+import Loding from '../../components/common/Loding';
+import React, {useState, useEffect} from 'react';
 
 function Curation(){
 
+    const [loding, setLoding] = useState(true);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+        setLoding(false);
+        }, 5000); 
+        
+        return () => clearTimeout(timer); 
+    }, []);
+    
+    if (loding) {
+        return <Loding />;
+    }
+    
     return(
         <div>
             <div className={styles.mainBox}>
