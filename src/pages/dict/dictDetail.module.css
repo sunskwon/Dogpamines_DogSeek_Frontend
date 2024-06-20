@@ -1,0 +1,64 @@
+*{
+    font-family: 'Noto Sans Kr', 'Poppins';
+}
+
+.container1{
+    display: flex;
+    width: 1180px;
+    position: relative;
+    margin: 18px auto;
+}
+
+.title{
+    flex-direction: column;
+    height: 300px;
+    display: flex;
+    width: 1180px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.titletext1{
+    width: 1180px;
+    font-size: 35px;
+    font-weight: bold;
+    color: #005600;
+    display: flex;
+    margin-top: 3%;
+    padding-left: 120px;
+}
+
+.titletext2{
+    font-size: 16px;
+    color: #005600;
+    margin-top: 1%;
+    padding-left: 120px;
+    z-index: 1;
+}
+
+.img{
+    width: 35%;
+    margin-left: 55%;
+    position: absolute;
+    z-index: 0;
+
+}
+
+.detailtitle{
+    font-size: 20px;
+    font-weight: bold;
+    color: #005600;
+
+    text-align: center;
+}
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0px; 
+    padding: 16px; 
+    max-width: 1050px;
+    margin: auto;
+  }
+  
+  .detailcontext{}
