@@ -1,7 +1,7 @@
 import Layout1 from "./Layouts/Layout1.js"
 import Layout2 from "./Layouts/Layout2.js";
 import Board from "./pages/Board/Board.js";
-import Post from "./pages/Board/Post.js";
+import BoardPost from "./pages/Board/BoardPost.js";
 import Curation from "./pages/Curation/Curation.js";
 import Company from "./pages/Etc/Company.js";
 import Main from "./pages/Main";
@@ -15,12 +15,22 @@ import Terms from "./pages/Etc/Terms.js";
 import PrivacyPolicy from "./pages/Etc/PrivacyPolicy.js";
 import Dict from "./pages/dict/Dict.js";
 import DictDetail from "./pages/dict/DictDetail.js";
+import CurationSizeSelect from "./pages/Curation/CurationSizeSelect.js";
+import CurationSelectAge from "./pages/Curation/CurationSelectAge.js";
+import CurationSelectNeut from "./pages/Curation/CurationSelectNeut.js";
+import CurationSelectAllergy from "./pages/Curation/CurationSelectAllergy.js";
+import CurationSelectDisease from "./pages/Curation/CurationSelectDisease.js";
+import CurationSelectIngra from "./pages/Curation/CurationSelectIngra.js";
+import CurationSelectCook from "./pages/Curation/CurationSelectCook.js";
+import CurationResult from "./pages/Curation/CurationResult.js";
+
 
 import Adminlayout from "./Layouts/AdminLayout.js";
 import AdminDashBoard from "./pages/Admin/AdminDashBoard.js";
 import AdminSelectAllProducts from "./pages/Admin/Products/AdminSelectAllProducts.js";
-import AdminSelectProductByCode from "./pages/Admin/Products/AdminSelectProductByCode.js";
 import AdminInsertProduct from "./pages/Admin/Products/AdminInserProduct.js";
+import AdminSelectProductByCode from "./pages/Admin/Products/AdminSelectProductByCode.js";
+import AdminUpdateProduct from "./pages/Admin/Products/AdminUpdateProduct.js";
 
 function App() {
   return (
@@ -44,11 +54,19 @@ function App() {
             <Route path="/login" element={<Login/>}/>
             <Route path="/signup" element={<SignUp/>}/>
             <Route path="/curation" element={<Curation/>}/>
+            <Route path="/curationsizeselect" element={<CurationSizeSelect/>}/>
+            <Route path="/curationselectage" element={<CurationSelectAge/>}/>
+            <Route path="/curationselectneut" element={<CurationSelectNeut/>}/>
+            <Route path="/curationselectallergy" element={<CurationSelectAllergy/>}/>
+            <Route path="/curationselectdisease" element={<CurationSelectDisease/>}/>
+            <Route path="/curationselectingra" element={<CurationSelectIngra/>}/>
+            <Route path="/curationselectcook" element={<CurationSelectCook/>}/>
+            <Route path="/curationresult" element={<CurationResult/>}/>
             <Route path="/products" element={<Products/>}/>
             <Route path="/dict" element={<Dict/>}/>
             <Route path="/dictdetail" element={<DictDetail/>}/>
             <Route path="/board" element={<Board/>}/>
-            <Route path="/post" element={<Post/>}/>
+            <Route path="/board/boardpost" element={<BoardPost/>}/>
             <Route path="/company" element={<Company/>} />
             <Route path="/terms" element={<Terms/>}/>
             <Route path="/mypage" element={<Mypage/>}/>
@@ -63,8 +81,9 @@ function App() {
             <Route index element={<AdminDashBoard />} />
             <Route path="/admin/dashboard" element={<AdminDashBoard />} />
             <Route path="/admin/products" element={<AdminSelectAllProducts />} />
-            <Route path="/admin/productdetail" element={<AdminSelectProductByCode />} />
             <Route path="/admin/insertproduct" element={<AdminInsertProduct />} />
+            <Route path="/admin/productdetail" element={<AdminSelectProductByCode />} />
+            <Route path="/admin/updateproduct" element={<AdminUpdateProduct />} />
           </Route>
         </Routes>
       </BrowserRouter>

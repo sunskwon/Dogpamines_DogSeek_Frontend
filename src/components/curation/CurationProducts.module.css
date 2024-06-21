@@ -1,0 +1,59 @@
+.emptyMessageBox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.emptyMessage {
+    font-size: 30px;
+    margin: 0 auto;
+    margin-top: 20px;
+    display: flex;
+}
+
+
+.mainBox {
+    display: flex;
+    width: 955px;
+}
+
+.productBox {
+    display: flex;
+    flex-direction: column;
+    width: 550px;
+}
+
+.textBox {
+    display: flex;
+    margin-top: 50px;
+}
+
+.textBox1 {
+    display: flex;
+    margin-top: 15px;
+}
+
+.text {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.productText {
+    font-size: 16px;
+    font-weight: bold;
+    color: #999999;
+    margin-left: 5px;
+    padding: 0;
+}
+
+.detailButton {
+    width: 150px;
+    height: 45px;
+    background-color: #005600;
+    border-radius: 10px;
+    border: 1px solid #005600;
+    margin-top: 20px;
+    color: white;
+}

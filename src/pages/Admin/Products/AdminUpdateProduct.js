@@ -1,41 +1,54 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
-import SelectProductByCode from "../../../components/admin/products/SelectProductByCode";
-
 import styles from "../AdminPages.module.css";
+import UpdateProduct from "../../../components/admin/products/UpdateProduct";
 
-function AdminSelectProductByCode() {
+function AdminUpdateProduct() {
 
     const baseUrl = 'http://localhost:8080';
 
-    const [product, setProduct] = useState({});
+    const [product, setProduct] = useState(
+        {
+            prodCode: 0,
+            prodName: '',
+            prodPrice: 0,
+            prodAge: '',
+            prodEffi: '',
+            prodRecom: '',
+            prodSite: '',
+            prodCook: '',
+            prodVolume: '',
+            prodGrade: 0,
+            prodIngra: '',
+            prodSize: '',
+            prodDate: '2000-01-01',
+            prodImage: '/images/admin/No Image Available.png',
+        }
+    );
 
     const { state } = useLocation();
 
     const navigate = useNavigate();
 
-    const call = async () => {
+    const submitHandler = async () => {
 
-        const url = `${baseUrl}${state.Location}`;
+        const url = `${baseUrl}/products`;
 
         const response = await fetch(url, {
-            method: 'GET',
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': '*/*',
-            }
-        }).then(res => res.json());
+            },
+            body: JSON.stringify(product),
+        });
 
-        const result = await response.product;
-
-        return result;
+        console.log(response);
+        console.log(response.headers);
+        console.log(response.headers.get('Location'));
     };
-
-    useEffect(() => {
-        call().then(res => setProduct(res));
-    }, []);
 
     return (
         <div>
@@ -43,23 +56,21 @@ function AdminSelectProductByCode() {
             <div className={styles.mainOuter}>
                 <div className={styles.mainBox}>
                     <div>
-                        <p className={styles.subjectTitle}>상세 사료 정보</p>
+                        <p className={styles.subjectTitle}>사료 정보 수정</p>
                         <div style={{ float: "right", }}>
                             <button
                                 className={styles.submitButton}
                                 style={{ width: "100px", height: "30px", marginTop: "11px", marginRight: "15px", }}
-                                onClick={() => {
-                                    navigate("/admin/updateproduct", {
-                                        state: {Location: state.Location}
-                                    });
-                                }}
+                                onClick={submitHandler}
                             >
                                 수정
                             </button>
                         </div>
                         <div className={styles.productDetail}>
-                            <SelectProductByCode 
+                            <UpdateProduct
                                 Location={state.Location}
+                                product={product}
+                                setProduct={setProduct}
                             />
                         </div>
                     </div>
@@ -69,4 +80,4 @@ function AdminSelectProductByCode() {
     );
 }
 
-export default AdminSelectProductByCode;
+export default AdminUpdateProduct;
