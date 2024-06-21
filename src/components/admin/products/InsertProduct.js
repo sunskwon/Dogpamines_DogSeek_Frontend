@@ -179,8 +179,8 @@ function InsertProduct({ product, setProduct }) {
                         <p>제품기능</p>
                         <div style={{ marginRight: "10px", float: "left", }}>
                             {effi.map((item, index) => (
-                                <div style={{ display: "flex", float: "left", }}>
-                                    <span key={index}>
+                                <div key={index} style={{ display: "flex", float: "left", }}>
+                                    <span>
                                         {item} &nbsp;
                                         <img
                                             src="/images/admin/Delete.png"
@@ -232,8 +232,8 @@ function InsertProduct({ product, setProduct }) {
                     <p>재료</p>
                     <div style={{ marginRight: "10px", float: "left", }}>
                         {ingra.map((item, index) => (
-                            <div style={{ display: "flex", float: "left", }}>
-                                <span key={index}>
+                            <div key={index} style={{ display: "flex", float: "left", }}>
+                                <span>
                                     {item} &nbsp;
                                     <img
                                         src="/images/admin/Delete.png"

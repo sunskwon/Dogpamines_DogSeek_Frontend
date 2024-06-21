@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
+
 import { useNavigate } from "react-router-dom";
+
+import { GetAPI, DeleteAPI } from "../../../api/RestAPIs"
 
 import styles from "./AdminProducts.module.css";
 
-function SelectAllProducts({ search, bool }) {
-
-    const baseUrl = 'http://localhost:8080';
+function SelectAllProducts({ search, bool, setBool }) {
 
     const [products, setProducts] = useState([]);
 
@@ -13,16 +14,9 @@ function SelectAllProducts({ search, bool }) {
 
     const call = async () => {
 
-        const url = `${baseUrl}/products`;
+        const address = '/products';
 
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': '*/*',
-                'Access-Control-Allow-Origin': '*',
-            }
-        }).then(res => res.json());
+        const response = await GetAPI(address);
 
         const result = await response.products;
 
@@ -31,16 +25,9 @@ function SelectAllProducts({ search, bool }) {
 
     const searchProd = async () => {
 
-        const url = `${baseUrl}/products/prodsearch?type=${search.type}&input=${search.input}`;
+        const address = `/products/prodsearch?type=${search.type}&input=${search.input}`;
 
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': '*/*',
-                'Access-Control-Allow-Origin': '*',
-            }
-        }).then(res => res.json());
+        const response = await GetAPI(address);
 
         const result = await response.products;
 
@@ -96,14 +83,24 @@ function SelectAllProducts({ search, bool }) {
                         <button
                             className={styles.acceptButton}
                             onClick={() => {
-                                navigate("/admin/productdetail", {state: {Location: `/products/${product.prodCode}`}});
+                                navigate("/admin/productdetail", { state: { Location: `/products/${product.prodCode}` } });
                             }}
                         >
                             상세
                         </button>
                     </td>
                     <td>
-                        <button className={styles.denyButton}>
+                        <button
+                            className={styles.denyButton}
+                            onClick={async () => {
+
+                                const address = `/products/${product.prodCode}`;
+
+                                const response = await DeleteAPI(address);
+
+                                setBool(!bool);
+                            }}
+                        >
                             삭제
                         </button>
                     </td>

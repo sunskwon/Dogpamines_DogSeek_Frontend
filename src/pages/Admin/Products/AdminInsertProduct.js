@@ -2,13 +2,13 @@ import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import { PostAPI } from "../../../api/RestAPIs";
+
 import InsertProduct from "../../../components/admin/products/InsertProduct";
 
 import styles from "../AdminPages.module.css";
 
 function AdminInsertProduct() {
-
-    const baseUrl = 'http://localhost:8080';
 
     const [product, setProduct] = useState({
         prodCode: 0,
@@ -30,19 +30,10 @@ function AdminInsertProduct() {
 
     const submitHandler = async () => {
 
-        const url = `${baseUrl}/products`;
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': '*/*',
-                'Cross-Access-Allow-Origin': '*',
-            },
-            body: JSON.stringify(product),
-        });
+        const address = '/products';
 
-        console.log(response.headers.get('Location'));
-
+        const response = await PostAPI(address, product);
+        
         navigate("/admin/productdetail", {
             state: { Location: response.headers.get('Location')}
         })

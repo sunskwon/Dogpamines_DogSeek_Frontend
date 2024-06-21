@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
+import { GetAPI } from "../../../api/RestAPIs";
+
 import styles from "./AdminProducts.module.css"
 
 function SelectProductByCode({ Location }) {
-
-    const baseUrl = 'http://localhost:8080';
 
     const [product, setProduct] = useState();
     const [effi, setEffi] = useState([]);
@@ -12,16 +12,7 @@ function SelectProductByCode({ Location }) {
 
     const call = async () => {
 
-        const url = `${baseUrl}${Location}`;
-
-        const response = await fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': '*/*',
-                'Access-Control-Allow-Origin': '*',
-            },
-        }).then(res => res.json());
+        const response = await GetAPI(Location);
 
         const result = await response.product;
 
@@ -79,7 +70,7 @@ function SelectProductByCode({ Location }) {
                         </div>
                         <p>용량</p>
                         <div style={{ height: "30px", paddingTop: "5px", paddingLeft: "10px", marginBottom: "15px", }}>
-                            <span>{product?.prodVolume}</span>
+                            <span>{`${product?.prodVolume}kg`}</span>
                         </div>
                     </div>
                     <div className={styles.detailProductBoxPart}>
@@ -121,7 +112,7 @@ function SelectProductByCode({ Location }) {
                     <div className={styles.detailProductBoxShort}>
                         <p>입자크기</p>
                         <div style={{ height: "30px", paddingTop: "5px", paddingLeft: "10px", marginBottom: "15px", }}>
-                            <span>{product?.prodSize}</span>
+                            <span>{`${product?.prodSize}mm`}</span>
                         </div>
                     </div>
                     <div className={styles.detailProductBoxLong}>
