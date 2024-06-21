@@ -1,4 +1,4 @@
-import styles from './dictDetail.module.css';
+import styles from './DictDetail.module.css';
 import {useState, useEffect} from "react";
 
 
