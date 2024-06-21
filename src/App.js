@@ -24,7 +24,6 @@ import CurationSelectIngra from "./pages/Curation/CurationSelectIngra.js";
 import CurationSelectCook from "./pages/Curation/CurationSelectCook.js";
 import CurationResult from "./pages/Curation/CurationResult.js";
 
-
 import Adminlayout from "./Layouts/AdminLayout.js";
 import AdminDashBoard from "./pages/Admin/AdminDashBoard.js";
 import AdminSelectAllProducts from "./pages/Admin/Products/AdminSelectAllProducts.js";
