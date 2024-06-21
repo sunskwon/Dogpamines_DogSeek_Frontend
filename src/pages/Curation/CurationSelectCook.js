@@ -43,7 +43,7 @@ function CurationSelectCook() {
     return(
         <div>
             <div className={styles.mainBox}>
-                <p className={styles.curationText}>{name}은 어떤 조리방식을 선호하나요?</p>
+                <p className={styles.curationText}>{name}은/는 어떤 조리방식을 선호하나요?</p>
                 <div className={styles.barBox}>
                     <div className={styles.bar}></div>
                     <div>
