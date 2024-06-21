@@ -1,5 +1,5 @@
 import styles from './dict.module.css';
-import {useState} from "react";
+import {useState, useEffect} from "react";
 
 
 function Dict(){
@@ -19,6 +19,21 @@ function Dict(){
     };
 
 
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await fetch('/dict'); // 실제 백엔드 API 엔드포인트로 교체
+          const result = await response.json();
+          setData(result);
+        } catch (error) {
+          console.error('Error fetching data:', error);
+        }
+      };
+      fetchData();
+      }, []);
+
     return(
         <>
         <div className={styles.container1}>
@@ -30,15 +45,31 @@ function Dict(){
         <input className={styles.search} placeholder='   search'></input>
             </div>
         </div>
+ 
         <div className={styles.container2}>
         <hr color="D4D4D4"/>
             <button className={styles.size} onClick={toggleSmallModal}>
                 소형
             </button>
-            {isSmallModalOpen &&
-                <div className={'modal-container'}  id={styles.modalContainer}>
-                   소형견 종류
-                </div>}
+
+                {isSmallModalOpen &&
+            <div className={styles.grid}>
+                <div className={styles.modalContainer} >
+                    소형견
+                </div>
+                <div className={styles.modalContainer} >
+                    소형견
+                </div>
+                <div className={styles.modalContainer} >
+                    소형견
+                </div>
+                <div className={styles.modalContainer} >
+                    소형견
+                </div>
+                <div className={styles.modalContainer} >
+                    소형견
+                </div>
+            </div>}
 
         </div>
         <div className={styles.container2}>
@@ -46,20 +77,39 @@ function Dict(){
             <button className={styles.size} onClick={toggleMediumModal}>
                 중형
             </button>
+
             {isMediumModalOpen &&
-                <div className={'modal-container'}  id={styles.modalContainer}>
+            <div className={styles.grid}>
+                <div className={styles.modalContainer} >
                    중형견 종류
-                </div>}
+                </div>
+                <div className={styles.modalContainer} >
+                   중형견 종류
+                </div>
+                <div className={styles.modalContainer} >
+                   중형견 종류
+                </div>
+                <div className={styles.modalContainer} >
+                   중형견 종류
+                </div>
+                <div className={styles.modalContainer} >
+                   중형견 종류
+                </div>
+            </div>}
+
         </div>
         <div className={styles.container2}>
         <hr color="D4D4D4"/>
             <button className={styles.size} onClick={toggleLargeModal}>
                 대형
             </button>
+
             {isLargeModalOpen &&
-                <div className={'modal-container'}  id={styles.modalContainer}>
+            <div className={styles.grid}>
+                <div className={styles.modalContainer} >
                    대형견 종류
-                </div>}
+                </div>
+            </div>}
 
         </div>
     

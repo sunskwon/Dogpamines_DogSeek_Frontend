@@ -14,6 +14,7 @@ import SignUp from "./pages/Auth/SignUp.js";
 import Terms from "./pages/Etc/Terms.js";
 import PrivacyPolicy from "./pages/Etc/PrivacyPolicy.js";
 import Dict from "./pages/dict/Dict.js";
+import DictDetail from "./pages/dict/DictDetail.js";
 import CurationSizeSelect from "./pages/Curation/CurationSizeSelect.js";
 import CurationSelectAge from "./pages/Curation/CurationSelectAge.js";
 import CurationSelectNeut from "./pages/Curation/CurationSelectNeut.js";
@@ -22,6 +23,7 @@ import CurationSelectDisease from "./pages/Curation/CurationSelectDisease.js";
 import CurationSelectIngra from "./pages/Curation/CurationSelectIngra.js";
 import CurationSelectCook from "./pages/Curation/CurationSelectCook.js";
 import CurationResult from "./pages/Curation/CurationResult.js";
+
 
 import Adminlayout from "./Layouts/AdminLayout.js";
 import AdminDashBoard from "./pages/Admin/AdminDashBoard.js";
@@ -62,6 +64,7 @@ function App() {
             <Route path="/curationresult" element={<CurationResult/>}/>
             <Route path="/products" element={<Products/>}/>
             <Route path="/dict" element={<Dict/>}/>
+            <Route path="/dictdetail" element={<DictDetail/>}/>
             <Route path="/board" element={<Board/>}/>
             <Route path="/board/boardpost" element={<BoardPost/>}/>
             <Route path="/company" element={<Company/>} />
