@@ -37,6 +37,9 @@ function Navbar() {
                     display: "flex",
                     marginBottom: "30px",
                 }}
+                onClick={() => {
+                    navigate("/admin/dicts");
+                }}
             >
                 <img src="/images/admin/Open Book.png" />
                 <span>견종 백과 관리</span>

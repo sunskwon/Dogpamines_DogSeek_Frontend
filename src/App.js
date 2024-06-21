@@ -30,6 +30,8 @@ import AdminSelectAllProducts from "./pages/admin/products/AdminSelectAllProduct
 import AdminInsertProduct from "./pages/admin/products/AdminInsertProduct.js";
 import AdminSelectProductByCode from "./pages/admin/products/AdminSelectProductByCode.js";
 import AdminUpdateProduct from "./pages/admin/products/AdminUpdateProduct.js";
+import AdminSelectAllDicts from "./pages/admin/dict/AdminSelectAllDicts.js";
+import AdminInsertDict from "./pages/admin/dict/AdminInsertDict.js";
 
 function App() {
   return (
@@ -83,6 +85,8 @@ function App() {
             <Route path="/admin/insertproduct" element={<AdminInsertProduct />} />
             <Route path="/admin/productdetail" element={<AdminSelectProductByCode />} />
             <Route path="/admin/updateproduct" element={<AdminUpdateProduct />} />
+            <Route path="/admin/dicts" element={<AdminSelectAllDicts />} />
+            <Route path="/admin/insertdict" element={<AdminInsertDict />} />
 
           </Route>
         </Routes>
