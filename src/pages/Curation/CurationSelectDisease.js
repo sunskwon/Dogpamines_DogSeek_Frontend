@@ -42,7 +42,7 @@ function CurationSelectDisease() {
     return (
         <div>
             <div className={styles.mainBox}>
-                <p className={styles.curationText}>{name}은 어떤 질병및 질환이 있나요?</p>
+                <p className={styles.curationText}>{name}은/는 어떤 질병및 질환이 있나요?</p>
                 <div className={styles.barBox}>
                     <div className={styles.bar}></div>
                     <div>

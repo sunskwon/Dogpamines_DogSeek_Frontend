@@ -3,13 +3,19 @@ import Loding from '../../components/common/Loding';
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import CurationProducts from '../../../src/components/curation/CurationProducts'
+import CurationInsert from '../../components/curation/CurationInsert';
 
 function CurationResult() {
 
     const location = useLocation();
 
     const { name } = location.state;
+    const { gender } = location.state;
+    const { breed } = location.state;
+    const { weight } = location.state;
+    const { size }  = location.state;
     const { age } = location.state;
+    const { neut } = location.state;
     const { allergy } = location.state;
     const { disease } = location.state;
     const { ingra } = location.state;
@@ -40,6 +46,19 @@ function CurationResult() {
                 <p style={{fontSize:'32px', fontWeight:'bold', margin:'0'}}>에게 어울리는 사료는?</p>
             </div>
             <div className={styles.productsBox}>
+                <CurationInsert 
+                name={name}
+                gender={gender}
+                breed={breed}
+                weight={weight}
+                size={size}
+                age={age}
+                neut={neut}
+                allergy={allergy}
+                disease={disease}
+                ingra={ingra}
+                cook={cook}
+                />
                 <CurationProducts 
                 age={age}
                 allergy={allergy}

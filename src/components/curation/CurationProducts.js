@@ -57,7 +57,9 @@ function CurationProducts({age, allergy, disease, ingra, cook, name}) {
         <div className={styles.mainBox}>
             {products.map (product => (
                 <tr key={product.prodCode} className={styles.productBox}>
-                    <td style={{overflow:"hidden"}}>{product.prodImage}</td>
+                    <td style={{overflow:"hidden"}}>
+                        <img src={product.prodImage}></img>
+                        </td>
                     <div className={styles.textBox}>
                         <p className={styles.text}>평점</p>
                         <td style={{marginLeft:'10px'}}> {product.prodGrade && (
