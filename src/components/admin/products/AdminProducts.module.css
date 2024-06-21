@@ -28,3 +28,219 @@
     color: rgba(153, 153, 153, 1);
     cursor: pointer;
 }
+
+.detailProductBox {
+    padding-top: 29px;
+    display: flex;
+    justify-content: center;
+}
+
+.detailProductBoxPart {
+    width: 170px;
+    height: 225px;
+    float: left;
+}
+
+.detailProductBoxPart p {
+    font-weight: bold;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    margin: 0;
+    margin-bottom: 4px;
+}
+
+.detailProductBoxPart input {
+    width: 120px;
+    height: 30px;
+    margin-right: 0;
+    margin-bottom: 15px;
+}
+
+.detailProductBoxPart select {
+    width: 130px;
+    height: 35px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 15px;
+}
+
+.detailProductBoxPart span {
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    margin: 0;
+}
+
+
+.detailProductBoxPartGrade {
+    padding-top: 7px;
+    padding-left: 10px;
+}
+
+.detailProductBoxPartGrade img {
+    margin: 1px;
+    cursor: pointer;
+}
+
+.detailProductBoxShort {
+    width: 170px;
+    height: 75px;
+    float: left;
+}
+
+.detailProductBoxShort p {
+    font-weight: bold;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    margin: 0;
+    margin-bottom: 4px;
+}
+
+.detailProductBoxShort input {
+    width: 120px;
+    height: 30px;
+    margin-right: 0;
+    margin-bottom: 15px;
+}
+
+.detailProductBoxShort select {
+    width: 130px;
+    height: 35px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 15px;
+}
+
+.detailProductBoxShort span {
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    margin: 0;
+}
+
+.detailProductBoxLong {
+    width: 340px;
+    height: 75px;
+    float: left;
+}
+
+.detailProductBoxLong p {
+    font-weight: bold;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    margin: 0;
+    margin-bottom: 4px;
+}
+
+.detailProductBoxLong input {
+    width: 120px;
+    height: 30px;
+    margin-right: 0;
+    margin-bottom: 15px;
+}
+
+.detailProductBoxLong span {
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    margin: 0;
+}
+
+.detailProductBoxLonger {
+    width: 510px;
+    height: 75px;
+    float: left;
+}
+
+.detailProductBoxLonger p {
+    font-weight: bold;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    margin: 0;
+    margin-bottom: 4px;
+}
+
+.detailProductBoxLonger input {
+    width: 120px;
+    height: 30px;
+    margin-left: 10px;
+    margin-right: 0;
+    margin-bottom: 15px;
+}
+
+.detailProductBoxLonger span {
+    border-radius: 10px;
+    background-color: rgba(99, 197, 74, 1);
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+    padding: 5px;
+    margin: 2.5px;
+}
+
+.inputContainer {
+    width: 120px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 212, 212, 1);
+    background-color: white;
+    display: flex;
+}
+
+.inputContainer input {
+    margin: 0;
+    width: 85px;
+    height: auto;
+    border: 0;
+    font-size: 14px;
+}
+
+.detailProductBoxFull {
+    width: 680px;
+    height: 200px;
+    overflow-y: auto;
+}
+
+.detailProductBoxFull p {
+    position: sticky;
+    top: 0px;
+    background-color: white;
+    table-layout: fixed;
+    height: 30px;
+}
+
+.detailProductBoxFull::-webkit-scrollbar {
+    width: 10px;
+    top: 30px;
+}
+
+.detailProductBoxFull::-webkit-scrollbar-thumb {
+    height: 20%;
+    background: rgba(99, 197, 74, 1);
+    border-radius: 10px;
+}
+
+.detailProductBoxFull::-webkit-scrollbar-track {
+    background: rgba(212, 212, 212, 1);
+    border-radius: 10px;
+}
+
+.detailProductBoxFull::-webkit-scrollbar-button:vertical:start:decrement {
+    display: block;
+    height: 20px;
+}
+
+.detailProductBoxFull p {
+    font-weight: bold;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    margin: 0;
+    margin-bottom: 4px;
+}
+
+.detailProductBoxFull span {
+    border-radius: 10px;
+    background-color: rgba(99, 197, 74, 1);
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+    padding: 5px;
+    margin: 2.5px;
+}

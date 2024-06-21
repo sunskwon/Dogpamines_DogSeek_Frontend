@@ -14,7 +14,7 @@ font-family: 'Noto Sans KR'
 {    
     padding-top: 40px;
     text-align: center;
-    padding-right: 1020px;
+    margin: 0 auto;
 }
 .noticeTitle
 {
@@ -22,10 +22,30 @@ font-family: 'Noto Sans KR'
 
     
 }
+.notice_toggle
+{
+    font-size: 18px;
+    background-color: #ffffff;
+    border: none;
+    height: 42px;    
+    color: #999999;
+
+}
+.notice_head
+{
+    font-size: 16px;
+    color: #999999;
+}
+.notice_content
+{
+    font-size: 14px;
+    color: #999999;
+}
+
 .toggle
 {
-    
-    color: #999999;
+    width: 1180px;
+    margin: 0 auto;
     
 }
 .noticeBox
@@ -36,21 +56,12 @@ font-family: 'Noto Sans KR'
     border-top: solid 1px#D4D4D4;
     border-bottom: solid 1px #D4D4D4;
 }
-#arrow
-{
-    position:relative;
-    top:10px;
-    width: 10px;
-    height: 10px;
-    border-top: 2px solid black;
-    border-left: 2px solid black;
-    transform:rotate(45deg);
-}
+
 .boardTitle
 {
     text-align: center;
     padding-top: 40px;
-    padding-right: 1020px;
+    padding-right: 1080px;
     font-size: 22px;
 }
 .boardSeachs
@@ -79,7 +90,7 @@ font-family: 'Noto Sans KR'
 .boardbox
 {
     margin-bottom: 20px;
-    width: 1120px;
+    width: 1180px;
     height: 140px;
     border-radius: 10px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -95,6 +106,8 @@ font-family: 'Noto Sans KR'
 .titletext{
     color: white;
     font-size: 16px;
+    padding: 2px;
+    padding-left: 28px;
 }
 /* 타이틀*/
 .boxTitle

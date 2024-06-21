@@ -1,0 +1,23 @@
+.mainBox {
+    width: 1180px;
+    margin: 0 auto;
+}
+
+.titleBox {
+    display: flex;
+    margin-top: 65px;
+    margin-left: 114px;
+}
+
+.nameBox {
+    display: flex;
+    margin-left: 114px;
+}
+
+.productsBox {
+    display: flex;
+    width: 955px;
+    margin-top: 30px;
+    margin-left: 114px;
+}
+
