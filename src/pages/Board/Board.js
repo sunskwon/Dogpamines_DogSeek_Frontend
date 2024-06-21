@@ -1,5 +1,5 @@
 import { useState  } from 'react';
-import styles from "./Board.module.css";
+import styles from "./board.module.css";
 import { useNavigate } from 'react-router-dom';
 
 function Board(){
