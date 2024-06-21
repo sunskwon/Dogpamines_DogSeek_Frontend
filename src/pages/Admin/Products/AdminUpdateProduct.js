@@ -2,8 +2,11 @@ import { useState } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
-import styles from "../AdminPages.module.css";
+import { PutAPI } from "../../../api/RestAPIs";
+
 import UpdateProduct from "../../../components/admin/products/UpdateProduct";
+
+import styles from "../AdminPages.module.css";
 
 function AdminUpdateProduct() {
 
@@ -34,20 +37,25 @@ function AdminUpdateProduct() {
 
     const submitHandler = async () => {
 
-        const url = `${baseUrl}/products`;
+        const address = '/products';
 
-        const response = await fetch(url, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': '*/*',
-            },
-            body: JSON.stringify(product),
+        const response = await PutAPI(address, product);
+        
+        // const url = `${baseUrl}/products`;
+
+        // const response = await fetch(url, {
+        //     method: 'PUT',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Accept': '*/*',
+        //         'Access-Control-Allow-Origin': '*',
+        //     },
+        //     body: JSON.stringify(product),
+        // });
+
+        navigate("/admin/productdetail", {
+            state: {Location: response.headers.get('Location')}
         });
-
-        console.log(response);
-        console.log(response.headers);
-        console.log(response.headers.get('Location'));
     };
 
     return (

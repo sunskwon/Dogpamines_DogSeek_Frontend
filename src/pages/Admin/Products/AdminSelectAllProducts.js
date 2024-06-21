@@ -97,6 +97,7 @@ function AdminSelectAllProducts() {
                                 <SelectAllProducts 
                                     search={search}
                                     bool={bool}
+                                    setBool={setBool}
                                 />
                             </tbody>
                         </table>

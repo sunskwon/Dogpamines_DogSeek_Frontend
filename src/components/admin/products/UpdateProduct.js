@@ -1,32 +1,20 @@
 import { useState, useEffect } from "react";
 
+import { GetAPI } from "../../../api/RestAPIs";
+
 import styles from "./AdminProducts.module.css";
 
 function UpdateProduct({ Location, product, setProduct }) {
 
-    const baseUrl = 'http://localhost:8080';
-
     const [effiInput, setEffiInput] = useState('');
     const [ingraInput, setIngraInput] = useState('');
-    const [status, setStatus] = useState('');
-    const [cook, setCook] = useState('');
-    const [recom, setRecom] = useState('');
     const [effi, setEffi] = useState([]);
     const [ingra, setIngra] = useState([]);
 
     const call = async () => {
 
-        const url = `${baseUrl}${Location}`
+        const response = await GetAPI(Location);
         
-        const response = await fetch (url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': '*/*',
-                'Cross-Access-Allow-Origin': '*',
-            }
-        }).then(res => res.json());
-
         const result = await response.product;
 
         return result;
@@ -35,25 +23,12 @@ function UpdateProduct({ Location, product, setProduct }) {
     useEffect(() => {
         call().then((res) => {
 
-            // console.log(res);
-            
             const tempEffi = res?.prodEffi.split(',');
             const tempIngra = res?.prodIngra.split(',');
-            // const tempStatus = res?.prodStatus;
-            // const tempCook = res?.prodCook;
-            // const tempRecom = res?.prodRecom;
-
-            // document.getElementById('prodCook').defaultChecked = res.prodCook;
-            // console.log(document.getElementById('prodCook').defaultChecked);
 
             setProduct(res);
             setEffi(tempEffi);
             setIngra(tempIngra);
-            // setStatus(tempStatus);
-            // setCook(tempCook);
-            // console.log(cook);
-            // console.log(cook === '화식');
-            // setRecom(tempRecom);
         });
     }, []);
     
@@ -113,7 +88,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                             name="prodVolume"
                             onChange={valueChangeHandler}
                             style={{ width: "100px" }}
-                            placeholder={product?.prodVolume?.split('kg')[0]}
+                            placeholder={product?.prodVolume}
                         />
                         <span>kg</span>
                     </div>
@@ -129,7 +104,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                         <select
                             name="prodStatus"
                             onChange={valueChangeHandler}
-                            defaultValue={product?.prodStatus}
+                            value={product?.prodStatus}
                         >
                             <option value={'Y'}>게시중</option>
                             <option value={'N'}>게시중단</option>
@@ -191,11 +166,11 @@ function UpdateProduct({ Location, product, setProduct }) {
                             id="prodCook"
                             name="prodCook"
                             onChange={valueChangeHandler}
-                            // defaultValue={product?.prodCook}
+                            value={product?.prodCook}
                         >
                             <option value={'건식'}>건식</option>
                             <option value={'습식'}>습식</option>
-                            <option value={'화식'} defaultChecked>화식</option>
+                            <option value={'화식'}>화식</option>
                         </select>
                     </div>
                     <div className={styles.detailProductBoxShort}>
@@ -205,7 +180,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                             name="prodSize"
                             onChange={valueChangeHandler}
                             style={{ width: "100px", }}
-                            placeholder={product?.prodSize?.split('mm')[0]}
+                            placeholder={product?.prodSize}
                         />
                         <span>mm</span>
                     </div>
@@ -226,7 +201,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                         <select
                             name="prodRecom"
                             onChange={valueChangeHandler}
-                            defaultValue={product?.prodRecom}
+                            value={product?.prodRecom}
                         >
                             <option value={'전체'}>전체</option>
                             <option value={'소형견'}>소형견</option>

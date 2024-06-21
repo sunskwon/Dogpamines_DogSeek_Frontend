@@ -25,11 +25,11 @@ import CurationSelectCook from "./pages/Curation/CurationSelectCook.js";
 import CurationResult from "./pages/Curation/CurationResult.js";
 
 import Adminlayout from "./Layouts/AdminLayout.js";
-import AdminDashBoard from "./pages/Admin/AdminDashBoard.js";
-import AdminSelectAllProducts from "./pages/Admin/Products/AdminSelectAllProducts.js";
-import AdminInsertProduct from "./pages/Admin/Products/AdminInserProduct.js";
-import AdminSelectProductByCode from "./pages/Admin/Products/AdminSelectProductByCode.js";
-import AdminUpdateProduct from "./pages/Admin/Products/AdminUpdateProduct.js";
+import AdminDashBoard from "./pages/admin/AdminDashBoard.js";
+import AdminSelectAllProducts from "./pages/admin/products/AdminSelectAllProducts.js";
+import AdminInsertProduct from "./pages/admin/products/AdminInsertProduct.js";
+import AdminSelectProductByCode from "./pages/admin/products/AdminSelectProductByCode.js";
+import AdminUpdateProduct from "./pages/admin/products/AdminUpdateProduct.js";
 
 function App() {
   return (
@@ -72,10 +72,10 @@ function App() {
             <Route path="/mydog" element={<Mydog/>}/>
             <Route path="/privacypolicy" element={<PrivacyPolicy/>}/>
           </Route>
-        </Routes>
+        {/* </Routes> */}
 
         {/* 관리자 */}
-        <Routes>
+        {/* <Routes> */}
           <Route path="/admin" element={<Adminlayout />}>
             <Route index element={<AdminDashBoard />} />
             <Route path="/admin/dashboard" element={<AdminDashBoard />} />
@@ -83,6 +83,7 @@ function App() {
             <Route path="/admin/insertproduct" element={<AdminInsertProduct />} />
             <Route path="/admin/productdetail" element={<AdminSelectProductByCode />} />
             <Route path="/admin/updateproduct" element={<AdminUpdateProduct />} />
+
           </Route>
         </Routes>
       </BrowserRouter>

@@ -72,6 +72,9 @@ function Navbar() {
                     display: "flex",
                     marginBottom: "30px",
                 }}
+                onClick={() => {
+                    navigate("/");
+                }}
             >
                 <img src="/images/admin/External Link.png" />
                 <span>돌아가기</span>
