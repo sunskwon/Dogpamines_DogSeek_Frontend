@@ -1,8 +1,8 @@
 import styles from './Dict.module.css';
-import {useState, useEffect} from "react";
+import React, {useState, useEffect} from "react";
 
 
-function Dict({}){
+function Dict(){
     
     const [isSmallModalOpen, setIsSmallModalOpen] = useState(false);
     const [isMediumModalOpen, setIsMediumModalOpen] = useState(false);
