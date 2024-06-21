@@ -3,20 +3,20 @@ import styles from "./BoardPost.module.css";
 function Post(){
 
     return(
-
         <div className={styles.display_post}>
-        <p className={styles.no_1}>no.1</p>
-        <p className={styles.post_title}>안녕하세요 반갑습니다.</p>
-
-        <div className={styles.member_button_line}>
-            <div className={styles.post_nick}>
-                <p>알로항</p>
-                <p>작성일 2024.06.03</p>
+        <div>
+            <p className={styles.post_num}>no.1</p>
+            <p className={styles.post_title}>안녕하세요 반갑습니다.</p>
+        <div className={styles.post_user_button}>
+            <div className={styles.post_user}>
+                <p className={styles.post_nick}>알로항</p>
+                <p className={styles.post_day}>작성일 2024.06.03</p>
             </div>
             <div>
-                <button className={styles.buttons}>수정</button>
-                <button className={styles.buttons}>목록</button>
+                <button className={styles.button_modify}>수정</button>
+                <button className={styles.button_list}>목록</button>
             </div>
+        </div>
         </div>
         <hr color="D4D4D4"/>
 
@@ -27,12 +27,10 @@ function Post(){
 
         <div>
             <div>
-                <span>신고 아이콘</span>
+                <img src="/images/board/siren.svg"/>
                 <span>신고하기</span>
             </div>
-                <button>
-                    <span>삭제</span>
-                </button>
+                <button className={styles.button_delete}>삭제</button>
         </div>
 
         <p>댓글</p>

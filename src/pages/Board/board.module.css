@@ -1,25 +1,28 @@
 *
 {
-font-family: 'Noto Sans KR'
+    font-family: 'Noto Sans Kr', 'Poppins';
     
 }
 .dogSaImg 
 {
     display: flex;
+    width: 1180px;
     padding-top: 20px;
-    justify-content: center;
-    
+    position: relative;
+    margin: 18px auto;
 }
 .notices
 {    
-    padding-top: 40px;
-    text-align: center;
-    margin: 0 auto;
+    display: flex;
+    width: 1180px;
+    padding-top: 20px;
+    position: relative;
+    margin: 18px auto;
 }
 .noticeTitle
 {
     font-size: 22px;
-
+    padding-left: 20px;
     
 }
 .notice_toggle
@@ -59,20 +62,39 @@ font-family: 'Noto Sans KR'
 
 .boardTitle
 {
-    text-align: center;
-    padding-top: 40px;
-    padding-right: 1080px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    width: 1180px;
+    position: relative;
+    margin: 0px auto;
+    padding-top: 32px;
+    padding-left: 20px;
     font-size: 22px;
 }
-.boardSeachs
+
+
+.search_box
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.search_input
 {
     width: 240px;
     height: 32px;
-    background-color: white;
-    border: solid 1px;
     border-radius: 10px;
-    border-color: #005600;
+    border: 1px solid #005600;
+    margin-right: 30px;
+    padding-left: 8px;
 }
+.search_icon
+{
+    position: absolute;
+    right: 40px;
+}
+    
 /*---- 게시판css ----*/
 /* 게시판 정렬 */
 .boardboxlines
@@ -80,6 +102,9 @@ font-family: 'Noto Sans KR'
     display: flex;
     flex-flow: column;
     align-items: center;
+    width: 1180px;
+    position: relative;
+    margin: 18px auto;
 }
 
 .boarBox {

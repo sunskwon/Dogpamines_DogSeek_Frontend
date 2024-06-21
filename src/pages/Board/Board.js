@@ -29,7 +29,7 @@ function Board(){
     return(
         <div className={styles.boardPage}>
             <div className={styles.dogSaImg}>
-                <img src={"/images/dogsa.png"}/>
+                <img src={"/images/board/dogsa.png"}/>
             </div>
             <div className={styles.notices}>
             <div>
@@ -77,11 +77,15 @@ function Board(){
     </div>
 
 
+            <div className={styles.boardTitle}>
+                <p>게시판</p>
+                <div className={styles.search_box}>
+                    <input type="search" className={styles.search_input} name="keyword" placeholder="검색어를 입력하세요"/>
+                    <img className={styles.search_icon} src='/images/board/Search.svg'></img>
+                </div> 
+            </div>
 
-
-        <div className={styles.boardboxlines}>
-            <p className={styles.boardTitle}>게시판</p>
-
+    <div className={styles.boardboxlines}>
         <div className={styles.boardbox}>
             <ul className={styles.boardboxTitle}>
                 <p className={styles.titletext}>오늘의 댕사이</p>
@@ -112,11 +116,11 @@ function Board(){
                 </ul>
                 <p className={styles.boxTitle}>오늘 하루종일 뛰다가 지쳤는지 새근새근 잠듦..ㅎㅎ</p>            
                 <p className={styles.nick}>타로타로</p>
-                <button onClick={onBoardClick}>
-                    게시물
-                </button>
-            </div>
+            <button onClick={onBoardClick}>
+                게시물
+            </button>
         </div>
+    </div>
 
                     
         </div>
