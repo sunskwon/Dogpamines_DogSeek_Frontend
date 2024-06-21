@@ -14,6 +14,7 @@ import SignUp from "./pages/Auth/SignUp.js";
 import Terms from "./pages/Etc/Terms.js";
 import PrivacyPolicy from "./pages/Etc/PrivacyPolicy.js";
 import Dict from "./pages/dict/Dict.js";
+import DictDetail from "./pages/dict/DictDetail.js";
 
 import Adminlayout from "./Layouts/AdminLayout.js";
 import AdminDashBoard from "./pages/Admin/AdminDashBoard.js";
@@ -45,6 +46,7 @@ function App() {
             <Route path="/curation" element={<Curation/>}/>
             <Route path="/products" element={<Products/>}/>
             <Route path="/dict" element={<Dict/>}/>
+            <Route path="/dictdetail" element={<DictDetail/>}/>
             <Route path="/board" element={<Board/>}/>
             <Route path="/post" element={<Post/>}/>
             <Route path="/company" element={<Company/>} />
