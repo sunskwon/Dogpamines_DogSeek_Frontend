@@ -91,7 +91,7 @@ function SelectAllProducts({ search, bool, setBool }) {
                     </td>
                     <td>
                         <button
-                            className={styles.denyButton}
+                            className={styles.cancelButton}
                             onClick={async () => {
 
                                 const address = `/products/${product.prodCode}`;

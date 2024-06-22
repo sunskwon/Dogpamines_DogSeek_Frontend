@@ -1,8 +1,3 @@
-/*a {
-    font-size: 14px;
-    color: rgba(112, 178, 222, 1);
-}*/
-
 .acceptButton {
     width: 80px;
     height: 30px;
@@ -16,7 +11,7 @@
     cursor: pointer;
 }
 
-.denyButton {
+.cancelButton {
     width: 80px;
     height: 30px;
     border-radius: 10px;
@@ -29,218 +24,130 @@
     cursor: pointer;
 }
 
-.detailProductBox {
-    padding-top: 29px;
+.detailBox {
+    padding-top: 19px;
     display: flex;
     justify-content: center;
 }
 
-.detailProductBoxPart {
+.detailBox p {
+    font-weight: bold;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    margin: 0;
+    margin-bottom: 4px;
+}
+
+.detailBox span {
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    margin: 0;
+}
+
+.detailBox input {
+    width: 120px;
+    height: 30px;
+    margin-right: 0;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+}
+
+.detailBox select {
+    width: 130px;
+    height: 35px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+}
+
+.detailBoxImage {
     width: 170px;
     height: 225px;
     float: left;
 }
 
-.detailProductBoxPart p {
-    font-weight: bold;
-    font-size: 14px;
-    color: rgba(153, 153, 153, 1);
-    margin: 0;
-    margin-bottom: 4px;
-}
-
-.detailProductBoxPart input {
+.detailBoxImage img {
     width: 120px;
-    height: 30px;
-    margin-right: 0;
-    margin-bottom: 15px;
+    height: 120px;
+    padding-top: 30px;
 }
 
-.detailProductBoxPart select {
-    width: 130px;
-    height: 35px;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 15px;
-}
-
-.detailProductBoxPart span {
-    font-size: 14px;
-    color: rgba(153, 153, 153, 1);
-    margin: 0;
-}
-
-
-.detailProductBoxPartGrade {
-    padding-top: 7px;
-    padding-left: 10px;
-}
-
-.detailProductBoxPartGrade img {
-    margin: 1px;
-    cursor: pointer;
-}
-
-.detailProductBoxShort {
+.detailBoxShort {
     width: 170px;
     height: 75px;
     float: left;
 }
 
-.detailProductBoxShort p {
-    font-weight: bold;
-    font-size: 14px;
-    color: rgba(153, 153, 153, 1);
-    margin: 0;
-    margin-bottom: 4px;
-}
-
-.detailProductBoxShort input {
-    width: 120px;
-    height: 30px;
-    margin-right: 0;
-    margin-bottom: 15px;
-}
-
-.detailProductBoxShort select {
-    width: 130px;
-    height: 35px;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 15px;
-}
-
-.detailProductBoxShort span {
-    font-size: 14px;
-    color: rgba(153, 153, 153, 1);
-    margin: 0;
-}
-
-.detailProductBoxLong {
+.detailBoxMid {
     width: 340px;
     height: 75px;
     float: left;
 }
 
-.detailProductBoxLong p {
-    font-weight: bold;
-    font-size: 14px;
-    color: rgba(153, 153, 153, 1);
-    margin: 0;
-    margin-bottom: 4px;
+.detailBoxFull {
+    width: 680px;
+    height: 75px;
+    clear: both;
 }
 
-.detailProductBoxLong input {
-    width: 120px;
+.spanBox {
     height: 30px;
-    margin-right: 0;
+    padding-top: 5px;
+    padding-left: 10px;
     margin-bottom: 15px;
 }
 
-.detailProductBoxLong span {
+.spanBox a {
     font-size: 14px;
-    color: rgba(153, 153, 153, 1);
-    margin: 0;
+    text-decoration: underline;
+    color: rgba(112, 178, 222, 1);
 }
 
-.detailProductBoxLonger {
-    width: 510px;
-    height: 75px;
+.gradeBox {
+    padding-top: 7px;
+    padding-left: 10px;
+}
+
+.gradeBox img {
+    margin: 1px;
+    cursor: pointer;
+}
+
+.listBox {
+    width: 100%;
     float: left;
 }
 
-.detailProductBoxLonger p {
-    font-weight: bold;
-    font-size: 14px;
-    color: rgba(153, 153, 153, 1);
-    margin: 0;
-    margin-bottom: 4px;
-}
-
-.detailProductBoxLonger input {
-    width: 120px;
-    height: 30px;
-    margin-left: 10px;
-    margin-right: 0;
-    margin-bottom: 15px;
-}
-
-.detailProductBoxLonger span {
+.listBox span {
     border-radius: 10px;
     background-color: rgba(99, 197, 74, 1);
     font-weight: bold;
     font-size: 14px;
     color: white;
     padding: 5px;
-    margin: 2.5px;
+    margin: 2px;
 }
 
-.inputContainer {
-    width: 120px;
-    height: 30px;
-    border-radius: 10px;
-    border: 1px solid rgba(212, 212, 212, 1);
-    background-color: white;
-    display: flex;
-}
-
-.inputContainer input {
-    margin: 0;
-    width: 85px;
-    height: auto;
-    border: 0;
-    font-size: 14px;
-}
-
-.detailProductBoxFull {
-    width: 680px;
-    height: 200px;
+.scrollBox {
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
-.detailProductBoxFull p {
-    position: sticky;
-    top: 0px;
-    background-color: white;
-    table-layout: fixed;
-    height: 30px;
-}
-
-.detailProductBoxFull::-webkit-scrollbar {
+.scrollBox::-webkit-scrollbar {
     width: 10px;
     top: 30px;
 }
 
-.detailProductBoxFull::-webkit-scrollbar-thumb {
+.scrollBox::-webkit-scrollbar-thumb {
     height: 20%;
     background: rgba(99, 197, 74, 1);
     border-radius: 10px;
 }
 
-.detailProductBoxFull::-webkit-scrollbar-track {
+.scrollBox::-webkit-scrollbar-track {
     background: rgba(212, 212, 212, 1);
     border-radius: 10px;
-}
-
-.detailProductBoxFull::-webkit-scrollbar-button:vertical:start:decrement {
-    display: block;
-    height: 20px;
-}
-
-.detailProductBoxFull p {
-    font-weight: bold;
-    font-size: 14px;
-    color: rgba(153, 153, 153, 1);
-    margin: 0;
-    margin-bottom: 4px;
-}
-
-.detailProductBoxFull span {
-    border-radius: 10px;
-    background-color: rgba(99, 197, 74, 1);
-    font-weight: bold;
-    font-size: 14px;
-    color: white;
-    padding: 5px;
-    margin: 2.5px;
 }

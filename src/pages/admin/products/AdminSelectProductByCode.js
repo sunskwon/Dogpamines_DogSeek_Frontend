@@ -20,18 +20,27 @@ function AdminSelectProductByCode() {
                         <div style={{ float: "right", }}>
                             <button
                                 className={styles.submitButton}
-                                style={{ width: "100px", height: "30px", marginTop: "11px", marginRight: "15px", }}
+                                style={{ width: "100px", height: "30px", marginTop: "15px", marginRight: "10px", }}
                                 onClick={() => {
                                     navigate("/admin/updateproduct", {
-                                        state: {Location: state.Location}
+                                        state: { Location: state.Location }
                                     });
                                 }}
                             >
                                 수정
                             </button>
+                            <button
+                                className={styles.cancelButton}
+                                style={{ width: "100px", height: "30px", marginTop: "15px", marginRight: "15px", }}
+                                onClick={() => {
+                                    navigate("/admin/products");
+                                }}
+                            >
+                                돌아가기
+                            </button>
                         </div>
                         <div className={styles.productDetail}>
-                            <SelectProductByCode 
+                            <SelectProductByCode
                                 Location={state.Location}
                             />
                         </div>

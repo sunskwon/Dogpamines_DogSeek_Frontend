@@ -33,9 +33,9 @@ function AdminInsertProduct() {
         const address = '/products';
 
         const response = await PostAPI(address, product);
-        
+
         navigate("/admin/productdetail", {
-            state: { Location: response.headers.get('Location')}
+            state: { Location: response.headers.get('Location') }
         })
     };
 
@@ -49,15 +49,24 @@ function AdminInsertProduct() {
                         <div style={{ float: "right", }}>
                             <button
                                 className={styles.submitButton}
-                                style={{ width: "100px", height: "30px", marginTop: "11px", marginRight: "15px", }}
+                                style={{ marginRight: "10px", }}
                                 onClick={submitHandler}
                             >
                                 등록
                             </button>
+                            <button
+                                className={styles.cancelButton}
+                                style={{ marginRight: "15px", }}
+                                onClick={() => {
+                                    navigate(-1);
+                                }}
+                            >
+                                돌아가기
+                            </button>
                         </div>
                     </div>
                     <div className={styles.productDetail}>
-                        <InsertProduct 
+                        <InsertProduct
                             product={product}
                             setProduct={setProduct}
                         />

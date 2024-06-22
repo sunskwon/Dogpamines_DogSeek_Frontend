@@ -10,8 +10,6 @@ import styles from "../AdminPages.module.css";
 
 function AdminUpdateProduct() {
 
-    const baseUrl = 'http://localhost:8080';
-
     const [product, setProduct] = useState(
         {
             prodCode: 0,
@@ -41,18 +39,6 @@ function AdminUpdateProduct() {
 
         const response = await PutAPI(address, product);
         
-        // const url = `${baseUrl}/products`;
-
-        // const response = await fetch(url, {
-        //     method: 'PUT',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Accept': '*/*',
-        //         'Access-Control-Allow-Origin': '*',
-        //     },
-        //     body: JSON.stringify(product),
-        // });
-
         navigate("/admin/productdetail", {
             state: {Location: response.headers.get('Location')}
         });
@@ -68,10 +54,19 @@ function AdminUpdateProduct() {
                         <div style={{ float: "right", }}>
                             <button
                                 className={styles.submitButton}
-                                style={{ width: "100px", height: "30px", marginTop: "11px", marginRight: "15px", }}
+                                style={{ marginRight: "10px", }}
                                 onClick={submitHandler}
                             >
                                 수정
+                            </button>
+                            <button
+                                className={styles.cancelButton}
+                                style={{ marginRight: "15px", }}
+                                onClick={() => {
+                                    navigate(-1);
+                                }}
+                            >
+                                돌아가기
                             </button>
                         </div>
                         <div className={styles.productDetail}>

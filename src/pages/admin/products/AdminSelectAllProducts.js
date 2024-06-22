@@ -37,46 +37,40 @@ function AdminSelectAllProducts() {
                         <div style={{ float: "right", }}>
                             <select
                                 name="type"
+                                style={{ width: "80px", height: "34px", }}
                                 onChange={valueChangeHandler}
-                                style={{ width: "80px", height: "30px", }}
                             >
-                                <option
-                                    value={'prodName'}
-                                >
+                                <option value={'prodName'}>
                                     제품명
                                 </option>
-                                <option
-                                    value={'prodManufac'}
-                                >
+                                <option value={'prodManufac'}>
                                     제조사
                                 </option>
                             </select>
                             <input
                                 name="input"
-                                onChange={valueChangeHandler}
                                 style={{ width: "150px", height: "30px", }}
+                                onChange={valueChangeHandler}
                             />
                             <button
-                                onClick={searchSubmitHandler}
                                 className={styles.submitButton}
-                                style={{ width: "100px", height: "30px", marginRight: "15px", }}
+                                style={{ marginRight: "10px", }}
+                                onClick={searchSubmitHandler}
                             >
                                 검색
+                            </button>
+                            <button
+                                className={styles.submitButton}
+                                style={{ marginRight: "15px", }}
+                                onClick={() => {
+                                    navigate("/admin/insertproduct");
+                                }}
+                            >
+                                새 상품 등록
                             </button>
                         </div>
                     </div>
                     <div style={{ clear: "right", }}>
-                        <button
-                            className={styles.submitButton}
-                            style={{
-                                width: "100px", height: "30px", marginTop: "15px", marginRight: "15px", float: "right",
-                            }}
-                            onClick={() => {
-                                navigate("/admin/insertproduct");
-                            }}
-                        >
-                            새 상품 등록
-                        </button>
                     </div>
                     <div className={styles.productList}>
                         <table className={styles.productListTable}>
@@ -94,7 +88,7 @@ function AdminSelectAllProducts() {
                                         <hr className={styles.tableLine} />
                                     </td>
                                 </tr>
-                                <SelectAllProducts 
+                                <SelectAllProducts
                                     search={search}
                                     bool={bool}
                                     setBool={setBool}

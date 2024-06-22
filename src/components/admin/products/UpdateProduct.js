@@ -2,19 +2,22 @@ import { useState, useEffect } from "react";
 
 import { GetAPI } from "../../../api/RestAPIs";
 
+import GradeInput from "../adminCommon/GradeInput";
+import ListInput from "../adminCommon/ListInput";
+
 import styles from "./AdminProducts.module.css";
 
 function UpdateProduct({ Location, product, setProduct }) {
 
     const [effiInput, setEffiInput] = useState('');
     const [ingraInput, setIngraInput] = useState('');
-    const [effi, setEffi] = useState([]);
-    const [ingra, setIngra] = useState([]);
+    const [effiList, setEffiList] = useState([]);
+    const [ingraList, setIngraList] = useState([]);
 
     const call = async () => {
 
         const response = await GetAPI(Location);
-        
+
         const result = await response.product;
 
         return result;
@@ -23,15 +26,15 @@ function UpdateProduct({ Location, product, setProduct }) {
     useEffect(() => {
         call().then((res) => {
 
-            const tempEffi = res?.prodEffi.split(',');
-            const tempIngra = res?.prodIngra.split(',');
+            const effi = res?.prodEffi.split(',');
+            const ingra = res?.prodIngra.split(',');
 
             setProduct(res);
-            setEffi(tempEffi);
-            setIngra(tempIngra);
+            setEffiList(effi);
+            setIngraList(ingra);
         });
     }, []);
-    
+
     const valueChangeHandler = e => {
         setProduct({
             ...product,
@@ -40,277 +43,202 @@ function UpdateProduct({ Location, product, setProduct }) {
     };
 
     return (
-        <div className={styles.detailProductBox}>
+        <div className={styles.detailBox}>
             <div style={{ width: "680px", }}>
                 <div>
-                    <div className={styles.detailProductBoxPart}>
+                    <div className={styles.detailBoxImage}>
                         <p>이미지</p>
                     </div>
-                    <div className={styles.detailProductBoxPart}>
-                        <p>사료코드</p>
-                        <input
-                            style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
-                            disabled
-                            value={product?.prodCode}
-                        />
-                        <p>등록일</p>
-                        <input
-                            style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
-                            disabled
-                            value={product?.prodDate}
-                        />
-                        <p>가격(출고가)</p>
-                        <input
-                            type="number"
-                            name="prodPrice"
-                            onChange={valueChangeHandler}
-                            style={{ width: "100px", }}
-                            placeholder={product?.prodPrice}
-                        />
-                        <span>원</span>
-                    </div>
-                    <div className={styles.detailProductBoxPart}>
-                        <p>제품명</p>
-                        <input
-                            type="text"
-                            name="prodName"
-                            onChange={valueChangeHandler}
-                            placeholder={product?.prodName}
-                        />
-                        <p>조회수</p>
-                        <input
-                            style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
-                            disabled
-                        />
-                        <p>용량</p>
-                        <input
-                            type="text"
-                            name="prodVolume"
-                            onChange={valueChangeHandler}
-                            style={{ width: "100px" }}
-                            placeholder={product?.prodVolume}
-                        />
-                        <span>kg</span>
-                    </div>
-                    <div className={styles.detailProductBoxPart}>
-                        <p>제조사</p>
-                        <input
-                            type="text"
-                            name="prodManufac"
-                            onChange={valueChangeHandler}
-                            placeholder={product?.prodManufac}
-                        />
-                        <p>게시여부</p>
-                        <select
-                            name="prodStatus"
-                            onChange={valueChangeHandler}
-                            value={product?.prodStatus}
-                        >
-                            <option value={'Y'}>게시중</option>
-                            <option value={'N'}>게시중단</option>
-                        </select>
-                        <p>평점</p>
-                        <div className={styles.detailProductBoxPartGrade}>
-                            <img
-                                src={product?.prodGrade > 0 ? "/images/admin/star On.png" : "/images/admin/star Off.png"}
-                                onClick={() => {
-                                    setProduct({
-                                        ...product,
-                                        prodGrade: 1
-                                    })
-                                }}
-                            />
-                            <img
-                                src={product?.prodGrade > 1 ? "/images/admin/star On.png" : "/images/admin/star Off.png"}
-                                onClick={() => {
-                                    setProduct({
-                                        ...product,
-                                        prodGrade: 2
-                                    })
-                                }}
-                            />
-                            <img
-                                src={product?.prodGrade > 2 ? "/images/admin/star On.png" : "/images/admin/star Off.png"}
-                                onClick={() => {
-                                    setProduct({
-                                        ...product,
-                                        prodGrade: 3
-                                    })
-                                }}
-                            />
-                            <img
-                                src={product?.prodGrade > 3 ? "/images/admin/star On.png" : "/images/admin/star Off.png"}
-                                onClick={() => {
-                                    setProduct({
-                                        ...product,
-                                        prodGrade: 4
-                                    })
-                                }}
-                            />
-                            <img
-                                src={product?.prodGrade > 4 ? "/images/admin/star On.png" : "/images/admin/star Off.png"}
-                                onClick={() => {
-                                    setProduct({
-                                        ...product,
-                                        prodGrade: 5
-                                    })
-                                }}
-                            />
+                    <div style={{ width: "510px", float: "left", }}>
+                        <div>
+                            <div className={styles.detailBoxShort}>
+                                <p>사료코드</p>
+                                <input
+                                    style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
+                                    disabled
+                                    value={product?.prodCode}
+                                />
+                            </div>
+                            <div className={styles.detailBoxMid}>
+                                <p>제품명</p>
+                                <input
+                                    type="text"
+                                    name="prodName"
+                                    style={{ width: "290px", }}
+                                    onChange={valueChangeHandler}
+                                    placeholder={product?.prodName}
+                                />
+                            </div>
+                        </div>
+                        <div style={{ clear: "both", }}>
+                            <div className={styles.detailBoxShort}>
+                                <p>제조사</p>
+                                <input
+                                    type="text"
+                                    name="prodManufac"
+                                    onChange={valueChangeHandler}
+                                    placeholder={product?.prodManufac}
+                                />
+                            </div>
+                            <div className={styles.detailBoxMid}>
+                                <p>사이트 주소</p>
+                                <input
+                                    type="text"
+                                    name="prodSite"
+                                    style={{ width: "290px", }}
+                                    onChange={valueChangeHandler}
+                                    placeholder={product?.prodSite}
+                                />
+                            </div>
+                        </div>
+                        <div style={{ clear: "both", }}>
+                            <div className={styles.detailBoxShort}>
+                                <p>등록일</p>
+                                <input
+                                    style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
+                                    disabled
+                                    value={product?.prodDate}
+                                />
+                            </div>
+                            <div className={styles.detailBoxShort}>
+                                <p>조회수</p>
+                                <input
+                                    style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
+                                    disabled
+                                />
+                            </div>
+                            <div className={styles.detailBoxShort}>
+                                <p>게시여부</p>
+                                <select
+                                    name="prodStatus"
+                                    onChange={valueChangeHandler}
+                                    value={product?.prodStatus}
+                                >
+                                    <option value={'Y'}>게시중</option>
+                                    <option value={'N'}>게시중단</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div style={{ clear: "both", }}>
-                    <div className={styles.detailProductBoxShort}>
-                        <p>조리방식</p>
-                        <select
-                            id="prodCook"
-                            name="prodCook"
-                            onChange={valueChangeHandler}
-                            value={product?.prodCook}
-                        >
-                            <option value={'건식'}>건식</option>
-                            <option value={'습식'}>습식</option>
-                            <option value={'화식'}>화식</option>
-                        </select>
-                    </div>
-                    <div className={styles.detailProductBoxShort}>
-                        <p>입자크기</p>
-                        <input
-                            type="number"
-                            name="prodSize"
-                            onChange={valueChangeHandler}
-                            style={{ width: "100px", }}
-                            placeholder={product?.prodSize}
-                        />
-                        <span>mm</span>
-                    </div>
-                    <div className={styles.detailProductBoxLong}>
-                        <p>사이트 주소</p>
-                        <input
-                            type="text"
-                            name="prodSite"
-                            onChange={valueChangeHandler}
-                            style={{ width: "290px", }}
-                            placeholder={product?.prodSite}
-                        />
-                    </div>
-                </div>
-                <div style={{ clear: "both", }}>
-                    <div className={styles.detailProductBoxShort}>
-                        <p>추천 견종</p>
-                        <select
-                            name="prodRecom"
-                            onChange={valueChangeHandler}
-                            value={product?.prodRecom}
-                        >
-                            <option value={'전체'}>전체</option>
-                            <option value={'소형견'}>소형견</option>
-                            <option value={'중형견'}>중형견</option>
-                            <option value={'대형견'}>대형견</option>
-                        </select>
-                    </div>
-                    <div className={styles.detailProductBoxLonger}>
-                        <p>제품기능</p>
-                        <div style={{ marginRight: "10px", float: "left", }}>
-                            {effi.map((item, index) => (
-                                <div key={index} style={{ display: "flex", float: "left", }}>
-                                    <span>
-                                        {item} &nbsp;
-                                        <img
-                                            src="/images/admin/Delete.png"
-                                            style={{ width: "15px", height: "15px", cursor: "pointer", }}
-                                            onClick={() => {
-                                                const removeIndex = index
-                                                const originEffi = effi;
-                                                const removeEffi = originEffi.filter(function (_, index) {
-                                                    return index !== removeIndex;
-                                                });
-                                                setEffi(removeEffi);
-                                                setProduct({
-                                                    ...product,
-                                                    prodEffi: removeEffi.toString()
-                                                });
-                                            }}
-                                        />
-                                    </span>
-                                </div>
-                            ))}
+                    <div>
+                        <div className={styles.detailBoxShort}></div>
+                        <div className={styles.detailBoxShort}>
+                            <p>가격(출고가)</p>
+                            <input
+                                type="number"
+                                name="prodPrice"
+                                style={{ width: "100px", }}
+                                onChange={valueChangeHandler}
+                                placeholder={product?.prodPrice}
+                            />
+                            <span>원</span>
                         </div>
-                        <div className={styles.inputContainer}>
+                        <div className={styles.detailBoxShort}>
+                            <p>용량</p>
                             <input
                                 type="text"
-                                id="effiInput"
-                                onChange={(e) => {
-                                    setEffiInput(e.target.value);
-                                }}
+                                name="prodVolume"
+                                style={{ width: "100px" }}
+                                onChange={valueChangeHandler}
+                                placeholder={product?.prodVolume}
                             />
-                            <img
-                                src="/images/admin/Add.png"
-                                style={{ cursor: "pointer", }}
-                                onClick={() => {
-                                    const originEffi = effi;
-                                    const updateEffi = [...originEffi, effiInput];
-                                    setEffi(updateEffi);
-                                    setProduct({
-                                        ...product,
-                                        prodEffi: updateEffi.toString()
-                                    });
-                                    document.getElementById('effiInput').value = '';
-                                }}
-                            />
+                            <span>kg</span>
+                        </div>
+                        <div className={styles.detailBoxShort}>
+                            <p>평점</p>
+                            <div className={styles.gradeBox}>
+                                <GradeInput
+                                    target={'prodGrade'}
+                                    form={product}
+                                    setForm={setProduct}
+                                />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div style={{ clear: "both", }}></div>
-                <div className={styles.detailProductBoxFull}>
-                    <p>재료</p>
-                    <div style={{ marginRight: "10px", float: "left", }}>
-                        {ingra.map((item, index) => (
-                            <div key={index} style={{ display: "flex", float: "left", }}>
-                                <span>
-                                    {item} &nbsp;
-                                    <img
-                                        src="/images/admin/Delete.png"
-                                        style={{ width: "15px", height: "15px", cursor: "pointer", }}
-                                        onClick={() => {
-                                            const removeIndex = index
-                                            const originIngra = ingra;
-                                            const removeIngra = originIngra.filter(function (_, index) {
-                                                return index !== removeIndex;
-                                            });
-                                            setIngra(removeIngra);
-                                            setProduct({
-                                                ...product,
-                                                prodIngra: removeIngra.toString()
-                                            });
-                                        }}
-                                    />
-                                </span>
-                            </div>
-                        ))}
+                    <div style={{ clear: "both", }}>
+                        <div className={styles.detailBoxShort}>
+                            <p>입자크기</p>
+                            <input
+                                type="number"
+                                name="prodSize"
+                                style={{ width: "100px", }}
+                                onChange={valueChangeHandler}
+                                placeholder={product?.prodSize}
+                            />
+                            <span>mm</span>
+                        </div>
+                        <div className={styles.detailBoxShort}>
+                            <p>조리방식</p>
+                            <select
+                                id="prodCook"
+                                name="prodCook"
+                                onChange={valueChangeHandler}
+                                value={product?.prodCook}
+                            >
+                                <option value={'건식'}>건식</option>
+                                <option value={'습식'}>습식</option>
+                                <option value={'화식'}>화식</option>
+                            </select>
+                        </div>
+                        <div className={styles.detailBoxShort}>
+                            <p>추천 견종</p>
+                            <select
+                                name="prodRecom"
+                                onChange={valueChangeHandler}
+                                value={product?.prodRecom}
+                            >
+                                <option value={'전체'}>전체</option>
+                                <option value={'소형견'}>소형견</option>
+                                <option value={'중형견'}>중형견</option>
+                                <option value={'대형견'}>대형견</option>
+                            </select>
+                        </div>
+                        <div className={styles.detailBoxShort}>
+                            <p>추천 연령</p>
+                            <select
+                                name="prodAge"
+                                onChange={valueChangeHandler}
+                                value={product?.prodAge}
+                            >
+                                <option value={'전체'}>전체</option>
+                                <option value={'유아기'}>유아기</option>
+                                <option value={'청년기'}>청년기</option>
+                                <option value={'노년기'}>노년기</option>
+                            </select>
+                        </div>
                     </div>
-                    <div className={styles.inputContainer}>
-                        <input
-                            type="text"
-                            id="ingraInput"
-                            onChange={(e) => {
-                                setIngraInput(e.target.value);
-                            }}
-                        />
-                        <img
-                            src="/images/admin/Add.png"
-                            style={{ cursor: "pointer", }}
-                            onClick={() => {
-                                const originIngra = ingra;
-                                const updateIngra = [...originIngra, ingraInput];
-                                setIngra(updateIngra);
-                                setProduct({
-                                    ...product,
-                                    prodIngra: updateIngra.toString()
-                                });
-                                document.getElementById('ingraInput').value = '';
-                            }}
-                        />
+                    <div className={styles.detailBoxFull}>
+                        <p>제품기능</p>
+                        <div className={styles.listBox}>
+                            <div
+                                className={styles.scrollBox}
+                                style={{ height: "35px", }}
+                            >
+                                <ListInput
+                                    target={'prodEffi'}
+                                    list={effiList}
+                                    setList={setEffiList}
+                                    form={product}
+                                    setForm={setProduct}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <div className={styles.detailBoxFull}>
+                        <p>재료</p>
+                        <div className={styles.listBox}>
+                            <div className={styles.scrollBox} style={{ height: "70px", }}>
+                                <ListInput
+                                    target={'prodIngra'}
+                                    list={ingraList}
+                                    setList={setIngraList}
+                                    form={product}
+                                    setForm={setProduct}
+                                />
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -49,12 +49,29 @@
 }
 
 .submitButton {
+    width: 100px;
+    height: 34px;
     border-radius: 10px;
-    border: 0;
     background-color: rgba(0, 86, 0, 1);
+    border: 0;
+    margin-top: 15px;
     font-weight: bold;
     font-size: 16px;
     color: white;
+    cursor: pointer;
+}
+
+.cancelButton {
+    width: 100px;
+    height: 34px;
+    border-radius: 10px;
+    border: 0;
+    background-color: white;
+    border: 1px solid rgba(0, 86, 0, 1);
+    margin-top: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    color: rgba(153, 153, 153, 1);
     cursor: pointer;
 }
 

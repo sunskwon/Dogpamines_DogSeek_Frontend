@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 
-import Header from "../components/admin/common/Header";
-import Navbar from "../components/admin/common/Navbar";
+import Header from "../components/admin/adminCommon/Header";
+import Navbar from "../components/admin/adminCommon/Navbar";
 
 import styles from "./AdminLayout.module.css";
 
