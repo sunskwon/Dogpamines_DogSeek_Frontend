@@ -33,8 +33,8 @@ function AdminInsertDict() {
         dogHouse: 0,
         dogGroom: 0,
         dogActi: 0,
-        dogImage: '',
-        dogDetail: '',
+        dogImage: '/images/admin/No Image Available.png',
+        dogDetail: '/images/admin/No Image Available.png',
     });
 
     const navigate = useNavigate();
@@ -60,10 +60,19 @@ function AdminInsertDict() {
                         <div style={{ float: "right", }}>
                             <button
                                 className={styles.submitButton}
-                                style={{ width: "100px", height: "30px", marginTop: "11px", marginRight: "15px", }}
+                                style={{ marginRight: "10px", }}
                                 onClick={submitHandler}
                             >
                                 등록
+                            </button>
+                            <button
+                                className={styles.cancelButton}
+                                style={{ marginRight: "15px", }}
+                                onClick={() => {
+                                    navigate(-1);
+                                }}
+                            >
+                                돌아가기
                             </button>
                         </div>
                     </div>

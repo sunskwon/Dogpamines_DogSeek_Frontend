@@ -42,6 +42,7 @@ function SelectProductByCode({ Location }) {
                             <p>이미지</p>
                             <img
                                 src={product?.prodImage}
+                                alt='front view of product'
                             />
                         </div>
                         <div style={{ width: "510px", float: "left", }}>

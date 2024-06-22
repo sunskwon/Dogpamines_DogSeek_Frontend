@@ -9,8 +9,6 @@ import styles from "./AdminProducts.module.css";
 
 function UpdateProduct({ Location, product, setProduct }) {
 
-    const [effiInput, setEffiInput] = useState('');
-    const [ingraInput, setIngraInput] = useState('');
     const [effiList, setEffiList] = useState([]);
     const [ingraList, setIngraList] = useState([]);
 

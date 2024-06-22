@@ -79,7 +79,7 @@ function SelectAllDicts({ search, bool, setBool }) {
                     </td>
                     <td>
                         <button
-                            className={styles.denyButton}
+                            className={styles.cancelButton}
                             onClick={async () => {
 
                                 const address = `/dict/${dict.dogCode}`;

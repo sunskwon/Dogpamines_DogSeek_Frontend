@@ -7,7 +7,7 @@ import styles from "./AdminProducts.module.css";
 
 function InsertProduct({ product, setProduct }) {
 
-    const date = new Date;
+    const date = new Date();
     const today = `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)}-${date.getDate()}`;
 
     const [effiList, setEffiList] = useState([]);

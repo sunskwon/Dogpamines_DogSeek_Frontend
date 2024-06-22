@@ -17,7 +17,7 @@ function Navbar() {
                     navigate("/admin/dashboard");
                 }}
             >
-                <img src="/images/admin/Data Grid.png" />
+                <img src="/images/admin/Data Grid.png" alt="Data Grid icon"/>
                 <span>대시보드</span>
             </div>
             <div
@@ -29,7 +29,7 @@ function Navbar() {
                     navigate("/admin/products");
                 }}
             >
-                <img src="/images/admin/Open Delivered Box.png" />
+                <img src="/images/admin/Open Delivered Box.png" alt="Open DeliveredBox icon"/>
                 <span>사료 정보 관리</span>
             </div>
             <div
@@ -41,7 +41,7 @@ function Navbar() {
                     navigate("/admin/dicts");
                 }}
             >
-                <img src="/images/admin/Open Book.png" />
+                <img src="/images/admin/Open Book.png" alt="Open Book icon"/>
                 <span>견종 백과 관리</span>
             </div>
             <div
@@ -50,7 +50,7 @@ function Navbar() {
                     marginBottom: "30px",
                 }}
             >
-                <img src="/images/admin/Flipboard.png" />
+                <img src="/images/admin/Flipboard.png" alt="Flipboard icon"/>
                 <span>게시판 관리</span>
             </div>
             <div
@@ -59,7 +59,7 @@ function Navbar() {
                     marginBottom: "30px",
                 }}
             >
-                <img src="/images/admin/Man.png" />
+                <img src="/images/admin/Man.png" alt="Man icon"/>
                 <span>회원 관리</span>
             </div>
             <div
@@ -79,7 +79,7 @@ function Navbar() {
                     navigate("/");
                 }}
             >
-                <img src="/images/admin/External Link.png" />
+                <img src="/images/admin/External Link.png" alt="External Link icon"/>
                 <span>돌아가기</span>
             </div>
             <div
@@ -87,7 +87,7 @@ function Navbar() {
                     display: "flex",
                 }}
             >
-                <img src="/images/admin/Logout.png" />
+                <img src="/images/admin/Logout.png" alt="Logout icon"/>
                 <span>로그아웃</span>
             </div>
         </div>

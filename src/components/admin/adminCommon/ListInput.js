@@ -44,6 +44,7 @@ function ListInput({ target, list, setList, form, setForm }) {
                     <input
                         type="text"
                         id={target}
+                        style={{ width: "85px", height: "auto", margin: "0", }}
                         onChange={(e) => {
                             setInput(e.target.value);
                         }}

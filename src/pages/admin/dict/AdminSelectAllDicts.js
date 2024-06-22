@@ -38,7 +38,7 @@ function AdminSelectAllDicts() {
                             <select
                                 name="type"
                                 onChange={valueChangeHandler}
-                                style={{ width: "80px", height: "30px", }}
+                                style={{ width: "80px", height: "34px", }}
                             >
                                 <option
                                     value={'dogName'}
@@ -59,24 +59,20 @@ function AdminSelectAllDicts() {
                             <button
                                 onClick={searchSubmitHandler}
                                 className={styles.submitButton}
-                                style={{ width: "100px", height: "30px", marginRight: "15px", }}
+                                style={{ marginRight: "10px", }}
                             >
                                 검색
                             </button>
+                            <button
+                                className={styles.submitButton}
+                                style={{ marginRight: "15px", }}
+                                onClick={() => {
+                                    navigate("/admin/insertdict");
+                                }}
+                            >
+                                새 견종 등록
+                            </button>
                         </div>
-                    </div>
-                    <div style={{ clear: "right", }}>
-                        <button
-                            className={styles.submitButton}
-                            style={{
-                                width: "100px", height: "30px", marginTop: "15px", marginRight: "15px", float: "right",
-                            }}
-                            onClick={() => {
-                                navigate("/admin/insertdict");
-                            }}
-                        >
-                            새 견종 등록
-                        </button>
                     </div>
                     <div className={styles.productList}>
                         <table className={styles.productListTable}>
@@ -93,7 +89,7 @@ function AdminSelectAllDicts() {
                                         <hr className={styles.tableLine} />
                                     </td>
                                 </tr>
-                                <SelectAllDicts 
+                                <SelectAllDicts
                                     search={search}
                                     bool={bool}
                                     setBool={setBool}

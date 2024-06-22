@@ -96,7 +96,7 @@ function SelectAllProducts({ search, bool, setBool }) {
 
                                 const address = `/products/${product.prodCode}`;
 
-                                const response = await DeleteAPI(address);
+                                await DeleteAPI(address);
 
                                 setBool(!bool);
                             }}
