@@ -9,7 +9,14 @@ function Login(){
     const onEmailChange = (e) => setEmail(e.target.value);
     const onPwdChange = (e) => setPwd(e.target.value);
     // console.log(`email : ${email}`);
-    console.log(`pwd : ${onPwdChange}`);
+    // console.log(`pwd : ${onPwdChange}`);
+
+    const onClickLogin = () => {
+        setEmail(email);
+        setPwd(pwd);
+        console.log(`email : ${email}`);
+        console.log(`pwd : ${onPwdChange}`);
+    }
 
     return(
 
@@ -34,7 +41,7 @@ function Login(){
                             <p>이메일/비밀번호 찾기</p>
                         </div>
                         <div className={styles.loginBtnBox}>
-                            <button>로그인</button>
+                            <button type="submit" onClick={onClickLogin}>로그인</button>
                         </div>
                         <hr></hr>
                         <div className={styles.signUpBox}>
