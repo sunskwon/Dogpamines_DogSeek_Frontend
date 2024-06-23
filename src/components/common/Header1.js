@@ -18,7 +18,7 @@ function Header1(){
                     </div>
                     <div className={styles.containerBox2}>
                         <a href="/" className={styles.rightText}>Login</a>
-                        <a href="/" className={styles.rightText}>Sign Up</a>
+                        <a href="/signup" className={styles.rightText}>Sign Up</a>
                     </div>
                 </div>
             </div>  
