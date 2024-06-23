@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
 import { GetAPI } from "../../../api/RestAPIs";
-
-import styles from "./AdminProducts.module.css"
 import GradeOutput from "../adminCommon/GradeOutput";
 import ListOutput from "../adminCommon/ListOutput";
+
+import styles from "./AdminProducts.module.css"
 
 function SelectProductByCode({ Location }) {
 

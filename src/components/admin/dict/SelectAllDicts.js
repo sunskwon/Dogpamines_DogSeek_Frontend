@@ -71,7 +71,9 @@ function SelectAllDicts({ search, bool, setBool }) {
                         <button
                             className={styles.acceptButton}
                             onClick={() => {
-                                navigate("/admin/productdetail", { state: { Location: `/products/${dict.dogCode}` } });
+                                navigate("/admin/dictdetail", {
+                                    state: { Location: `/dict/${dict.dogCode}` }
+                                });
                             }}
                         >
                             상세

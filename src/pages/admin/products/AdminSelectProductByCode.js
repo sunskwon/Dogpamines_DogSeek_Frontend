@@ -20,7 +20,7 @@ function AdminSelectProductByCode() {
                         <div style={{ float: "right", }}>
                             <button
                                 className={styles.submitButton}
-                                style={{ width: "100px", height: "30px", marginTop: "15px", marginRight: "10px", }}
+                                style={{ marginRight: "10px", }}
                                 onClick={() => {
                                     navigate("/admin/updateproduct", {
                                         state: { Location: state.Location }
@@ -31,7 +31,7 @@ function AdminSelectProductByCode() {
                             </button>
                             <button
                                 className={styles.cancelButton}
-                                style={{ width: "100px", height: "30px", marginTop: "15px", marginRight: "15px", }}
+                                style={{ marginRight: "15px", }}
                                 onClick={() => {
                                     navigate("/admin/products");
                                 }}
