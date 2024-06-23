@@ -49,6 +49,9 @@ function Navbar() {
                     display: "flex",
                     marginBottom: "30px",
                 }}
+                onClick={() => {
+                    navigate("/admin/boards");
+                }}
             >
                 <img src="/images/admin/Flipboard.png" alt="Flipboard icon"/>
                 <span>게시판 관리</span>

@@ -34,6 +34,7 @@ import AdminSelectAllDicts from "./pages/admin/dict/AdminSelectAllDicts.js";
 import AdminInsertDict from "./pages/admin/dict/AdminInsertDict.js";
 import AdminSelectDictByCode from "./pages/admin/dict/AdminSelectDictByCode.js"
 import AdminUpdateDict from "./pages/admin/dict/AdminUpdateDict.js";
+import AdminSelectAllBoards from "./pages/admin/board/AdminSelectAllBoards.js";
 
 function App() {
   return (
@@ -91,6 +92,7 @@ function App() {
             <Route path="/admin/insertdict" element={<AdminInsertDict />} />
             <Route path="/admin/dictdetail" element={<AdminSelectDictByCode />} />
             <Route path="/admin/updatedict" element={<AdminUpdateDict />} />
+            <Route path="/admin/boards" element={<AdminSelectAllBoards />} />
           </Route>
         </Routes>
       </BrowserRouter>
