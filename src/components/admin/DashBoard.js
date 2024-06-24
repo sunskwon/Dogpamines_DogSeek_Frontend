@@ -23,13 +23,13 @@ function DashBoard() {
 
     return (
         <div>
-            {data.map(item => (
+            {/* {data.map(item => (
                 <div>
                     <p>{`postCode: ${item.postCode}`}</p>
                     <p>{`postDate: ${item.postDate}`}</p>
                     <hr />
                 </div>
-            ))}
+            ))} */}
         </div>
     );
 }
