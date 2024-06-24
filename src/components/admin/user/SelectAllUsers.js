@@ -93,7 +93,7 @@ function SelectAllUsers({ search, bool, setBool }) {
                             className={styles.acceptButton}
                             onClick={() => {
                                 navigate("/admin/userdetail", {
-                                    state: { Location: `/users/${user?.userCode}` }
+                                    state: { Location: `/admin/users/${user?.userCode}` }
                                 });
                             }}
                         >
