@@ -19,6 +19,7 @@ function CurationResult() {
     const { disease } = location.state;
     const { ingra } = location.state;
     const { cook } = location.state;
+    const userCode = 1;
 
     // const [loding, setLoding] = useState(true);
 
@@ -33,8 +34,6 @@ function CurationResult() {
     // if (loding) {
     //     return <Loding />;
     // }
-
-    const userCode=1;
 
     const today = new Date();
     const year = today.getFullYear();
@@ -59,6 +58,8 @@ function CurationResult() {
     });
 
     const [products, setProducts] = useState([]);
+    const [selectCuration, setSelectCuration] = useState([]);
+
     const curtaionInsert = async () => {
 
         const address = '/curation';
@@ -87,7 +88,7 @@ function CurationResult() {
 
     const curationSelect = async () => {
 
-        const address = `/curationSelect?curationAge=${age}&curationIngra=${ingra}&curationDisease=${disease}&curaitonAllergy=${allergy}&curationBreed=${breed}&curaiotnGender=${gender}&curationNeut=${neut}&curationWeight=${weight}&curationName=${name}&curaitonDate=${toDate}&curationSize=${size}&curationCook=${cook}&userCode=${userCode}`
+        const address = `/curationSelect?curationAge=${age}&curationIngra=${ingra}&curationDisease=${disease}&curationAllergy=${allergy}&curationBreed=${breed}&curationGender=${gender}&curationNeut=${neut}&curationWeight=${weight}&curationName=${name}&curationDate=${toDate}&curationSize=${size}&curationCook=${cook}&userCode=${userCode}`
 
         const response = await GetAPI(address, age, ingra, disease, allergy, breed, gender, neut, weight, name, toDate, size, cook, userCode)
 
@@ -97,10 +98,24 @@ function CurationResult() {
     };
 
     useEffect (() => {
-        curationSelect();
+        curationSelect().then(res => setSelectCuration(res));
     }, []);
 
-    console.log(curationSelect())
+    const insertHistory = async () => {
+
+        const curationCode = selectCuration[0].curationCode;
+
+        const prodCode = products.map(product => product.prodCode);
+
+        const data = {
+            curationCode: curationCode,
+            prodCode: prodCode
+        };
+        
+        const address = `/curationProducts`;
+
+        const response = await PostAPI(address, data);
+    }
 
     const getStarImage = (grade) => {
         switch (grade) {
@@ -177,7 +192,7 @@ function CurationResult() {
                 </div>
             </div>
         </div>        
-    )
+    );
 }
 
 export default CurationResult;
