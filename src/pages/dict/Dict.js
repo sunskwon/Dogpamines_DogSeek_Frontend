@@ -91,6 +91,7 @@ function Dict(){
                             placeholder="Search"
                             value={search.dogName}
                             onChange={valueChangeHandler}
+                            
                         />
                     </form>
             </div>
