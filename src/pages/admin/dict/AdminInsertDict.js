@@ -4,48 +4,59 @@ import { useNavigate } from "react-router-dom";
 
 import { PostAPI } from "../../../api/RestAPIs";
 
-import InsertProduct from "../../../components/admin/products/InsertProduct";
+import InsertDict from "../../../components/admin/dict/InsertDict";
 
 import styles from "../AdminPages.module.css";
 
-function AdminInsertProduct() {
+function AdminInsertDict() {
 
-    const [product, setProduct] = useState({
-        prodCode: 0,
-        prodName: '',
-        prodPrice: 0,
-        prodAge: '전체',
-        prodEffi: '',
-        prodRecom: '전체',
-        prodSite: '',
-        prodCook: '건식',
-        prodVolume: '',
-        prodGrade: 0,
-        prodIngra: '',
-        prodSize: '',
-        prodImage: '/images/admin/No Image Available.png',
+    const [dict, setDict] = useState({
+        dogCode: 0,
+        dogName: '',
+        dogSize: '소형견',
+        dogSummary: '',
+        dogHeightM: '',
+        dogWeightM: '',
+        dogHeightF: '',
+        dogWeightF: '',
+        dogChild: '',
+        dogYouth: '',
+        dogEld: '',
+        dogDisease: '',
+        dogDrool: 0,
+        dogSocial: 0,
+        dogShed: 0,
+        dogBark: 0,
+        dogPet: 0,
+        dogHot: 0,
+        dogCold: 0,
+        dogHouse: 0,
+        dogGroom: 0,
+        dogActi: 0,
+        dogImage: '/images/admin/No Image Available.png',
+        dogDetail: '/images/admin/No Image Available.png',
     });
 
     const navigate = useNavigate();
 
     const submitHandler = async () => {
 
-        const address = '/products';
+        const address = '/dict';
 
-        const response = await PostAPI(address, product);
-
-        navigate("/admin/productdetail", {
-            state: { Location: response.headers.get('Location') }
+        const response = await PostAPI(address, dict);
+        
+        navigate("/admin/dictdetail", {
+            state: { Location: response.headers.get('Location')}
         })
     };
 
     return (
         <div>
-            <p className={styles.subTitle}>사료 정보 관리</p>
+            <p className={styles.subTitle}>견종 정보 관리</p>
             <div className={styles.mainOuter}>
                 <div className={styles.mainBox}>
                     <div>
-                        <p className={styles.subjectTitle}>신규 사료 등록</p>
+                        <p className={styles.subjectTitle}>신규 견종 등록</p>
                         <div style={{ float: "right", }}>
                             <button
                                 className={styles.submitButton}
@@ -66,9 +77,9 @@ function AdminInsertProduct() {
                         </div>
                     </div>
                     <div className={styles.productDetail}>
-                        <InsertProduct
-                            product={product}
-                            setProduct={setProduct}
+                        <InsertDict
+                            dict={dict}
+                            setDict={setDict}
                         />
                     </div>
                 </div>
@@ -77,4 +88,4 @@ function AdminInsertProduct() {
     );
 }
 
-export default AdminInsertProduct;
+export default AdminInsertDict;

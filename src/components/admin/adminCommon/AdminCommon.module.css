@@ -1,0 +1,24 @@
+.inputContainer {
+    width: 120px;
+    height: 32px;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 212, 212, 1);
+    background-color: white;
+    display: flex;
+    float: left;
+}
+
+.inputContainer input {
+    width: 85px;
+    height: auto;
+    margin: 0;
+    border: 0;
+    font-size: 14px;
+}
+
+.inputContainer img {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    align-self: center;
+}
