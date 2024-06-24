@@ -1,101 +1,36 @@
-*
-{
-    font-family: 'Noto Sans Kr', 'Poppins';
+/* 폰트 */
+* {font-family: 'Noto Sans Kr', 'Poppins';}
+/* 전체 조회 상단 */
+.board_dogImg {display: flex; width: 1180px; padding-top: 20px; position: relative; margin: 18px auto;}
+
+/* 공지사항 */
+.notice_all {display: flex; width: 1180px; padding-top: 20px; position: relative; margin: 18px auto;}
+.noticeTitle {font-size: 22px; padding-left: 20px;}
+
+/* 공지 토글*/
+.toggle {width: 1180px; margin: 0 auto;}
+.notice_toggle {font-size: 18px; background-color: #ffffff; border: none; height: 42px; color: #999999;}
+.notice_head {font-size: 16px; color: #999999;}
+.notice_content {font-size: 14px; color: #999999;}
+
+/* 딱히 쓸모없는거 확인하고 지울거
+.noticeBox 
+    {width: 1180px; height: 56px; color: #999999;
+    border-top: solid 1px#D4D4D4; border-bottom:
+    solid 1px #D4D4D4;
+    }*/
+
+/* 게시판 */
+.board_title {display: flex; align-items: baseline; justify-content: space-between; width: 1180px; position: relative; margin: 0px auto; padding-top: 32px; padding-left: 20px; font-size: 22px;}
+
+/* 글쓰기 */
+.button_writing {width: 110px; height: 32px; background-color: #005600; font-size: 14px; border-radius: 10px; border: none; margin-right: 20px; color: #ffffff;}
+
+/* search */
+.search_box {display: flex; justify-content: center; align-items: center;}
+.search_input {width: 240px; height: 32px; border-radius: 10px; border: 1px solid #005600; margin-right: 30px;padding-left: 8px;}
+.search_icon {position: absolute; right: 172px;}
     
-}
-.dogSaImg 
-{
-    display: flex;
-    width: 1180px;
-    padding-top: 20px;
-    position: relative;
-    margin: 18px auto;
-}
-.notices
-{    
-    display: flex;
-    width: 1180px;
-    padding-top: 20px;
-    position: relative;
-    margin: 18px auto;
-}
-.noticeTitle
-{
-    font-size: 22px;
-    padding-left: 20px;
-    
-}
-.notice_toggle
-{
-    font-size: 18px;
-    background-color: #ffffff;
-    border: none;
-    height: 42px;    
-    color: #999999;
-
-}
-.notice_head
-{
-    font-size: 16px;
-    color: #999999;
-}
-.notice_content
-{
-    font-size: 14px;
-    color: #999999;
-}
-
-.toggle
-{
-    width: 1180px;
-    margin: 0 auto;
-    
-}
-.noticeBox
-{
-    width: 1180px;
-    height: 56px;
-    color: #999999;
-    border-top: solid 1px#D4D4D4;
-    border-bottom: solid 1px #D4D4D4;
-}
-
-.boardTitle
-{
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    width: 1180px;
-    position: relative;
-    margin: 0px auto;
-    padding-top: 32px;
-    padding-left: 20px;
-    font-size: 22px;
-}
-
-
-.search_box
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.search_input
-{
-    width: 240px;
-    height: 32px;
-    border-radius: 10px;
-    border: 1px solid #005600;
-    margin-right: 30px;
-    padding-left: 8px;
-}
-.search_icon
-{
-    position: absolute;
-    right: 40px;
-}
-    
-/*---- 게시판css ----*/
 /* 게시판 정렬 */
 .boardboxlines
 {
@@ -157,7 +92,7 @@
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.5);
-  }
+}
 
 .modalContent {
 background-color: #ffffff;

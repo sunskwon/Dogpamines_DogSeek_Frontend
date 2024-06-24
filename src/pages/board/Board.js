@@ -27,15 +27,15 @@ function Board(){
 
 
     return(
-        <div className={styles.boardPage}>
-            <div className={styles.dogSaImg}>
+        <div>
+            <div className={styles.board_dogImg }>
                 <img src={"/images/board/dogsa.png"}/>
             </div>
-            <div className={styles.notices}>
-            <div>
-                <p className={styles.noticeTitle}>공지사항</p>
+            <div className={styles.notice_all}>
+                <div>
+                    <p className={styles.noticeTitle}>공지사항</p>
+                </div>
             </div>
-        </div>
 
     <div className={styles.toggle}>
         <div>
@@ -77,12 +77,14 @@ function Board(){
     </div>
 
 
-            <div className={styles.boardTitle}>
+            <div className={styles.board_title}>
                 <p>게시판</p>
                 <div className={styles.search_box}>
                     <input type="search" className={styles.search_input} name="keyword" placeholder="검색어를 입력하세요"/>
+                    <button className={styles.button_writing}>글쓰기</button>
                     <img className={styles.search_icon} src='/images/board/Search.svg'></img>
                 </div> 
+                
             </div>
 
     <div className={styles.boardboxlines}>
@@ -99,7 +101,9 @@ function Board(){
                     <p className={styles.titletext}>오늘의 댕사이</p>
                 </ul>
                 <p className={styles.boxTitle}>오늘도 밥 맛있게 먹은 우리 강쥐 귀여워</p>            
-                <p className={styles.nick}>오동통댕댕묘</p>
+                <span className={styles.nick}>오동통댕댕묘
+                    <p>2024.06.03</p>
+                </span>
             </div>
 
             <div className={styles.boardbox}>
