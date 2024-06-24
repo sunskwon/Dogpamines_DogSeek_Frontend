@@ -61,6 +61,9 @@ function Navbar() {
                     display: "flex",
                     marginBottom: "30px",
                 }}
+                onClick={() => {
+                    navigate("/admin/users");
+                }}
             >
                 <img src="/images/admin/Man.png" alt="Man icon"/>
                 <span>회원 관리</span>
