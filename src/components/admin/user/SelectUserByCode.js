@@ -17,40 +17,20 @@ function SelectUserByCode({ Location }) {
 
         const response = await GetAPI(Location);
 
-        return response;
+        const result = await response.product;
+
+        return result;
     };
 
     useEffect(() => {
         call().then((res) => {
 
-            const user = res.user;
-            const dogList = res.dogList;
-            const boardList = res.boardList;
-            const countList = res.countList;
-            console.log(boardList);
-            console.log(countList);
+            // const effi = res.prodEffi.split(',');
+            // const ingra = res.prodIngra.split(',');
 
-            var dogArray = new Array;
-            var boardArray = new Array;
-            
-            if (dogList.length > 0) {
-
-                for (var dog of dogList) {
-
-                    dogArray = [...dogArray, res[dog][0]];
-                }
-            }
-
-            if (boardList.length > 0) {
-
-                for (var board of boardList) {
-                    
-                }
-            }
-
-            setUser(user);
-            setDogs(dogArray);
-            setBoards(boardList);
+            // setProduct(res);
+            // setEffiList(effi);
+            // setIngraList(ingra);
         });
     }, []);
 
@@ -97,7 +77,7 @@ function SelectUserByCode({ Location }) {
                                         className={styles.spanBox}
                                         style={{ width: "290px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}>
                                         {/* <a href={product?.prodSite}> */}
-                                        {/* {product?.prodSite} */}
+                                            {/* {product?.prodSite} */}
                                         {/* </a> */}
                                     </div>
                                 </div>
