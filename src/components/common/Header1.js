@@ -17,7 +17,7 @@ function Header1(){
                         <a href="/" className={styles.mainText}>DogSeek</a>
                     </div>
                     <div className={styles.containerBox2}>
-                        <a href="/" className={styles.rightText}>Login</a>
+                        <a href="/login" className={styles.rightText}>Login</a>
                         <a href="/" className={styles.rightText}>Sign Up</a>
                     </div>
                 </div>

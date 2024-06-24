@@ -1,0 +1,158 @@
+*{
+    font-family: 'Noto Sans KR', 'Poppins';
+}
+
+.container{
+    display: flex;
+    width: 1180px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.box {
+    display: flex;
+    width: 480px;
+    height: 540px;
+    border-radius: 12px;
+    border-color: #005600;
+    border-width: 2px;
+    border-style: solid;
+    margin-top: 8%;
+    margin-bottom: 4%;
+    box-shadow: 0px 2px 5px 0px #A6C4A6;
+    /* align-content: space-evenly; */
+    /* justify-items: center; */
+    flex-direction: column;
+}
+
+.titleBox {
+    display: block;
+    width: 100%;
+    height: 60px;
+    margin-top: 50px;
+    justify-content: center;
+    text-align: center;
+}
+
+.title {
+    color: #63C54A;
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.infoBox {
+    display: flex;
+    height: 200px;
+    width: 400px;
+    margin-top: 80px;
+    margin-left: 40px;
+    align-content: space-evenly;
+    justify-items: center;
+    flex-wrap: wrap;        /* 이메일, 비밀번호 박스 세로 정렬*/
+}
+
+.idBox {
+    display: block;
+    height: 45px;
+    width: 100%;
+}
+
+.pwdBox { 
+    margin-top: 20px;
+    display: block;
+    height: 45px;
+    width: 100%;
+}
+
+.idBox> input {
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px #999999 solid;
+}
+
+.idBox::placeholder {
+    color: #999999;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.idBox> p {
+    color: #999999;
+    font-size: 14px;
+}
+
+.pwdBox> input {
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px #999999 solid;
+}
+
+.pwdBox> p {
+    color: #999999;
+    font-size: 14px;
+}
+
+.findBox {
+    display: block;
+    margin-top: 20px;
+    width: 100%;
+    height: 50px;
+    text-align: end;
+}
+
+.findBox> p {
+    font-size: 14px;
+    font-weight: 500;
+    color: #999999;
+}
+
+.findBox>p:hover {
+    cursor: pointer;
+}
+
+.loginBtnBox {
+    display: block;
+    margin-top: 25px;
+    width: 100%;
+    height: 56px;
+}
+
+.loginBtnBox> button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: #005600;
+    color: white;
+    border: none;
+    border-radius: 12px;
+}
+
+.loginBtnBox>button:hover {
+    cursor: pointer;
+}
+
+.infoBox> hr {
+    margin-top: 30px;
+    background: #999999;
+    width: 100%;
+    height: 1px;
+    border: 0;
+}
+
+.signUpBox {
+    display: block;
+    width: 100%;
+    margin-left: -10px;
+}
+
+.signUpBox> span {
+    font-size: 16px;
+    color: #999999;
+}
+
+.signUpBox>span> a {
+    margin-left: 14px;
+    color: #63C54A;
+}
