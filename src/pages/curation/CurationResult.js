@@ -34,6 +34,8 @@ function CurationResult() {
     //     return <Loding />;
     // }
 
+    const userCode=1;
+
     const today = new Date();
     const year = today.getFullYear();
     const month = String(today.getMonth() + 1).padStart(2, '0');
@@ -53,7 +55,7 @@ function CurationResult() {
         curationDate: toDate,
         curationSize: size,
         curationCook: cook,
-        userCode: 1,
+        userCode: userCode,
     });
 
     const [products, setProducts] = useState([]);
@@ -82,6 +84,23 @@ function CurationResult() {
     useEffect(() => {
         curationProducts().then(res => setProducts(res));
     }, [age, allergy, disease, ingra, cook]);
+
+    const curationSelect = async () => {
+
+        const address = `/curationSelect?curationAge=${age}&curationIngra=${ingra}&curationDisease=${disease}&curaitonAllergy=${allergy}&curationBreed=${breed}&curaiotnGender=${gender}&curationNeut=${neut}&curationWeight=${weight}&curationName=${name}&curaitonDate=${toDate}&curationSize=${size}&curationCook=${cook}&userCode=${userCode}`
+
+        const response = await GetAPI(address, age, ingra, disease, allergy, breed, gender, neut, weight, name, toDate, size, cook, userCode)
+
+        const result = await response.curationSelect;
+        
+        return result;
+    };
+
+    useEffect (() => {
+        curationSelect();
+    }, []);
+
+    console.log(curationSelect())
 
     const getStarImage = (grade) => {
         switch (grade) {
