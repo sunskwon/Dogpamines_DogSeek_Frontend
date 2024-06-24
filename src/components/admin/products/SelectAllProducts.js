@@ -91,12 +91,12 @@ function SelectAllProducts({ search, bool, setBool }) {
                     </td>
                     <td>
                         <button
-                            className={styles.denyButton}
+                            className={styles.cancelButton}
                             onClick={async () => {
 
                                 const address = `/products/${product.prodCode}`;
 
-                                const response = await DeleteAPI(address);
+                                await DeleteAPI(address);
 
                                 setBool(!bool);
                             }}

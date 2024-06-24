@@ -134,3 +134,79 @@
     cursor: pointer;
     padding: 0;
 }
+
+.modalCloseBtn {
+    width: 110px;
+    height: 30px;
+    background-color: #005600;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgb(0, 0, 0, 0.1);
+    justify-self: center;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+.modalContainer {
+    text-align: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.26);
+    /* 반투명한 배경 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+  
+.modalContent {
+    width: 990px;
+    height: 520px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+}
+
+.modalTextContainer{
+    width: 830px;
+    height: 50px;
+    margin: 0 auto;
+}
+
+.modalTextContainer2{
+    width: 830px;
+    display: flex;
+    margin: 0 auto;
+    margin-bottom: 200px;
+}
+
+.modalText1 {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.spanBox1{
+    margin: 0;
+    width: 100px;
+    height: 220px;
+}
+
+.text6{
+    font-size: 14px;
+    margin-left: 30px;
+    text-align: left;
+}
+
+.text7{
+    font-size: 14px;
+    text-align: left;
+}

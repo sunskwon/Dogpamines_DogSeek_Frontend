@@ -63,6 +63,34 @@
     color: rgba(153, 153, 153, 1);
 }
 
+.detailBox textarea {
+    width: 120px;
+    height: 30px;
+    resize: none;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 212, 212, 1);
+    margin-right: 0;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+}
+
+.detailBox textarea::-webkit-scrollbar {
+    width: 10px;
+    top: 30px;
+}
+
+.detailBox textarea::-webkit-scrollbar-thumb {
+    height: 20%;
+    background: rgba(99, 197, 74, 1);
+    border-radius: 10px;
+}
+
+.detailBox textarea::-webkit-scrollbar-track {
+    background: rgba(212, 212, 212, 1);
+    border-radius: 10px;
+}
+
 .detailBoxImage {
     width: 170px;
     height: 225px;
@@ -123,7 +151,7 @@
 
 .listBox span {
     border-radius: 10px;
-    background-color: rgba(99, 197, 74, 1);
+    background-color: rgba(212, 212, 212, 1);
     font-weight: bold;
     font-size: 14px;
     color: white;

@@ -4,28 +4,38 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { PutAPI } from "../../../api/RestAPIs";
 
-import UpdateProduct from "../../../components/admin/products/UpdateProduct";
+import UpdateDict from "../../../components/admin/dict/UpdateDict";
 
 import styles from "../AdminPages.module.css";
 
-function AdminUpdateProduct() {
+function AdminUpdateDict() {
 
-    const [product, setProduct] = useState(
+    const [dict, setDict] = useState(
         {
-            prodCode: 0,
-            prodName: '',
-            prodPrice: 0,
-            prodAge: '',
-            prodEffi: '',
-            prodRecom: '',
-            prodSite: '',
-            prodCook: '',
-            prodVolume: '',
-            prodGrade: 0,
-            prodIngra: '',
-            prodSize: '',
-            prodDate: '2000-01-01',
-            prodImage: '/images/admin/No Image Available.png',
+            dogCode: 0,
+        dogName: '',
+        dogSize: '소형견',
+        dogSummary: '',
+        dogHeightM: '',
+        dogWeightM: '',
+        dogHeightF: '',
+        dogWeightF: '',
+        dogChild: '',
+        dogYouth: '',
+        dogEld: '',
+        dogDisease: '',
+        dogDrool: 0,
+        dogSocial: 0,
+        dogShed: 0,
+        dogBark: 0,
+        dogPet: 0,
+        dogHot: 0,
+        dogCold: 0,
+        dogHouse: 0,
+        dogGroom: 0,
+        dogActi: 0,
+        dogImage: '/images/admin/No Image Available.png',
+        dogDetail: '/images/admin/No Image Available.png',
         }
     );
 
@@ -35,22 +45,22 @@ function AdminUpdateProduct() {
 
     const submitHandler = async () => {
 
-        const address = '/products';
+        const address = '/dict';
 
-        const response = await PutAPI(address, product);
+        const response = await PutAPI(address, dict);
         
-        navigate("/admin/productdetail", {
+        navigate("/admin/dictdetail", {
             state: {Location: response.headers.get('Location')}
         });
     };
 
     return (
         <div>
-            <p className={styles.subTitle}>사료 정보 관리</p>
+            <p className={styles.subTitle}>견종 정보 관리</p>
             <div className={styles.mainOuter}>
                 <div className={styles.mainBox}>
                     <div>
-                        <p className={styles.subjectTitle}>사료 정보 수정</p>
+                        <p className={styles.subjectTitle}>견종 정보 수정</p>
                         <div style={{ float: "right", }}>
                             <button
                                 className={styles.submitButton}
@@ -70,10 +80,10 @@ function AdminUpdateProduct() {
                             </button>
                         </div>
                         <div className={styles.productDetail}>
-                            <UpdateProduct
+                            <UpdateDict
                                 Location={state.Location}
-                                product={product}
-                                setProduct={setProduct}
+                                dict={dict}
+                                setDict={setDict}
                             />
                         </div>
                     </div>
@@ -83,4 +93,4 @@ function AdminUpdateProduct() {
     );
 }
 
-export default AdminUpdateProduct;
+export default AdminUpdateDict;

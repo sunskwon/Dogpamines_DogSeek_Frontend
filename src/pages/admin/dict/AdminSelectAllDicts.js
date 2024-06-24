@@ -2,14 +2,14 @@ import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import SelectAllProducts from "../../../components/admin/products/SelectAllProducts";
+import SelectAllDicts from "../../../components/admin/dict/SelectAllDicts";
 
 import styles from "../AdminPages.module.css";
 
-function AdminSelectAllProducts() {
+function AdminSelectAllDicts() {
 
     const [search, setSearch] = useState({
-        type: 'prodName',
+        type: 'dogName',
         input: ''
     });
     const [bool, setBool] = useState(true);
@@ -29,33 +29,37 @@ function AdminSelectAllProducts() {
 
     return (
         <div>
-            <p className={styles.subTitle}>사료 정보 관리</p>
+            <p className={styles.subTitle}>견종 정보 관리</p>
             <div className={styles.mainOuter}>
                 <div className={styles.mainBox}>
                     <div>
-                        <p className={styles.subjectTitle}>등록된 사료 목록</p>
+                        <p className={styles.subjectTitle}>등록된 견종 목록</p>
                         <div style={{ float: "right", }}>
                             <select
                                 name="type"
-                                style={{ width: "80px", height: "34px", }}
                                 onChange={valueChangeHandler}
+                                style={{ width: "80px", height: "34px", }}
                             >
-                                <option value={'prodName'}>
-                                    제품명
+                                <option
+                                    value={'dogName'}
+                                >
+                                    견종명
                                 </option>
-                                <option value={'prodManufac'}>
-                                    제조사
+                                <option
+                                    value={'dogSize'}
+                                >
+                                    견종크기
                                 </option>
                             </select>
                             <input
                                 name="input"
-                                style={{ width: "150px", height: "30px", }}
                                 onChange={valueChangeHandler}
+                                style={{ width: "150px", height: "30px", }}
                             />
                             <button
+                                onClick={searchSubmitHandler}
                                 className={styles.submitButton}
                                 style={{ marginRight: "10px", }}
-                                onClick={searchSubmitHandler}
                             >
                                 검색
                             </button>
@@ -63,32 +67,29 @@ function AdminSelectAllProducts() {
                                 className={styles.submitButton}
                                 style={{ marginRight: "15px", }}
                                 onClick={() => {
-                                    navigate("/admin/insertproduct");
+                                    navigate("/admin/insertdict");
                                 }}
                             >
-                                새 상품 등록
+                                새 견종 등록
                             </button>
                         </div>
-                    </div>
-                    <div style={{ clear: "right", }}>
                     </div>
                     <div className={styles.productList}>
                         <table className={styles.productListTable}>
                             <tbody>
                                 <tr>
-                                    <th style={{ width: "80px", }}>사료코드</th>
-                                    <th style={{ width: "330px", }}>제품명</th>
-                                    <th style={{ width: "100px", }}>제조사</th>
-                                    <th style={{ width: "200px", }}>사이트 주소</th>
-                                    <th style={{ width: "100px", }}></th>
-                                    <th style={{ width: "100px", }}></th>
+                                    <th style={{ width: "120px", }}>견종코드</th>
+                                    <th style={{ width: "370px", }}>견종명</th>
+                                    <th style={{ width: "240px", }}>견종크기</th>
+                                    <th style={{ width: "90px", }}></th>
+                                    <th style={{ width: "90px", }}></th>
                                 </tr>
                                 <tr>
-                                    <td colSpan={6}>
+                                    <td colSpan={5}>
                                         <hr className={styles.tableLine} />
                                     </td>
                                 </tr>
-                                <SelectAllProducts
+                                <SelectAllDicts
                                     search={search}
                                     bool={bool}
                                     setBool={setBool}
@@ -102,4 +103,4 @@ function AdminSelectAllProducts() {
     );
 }
 
-export default AdminSelectAllProducts;
+export default AdminSelectAllDicts;

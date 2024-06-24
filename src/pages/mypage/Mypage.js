@@ -8,18 +8,48 @@ function Mypage(){
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState([]);
     const [modalAfterPath, setModalAfterPath] = useState('/');
+    const [isDeleteModal, setIsDeleteModal] = useState(false);
 
     const openDeleteModal = () => {
         setModalContent(["탈퇴하시겠습니까?"]);
         setModalAfterPath("/delete-account");
+        setIsDeleteModal(true);
         setIsModalOpen(true);
     };
 
     const openChangeModal = () => {
-        setModalContent(["변경하시겠습니까?"]);
+        setModalContent(["닉네임을 변경하시겠습니까?"]);
         setModalAfterPath("/change-settings");
+        setIsDeleteModal(false);
         setIsModalOpen(true);
     };
+
+    const handleCancel = () => {
+        console.log("닫기");
+        setIsModalOpen(false);
+    };
+
+    const handleConfirm = () => {
+        console.log("변경");
+    };
+
+    const handleDelete = () => {
+        console.log("탈퇴");
+    };
+
+
+
+    // const openDeleteModal = () => {
+    //     setModalContent(["탈퇴하시겠습니까?"]);
+    //     setModalAfterPath("/delete-account");
+    //     setIsModalOpen(true);
+    // };
+
+    // const openChangeModal = () => {
+    //     setModalContent(["닉네임을 변경하시겠습니까?"]);
+    //     setModalAfterPath("/change-settings");
+    //     setIsModalOpen(true);
+    // };
 
 
     return(
@@ -34,7 +64,7 @@ function Mypage(){
             </div>
             <div className={styles.container2}>
                 <hr className={styles.line1}/>
-                <p className={styles.text4}>회원님께서 가입하신 DogSeek 개인 정보입니다.</p>
+                <p className={styles.text4} name='userCode'>회원님께서 가입하신 DogSeek 개인 정보입니다.</p>
                 <p className={styles.text5}>필수 회원 정보</p>
                 <hr className={styles.line3}/>
             </div>
@@ -60,10 +90,16 @@ function Mypage(){
                 <button className={styles.button1} onClick={openChangeModal}>변경</button>
                 {isModalOpen && (
                         <Modal
-                        isModalOpen={isModalOpen}
-                        setIsModalOpen={setIsModalOpen}
-                        modalContent={modalContent}
-                        modalAfterPath={modalAfterPath}
+                            isModalOpen={isModalOpen}
+                            setIsModalOpen={setIsModalOpen}
+                            modalContent={modalContent}
+                            modalAfterPath={modalAfterPath}
+                            onConfirm={isDeleteModal ? handleDelete : handleConfirm}
+                            onCancel={handleCancel}
+                            showConfirmButton={true}
+                            showCancelButton={true}
+                            confirmButtonText={isDeleteModal ? "탈퇴" : "변경"}
+                            cancelButtonText="닫기"
                         />
                     )}
             </div>

@@ -1,6 +1,8 @@
 .adminOuter {
     width: 1280px;
     height: 800px;
+    display: flex;
+    flex-direction: row;
 }
 
 .nav {
