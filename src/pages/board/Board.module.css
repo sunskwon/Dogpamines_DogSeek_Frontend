@@ -80,7 +80,17 @@
 .nick
 {
     padding-left: 14px;
+    font-size: 16px;
+}
+.post_date
+{
+    padding-right: 8px;
     font-size: 14px;
+}
+.nick_interval 
+{
+    display: flex;
+    align-items: baseline;
 }
 .modalContainer {
     width: 100%;
