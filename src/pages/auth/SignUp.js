@@ -37,7 +37,7 @@ function SignUp() {
 
     const handleNextPage = () => {
         if (isTerm1Checked && isTerm2Checked) {
-            navigate('/signup2'); // 다음 페이지 경로로 이동
+            navigate('/signupidentity'); // 다음 페이지 경로로 이동
         } else {
             setShowModal(true);
         }
