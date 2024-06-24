@@ -22,10 +22,13 @@ function Dict(){
         setIsLargeModalOpen(prevState => !prevState);
     };
 
-    const [dogs, setDogs] = useState([]);
-    const [searchTerm, setSearchTerm] = useState([]);
+    const navigate = useNavigate();
 
-    const dict = async () => {
+    const [dogs, setDogs] = useState([]);
+
+    const [search, setSearch] = useState({dogName:''});
+        
+    const selectAllDict = async () => {
         
         const address = '/dict';
         
@@ -36,49 +39,41 @@ function Dict(){
         return result;
     };
 
-    const searchDog = async (searchTerm) => {
+    const searchDict = async () => {
+        const address = `/dict/search?dogName=${search.dogName}`;
 
-        const address = `/dict/search?dogName=${searchTerm}`;
+        const response = await GetAPI(address);
 
-        try{
-            const response = await GetAPI(address);
-            if(response){
-                response.response.dict;
-            }
-            return[];
-        }catch(error){
-            console.error('검색에 실패하였습니다.', error);
-            return [];
-        }
+        const result = await response.dict;
+
+        return result;
     };
 
     useEffect(() => {
-        dict().then(res => setDogs(res));
+        selectAllDict().then(res => setDogs(res));
     }, []);
 
     useEffect(() => {
-        if (searchTerm){
-            searchDog(searchTerm).then(res => setDogs(res));
-        }else{
-            dict().then(res => setDogs(res));
-        }
-    }, [searchTerm]);
+        searchDict().then(res => setDogs(res));
+    }, [search]);
 
-    const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
-    }
+    const valueChangeHandler = e => {
+        const { name, value } = e.target;
+    setSearch({
+        ...search,
+        [name]: value
+        });
+    };
 
-    const handleKeyDown = (e) => {
-        if(e.key === 'Enter') {
-            handleSearchChange();
-        }
+    const searchSubmitHandler = (e) => {
+        e.preventDefault();
+        console.log(search);
     }
 
     const filterDogBySize = (size) => {
         return dogs.filter(dog => dog.dogSize === size);
-    }
+    };
 
-    const navigate = useNavigate();
 
     return(
         <>
@@ -88,7 +83,16 @@ function Dict(){
                 <span className={styles.titletext2}>반려견 품종의 특징과 요구사항에 대한 전문적인 정보를 찾아보세요. <br/> 
                 스크롤 또는 검색 기능을 사용해 원하는 견종에 대한 정보를 찾을 수 있습니다. </span>
                 <img className={styles.img} src='./images/dict/1. 상단_사진.png'/>
-        <input className={styles.search} placeholder='search' value={searchTerm} onChange={handleSearchChange} onKeyDown={handleKeyDown}></input>
+                <form onSubmit={searchSubmitHandler}>
+                        <input
+                            className={styles.search}
+                            type="text"
+                            name="dogName"
+                            placeholder="Search"
+                            value={search.dogName}
+                            onChange={valueChangeHandler}
+                        />
+                    </form>
             </div>
         </div>
  
@@ -102,7 +106,8 @@ function Dict(){
             <div className={styles.grid}>
                 {filterDogBySize('소형견').map((dog) => (
                     <div className={styles.modalContainer} key={dog.dogCode} >
-                       <p>{dog.dogName}</p>
+                       <img className={styles.dogImages} src={dog.dogImage}/>
+                       <p className={styles.dogName}>{dog.dogName}</p>
                     </div>
                 ))}
                 </div>
@@ -119,7 +124,8 @@ function Dict(){
             <div className={styles.grid}>
                 {filterDogBySize('중형견').map((dog) => (
                     <div className={styles.modalContainer} key={dog.dogCode}>
-                       <p>{dog.dogName}</p> 
+                       <img className={styles.dogImages} src={dog.dogImage}/>
+                       <p className={styles.dogName}>{dog.dogName}</p> 
                     </div>
                 ))}
                 </div>
@@ -136,7 +142,8 @@ function Dict(){
             <div className={styles.grid}>
                 {filterDogBySize('대형견').map((dog) => (
                     <div className={styles.modalContainer} key={dog.dogCode}>
-                      <p>{dog.dogName}</p> 
+                        <img className={styles.dogImages} src={dog.dogImage}/>
+                        <p className={styles.dogName}>{dog.dogName}</p> 
                     </div>
                 ))}
                 </div>
