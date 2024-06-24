@@ -68,7 +68,11 @@ function SignUpIdentity(){
     };
 
     const handleNextPage = () => {
-        navigate('/signupinfo'); // 다음 페이지 경로로 이동
+        navigate('/signupinfo', {
+            state: {
+                email: email
+            }
+        }); // 다음 페이지 경로로 이동
         
     };
 
