@@ -1,6 +1,10 @@
 import styles from './Dict.module.css';
 import React, {useState, useEffect} from "react";
 
+import { useNavigate } from "react-router-dom";
+
+import { GetAPI } from "../../api/RestAPIs"
+
 
 function Dict(){
     
@@ -19,32 +23,62 @@ function Dict(){
     };
 
     const [dogs, setDogs] = useState([]);
-    
-    
-    useEffect(() => {
-        const fetchDogs = async () => {
+    const [searchTerm, setSearchTerm] = useState([]);
+
+    const dict = async () => {
+        
+        const address = '/dict';
+        
+        const response = await GetAPI(address);
+
+        const result = await response.dict;
+
+        return result;
+    };
+
+    const searchDog = async (searchTerm) => {
+
+        const address = `/dict/search?dogName=${searchTerm}`;
+
         try{
-            const response = await fetch('http://localhost:8080/dict', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                }
-            });
-            const data = await response.json();
-            setDogs(data);
-        }catch (error) {
-            console.error('데이터를 불러오는데 실패하였습니다.', error);
+            const response = await GetAPI(address);
+            if(response){
+                response.response.dict;
+            }
+            return[];
+        }catch(error){
+            console.error('검색에 실패하였습니다.', error);
+            return [];
         }
     };
-        
-        fetchDogs();
 
+    useEffect(() => {
+        dict().then(res => setDogs(res));
     }, []);
 
-    const filterDogBySize = (size) => {
-        return dogs.filter(dog => dogs.dogSize === size);
+    useEffect(() => {
+        if (searchTerm){
+            searchDog(searchTerm).then(res => setDogs(res));
+        }else{
+            dict().then(res => setDogs(res));
+        }
+    }, [searchTerm]);
+
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
     }
+
+    const handleKeyDown = (e) => {
+        if(e.key === 'Enter') {
+            handleSearchChange();
+        }
+    }
+
+    const filterDogBySize = (size) => {
+        return dogs.filter(dog => dog.dogSize === size);
+    }
+
+    const navigate = useNavigate();
 
     return(
         <>
@@ -54,7 +88,7 @@ function Dict(){
                 <span className={styles.titletext2}>반려견 품종의 특징과 요구사항에 대한 전문적인 정보를 찾아보세요. <br/> 
                 스크롤 또는 검색 기능을 사용해 원하는 견종에 대한 정보를 찾을 수 있습니다. </span>
                 <img className={styles.img} src='./images/dict/1. 상단_사진.png'/>
-        <input className={styles.search} placeholder='search'></input>
+        <input className={styles.search} placeholder='search' value={searchTerm} onChange={handleSearchChange} onKeyDown={handleKeyDown}></input>
             </div>
         </div>
  
@@ -66,9 +100,9 @@ function Dict(){
 
                 {isSmallModalOpen &&
             <div className={styles.grid}>
-                {filterDogBySize('소형견').map((dog, index) => (
-                    <div className={styles.modalConainer} key={index}>
-                        {dog.dogName}
+                {filterDogBySize('소형견').map((dog) => (
+                    <div className={styles.modalContainer} key={dog.dogCode} >
+                       <p>{dog.dogName}</p>
                     </div>
                 ))}
                 </div>
@@ -83,9 +117,9 @@ function Dict(){
 
             {isMediumModalOpen &&
             <div className={styles.grid}>
-                {filterDogBySize('중형견').map((dog, index) => (
-                    <div className={styles.modalConainer} key={index}>
-                        {dog.dogName}
+                {filterDogBySize('중형견').map((dog) => (
+                    <div className={styles.modalContainer} key={dog.dogCode}>
+                       <p>{dog.dogName}</p> 
                     </div>
                 ))}
                 </div>
@@ -100,9 +134,9 @@ function Dict(){
 
             {isLargeModalOpen &&
             <div className={styles.grid}>
-                {filterDogBySize('대형견').map((dog, index) => (
-                    <div className={styles.modalConainer} key={index}>
-                        {dog.dogName}
+                {filterDogBySize('대형견').map((dog) => (
+                    <div className={styles.modalContainer} key={dog.dogCode}>
+                      <p>{dog.dogName}</p> 
                     </div>
                 ))}
                 </div>
