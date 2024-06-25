@@ -17,8 +17,9 @@
 .productsBox {
     display: flex;
     width: 955px;
-    margin-top: 30px;
     margin-left: 114px;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .emptyMessageBox {
@@ -35,16 +36,16 @@
     display: flex;
 }
 
-
-.mainBox1 {
-    display: flex;
-    width: 955px;
-}
-
 .productBox {
     display: flex;
     flex-direction: column;
-    width: 550px;
+    width: 50%;
+    margin-top: 30px;
+}
+
+.imgBox {
+    width: 296px;
+    height: 296px;
 }
 
 .textBox {

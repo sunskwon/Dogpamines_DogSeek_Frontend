@@ -4,17 +4,11 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 function CurationSelectAllergy() {
 
-    const [allergy, setAllergy] = useState("");
+    const [allergy, setAllergy] = useState('');
 
     const location = useLocation();
 
-    const { name } = location.state;
-    const { gender } = location.state;
-    const { breed } = location.state;
-    const { weight } = location.state;
-    const { size }  = location.state;
-    const { age } = location.state;
-    const { neut } = location.state;
+    const { name, gender, breed, weight, size, age, neut } = location.state;
 
     const navigate = useNavigate();
 
@@ -29,13 +23,13 @@ function CurationSelectAllergy() {
                 size: size,
                 age: age,
                 neut: neut,
-                allergy: allergy
+                allergy: allergy === 'none' ? "" : allergy
             }
         });
     };
 
     const onAllergyChange = (e) => setAllergy(e.target.value);
-    const isButtonEnabled = allergy;
+    const isButtonEnabled = allergy  
 
     return (
         <div>
@@ -49,7 +43,8 @@ function CurationSelectAllergy() {
                     <div className={styles.progressBar}></div>    
                 </div>
                 <select className={styles.inputSize} name='allergy' onChange={onAllergyChange}>
-                    <option>없음</option>
+                    <option value={"none"}>선택</option>
+                    <option value={"none"}>없음</option>
                     <option>닭고기</option>
                     <option>소고기</option>
                     <option>돼지고기</option>

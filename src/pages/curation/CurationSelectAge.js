@@ -8,11 +8,7 @@ function CurationSelectAge() {
 
     const location = useLocation();
 
-    const { name } = location.state;
-    const { gender } = location.state;
-    const { breed } = location.state;
-    const { weight } = location.state;
-    const { size }  = location.state;
+    const { name, gender, breed, weight, size } = location.state;
 
     const navigate = useNavigate();
 

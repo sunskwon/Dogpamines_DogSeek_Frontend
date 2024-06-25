@@ -9,10 +9,7 @@ function CurationSizeSelect() {
 
     const location = useLocation();
 
-    const { name } = location.state;
-    const { gender } = location.state;
-    const { breed } = location.state;
-    const { weight } = location.state;
+    const { name, gender, breed, weight } = location.state;
 
     const navigate = useNavigate();
 

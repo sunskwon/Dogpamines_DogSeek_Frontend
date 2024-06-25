@@ -8,14 +8,7 @@ function CurationSelectDisease() {
 
     const location = useLocation();
 
-    const { name } = location.state;
-    const { gender } = location.state;
-    const { breed } = location.state;
-    const { weight } = location.state;
-    const { size }  = location.state;
-    const { age } = location.state;
-    const { neut } = location.state;
-    const { allergy } = location.state;
+    const { name, gender, breed, weight, size, age, neut, allergy } = location.state;
 
     const navigate = useNavigate();
 
@@ -31,7 +24,7 @@ function CurationSelectDisease() {
                 age: age,
                 neut: neut,
                 allergy: allergy,
-                disease: disease
+                disease: disease === 'none' ? "" : disease
             }
         });
     };
@@ -51,7 +44,8 @@ function CurationSelectDisease() {
                     <div className={styles.progressBar}></div>    
                 </div>
                 <select className={styles.inputSize} name='disease' onChange={onDiseaseChange}>
-                    <option>없음</option>
+                    <option value={"none"}>선택</option>
+                    <option value={"none"}>없음</option>
                     <option>관절</option>
                     <option>피부</option>
                     <option>모질</option>
