@@ -8,16 +8,7 @@ function CurationSelectCook() {
 
     const location = useLocation();
 
-    const { name } = location.state;
-    const { gender } = location.state;
-    const { breed } = location.state;
-    const { weight } = location.state;
-    const { size }  = location.state;
-    const { age } = location.state;
-    const { neut } = location.state;
-    const { allergy } = location.state;
-    const { disease } = location.state;
-    const { ingra } = location.state;
+    const { name, gender, breed, weight, size, age, neut, allergy, disease, ingra } = location.state;
 
     const navigate = useNavigate();
 
