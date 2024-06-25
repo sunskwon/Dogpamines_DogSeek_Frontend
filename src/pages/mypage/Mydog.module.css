@@ -21,6 +21,11 @@
     margin: 0 auto;
 }
 
+.linkContainer{
+    width: 50px;
+    display: contents;
+}
+
 .title{
     display: flex;
     position: relative;
@@ -56,7 +61,7 @@
 }
 
 .text4{
-    margin-left: 30px;
+    margin-left: 20px;
     font-size: 14px;
     color: black;
     border: 1px solid #63C54A;
@@ -64,6 +69,8 @@
     color: #999999;
     padding-left: 10px;
     padding-right: 10px;
+    background-color: white;
+    cursor: pointer;
 }
 
 .text5{
@@ -103,6 +110,7 @@
 .resultBox{
     width: 980px;
     margin: 0 auto;
+    margin-bottom: 7px;
     display: flex;
     justify-content: space-around;
 }
