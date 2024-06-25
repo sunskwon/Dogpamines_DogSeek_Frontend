@@ -2,14 +2,12 @@ import { useState, useEffect } from "react";
 
 import { GetAPI } from "../../../api/RestAPIs";
 
-import GradeOutput from "../adminCommon/GradeOutput";
-import ListOutput from "../adminCommon/ListOutput";
 
 import styles from "./AdminUsers.module.css"
 
-function SelectUserByCode({ Location }) {
+function SelectUserByCode({ Location, user, setUser, bool, setBool }) {
 
-    const [user, setUser] = useState();
+    // const [user, setUser] = useState();
     const [dogs, setDogs] = useState([]);
     const [boards, setBoards] = useState([]);
 
@@ -25,160 +23,156 @@ function SelectUserByCode({ Location }) {
     useEffect(() => {
         call().then((res) => {
 
-            // const effi = res.prodEffi.split(',');
-            // const ingra = res.prodIngra.split(',');
+            const user = res.user;
+            const dogList = res.dogList;
+            const boardList = res.boardList;
+            const countList = res.countList;
 
-            // setProduct(res);
-            // setEffiList(effi);
-            // setIngraList(ingra);
+            var dogArray = new Array;
+
+            if (dogList?.length > 0) {
+
+                for (var dog of dogList) {
+
+                    dogArray = [...dogArray, res[dog][0]];
+                }
+            }
+
+            if (boardList?.length > 0) {
+
+                for (var board of boardList) {
+
+                    board.countComment = countList[board.postCode];
+                }
+            }
+
+            setUser(user);
+            setDogs(dogArray);
+            setBoards(boardList);
         });
     }, []);
+
+    useEffect(() => {
+        call().then((res) => setUser(res.user));
+    }, [bool]);
 
     return (
         <div className={styles.detailBox}>
             <div style={{ width: "680px", }}>
                 <div style={{ width: "680px", }}>
                     <div>
-                        <div className={styles.detailBoxImage}>
-                            <p>이미지</p>
-                            <img
-                                // src={product?.prodImage}
-                                alt='front view of product'
-                            />
+                        <div className={styles.detailBoxShort}>
+                            <p>회원코드</p>
+                            <div className={styles.spanBox}>
+                                <span>{user?.userCode}</span>
+                            </div>
                         </div>
-                        <div style={{ width: "510px", float: "left", }}>
-                            <div>
-                                <div className={styles.detailBoxShort}>
-                                    <p>사료코드</p>
-                                    <div className={styles.spanBox}>
-                                        {/* <span>{product?.prodCode}</span> */}
-                                    </div>
-                                </div>
-                                <div className={styles.detailBoxMid}>
-                                    <p>제품명</p>
-                                    <div
-                                        className={styles.spanBox}
-                                        style={{ width: "290px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
-                                    >
-                                        {/* <span>{product?.prodName}</span> */}
-                                    </div>
-                                </div>
+                        <div className={styles.detailBoxShort}>
+                            <p>닉네임</p>
+                            <div className={styles.spanBox}>
+                                <span>{user?.userNick}</span>
                             </div>
-                            <div style={{ clear: "both", }}>
-                                <div className={styles.detailBoxShort}>
-                                    <p>제조사</p>
-                                    <div className={styles.spanBox}>
-                                        {/* <span>{product?.prodManufac}</span> */}
-                                    </div>
-                                </div>
-                                <div className={styles.detailBoxMid}>
-                                    <p>사이트 주소</p>
-                                    <div
-                                        className={styles.spanBox}
-                                        style={{ width: "290px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}>
-                                        {/* <a href={product?.prodSite}> */}
-                                            {/* {product?.prodSite} */}
-                                        {/* </a> */}
-                                    </div>
-                                </div>
-                            </div>
-                            <div style={{ clear: "both", }}>
-                                <div className={styles.detailBoxShort}>
-                                    <p>등록일</p>
-                                    <div className={styles.spanBox}>
-                                        {/* <span>{product?.prodDate}</span> */}
-                                    </div>
-                                </div>
-                                <div className={styles.detailBoxShort}>
-                                    <p>조회수</p>
-                                    <div className={styles.spanBox}>
-                                        <span>0회</span>
-                                    </div>
-                                </div>
-                                <div className={styles.detailBoxShort}>
-                                    <p>게시여부</p>
-                                    <div className={styles.spanBox}>
-                                        {/* <span>{product?.prodStatus === 'Y' ? '게시중' : '게시중단'}</span> */}
-                                    </div>
-                                </div>
+                        </div>
+                        <div className={styles.detailBoxMid}>
+                            <p>아이디</p>
+                            <div
+                                className={styles.spanBox}
+                                style={{ width: "290px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
+                            >
+                                <span>{user?.userId}</span>
                             </div>
                         </div>
                     </div>
                     <div style={{ clear: "both", }}>
-                        <div>
-                            <div className={styles.detailBoxShort}></div>
-                            <div className={styles.detailBoxShort}>
-                                <p>가격(출고가)</p>
-                                <div className={styles.spanBox}>
-                                    {/* <span>{`${product?.prodPrice}원`}</span> */}
-                                </div>
-                            </div>
-                            <div className={styles.detailBoxShort}>
-                                <p>용량</p>
-                                <div className={styles.spanBox}>
-                                    {/* <span>{`${product?.prodVolume}kg`}</span> */}
-                                </div>
-                            </div>
-                            <div className={styles.detailBoxShort}>
-                                <p>평점</p>
-                                <div className={styles.gradeBox}>
-                                    {/* <GradeOutput
-                                        grade={product?.prodGrade}
-                                    /> */}
-                                </div>
+                        <div className={styles.detailBoxShort}>
+                            <p>권한</p>
+                            <div className={styles.spanBox}>
+                                <span>
+                                    {user?.userAuth === 'ADMIN' ? '관리자' : (user?.userAuth === 'USER' ? '회원' : '휴면회원')}
+                                </span>
                             </div>
                         </div>
-                        <div style={{ clear: "both", }}>
-                            <div>
-                                <div className={styles.detailBoxShort}>
-                                    <p>입자크기</p>
-                                    <div className={styles.spanBox}>
-                                        {/* <span>{`${product?.prodSize}mm`}</span> */}
-                                    </div>
-                                </div>
-                                <div className={styles.detailBoxShort}>
-                                    <p>조리방식</p>
-                                    <div className={styles.spanBox}>
-                                        {/* <span>{product?.prodCook}</span> */}
-                                    </div>
-                                </div>
-                                <div className={styles.detailBoxShort}>
-                                    <p>추천 견종</p>
-                                    <div className={styles.spanBox}>
-                                        {/* <span>{product?.prodRecom}</span> */}
-                                    </div>
-                                </div>
-                                <div className={styles.detailBoxShort}>
-                                    <p>추천 연령</p>
-                                    <div className={styles.spanBox}>
-                                        {/* <span>{product?.prodAge}</span> */}
-                                    </div>
-                                </div>
+                        <div className={styles.detailBoxShort}>
+                            <p>연락처</p>
+                            <div className={styles.spanBox}>
+                                <span>{user?.userPhone}</span>
                             </div>
-                            <div className={styles.detailBoxFull}>
-                                <p>제품기능</p>
-                                <div className={styles.listBox}>
-                                    <div className={styles.scrollBox}>
-                                        {/* <ListOutput
-                                            list={effiList}
-                                        /> */}
-                                    </div>
-                                </div>
+                        </div>
+                        <div className={styles.detailBoxShort}>
+                            <p>가입일</p>                                    <div className={styles.spanBox}>
+                                <span>{user?.userSignup}</span>
                             </div>
-                            <div className={styles.detailBoxFull}>
-                                <p>재료</p>
-                                <div className={styles.listBox}>
-                                    <div className={styles.scrollBox} style={{ height: "70px", }}>
-                                        {/* <ListOutput
-                                            list={ingraList}
-                                        /> */}
-                                    </div>
-                                </div>
+                        </div>
+                        <div className={styles.detailBoxShort}>
+                            <p>최근 접속일</p>
+                            <div className={styles.spanBox}>
+                                <span>{user?.userLatest}</span>
+
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                    <div className={styles.detailBoxFull}>
+                        <div className={styles.itemList}>
+                            <table
+                                className={styles.itemListTable}
+                                style={{ height: "80px", }}
+                            >
+                                <tbody>
+                                    <tr>
+                                        <th style={{ width: "170px", }}>이름</th>
+                                        <th style={{ width: "170px", }}>견종</th>
+                                        <th style={{ width: "170px", }}>나이</th>
+                                        <th style={{ width: "170px", }}>크기</th>
+                                    </tr>
+                                    <tr>
+                                        <td colSpan={4}>
+                                            <hr />
+                                        </td>
+                                    </tr>
+                                    {dogs.map((dog, index) => (
+                                        <tr key={index}>
+                                            <td>{dog?.curationName}</td>
+                                            <td>{dog?.curationBreed}</td>
+                                            <td>{dog?.curationAge}</td>
+                                            <td>{dog?.curationSize}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div className={styles.itemList}>
+                            <table
+                                className={styles.itemListTable}
+                                style={{ height: "240px", }}
+                            >
+                                <tbody>
+                                    <tr>
+                                        <th style={{ width: "120px", }}>게시물코드</th>
+                                        <th style={{ width: "200px", }}>제목</th>
+                                        <th style={{ width: "120px", }}>작성일</th>
+                                        <th style={{ width: "120px", }}>게시 여부</th>
+                                        <th style={{ width: "120px", }}>댓글 갯수</th>
+                                    </tr>
+                                    <tr>
+                                        <td colSpan={5}>
+                                            <hr />
+                                        </td>
+                                    </tr>
+                                    {boards.map((board, index) => (
+                                        <tr key={index}>
+                                            <td>{board?.postCode}</td>
+                                            <td>{board?.postTitle}</td>
+                                            <td>{board?.postDate}</td>
+                                            <td>{board?.postStatus}</td>
+                                            <td>{board?.countComment}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div >
+            </div >
         </div >
     );
 }

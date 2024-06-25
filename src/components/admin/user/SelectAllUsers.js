@@ -17,7 +17,7 @@ function SelectAllUsers({ search, bool, setBool }) {
         const address = '/admin/users';
 
         const welcomeSearch = {
-            type: 'user',
+            type: 'userName',
             input: ''
         }
 

@@ -2,30 +2,41 @@ import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import SelectAllProducts from "../../../components/admin/products/SelectAllProducts";
+import SelectAllNotices from "../../../components/admin/board/SelectAllNotices";
+import SelectAllBoards from "../../../components/admin/board/SelectAllBoards";
 
 import styles from "../AdminPages.module.css";
 
 function AdminSelectAllBoards() {
 
-    const [search, setSearch] = useState({
+    const [searchNotice, setSearchNotice] = useState({
         type: 'postTitle',
         input: ''
     });
-    const [bool, setBool] = useState(true);
+
+    const [searchBoard, setSearchBoard] = useState({
+        type: 'postTitle',
+        input: ''
+    });
+
+    const [noticeBool, setNoticeBool] = useState(true);
+    const [boardBool, setBoardBool] = useState(true);
 
     const navigate = useNavigate();
 
-    const valueChangeHandler = e => {
-        setSearch({
-            ...search,
+    const noticeValueChangeHandler = e => {
+        setSearchNotice({
+            ...searchNotice,
             [e.target.name]: e.target.value
         });
     };
 
-    const searchSubmitHandler = () => {
-        setBool(!bool);
-    };
+    const boardValueChangeHandler = e => {
+        setSearchBoard({
+            ...searchBoard,
+            [e.target.name]: e.target.value
+        })
+    }
 
     return (
         <div>
@@ -38,7 +49,7 @@ function AdminSelectAllBoards() {
                             <select
                                 name="type"
                                 style={{ width: "80px", height: "34px", }}
-                                onChange={valueChangeHandler}
+                                onChange={noticeValueChangeHandler}
                             >
                                 <option value={'postTitle'}>
                                     제목
@@ -50,13 +61,14 @@ function AdminSelectAllBoards() {
                             <input
                                 name="input"
                                 style={{ width: "150px", height: "30px", }}
-                                onChange={valueChangeHandler}
+                                onChange={noticeValueChangeHandler}
                             />
                             <button
                                 className={styles.submitButton}
                                 style={{ marginRight: "10px", }}
-                            // onClick={searchSubmitHandler}
-                            >
+                                onClick={() => {
+                                    setNoticeBool(!noticeBool);
+                                }}                            >
                                 검색
                             </button>
                             <button
@@ -78,35 +90,35 @@ function AdminSelectAllBoards() {
                             <table className={styles.productListTable}>
                                 <tbody>
                                     <tr>
-                                        <th style={{ width: "80px", }}>게시물코드</th>
-                                        <th style={{ width: "230px", }}>작성자</th>
-                                        <th style={{ width: "100px", }}>제목</th>
-                                        <th style={{ width: "200px", }}>사이트 주소</th>
-                                        <th style={{ width: "100px", }}></th>
+                                        <th style={{ width: "100px", }}>게시물코드</th>
+                                        <th style={{ width: "150px", }}>작성자</th>
+                                        <th style={{ width: "210px", }}>제목</th>
+                                        <th style={{ width: "150px", }}>작성일</th>
+                                        <th style={{ width: "100px", }}>게시여부</th>
                                         <th style={{ width: "100px", }}></th>
                                         <th style={{ width: "100px", }}></th>
                                     </tr>
                                     <tr>
-                                        <td colSpan={6}>
+                                        <td colSpan={7}>
                                             <hr className={styles.tableLine} />
                                         </td>
                                     </tr>
-                                    {/* <SelectAllProducts
-                                    search={search}
-                                    bool={bool}
-                                    setBool={setBool}
-                                /> */}
+                                    <SelectAllNotices
+                                        search={searchNotice}
+                                        bool={noticeBool}
+                                        setBool={setNoticeBool}
+                                    />
                                 </tbody>
                             </table>
                         </div>
                     </div>
-                    <div>
+                    <div style={{ paddingTop: "20px", }}>
                         <p className={styles.subjectTitle}>게시물 목록</p>
                         <div style={{ float: "right", }}>
                             <select
                                 name="type"
                                 style={{ width: "80px", height: "34px", }}
-                                onChange={valueChangeHandler}
+                                onChange={boardValueChangeHandler}
                             >
                                 <option value={'postTitle'}>
                                     제목
@@ -118,13 +130,14 @@ function AdminSelectAllBoards() {
                             <input
                                 name="input"
                                 style={{ width: "150px", height: "30px", }}
-                                onChange={valueChangeHandler}
+                                onChange={boardValueChangeHandler}
                             />
                             <button
                                 className={styles.submitButton}
                                 style={{ marginRight: "10px", }}
-                            // onClick={searchSubmitHandler}
-                            >
+                                onClick={() => {
+                                    setBoardBool(!boardBool);
+                                }}                            >
                                 검색
                             </button>
                             <div style={{ float: "right", width: "100px", height: "30px", marginRight: "15px", }}></div>
@@ -132,29 +145,31 @@ function AdminSelectAllBoards() {
                     </div>
                     <div
                         className={styles.productList}
-                        style={{ height: "320px", }}
+                        style={{ height: "300px", }}
                     >
                         <table className={styles.productListTable}>
                             <tbody>
                                 <tr>
-                                    <th style={{ width: "80px", }}>게시물코드</th>
-                                    <th style={{ width: "230px", }}>작성자</th>
-                                    <th style={{ width: "100px", }}>제목</th>
-                                    <th style={{ width: "200px", }}>사이트 주소</th>
+                                    <th style={{ width: "100px", }}>게시물코드</th>
+                                    <th style={{ width: "100px", }}>작성자</th>
+                                    <th style={{ width: "110px", }}>제목</th>
+                                    <th style={{ width: "100px", }}>작성일</th>
+                                    <th style={{ width: "100px", }}>게시여부</th>
                                     <th style={{ width: "100px", }}></th>
                                     <th style={{ width: "100px", }}></th>
+                                    <th style={{ width: "100px", }}>신고 횟수</th>
                                     <th style={{ width: "100px", }}></th>
                                 </tr>
                                 <tr>
-                                    <td colSpan={6}>
+                                    <td colSpan={9}>
                                         <hr className={styles.tableLine} />
                                     </td>
                                 </tr>
-                                {/* <SelectAllProducts
-                                    search={search}
-                                    bool={bool}
-                                    setBool={setBool}
-                                /> */}
+                                <SelectAllBoards
+                                    search={searchBoard}
+                                    bool={boardBool}
+                                    setBool={setBoardBool}
+                                />
                             </tbody>
                         </table>
                     </div>
