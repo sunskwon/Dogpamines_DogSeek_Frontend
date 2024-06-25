@@ -77,7 +77,7 @@ function App() {
             <Route path="/curationresult" element={<CurationResult />} />
             <Route path="/products" element={<Products />} />
             <Route path="/dict" element={<Dict />} />
-            <Route path="/dictdetail" element={<DictDetail />} />
+            <Route path="/dict/:dogCode" element={<DictDetail />} />
             <Route path="/board" element={<Board />} />
             <Route path="/board/boardpost" element={<BoardPost />} />
             <Route path="/board/boardwiting" element={<BoardWiting />} />

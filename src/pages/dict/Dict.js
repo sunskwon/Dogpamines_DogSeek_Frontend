@@ -1,10 +1,9 @@
 import styles from './Dict.module.css';
 import React, {useState, useEffect} from "react";
 
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { GetAPI } from "../../api/RestAPIs"
-
 
 function Dict(){
     
@@ -21,8 +20,6 @@ function Dict(){
     const toggleLargeModal = () => {
         setIsLargeModalOpen(prevState => !prevState);
     };
-
-    const navigate = useNavigate();
 
     const [dogs, setDogs] = useState([]);
 
@@ -63,7 +60,7 @@ function Dict(){
         ...search,
         [name]: value
         });
-    };
+    }; 
 
     const searchSubmitHandler = (e) => {
         e.preventDefault();
@@ -82,7 +79,7 @@ function Dict(){
                 <span className={styles.titletext1}> 견종에 대해 찾아보세요.</span>
                 <span className={styles.titletext2}>반려견 품종의 특징과 요구사항에 대한 전문적인 정보를 찾아보세요. <br/> 
                 스크롤 또는 검색 기능을 사용해 원하는 견종에 대한 정보를 찾을 수 있습니다. </span>
-                <img className={styles.img} src='./images/dict/1. 상단_사진.png'/>
+                <img className={styles.img} src='/images/dict/1. 상단_사진.png'/>
                 <form onSubmit={searchSubmitHandler}>
                         <input
                             className={styles.search}
@@ -97,19 +94,21 @@ function Dict(){
             </div>
         </div>
  
-        <div className={styles.container2}>
+        <div className={styles.container2} > 
         <hr color="D4D4D4"/>
             <button className={styles.size} onClick={toggleSmallModal}>
                 소형
             </button>
 
                 {isSmallModalOpen &&
-            <div className={styles.grid}>
+            <div className={styles.grid} >
                 {filterDogBySize('소형견').map((dog) => (
-                    <div className={styles.modalContainer} key={dog.dogCode} >
+                    <Link to={`/dict/${dog.dogCode}`} key={dog.dogCode} state={{dogCode: dog.dogCode}}>
+                    <div className={styles.modalContainer} >
                        <img className={styles.dogImages} src={dog.dogImage}/>
                        <p className={styles.dogName}>{dog.dogName}</p>
                     </div>
+                    </Link>
                 ))}
                 </div>
                 }
@@ -124,10 +123,12 @@ function Dict(){
             {isMediumModalOpen &&
             <div className={styles.grid}>
                 {filterDogBySize('중형견').map((dog) => (
+                    <Link to={`/dict/${dog.dogCode}`}>
                     <div className={styles.modalContainer} key={dog.dogCode}>
                        <img className={styles.dogImages} src={dog.dogImage}/>
                        <p className={styles.dogName}>{dog.dogName}</p> 
                     </div>
+                    </Link>
                 ))}
                 </div>
                 }
@@ -142,10 +143,12 @@ function Dict(){
             {isLargeModalOpen &&
             <div className={styles.grid}>
                 {filterDogBySize('대형견').map((dog) => (
+                    <Link to={`/dict/${dog.dogCode}`}>
                     <div className={styles.modalContainer} key={dog.dogCode}>
                         <img className={styles.dogImages} src={dog.dogImage}/>
                         <p className={styles.dogName}>{dog.dogName}</p> 
                     </div>
+                    </Link>
                 ))}
                 </div>
                 }
