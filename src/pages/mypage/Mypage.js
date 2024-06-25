@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import styles from './Mypage.module.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Modal from '../../components/common/Modal';
+import { GetAPI } from '../../api/RestAPIs';
 
 function Mypage(){
 
@@ -9,6 +10,28 @@ function Mypage(){
     const [modalContent, setModalContent] = useState([]);
     const [modalAfterPath, setModalAfterPath] = useState('/');
     const [isDeleteModal, setIsDeleteModal] = useState(false);
+
+    const userCode = 1;
+    const [users, setUsers] = useState([]);
+
+    const selectUserDetail = async () => {
+
+        const address = `/mypage?userCode=${userCode}`;
+
+        const response = await GetAPI(address, userCode);
+
+        const result = await response.users;
+
+        return result;
+    }
+
+    useEffect(() => {
+        selectUserDetail().then(res =>
+
+            setUsers(res)
+        );
+    }, []);
+    
 
     const openDeleteModal = () => {
         setModalContent(["탈퇴하시겠습니까?"]);
@@ -18,7 +41,7 @@ function Mypage(){
     };
 
     const openChangeModal = () => {
-        setModalContent(["닉네임을 변경하시겠습니까?"]);
+        setModalContent(["정보를 변경하시겠습니까?"]);
         setModalAfterPath("/change-settings");
         setIsDeleteModal(false);
         setIsModalOpen(true);
@@ -36,21 +59,6 @@ function Mypage(){
     const handleDelete = () => {
         console.log("탈퇴");
     };
-
-
-
-    // const openDeleteModal = () => {
-    //     setModalContent(["탈퇴하시겠습니까?"]);
-    //     setModalAfterPath("/delete-account");
-    //     setIsModalOpen(true);
-    // };
-
-    // const openChangeModal = () => {
-    //     setModalContent(["닉네임을 변경하시겠습니까?"]);
-    //     setModalAfterPath("/change-settings");
-    //     setIsModalOpen(true);
-    // };
-
 
     return(
         <>
@@ -70,18 +78,24 @@ function Mypage(){
             </div>
             <div className={styles.container3}>
                 <div className={styles.user1}>
-                    <p className={styles.text6}>이름</p>
-                    <p className={styles.text6}>이메일</p>
+                    <p className={styles.text6}>아이디</p>
+                    <p className={styles.text6}>비밀번호</p>
+                    <p className={styles.text6}>새 비밀번호</p>
+                    <p className={styles.text6}>새 비밀번호 확인</p>
                     <p className={styles.text6}>닉네임</p>
                     <p className={styles.text6}>연락처</p>
                 </div>
                 <hr className={styles.line2}/>
-                <div className={styles.user2}>
-                    <p className={styles.text7}>윤수빈</p>
-                    <p className={styles.text7}>soobinnunu1101@gmail.com</p>
-                    <input type='text' className={styles.inputBox1}></input>
-                    <p className={styles.text8}>010-1234-5678</p>
-                </div>
+                {users.map (user => (
+                    <div className={styles.user2} key={user.userCode}>
+                        <p className={styles.text7}>{user.userId}</p>
+                        <input type='password' className={styles.inputBox1}></input>
+                        <input type='password' className={styles.inputBox2} placeholder='영문, 숫자, 특수문자 중 두 종류 이상  8~12자 이내'></input>
+                        <input type='password' className={styles.inputBox2} placeholder='영문, 숫자, 특수문자 중 두 종류 이상  8~12자 이내'></input>
+                        <input type='text' className={styles.inputBox3} placeholder={user.userNick}></input>
+                        <p className={styles.text8}>{user.userPhone}</p>
+                    </div>
+                ))}
             </div>
             <div className={styles.container3}>
                 <p className={styles.text9} onClick={openDeleteModal}>탈퇴하기</p>

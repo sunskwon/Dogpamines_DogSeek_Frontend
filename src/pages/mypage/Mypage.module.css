@@ -97,8 +97,31 @@
 }
 
 .inputBox1{
+    display: block;
     font-size: 14px;
-    margin-top: 8px;
+    margin-top: 20px;
+    border: none;
+    border: solid 1px #999999;
+    border-radius: 5px;
+}
+
+.inputBox2{
+    display: block;
+    font-size: 14px;
+    margin-top: 30px;
+    border: none;
+    border: solid 1px #999999;
+    border-radius: 5px;
+}
+
+.inputBox2::placeholder {
+    font-size: 9.3px;
+}
+
+.inputBox3{
+    display: block;
+    font-size: 14px;
+    margin-top: 30px;
     border: none;
     border: solid 1px #999999;
     border-radius: 5px;
@@ -106,7 +129,12 @@
 
 .text8{
     font-size: 14px;
-    line-height: 50px;
+    line-height: 60px;
+}
+
+.text11{
+    font-size: 14px;
+    line-height: 60px;
 }
 
 .text9{
