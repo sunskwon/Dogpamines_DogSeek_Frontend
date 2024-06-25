@@ -16,7 +16,7 @@ function SignUpIdentity(){
     const navigate = useNavigate();
 
     // email 정규식
-    const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/i;
+    const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
 
     const onEmailChange = (e) => setEmail(e.target.value);
     const onAuthNumChange = (e) => setAuthNum(e.target.value);
