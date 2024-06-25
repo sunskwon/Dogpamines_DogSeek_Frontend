@@ -30,22 +30,54 @@ function Post(){
         <div>
             <div className={styles.button_siren}>
                 <button className={styles.button_delete}>삭제</button>
-                <span className={styles.siren_icon}>
+                <div className={styles.siren_icon}>
+                <button className={styles.report_button}>
                     <img src="/images/board/siren.svg" />
                     <span>신고하기</span>
-                </span>
+                </button>
+                </div>
             </div>
+        </div>
+
+    <div>
+        <span className={styles.comment_title}>댓글</span>
+        <div>
+        <span className={styles.comment_nick}>점심먹고땡</span> 
+        <span className={styles.comment_date}>2024.06.03</span>
+                <button className={styles.report_button}>
+                    <img src="/images/board/siren.svg" />
+                    <span>신고하기</span>
+                </button>
+            <p className={styles.comment_context}>한쿡말은 잘모르지만 쿠냥 마냥 좋은 갱얼쥐 good lol</p>
         </div>
         <div>
-            <p className={styles.comment_title}>댓글</p>
-            <span className={styles.comment_title}>점심먹고땡
-                <span>2024.06.03</span>
+        <span className={styles.comment_title}>점심먹고땡</span>  
+        <span className={styles.comment_date}>2024.06.03</span>
+                <button className={styles.report_button}>
+                    <img src="/images/board/siren.svg" />
+                    <span>신고하기</span>
+                </button>
             <p className={styles.comment_title}>한쿡말은 잘모르지만 쿠냥 마냥 좋은 갱얼쥐 good lol</p>
-            </span>
-            <div>
-                
-            </div>
         </div>
+        <div>
+        <span className={styles.comment_title}>점심먹고땡</span>  
+        <span className={styles.comment_date}>2024.06.03</span>
+                <button className={styles.report_button}>
+                    <img src="/images/board/siren.svg" />
+                    <span>신고하기</span>
+                </button>
+            <p className={styles.comment_title}>한쿡말은 잘모르지만 쿠냥 마냥 좋은 갱얼쥐 good lol</p>      
+        </div>
+        <div>
+        <span className={styles.comment_title}>점심먹고땡</span>   
+        <span className={styles.comment_date}>2024.06.03</span>
+                <button className={styles.report_button}>
+                    <img src="/images/board/siren.svg" />
+                    <span>신고하기</span>
+                </button>
+            <p className={styles.comment_title}>한쿡말은 잘모르지만 쿠냥 마냥 좋은 갱얼쥐 good lol</p>     
+        </div>
+    </div>
 
         <div className={styles.comment_wrap}>
             <input type="text" placeholder="댓글을 입력해주세요" className={styles.comment_box}/>

@@ -1,3 +1,5 @@
+/* 폰트 */
+* {font-family: 'Noto Sans Kr', 'Poppins';}
 /* 전체 */
 .display_post
 {
@@ -14,33 +16,23 @@
 
 /* button */
 .button_modify {width: 110px; height: 30px; background-color: #005600; border-radius: 5px;color: white; border: none; margin: 8px; font-size: 14px;}
-.button_list
-{width: 110px; height: 30px; background-color: #005600; border-radius: 5px; color: white; border: none; margin: 8px; font-size: 14px;}
+.button_list{width: 110px; height: 30px; background-color: #005600; border-radius: 5px; color: white; border: none; margin: 8px; font-size: 14px;}
+.button_delete {width: 110px; height: 30px; background-color: #D9D9D9; font-size: 14px; border: none; border-radius: 5px; margin-left: 20px;}
+.button_siren {display: flex; justify-content: end; flex-direction: row-reverse; margin-top: 20px; margin-right: 8px;}
 
-.button_delete {
-    width: 110px;
-    height: 30px;
-    background-color: #D9D9D9;
-    font-size: 14px;
+/* 신고 버튼 */
+.report_button
+{
     border: none;
-    border-radius: 5px;
-    margin-left: 20px;
-    
+    background-color: white;
+}
+.report_font
+{
+    font-size: 14px;
+    color: #999999;
 }
 
-.button_siren 
-{
-    display: flex;
-    justify-content: end;
-    flex-direction: row-reverse;
-    margin-top: 20px;
-    margin-right: 8px;
-}
 
-.sin_go
-{
-    padding: 8px;
-}
 .hr_post
 {
     padding-left: 10px;
@@ -49,8 +41,22 @@
 .comment_title
 {
     font-size: 18px;
+    padding-left: 20px;
+}
+.comment_nick
+{
+    font-size: 16px;
+}
+.comment_date
+{
+    font-size: 14px;
+}
+.comment_context
+{
+    font-size: 16;
     padding-left: 26px;
 }
+
 
 /* 댓글 쓰기 기능 */
 .comment_wrap
@@ -78,46 +84,6 @@
     color: white;
     position: absolute;
     margin-top: 6px;
+    margin-left: 924px;
 
-}
-
-
-
-
-/* 말풍선 테스트 */
-.wrap {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 10px;
-    border: 1px solid #ccc;
-    background-color: #fff;
-}
-
-.chat {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-.textbox {
-    max-width: 500px;
-    word-wrap: break-word;
-    background-color: #f1f0f0;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-.ch1 .textbox::before {
-    content: "User 1: ";
-    color: blue;
-    font-weight: bold;
-}
-
-.ch2 .textbox::before {
-    content: "User 2: ";
-    color: green;
-    font-weight: bold;
 }

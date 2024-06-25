@@ -26,6 +26,9 @@ function Board(){
     const onBoardClick = () => {
         navigate("./BoardPost");
     }
+    const onPostWitingClick = () => {
+        navigate("./BoardWiting");
+    }
 
     
 const call = async () => {
@@ -50,7 +53,7 @@ const call = async () => {
 
     return(
         <>
-        {boards.map(boards => (
+        
         <div key={boards.postCode}>
             <div className={styles.board_dogImg }>
                 <img src={"/images/board/dogsa.png"}/>
@@ -105,7 +108,7 @@ const call = async () => {
                 <p>게시판</p>
                 <div className={styles.search_box}>
                     <input type="search" className={styles.search_input} name="keyword" placeholder="검색어를 입력하세요"/>
-                    <button className={styles.button_writing}>글쓰기</button>
+                    <button className={styles.button_writing} onClick={onPostWitingClick}>글쓰기</button>
                     <img className={styles.search_icon} src='/images/board/Search.svg'></img>
                 </div> 
                 
@@ -113,9 +116,9 @@ const call = async () => {
 
     <div className={styles.boardboxlines}>
         <div className={styles.boardbox}>
-            <ul className={styles.boardboxTitle}>
-                <p className={styles.titletext}>{boards.postTitle}</p>
-            </ul>
+            <div className={styles.boardboxTitle}>
+                <span className={styles.titletext}>오늘의 댕사이</span>
+            </div>
                 <p className={styles.boxTitle}>우리 댕댕이는 안물지도 ,안물기는 무슨 오늘도 물림;</p>            
                 <div className={styles.nick_interval}>
                     <span className={styles.nick}>{boards.userNick}</span>
@@ -123,10 +126,10 @@ const call = async () => {
                 </div>
             </div>
 
-            <div className={styles.boardbox}>
-            <ul className={styles.boardboxTitle}>
-                    <p className={styles.titletext}>오늘의 댕사이</p>
-                </ul>
+    <div className={styles.boardbox}>
+            <div className={styles.boardboxTitle}>
+                <span className={styles.titletext}>오늘의 댕사이</span>
+            </div>
                     <p className={styles.boxTitle}>오늘도 밥 맛있게 먹은 우리 강쥐 귀여워</p>            
                 <div className={styles.nick_interval}>
                     <span className={styles.nick}>{boards.userNick}</span>
@@ -135,9 +138,9 @@ const call = async () => {
             </div>
 
             <div className={styles.boardbox}>
-            <ul className={styles.boardboxTitle}>
-                    <p className={styles.titletext}>오늘의 댕사이</p>
-                </ul>
+            <div className={styles.boardboxTitle}>
+                <span className={styles.titletext}>오늘의 댕사이</span>
+            </div>
                 <p className={styles.boxTitle}>맨날 우리 강쥐는 누구쒜요 하면서 쳐다보는데 커욥..</p>            
                 <div className={styles.nick_interval}>
                     <span className={styles.nick}>내이름고난했죠</span>
@@ -146,9 +149,9 @@ const call = async () => {
             </div>
 
             <div className={styles.boardbox}>
-                <ul className={styles.boardboxTitle}>
-                    <p className={styles.titletext}>오늘의 댕사이</p>
-                </ul>
+            <div className={styles.boardboxTitle}>
+                <span className={styles.titletext}>오늘의 댕사이</span>
+            </div>
                 <p className={styles.boxTitle}>오늘 하루종일 뛰다가 지쳤는지 새근새근 잠듦..ㅎㅎ</p>            
                 <div className={styles.nick_interval}>
                     <span className={styles.nick}>타로타로</span>
@@ -159,9 +162,7 @@ const call = async () => {
             </button>
         </div>
     </div>
-
 </div>
-    ))}
     </>
     );
 }
