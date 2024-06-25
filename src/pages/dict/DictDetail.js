@@ -44,9 +44,9 @@ function DictDetail() {
         const paws = [];
         for(let i = 0; i < 5; i++) {
             if(i < count) {
-                paws.push(<img key={i} src='/images/dict/DogPaw(green).png'/> );
+                paws.push(<img key={i} src='/images/dict/DogPaw(green).png' alt='greenPaw'/> );
             } else {
-                paws.push(<img key={i} src='/images/dict/DogPaw(gray).png'/>);
+                paws.push(<img key={i} src='/images/dict/DogPaw(gray).png' alt='grayPaw'/>);
             }
         }
         return paws;
