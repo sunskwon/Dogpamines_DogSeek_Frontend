@@ -9,7 +9,7 @@ import styles from "../AdminPages.module.css";
 function AdminSelectAllUsers() {
 
     const [search, setSearch] = useState({
-        type: 'user',
+        type: 'userNick',
         input: ''
     });
     const [bool, setBool] = useState(false);
@@ -40,7 +40,6 @@ function AdminSelectAllUsers() {
                                 name="type"
                                 style={{ width: "80px", height: "34px", }}
                                 onChange={valueChangeHandler}
-                                defaultValue={'user'}
                             >
                                 <option value={'userNick'}>
                                     닉네임
