@@ -31,7 +31,7 @@ function CurationSelectDisease() {
                 age: age,
                 neut: neut,
                 allergy: allergy,
-                disease: disease
+                disease: disease === 'none' ? "" : disease
             }
         });
     };
@@ -51,7 +51,8 @@ function CurationSelectDisease() {
                     <div className={styles.progressBar}></div>    
                 </div>
                 <select className={styles.inputSize} name='disease' onChange={onDiseaseChange}>
-                    <option>없음</option>
+                    <option value={"none"}>선택</option>
+                    <option value={"none"}>없음</option>
                     <option>관절</option>
                     <option>피부</option>
                     <option>모질</option>
