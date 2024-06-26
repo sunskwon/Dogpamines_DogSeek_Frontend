@@ -65,3 +65,38 @@ export function DeleteAPI(address) {
         })
     );
 };
+
+// Login
+export const callLoginAPI = async({ user }) => {
+
+    const requestURL = 'http://localhost:8080/login';
+
+    try {
+
+        const response = await fetch(requestURL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "*/*",
+                "Access-Control-Allow-Origin": "*"
+            },
+            body: JSON.stringify({
+                userId: user.userId,
+                userPass: user.userPass
+            })
+        });
+
+        const result = await response.json();
+        // console.log('[callLoginAPI] 로그인 API : ', result);
+
+        if (response.status === 200) {
+            window.localStorage.setItem('accessToken', result);
+        };
+
+        return result;
+
+    } catch (error) {
+        console.error('에러 발생', error);
+        return { status: 'error', message: error.message };
+    }
+};

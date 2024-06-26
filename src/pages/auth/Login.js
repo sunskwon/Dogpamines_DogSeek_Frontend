@@ -1,21 +1,40 @@
 import styles from "./Login.module.css";
 import React, {useState, useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
+import { callLoginAPI } from "../../api/RestAPIs";
 
 function Login(){
 
-    const [email, setEmail] = useState("");
-    const [pwd, setPwd] = useState("");
+    const [user, setUser] = useState({
+        userId: '',
+        userPass: '',
+    });
 
-    const onEmailChange = (e) => setEmail(e.target.value);
-    const onPwdChange = (e) => setPwd(e.target.value);
-    // console.log(`email : ${email}`);
-    // console.log(`pwd : ${onPwdChange}`);
+    const navigate = useNavigate();
 
-    const onClickLogin = () => {
-        setEmail(email);
-        setPwd(pwd);
-        console.log(`email : ${email}`);
-        console.log(`pwd : ${onPwdChange}`);
+    const onEmailChange = (e) => setUser({...user, userId: e.target.value});
+    const onPwdChange = (e) => setUser({...user, userPass: e.target.value});
+
+    const onClickLogin = async () => {
+
+        if (user.userId.length !== 0 && user.userPass.length !== 0) {
+
+            const response = await callLoginAPI({user});
+            if (response) {
+                console.log('auth')
+                // console.log(response.userInfo.userAuth);
+                const auth = response.userInfo.userAuth;
+                if (auth === 'ADMIN') {
+                    navigate('/admin');
+                } else if (auth === 'USER') {
+                    navigate('/complete');
+                } else if (auth === 'SLEEP') {
+                    alert('휴면회원입니다.');
+                } else {
+                    alert('올바르지 않은 접근입니다.');
+                }
+            }
+        }
     }
 
     return(
@@ -30,12 +49,12 @@ function Login(){
                         {/* id */}
                         <div className={styles.idBox}>
                             <p>EMAIL</p>
-                            <input placeholder="이메일을 입력해주세요." name="email" onChange={onEmailChange}></input>
+                            <input placeholder="이메일을 입력해주세요." name={user.userId} onChange={onEmailChange}></input>
                         </div>
                         {/* pwd */}
                         <div className={styles.pwdBox}>
                             <p>PASSWORD</p>
-                            <input placeholder="비밀번호를 입력해주세요." name="pwd" type="password" onChange={onPwdChange}></input>
+                            <input placeholder="비밀번호를 입력해주세요." name={user.userPass} type="password" onChange={onPwdChange}></input>
                         </div>
                         <div className={styles.findBox}>
                             <p>이메일/비밀번호 찾기</p>
