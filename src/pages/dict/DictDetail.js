@@ -12,6 +12,12 @@ function DictDetail() {
 
     const [loading, setLoading] = useState(true);
 
+    const [disease, setDisease] = useState('');
+
+    const [changeImage, setChangeImage] = useState(null);
+
+    const [isClicked, setIsClicked] = useState();
+
     const selectOneDict = async (code) => {
         try {
             const address = `/dict/${code}`;
@@ -32,6 +38,18 @@ function DictDetail() {
             });
         }
     }, [dogCode]);
+
+    useEffect(() => {
+        if(dog && dog.dogDisease){
+            const formatDisease = () => {
+                let disease = `${dog.dogDisease}`;
+                let lines = disease.split(',');
+                let numberedLine = lines.map((line, index) => `${index + 1}. ${line.trim()}`);
+                return numberedLine.join(`\n`);
+            };
+            setDisease(formatDisease());
+        }
+    })
     
     if (loading) {
         return <div>Loading...</div>;
@@ -52,15 +70,30 @@ function DictDetail() {
         return paws;
     }
 
+
+    const handleClickImage = (dog) => {
+
+        if(!isClicked) {
+            setChangeImage(dog.dogImage);
+        }else{
+            setChangeImage(null);
+        }
+        setIsClicked(preState => !preState);
+
+    };
+
+
+    
     return (
         <>
             <div className={styles.container1} key={dog.dogCode}>
                 <div className={styles.title}>
                     <span className={styles.titletext1}>{dog.dogName}</span>
-                    <span className={styles.titletext2}>
+                    <div className={styles.titletext2}>
                        {dog.dogSummary}
-                    </span>
-                    <img className={styles.img} src={dog.dogDetail} />
+                    </div>
+                    <img className={styles.img} src={changeImage ? changeImage : dog.dogDetail} 
+                    onClick={() => handleClickImage(dog)}/>
                 </div>
             </div>
 
@@ -85,14 +118,16 @@ function DictDetail() {
                     <div className={styles.detailcontext1}>
                         취약질병
                         <hr/>
-                        <div>{dog.dogDisease}</div>
+                      <pre className={styles.grid4}>
+                        {disease}
+                      </pre>
                     </div>
                 </div>
 
                 <div className={styles.detailcontext1}>
                     생애주기
                     <hr />
-                    <div className={styles.grid4}>
+                    <div className={styles.grid5}>
                         <div>유아기</div> <div>청년기</div> <div>노년기</div>
                         <div>{dog.dogChild}</div> <div>{dog.dogYouth}</div> <div>{dog.dogEld}</div>
                 </div>
@@ -102,7 +137,7 @@ function DictDetail() {
                     특징
                 </div>
                     <div className={styles.detailcontext2}>
-                    <div className={styles.grid5}>
+                    <div className={styles.grid6}>
                         <div> 침흘림</div> <div className={styles.paw}>{renderPaw(dog.dogDrool)}</div> <div> 더위 적응</div> <div className={styles.paw}>{renderPaw(dog.dogHot)}</div>
                         <div> 다른동물과의 공동생활</div> <div className={styles.paw}>{renderPaw(dog.dogSocial)}</div> <div> 추위 적응</div> <div className={styles.paw}>{renderPaw(dog.dogCold)}</div>
                         <div> 털빠짐</div> <div className={styles.paw}>{renderPaw(dog.dogShed)}</div> <div> 실내 적합성</div> <div className={styles.paw}>{renderPaw(dog.dogHouse)}</div>
