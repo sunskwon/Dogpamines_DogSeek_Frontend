@@ -1,0 +1,91 @@
+.allBox {
+    width: 967px;
+    margin: 0 auto;
+    margin-top: 150px;
+}
+
+.prodBox {
+    display: flex;
+}
+
+.textBox {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-left: 100px;
+}
+
+.prodTextBox {
+    display: flex;
+}
+
+.imgBox {
+    width: 400px;
+    height: 500px;
+}
+
+.nameText {
+    font-weight: bold;
+    font-size: 28px;
+    margin: 0;
+    width: 600px;
+}
+
+.manufacText {
+    font-weight: bold;
+    font-size: 22px;
+    color: #999999;
+    margin: 0;
+}
+
+.priceText {
+    font-weight: bold;
+    font-size: 24px;
+    margin: 0;
+}
+
+.prodText {
+    font-weight: bold;
+    font-size: 20px;
+    color: #999999;
+    margin: 0;
+    margin-left: 5px;
+    width: 350px;
+}
+
+.hr {
+    width: 400px;
+    border: 1px solid #D4D4D4;
+    margin: 0;
+}
+
+.addressBox {
+    display: flex;
+    align-items: center;
+    width: 400px;
+    justify-content: space-between;
+}
+
+.allSimilarBox {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.similarProductBox {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    margin-top: 60px;
+    gap: 20px;
+}
+
+.button {
+    background-color: #005600;
+    border: 1px solid #005600;
+    width: 150px;
+    height: 46px;
+    border-radius: 10px;
+    color: white;
+}

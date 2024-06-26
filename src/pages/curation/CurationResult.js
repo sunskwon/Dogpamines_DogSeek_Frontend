@@ -3,18 +3,21 @@ import Loding from '../../components/common/Loding';
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { GetAPI, PostAPI } from '../../api/RestAPIs';
+import { useNavigate } from 'react-router-dom';
 
 function CurationResult() {
+
+    const navigate = useNavigate();
     const location = useLocation();
 
     const { name, gender, breed, weight, size, age, neut, allergy, disease, ingra, cook } = location.state;
     const userCode = 1;
-
+    
     const today = new Date();
     const toDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-
+    
     const [loding, setLoding] = useState(true); // Loading 상태 추가
-
+    
     const [curation] = useState({
         curationAge: age,
         curationIngra: ingra,
@@ -30,10 +33,10 @@ function CurationResult() {
         curationCook: cook,
         userCode: userCode,
     });
-
+    
     const [products, setProducts] = useState([]);
     const [selectCuration, setSelectCuration] = useState([]);
-
+    
     const fetchData = async () => {
 
             
@@ -112,6 +115,20 @@ function CurationResult() {
         );
     }
 
+    const onClick = (prodCode) => {
+        navigate ("/productdetail", {
+                state: {
+                    prodCode: prodCode,
+                    age: age,
+                    disease: disease,
+                    ingra: ingra,
+                    allergy: allergy,
+                    cook: cook,
+                    size: size
+                } 
+        });
+    };
+
     return (
         <div className={styles.mainBox}>
             <div className={styles.titleBox}>
@@ -154,7 +171,7 @@ function CurationResult() {
                             <p className={styles.text}>제품기능 - </p>
                             <td className={styles.productText}>{product.prodEffi}</td>
                         </div>
-                        <button className={styles.detailButton}>상세보기</button>
+                        <button className={styles.detailButton} onClick={() => onClick(product.prodCode)}>상세보기</button>
                     </tr>
                 ))}
             </div>
