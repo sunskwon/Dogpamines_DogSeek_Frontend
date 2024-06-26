@@ -15,9 +15,7 @@ function SelectUserByCode({ Location, user, setUser, bool, setBool }) {
 
         const response = await GetAPI(Location);
 
-        const result = await response.product;
-
-        return result;
+        return response;
     };
 
     useEffect(() => {
@@ -107,7 +105,6 @@ function SelectUserByCode({ Location, user, setUser, bool, setBool }) {
                             <p>최근 접속일</p>
                             <div className={styles.spanBox}>
                                 <span>{user?.userLatest}</span>
-
                             </div>
                         </div>
                     </div>
@@ -119,13 +116,14 @@ function SelectUserByCode({ Location, user, setUser, bool, setBool }) {
                             >
                                 <tbody>
                                     <tr>
-                                        <th style={{ width: "170px", }}>이름</th>
-                                        <th style={{ width: "170px", }}>견종</th>
-                                        <th style={{ width: "170px", }}>나이</th>
-                                        <th style={{ width: "170px", }}>크기</th>
+                                        <th style={{ width: "120px", }}>이름</th>
+                                        <th style={{ width: "120px", }}>견종</th>
+                                        <th style={{ width: "120px", }}>나이</th>
+                                        <th style={{ width: "120px", }}>크기</th>
+                                        <th style={{ width: "200px", }}>마지막 수정일</th>
                                     </tr>
                                     <tr>
-                                        <td colSpan={4}>
+                                        <td colSpan={5}>
                                             <hr />
                                         </td>
                                     </tr>
@@ -135,6 +133,7 @@ function SelectUserByCode({ Location, user, setUser, bool, setBool }) {
                                             <td>{dog?.curationBreed}</td>
                                             <td>{dog?.curationAge}</td>
                                             <td>{dog?.curationSize}</td>
+                                            <td>{dog?.curationDate}</td>
                                         </tr>
                                     ))}
                                 </tbody>

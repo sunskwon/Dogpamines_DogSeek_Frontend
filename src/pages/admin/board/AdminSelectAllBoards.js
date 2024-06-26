@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import { useNavigate } from "react-router-dom";
 
 import SelectAllNotices from "../../../components/admin/board/SelectAllNotices";
 import SelectAllBoards from "../../../components/admin/board/SelectAllBoards";
+
+import BoardModal from "../../../components/admin/board/BoardModal";
+import CommentModal from "../../../components/admin/board/CommentModal";
 
 import styles from "../AdminPages.module.css";
 
@@ -21,6 +24,12 @@ function AdminSelectAllBoards() {
 
     const [noticeBool, setNoticeBool] = useState(true);
     const [boardBool, setBoardBool] = useState(true);
+    const [boardModalOpen, setBoardModalOpen] = useState(false);
+    const [board, setBoard] = useState({});
+    const [commentModalOpen, setCommentModalOpen] = useState(false);
+    const [comments, setComments] = useState([]);
+
+    const modalBackground = useRef();
 
     const navigate = useNavigate();
 
@@ -74,9 +83,9 @@ function AdminSelectAllBoards() {
                             <button
                                 className={styles.submitButton}
                                 style={{ marginRight: "15px", }}
-                            // onClick={() => {
-                            //     navigate("/admin/insertproduct");
-                            // }}
+                                onClick={() => {
+                                    navigate("/admin/insertboard");
+                                }}
                             >
                                 새 공지 등록
                             </button>
@@ -169,12 +178,28 @@ function AdminSelectAllBoards() {
                                     search={searchBoard}
                                     bool={boardBool}
                                     setBool={setBoardBool}
+                                    setBoardModalOpen={setBoardModalOpen}
+                                    setCommentModalOpen={setCommentModalOpen}
+                                    setBoard={setBoard}
+                                    setComments={setComments}
                                 />
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+            <BoardModal
+                boardModalOpen={boardModalOpen}
+                setBoardModalOpen={setBoardModalOpen}
+                modalBackground={modalBackground}
+                board={board}
+            />
+            <CommentModal
+                commentModalOpen={commentModalOpen}
+                setCommentModalOpen={setCommentModalOpen}
+                modalBackground={modalBackground}
+                comments={comments}
+            />
         </div>
     );
 }

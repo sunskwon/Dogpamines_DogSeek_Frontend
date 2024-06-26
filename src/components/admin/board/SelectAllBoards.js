@@ -1,16 +1,12 @@
 import { useState, useEffect } from "react";
 
-import { useNavigate } from "react-router-dom";
-
 import { GetAPI, DeleteAPI } from "../../../api/RestAPIs"
 
-import styles from "./Adminboards.module.css";
+import styles from "./AdminBoards.module.css";
 
-function SelectAllBoards({ search, bool, setBool }) {
+function SelectAllBoards({ search, bool, setBool, setBoardModalOpen, setCommentModalOpen, setBoard, setComments }) {
 
     const [boards, setBoards] = useState([]);
-
-    const navigate = useNavigate();
 
     const call = async () => {
 
@@ -52,7 +48,7 @@ function SelectAllBoards({ search, bool, setBool }) {
 
     useEffect(() => {
         searchProd().then((res) => {
-            
+
             const boardList = res.boardList;
             const commentList = res.commentList;
             const boardReportList = res.boardReportList;
@@ -112,9 +108,10 @@ function SelectAllBoards({ search, bool, setBool }) {
                     <td>
                         <button
                             className={styles.acceptButton}
-                        // onClick={() => {
-                        //     navigate("/admin/productdetail", { state: { Location: `/products/${product.prodCode}` } });
-                        // }}
+                            onClick={() => {
+                                setBoard(board);
+                                setBoardModalOpen(true);
+                            }}
                         >
                             상세
                         </button>
@@ -122,14 +119,10 @@ function SelectAllBoards({ search, bool, setBool }) {
                     <td>
                         <button
                             className={styles.acceptButton}
-                        // onClick={async () => {
-
-                        //     const address = `/products/${product.prodCode}`;
-
-                        //     await DeleteAPI(address);
-
-                        //     setBool(!bool);
-                        // }}
+                            onClick={async () => {
+                                setComments(board.comments);
+                                setCommentModalOpen(true);
+                            }}
                         >
                             댓글
                         </button>
@@ -143,17 +136,19 @@ function SelectAllBoards({ search, bool, setBool }) {
                     </td>
                     <td>
                         <button
-                            className={styles.cancelButton}
-                        // onClick={async () => {
+                            className={
+                                board?.postStatus === 'Y' ? styles.cancelButton : styles.acceptButton
+                            }
+                            onClick={async () => {
 
-                        //     const address = `/products/${product.prodCode}`;
+                                const address = `/post/${board.postCode}`;
 
-                        //     await DeleteAPI(address);
+                                await DeleteAPI(address);
 
-                        //     setBool(!bool);
-                        // }}
+                                setBool(!bool);
+                            }}
                         >
-                            게시 중단
+                            {board?.postStatus === 'Y' ? '게시 중단' : '게시'}
                         </button>
                     </td>
                 </tr>

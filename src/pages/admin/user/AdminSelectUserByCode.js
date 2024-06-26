@@ -4,13 +4,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { PutAPI } from "../../../api/RestAPIs";
 
-
 import SelectUserByCode from "../../../components/admin/user/SelectUserByCode";
 
 import styles from "../AdminPages.module.css";
 
 function AdminSelectUserByCode() {
-
 
     const [user, setUser] = useState();
     const [bool, setBool] = useState(true);

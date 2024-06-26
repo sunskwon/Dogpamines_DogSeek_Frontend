@@ -40,6 +40,9 @@ import AdminInsertDict from "./pages/admin/dict/AdminInsertDict.js";
 import AdminSelectDictByCode from "./pages/admin/dict/AdminSelectDictByCode.js"
 import AdminUpdateDict from "./pages/admin/dict/AdminUpdateDict.js";
 import AdminSelectAllBoards from "./pages/admin/board/AdminSelectAllBoards.js";
+import AdminInsertBoard from "./pages/admin/board/AdminInsertBoard.js";
+import AdminSelectBoardByCode from "./pages/admin/board/AdminSelectBoardByCode.js";
+import AdminUpdateBoard from "./pages/admin/board/AdminUpdateBoard.js";
 import AdminSelectAllUsers from "./pages/admin/user/AdminSelectAllUsers.js";
 import AdminSelectUserByCode from "./pages/admin/user/AdminSelectUserByCode.js"
 
@@ -64,9 +67,9 @@ function App() {
             <Route index element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/signupidentity" element={<SignUpIdentity/>}/>
-            <Route path="/signupinfo" element={<SignUpInfo/>}/>
-            <Route path="/signupcomplete" element={<SignUpComplete/>}/>
+            <Route path="/signupidentity" element={<SignUpIdentity />} />
+            <Route path="/signupinfo" element={<SignUpInfo />} />
+            <Route path="/signupcomplete" element={<SignUpComplete />} />
             <Route path="/curation" element={<Curation />} />
             <Route path="/curationsizeselect" element={<CurationSizeSelect />} />
             <Route path="/curationselectage" element={<CurationSelectAge />} />
@@ -105,6 +108,9 @@ function App() {
             <Route path="/admin/dictdetail" element={<AdminSelectDictByCode />} />
             <Route path="/admin/updatedict" element={<AdminUpdateDict />} />
             <Route path="/admin/boards" element={<AdminSelectAllBoards />} />
+            <Route path="/admin/insertboard" element={<AdminInsertBoard />} />
+            <Route path="/admin/boarddetail" element={<AdminSelectBoardByCode />} />
+            <Route path="/admin/updateboard" element={<AdminUpdateBoard />} />
             <Route path="/admin/users" element={<AdminSelectAllUsers />} />
             <Route path="/admin/userdetail" element={<AdminSelectUserByCode />} />
           </Route>

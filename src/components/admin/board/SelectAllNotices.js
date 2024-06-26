@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { GetAPI, DeleteAPI } from "../../../api/RestAPIs"
 
-import styles from "./Adminboards.module.css";
+import styles from "./AdminBoards.module.css";
 
 function SelectAllNotices({ search, bool, setBool }) {
 
@@ -84,26 +84,28 @@ function SelectAllNotices({ search, bool, setBool }) {
                     <td>
                         <button
                             className={styles.acceptButton}
-                            // onClick={() => {
-                            //     navigate("/admin/productdetail", { state: { Location: `/products/${product.prodCode}` } });
-                            // }}
+                            onClick={() => {
+                                navigate("/admin/boarddetail", { state: { Location: `/post/${notice.postCode}` } });
+                            }}
                         >
                             상세
                         </button>
                     </td>
                     <td>
                         <button
-                            className={styles.cancelButton}
-                            // onClick={async () => {
+                            className={
+                                notice?.postStatus === 'Y' ? styles.cancelButton : styles.acceptButton
+                            }
+                            onClick={async () => {
 
-                            //     const address = `/products/${product.prodCode}`;
+                                const address = `/post/${notice.postCode}`;
 
-                            //     await DeleteAPI(address);
+                                await DeleteAPI(address);
 
-                            //     setBool(!bool);
-                            // }}
+                                setBool(!bool);
+                            }}
                         >
-                            게시 중단
+                            {notice?.postStatus === 'Y' ? '게시 중단' : '게시'}
                         </button>
                     </td>
                 </tr>
