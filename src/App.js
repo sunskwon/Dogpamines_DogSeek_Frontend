@@ -48,15 +48,15 @@ function App() {
       <BrowserRouter>
         <Routes>
           {/* 로그인 O */}
-          {/* <Route path="/" element={<Layout2/>}>
+          <Route path="/complete" element={<Layout2/>}>
             <Route index element={<Main/>}/>
-            <Route path="/curation" element={<Curation/>}/>
+            {/* <Route path="/curation" element={<Curation/>}/>
             <Route path="/products" element={<Products/>}/>
             <Route path="/dogs" element={<Dogs/>}/>
             <Route path="/board" element={<Board/>}/>
             <Route path="/mypage" element={<Mypage/>}/>
-            <Route path="/company" element={<Company/>} />
-          </Route> */}
+            <Route path="/company" element={<Company/>} /> */}
+          </Route>
 
           {/* 로그인 X */}
           <Route path="/" element={<Layout1 />}>
