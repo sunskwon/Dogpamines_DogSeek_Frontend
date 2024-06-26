@@ -36,23 +36,22 @@
 .titletext2 {
     width: 50%;
     font-size: 20px;
-    color: #005600;
+    color: black;
     margin-top: 1%;
-    padding-left: 120px;
+    padding-left: 131px;
     z-index: 1;
 
-    letter-spacing: 0.5px;
+    letter-spacing: 0.2px;
     word-spacing: 4px;
     line-height: 160%;
 }
 
-.img {
-    width: 35%;
-    max-width: 30%;
-    margin-left: 55%;
+.img{
     position: absolute;
-    z-index: 0;
-
+    width: 400px;
+    height: 400px;
+    margin-left: 60%;
+    object-fit: contain;
 }
 
 .detailtitle {
@@ -80,25 +79,32 @@
 .grid3 {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 0px;
+    gap: 10px 0px;
     margin-bottom: 30px;
-    color: #005600;
+    color: black;
     
 }
 
 .grid4 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0px;
-    padding: 10px;
-    color: #005600;
+    color: black;
+    line-height: 200%;
+    
 }
 
 .grid5 {
     display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding-top: 5px;
+    padding-left: 110px;
+    color: black;
+}
+
+.grid6 {
+    display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
-    margin-bottom: 30px;
+    margin-bottom: 110px;
 }
 
 .detailcontext1 {
@@ -113,7 +119,7 @@
 
 .detailcontext2 {
 
-    color: #005600;
+    color: black;
     font-size: 18px;
     margin-left: 70px;
 

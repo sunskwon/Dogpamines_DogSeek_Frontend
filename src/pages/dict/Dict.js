@@ -64,6 +64,9 @@ function Dict(){
 
     const searchSubmitHandler = (e) => {
         e.preventDefault();
+        toggleLargeModal();
+        toggleMediumModal();
+        toggleSmallModal();
         console.log(search);
     }
 
@@ -100,13 +103,13 @@ function Dict(){
                 소형
             </button>
 
-                {isSmallModalOpen &&
+                {isSmallModalOpen && 
             <div className={styles.grid} >
                 {filterDogBySize('소형견').map((dog) => (
                     <Link to={`/dict/${dog.dogCode}`} key={dog.dogCode} state={{dogCode: dog.dogCode}}>
-                    <div className={styles.modalContainer} >
+                    <div className={styles.modalContainer}>
                        <img className={styles.dogImages} src={dog.dogImage}/>
-                       <p className={styles.dogName}>{dog.dogName}</p>
+                       <p className={styles.dogName}> {dog.dogName} </p>
                     </div>
                     </Link>
                 ))}
