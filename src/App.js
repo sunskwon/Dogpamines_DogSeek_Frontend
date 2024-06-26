@@ -8,6 +8,7 @@ import Company from "./pages/etc/Company.js";
 import Main from "./pages/Main";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Products from "./pages/products/Products.js";
+import ProductDetail from "./pages/products/ProductDetail.js";
 import Mypage from "./pages/mypage/Mypage.js";
 import Mydog from "./pages/mypage/Mydog.js"
 import Login from "./pages/auth/Login.js";
@@ -76,6 +77,7 @@ function App() {
             <Route path="/curationselectcook" element={<CurationSelectCook />} />
             <Route path="/curationresult" element={<CurationResult />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/productdetail" element={<ProductDetail/>} />
             <Route path="/dict" element={<Dict />} />
             <Route path="/dict/:dogCode" element={<DictDetail />} />
             <Route path="/board" element={<Board />} />
