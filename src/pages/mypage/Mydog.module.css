@@ -174,13 +174,17 @@
   
 .modalContent {
     width: 990px;
-    height: 520px;
+    height: 420px;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     display: grid;
     grid-template-rows: 2fr 1fr;
+}
+
+.modalLine1 {
+    height: 220px;
 }
 
 .modalTextContainer{
@@ -193,7 +197,7 @@
     width: 830px;
     display: flex;
     margin: 0 auto;
-    margin-bottom: 200px;
+    margin-bottom: 60px;
 }
 
 .modalText1 {
@@ -204,17 +208,35 @@
 
 .spanBox1{
     margin: 0;
-    width: 100px;
+    width: 500px;
     height: 220px;
+}
+
+.spanBox2 {
+    height: 50px;
+    display: flex;
+    margin-left: 120px;
 }
 
 .text6{
     font-size: 14px;
-    margin-left: 30px;
     text-align: left;
+    width: 100px;
+
 }
 
 .text7{
+    font-size: 14px;
+    text-align: left;
+    width: 100px;
+}
+
+.text8 {
+    font-size: 14px;
+    text-align: left;
+}
+
+.text9 {
     font-size: 14px;
     text-align: left;
 }
