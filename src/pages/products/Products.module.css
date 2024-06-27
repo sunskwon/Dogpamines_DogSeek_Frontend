@@ -1,0 +1,36 @@
+.box{
+    display: flex;
+    margin-left: 340px;
+    margin-top: 65px;
+}
+
+.searchBox {
+    width: 500px;
+    height: 52px;
+    border: 2px solid #005600;
+    border-radius: 50px;
+    padding-left: 30px;
+    font-size: 16px;
+    background-image: url("/public/images/product/Search.png"), url("/public/images/product/Line.png"), url("/public/images/product/Filter.png");
+    background-position: calc(100% - 23px) center, calc(100% - 62px) center, calc(100% - 81px) center;
+    background-repeat: no-repeat;
+    background-size: 25px 0px 20px;
+}
+
+input::placeholder {
+    font-size: 16px;
+    font-weight: 500;
+    color: #999999;
+}
+
+.selectBox {
+    width: 100px;
+    height: 58px;
+    border: 2px solid #005600;
+    border-radius: 50px;
+    margin-left: 10px;
+    padding: 10px;
+    font-size: 16px;
+    color: #999999;
+    font-weight: 500;
+}
