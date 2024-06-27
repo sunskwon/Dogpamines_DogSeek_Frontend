@@ -5,6 +5,8 @@ import styles from './Loding.module.css'
 const Loding = () => {
 
     return(
+        <>
+        <div style={{height:"1000px"}}></div>
         <div className={styles.overlay}>
             <div className={styles.loding}>
                 <Oval
@@ -19,6 +21,7 @@ const Loding = () => {
             </div>
             </div>
         </div>
+        </>
     );
 }
 
