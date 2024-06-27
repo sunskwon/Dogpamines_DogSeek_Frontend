@@ -1,6 +1,7 @@
 import Layout1 from "./layouts/Layout1.js"
 import Layout2 from "./layouts/Layout2.js";
 import Board from "./pages/board/Board.js";
+import BoardKakao from "./pages/board/BoardKakao.js";
 import BoardPost from "./pages/board/BoardPost.js";
 import BoardWiting from "./pages/board/BoardWiting.js"
 import Curation from "./pages/curation/Curation.js";
@@ -84,6 +85,7 @@ function App() {
             <Route path="/dict" element={<Dict />} />
             <Route path="/dict/:dogName" element={<DictDetail />} />
             <Route path="/board" element={<Board />} />
+            <Route path="/board/boardkakao" element={<BoardKakao />} />
             <Route path="/board/boardpost" element={<BoardPost />} />
             <Route path="/board/boardwiting" element={<BoardWiting />} />
             <Route path="/company" element={<Company />} />
