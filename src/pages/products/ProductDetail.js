@@ -157,7 +157,7 @@ function ProductDetail () {
                                         {comparison
                                             .map(comparison => (
                                                 <div key={comparison.prodCode} className={styles.comparisonBox}>
-                                                    <img src={comparison.prodImage} style={{width:"200px"}}/>
+                                                    <img src={comparison.prodImage} style={{width:"100%"}}/>
                                                     <div className={styles.prodTextBox}>
                                                         <p style={{fontWeight:"bold", fontSize:"12px", margin:"0"}}>평점</p>
                                                         <img src={getStarImage(comparison.prodGrade)} style={{width:"79px", height:"15px", marginTop:"2px", marginLeft:"5px"}}/>
