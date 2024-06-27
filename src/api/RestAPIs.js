@@ -10,6 +10,7 @@ export function GetAPI(address) {
                 'Content-Type': 'application/json',
                 'Accept': '*/*',
                 'Access-Cross-Allow-Origin': '*',
+                "Authorization": window.localStorage.getItem("accessToken")
             },
         }).then(res => res.json())
     );
@@ -27,6 +28,7 @@ export function PostAPI(address, Object) {
                 'Content-Type': 'application/json',
                 'Accept': '*/*',
                 'Access-Cross-Allow-Origin': '*',
+                "Authorization": window.localStorage.getItem("accessToken")
             },
             body: JSON.stringify(Object),
         })
@@ -45,6 +47,7 @@ export function PutAPI(address, Object) {
                 'Content-Type': 'application/json',
                 'Accept': '*/*',
                 'Access-Cross-Allow-Origin': '*',
+                "Authorization": window.localStorage.getItem("accessToken")
             },
             body: JSON.stringify(Object),
         })
@@ -61,6 +64,7 @@ export function DeleteAPI(address) {
             method: 'Delete',
             headers: {
                 'Access-Cross-Allow-Origin': '*',
+                "Authorization": window.localStorage.getItem("accessToken")
             },
         })
     );
@@ -86,11 +90,20 @@ export const callLoginAPI = async({ user }) => {
             })
         });
 
+        const jwtToken = response.headers.get("Authorization");
         const result = await response.json();
+        const userCode = result.userInfo.userCode;
+        const userNick = result.userInfo.userNick;
+        const userAuth = result.userInfo.userAuth;
+        console.log(`userCode : ${userCode}`)
         // console.log('[callLoginAPI] 로그인 API : ', result);
 
         if (response.status === 200) {
-            window.localStorage.setItem('accessToken', result);
+            // 토큰과 사용자 정보 localStorage에 저장
+            window.localStorage.setItem('userCode',userCode);
+            window.localStorage.setItem('userNick', userNick);
+            window.localStorage.setItem('userAuth', userAuth);
+            window.localStorage.setItem('accessToken', jwtToken);
         };
 
         return result;
