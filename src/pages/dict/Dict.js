@@ -106,7 +106,7 @@ function Dict(){
                 {isSmallModalOpen && 
             <div className={styles.grid} >
                 {filterDogBySize('소형견').map((dog) => (
-                    <Link to={`/dict/${dog.dogCode}`} key={dog.dogCode} state={{dogCode: dog.dogCode}}>
+                    <Link to={`/dict/${dog.dogName}`} key={dog.dogName} state={{dogName: dog.dogName}}>
                     <div className={styles.modalContainer}>
                        <img className={styles.dogImages} src={dog.dogImage}/>
                        <p className={styles.dogName}> {dog.dogName} </p>
@@ -126,7 +126,7 @@ function Dict(){
             {isMediumModalOpen &&
             <div className={styles.grid}>
                 {filterDogBySize('중형견').map((dog) => (
-                    <Link to={`/dict/${dog.dogCode}`}>
+                    <Link to={`/dict/${dog.dogName}`} key={dog.dogName} state={{dogName: dog.dogName}}>
                     <div className={styles.modalContainer} key={dog.dogCode}>
                        <img className={styles.dogImages} src={dog.dogImage}/>
                        <p className={styles.dogName}>{dog.dogName}</p> 
@@ -146,7 +146,7 @@ function Dict(){
             {isLargeModalOpen &&
             <div className={styles.grid}>
                 {filterDogBySize('대형견').map((dog) => (
-                    <Link to={`/dict/${dog.dogCode}`}>
+                    <Link to={`/dict/${dog.dogName}`} key={dog.dogName} state={{dogName: dog.dogName}}>
                     <div className={styles.modalContainer} key={dog.dogCode}>
                         <img className={styles.dogImages} src={dog.dogImage}/>
                         <p className={styles.dogName}>{dog.dogName}</p> 
