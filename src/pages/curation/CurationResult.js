@@ -129,6 +129,11 @@ function CurationResult() {
         });
     };
 
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('ko-KR').format(price);
+    };
+
+
     return (
         <div className={styles.mainBox}>
             <div className={styles.titleBox}>
@@ -156,19 +161,19 @@ function CurationResult() {
                             </td>
                         </div>
                         <div className={styles.textBox1}>
-                            <p className={styles.text}>제조사 - </p>
+                            <p className={styles.text}>제조사:</p>
                             <td className={styles.productText}>{product.prodManufac}</td>
                         </div>
                         <div className={styles.textBox1}>
-                            <p className={styles.text}>제품명 - </p>
+                            <p className={styles.text}>제품명:</p>
                             <td className={styles.productText}>{product.prodName}</td>
                         </div>
                         <div className={styles.textBox1}>
-                            <p className={styles.text}>가격 - </p>
-                            <td className={styles.productText}>{product.prodPrice}</td>
+                            <p className={styles.text}>가격:</p>
+                            <td className={styles.productText}>￦{formatPrice(product.prodPrice)}</td>
                         </div>
                         <div className={styles.textBox1}>
-                            <p className={styles.text}>제품기능 - </p>
+                            <p className={styles.text}>제품기능:</p>
                             <td className={styles.productText}>{product.prodEffi}</td>
                         </div>
                         <button className={styles.detailButton} onClick={() => onClick(product.prodCode)}>상세보기</button>
