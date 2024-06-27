@@ -24,6 +24,9 @@ function Login(){
                 console.log('auth')
                 // console.log(response.userInfo.userAuth);
                 const auth = response.userInfo.userAuth;
+
+                const userCode = window.localStorage.getItem("userCode");
+                console.log(`login userCode : ${userCode}`);
                 if (auth === 'ADMIN') {
                     navigate('/admin');
                 } else if (auth === 'USER') {
