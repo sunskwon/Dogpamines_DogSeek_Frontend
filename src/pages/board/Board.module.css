@@ -108,3 +108,32 @@ width: 250px;
 height: 150px;
 padding: 15px;
 }
+
+
+
+
+
+/* gagao */
+.wrap {padding: 40px 0; background-color: #D9D9D9; width: 1180px; margin: 20px auto; border-radius: 10px;;}
+
+/* 닉, 날짜 */
+.talk_date {display: flex; align-self: end; font-size: 14px;}
+.talk_nick{padding-left: 20px;}
+
+.wrap .chat {display: flex; align-items: flex-start; padding-left: 20px;}
+
+/* 공용 css */
+.wrap .chat .textbox {position: relative; display: inline-block; max-width: calc(50% - 70px); padding: 10px; margin-top: 7px; font-size: 13px; border-radius: 10px;}
+.wrap .chat .textbox::before {position: absolute;display: block; top: 0; font-size: 1.5rem;}
+
+.wrap .ch1 .textbox {background-color: white;}
+.wrap .ch1 .textbox::before {left: -15px; content: "◀"; color: white;}
+
+.wrap .ch2 {flex-direction: row-reverse; padding-top: 20px;}
+.wrap .ch2 .textbox {margin-right: 20px; background-color: #63C54A;}
+.wrap .ch2 .textbox::before {right: -15px; content: "▶"; color: #63C54A;}
+
+/* 답글 */
+.comment_wrap {width: 1180px;display: flex; justify-content: space-around; margin: 0 auto;}
+.comment_box {width: 1040px; height: 40px; border: 1px solid; border-radius: 10px; padding-left: 8px; color: #005600;}
+.comment_button {width: 100px; height: 44px; background-color: #005600; border: none; border-radius: 10px; color: white; display: flow; align-self: center;}
