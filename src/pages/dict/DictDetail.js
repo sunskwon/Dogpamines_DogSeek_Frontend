@@ -1,12 +1,12 @@
 import { GetAPI } from '../../api/RestAPIs';
 import styles from './DictDetail.module.css';
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 
 
 function DictDetail() {
 
-    const { dogCode } = useParams();
+    const { dogName } = useParams();
 
     const [dog, setDog] = useState();
 
@@ -31,13 +31,13 @@ function DictDetail() {
     };
 
     useEffect(() => {
-        if (dogCode) {
-            selectOneDict(dogCode).then(res => {
+        if (dogName) {
+            selectOneDict(dogName).then(res => {
                 setDog(res);
                 setLoading(false); 
             });
         }
-    }, [dogCode]);
+    }, [dogName]);
 
     useEffect(() => {
         if(dog && dog.dogDisease){
@@ -86,7 +86,7 @@ function DictDetail() {
     
     return (
         <>
-            <div className={styles.container1} key={dog.dogCode}>
+            <div className={styles.container1} key={dog.dogName}>
                 <div className={styles.title}>
                     <span className={styles.titletext1}>{dog.dogName}</span>
                     <div className={styles.titletext2}>
@@ -126,7 +126,7 @@ function DictDetail() {
 
                 <div className={styles.detailcontext1}>
                     생애주기
-                    <hr />
+                    <hr/>
                     <div className={styles.grid5}>
                         <div>유아기</div> <div>청년기</div> <div>노년기</div>
                         <div>{dog.dogChild}</div> <div>{dog.dogYouth}</div> <div>{dog.dogEld}</div>

@@ -86,9 +86,10 @@
 }
 
 .grid4 {
+    max-height: 120px;
+    overflow: auto;
     color: black;
     line-height: 200%;
-    
 }
 
 .grid5 {

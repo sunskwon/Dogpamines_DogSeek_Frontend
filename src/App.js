@@ -82,7 +82,7 @@ function App() {
             <Route path="/products" element={<Products />} />
             <Route path="/productdetail" element={<ProductDetail/>} />
             <Route path="/dict" element={<Dict />} />
-            <Route path="/dict/:dogCode" element={<DictDetail />} />
+            <Route path="/dict/:dogName" element={<DictDetail />} />
             <Route path="/board" element={<Board />} />
             <Route path="/board/boardpost" element={<BoardPost />} />
             <Route path="/board/boardwiting" element={<BoardWiting />} />
