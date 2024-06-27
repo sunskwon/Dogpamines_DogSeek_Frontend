@@ -74,7 +74,6 @@ function CurationResult() {
 
             const address = `/curationProducts`;
             await PostAPI(address, data);
-            console.log("이거는",data)                
     };
 
     useEffect(() => {
@@ -129,6 +128,11 @@ function CurationResult() {
         });
     };
 
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('ko-KR').format(price);
+    };
+
+
     return (
         <div className={styles.mainBox}>
             <div className={styles.titleBox}>
@@ -142,37 +146,37 @@ function CurationResult() {
             <p style={{color:"red", fontSize:"10px", margin: "0", fontWeight:"bold", marginLeft:"114px"}}>*해당 결과는 My Page에 있는 My Dog을 통해 재확인 가능합니다*</p>
             <div className={styles.productsBox}>
                 {products.map(product => (
-                    <tr key={product.prodCode} className={styles.productBox}>
-                        <td style={{ overflow: "hidden" }}>
+                    <div key={product.prodCode} className={styles.productBox}>
+                        <div style={{width:"100%", marginLeft:"10%"}}>
                             <img className={styles.imgBox} src={product.prodImage} alt={product.prodName} />
-                        </td>
-                        <div className={styles.textBox}>
-                            <p className={styles.text}>평점</p>
-                            <td style={{ marginLeft: '10px' }}>
-                                <img
-                                    src={getStarImage(product.prodGrade)}
-                                    alt={`${product.prodGrade} stars`}
-                                />
-                            </td>
+                            <div className={styles.textBox}>
+                                <p className={styles.text}>평점</p>
+                                <div style={{ marginLeft: '10px' }}>
+                                    <img
+                                        src={getStarImage(product.prodGrade)}
+                                        alt={`${product.prodGrade} stars`}
+                                    />
+                                </div>
+                            </div>
+                            <div className={styles.textBox1}>
+                                <p className={styles.text}>제조사:</p>
+                                <div className={styles.productText}>{product.prodManufac}</div>
+                            </div>
+                            <div className={styles.textBox1}>
+                                <p className={styles.text}>제품명:</p>
+                                <div className={styles.productText}>{product.prodName}</div>
+                            </div>
+                            <div className={styles.textBox1}>
+                                <p className={styles.text}>가격:</p>
+                                <div className={styles.productText}>￦{formatPrice(product.prodPrice)}</div>
+                            </div>
+                            <div className={styles.textBox1}>
+                                <p className={styles.text}>제품기능:</p>
+                                <div className={styles.productText}>{product.prodEffi}</div>
+                            </div>
+                            <button className={styles.detailButton} onClick={() => onClick(product.prodCode)}>상세보기</button>
                         </div>
-                        <div className={styles.textBox1}>
-                            <p className={styles.text}>제조사 - </p>
-                            <td className={styles.productText}>{product.prodManufac}</td>
-                        </div>
-                        <div className={styles.textBox1}>
-                            <p className={styles.text}>제품명 - </p>
-                            <td className={styles.productText}>{product.prodName}</td>
-                        </div>
-                        <div className={styles.textBox1}>
-                            <p className={styles.text}>가격 - </p>
-                            <td className={styles.productText}>{product.prodPrice}</td>
-                        </div>
-                        <div className={styles.textBox1}>
-                            <p className={styles.text}>제품기능 - </p>
-                            <td className={styles.productText}>{product.prodEffi}</td>
-                        </div>
-                        <button className={styles.detailButton} onClick={() => onClick(product.prodCode)}>상세보기</button>
-                    </tr>
+                    </div>
                 ))}
             </div>
         </div>
