@@ -37,6 +37,7 @@
 .button1{
     width: 140px;
     height: 40px;
+    display: flex;
     position: absolute;
     top: 66%;
     left: 23.5%;
@@ -47,6 +48,8 @@
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    align-items: center;
+    justify-content: center;
 }
 
 .img1{
@@ -90,7 +93,19 @@
 .text1{
     color: #999999;
     font-size: 16px;
-    cursor: pointer;;
+    cursor: pointer;
+}
+
+.text5{
+    color: #999999;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.text6{
+    color: #999999;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .line2{
@@ -110,13 +125,41 @@
     color: #63C54A;
 }
 
-.prodContainer{
-    width: 880px;
+.wrapContainer{
+    width: 879px;
     margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+}
+
+.prodContainer{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.prodText{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.text7{
+    margin-bottom: 0;
+    font-size: 16px;
+    color: #999999;
+    text-align: center;
+}
+
+.text8{
+    width: 200px;
+    margin-bottom: 0;
+    font-size: 14px;
+    color: #999999;
+    text-align: center;
 }
 
 .prodContainer2{
@@ -124,12 +167,11 @@
     margin: 0 auto;
     display: flex;
     justify-content: space-evenly;
-
 }
 
 
 .prods{
-    width: 250px;
+    width: 100%;
     border: 1px solid #D4D4D4;
     border-radius: 10px;
 }
@@ -153,9 +195,10 @@
     display: flex;
     margin: 0 auto;
     margin-top: 12px;
+    margin-bottom: 40px;
     align-items: center;
-    padding-left: 23px;
     cursor: pointer;
+    justify-content: center;
 }
 
 .line3{
@@ -201,6 +244,9 @@
     font-weight: bold;
     border: none;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .line4{
@@ -248,4 +294,7 @@
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

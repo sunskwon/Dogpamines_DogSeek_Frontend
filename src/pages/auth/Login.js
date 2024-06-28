@@ -30,12 +30,13 @@ function Login(){
                 if (auth === 'ADMIN') {
                     navigate('/admin');
                 } else if (auth === 'USER') {
-                    navigate('/complete');
+                    navigate('/');
                 } else if (auth === 'SLEEP') {
                     alert('휴면회원입니다.');
                 } else {
                     alert('올바르지 않은 접근입니다.');
-                }
+                };
+                window.location.reload();
             }
         }
     }
