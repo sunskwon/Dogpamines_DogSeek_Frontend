@@ -44,68 +44,88 @@ function SelectAllProducts({ search, bool, setBool }) {
 
     return (
         <>
-            {products.map(product => (
-                <tr
-                    key={product.prodCode}
-                >
-                    <td
-                        style={{ width: "80px", textAlign: "center", }}
-                    >
-                        {product.prodCode}
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "330px", height: "30px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
-                        >
-                            {product.prodName}
-                        </div>
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "100px", height: "30px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
-                        >
-                            {product.prodManufac}
-                        </div>
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "200px", height: "30px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
-                        >
-                            <a href={product.prodSite}
-                                style={{
-                                    fontSize: "14px",
-                                    color: "rgba(112, 178, 222, 1)",
-                                }}
-                            >{product.prodSite}</a>
-                        </div>
-                    </td>
-                    <td>
-                        <button
-                            className={styles.acceptButton}
-                            onClick={() => {
-                                navigate("/admin/productdetail", { state: { Location: `/products/${product.prodCode}` } });
-                            }}
-                        >
-                            상세
-                        </button>
-                    </td>
-                    <td>
-                        <button
-                            className={styles.cancelButton}
-                            onClick={async () => {
+            <table className={styles.productListTable}>
+                <tbody>
+                    <tr>
+                        <th>사료코드</th>
+                        <th>제품명</th>
+                        <th>제조사</th>
+                        <th>조회수</th>
+                        <th>사이트 주소</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <td colSpan={7}>
+                            <hr className={styles.tableLine} />
+                        </td>
+                    </tr>
+                    {products.map(product => (
+                        <tr key={product.prodCode}>
+                            <td style={{ width: "80px", }}>
+                                {product.prodCode}
+                            </td>
+                            <td>
+                                <div
+                                    className={styles.ellipsisBox}
+                                    style={{ width: "200px", }}
+                                >
+                                    {product.prodName}
+                                </div>
+                            </td>
+                            <td>
+                                <div
+                                    className={styles.ellipsisBox}
+                                    style={{ width: "100px", }}
+                                >
+                                    {product.prodManufac}
+                                </div>
+                            </td>
+                            <td>
+                                <div
+                                    className={styles.ellipsisBox}
+                                    style={{ width: "80px", }}
+                                >
+                                    {product.prodVisit}
+                                </div>
+                            </td>
+                            <td>
+                                <div
+                                    className={styles.ellipsisBox}
+                                    style={{ width: "200px", }}
+                                >
+                                    <a href={product.prodSite}>{product.prodSite}</a>
+                                </div>
+                            </td>
+                            <td>
+                                <button
+                                    className={styles.acceptButton}
+                                    onClick={() => {
+                                        navigate("/admin/productdetail", { state: { Location: `/products/${product.prodCode}` } });
+                                    }}
+                                >
+                                    상세
+                                </button>
+                            </td>
+                            <td>
+                                <button
+                                    className={styles.cancelButton}
+                                    onClick={async () => {
 
-                                const address = `/products/${product.prodCode}`;
+                                        const address = `/products/${product.prodCode}`;
 
-                                await DeleteAPI(address);
+                                        await DeleteAPI(address);
 
-                                setBool(!bool);
-                            }}
-                        >
-                            삭제
-                        </button>
-                    </td>
-                </tr>
-            ))}
+                                        setBool(!bool);
+                                    }}
+                                >
+                                    삭제
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </>
     );
 }

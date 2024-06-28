@@ -16,6 +16,8 @@ function AdminSelectAllProducts() {
 
     const navigate = useNavigate();
 
+    const input = document.getElementById('typeInput');
+
     const valueChangeHandler = e => {
         setSearch({
             ...search,
@@ -24,6 +26,7 @@ function AdminSelectAllProducts() {
     };
 
     const searchSubmitHandler = () => {
+        input.value = '';
         setBool(!bool);
     };
 
@@ -48,6 +51,7 @@ function AdminSelectAllProducts() {
                                 </option>
                             </select>
                             <input
+                                id="typeInput"
                                 name="input"
                                 style={{ width: "150px", height: "30px", }}
                                 onChange={valueChangeHandler}
@@ -73,28 +77,11 @@ function AdminSelectAllProducts() {
                     <div style={{ clear: "right", }}>
                     </div>
                     <div className={styles.productList}>
-                        <table className={styles.productListTable}>
-                            <tbody>
-                                <tr>
-                                    <th style={{ width: "80px", }}>사료코드</th>
-                                    <th style={{ width: "330px", }}>제품명</th>
-                                    <th style={{ width: "100px", }}>제조사</th>
-                                    <th style={{ width: "200px", }}>사이트 주소</th>
-                                    <th style={{ width: "100px", }}></th>
-                                    <th style={{ width: "100px", }}></th>
-                                </tr>
-                                <tr>
-                                    <td colSpan={6}>
-                                        <hr className={styles.tableLine} />
-                                    </td>
-                                </tr>
-                                <SelectAllProducts
-                                    search={search}
-                                    bool={bool}
-                                    setBool={setBool}
-                                />
-                            </tbody>
-                        </table>
+                        <SelectAllProducts
+                            search={search}
+                            bool={bool}
+                            setBool={setBool}
+                        />
                     </div>
                 </div>
             </div>
