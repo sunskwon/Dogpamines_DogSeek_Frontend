@@ -1,5 +1,4 @@
 import Layout1 from "./layouts/Layout1.js"
-import Layout2 from "./layouts/Layout2.js";
 import Board from "./pages/board/Board.js";
 import BoardKakao from "./pages/board/BoardKakao.js";
 import BoardPost from "./pages/board/BoardPost.js";
@@ -52,18 +51,6 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          {/* 로그인 O */}
-          <Route path="/complete" element={<Layout2/>}>
-            <Route index element={<Main/>}/>
-            {/* <Route path="/curation" element={<Curation/>}/>
-            <Route path="/products" element={<Products/>}/>
-            <Route path="/dogs" element={<Dogs/>}/>
-            <Route path="/board" element={<Board/>}/>
-            <Route path="/mypage" element={<Mypage/>}/>
-            <Route path="/company" element={<Company/>} /> */}
-          </Route>
-
-          {/* 로그인 X */}
           <Route path="/" element={<Layout1 />}>
             <Route index element={<Main />} />
             <Route path="/login" element={<Login />} />

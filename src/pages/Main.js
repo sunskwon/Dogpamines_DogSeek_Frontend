@@ -1,6 +1,29 @@
+import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
 import styles from './Main.module.css'
+import { useState, useEffect } from "react";
+import { GetAPI } from '../api/RestAPIs';
 
 function Main(){
+
+    const navigate = useNavigate();
+
+    const { prodCode } = useParams();
+
+    const [lastProds, setLastProds] = useState([]);
+
+    const fetchProds = async () => {
+        const prodsAddress = `/lastProds`
+        const prodsResponse =  await GetAPI(prodsAddress);
+        setLastProds(prodsResponse.lastProds);
+    };
+
+    useEffect(() => {
+        fetchProds(prodCode);
+    },[prodCode]);
+
+    const handleProductClick = (prodCode) => {
+        navigate(`/productdetail/${prodCode}`);
+    };
 
     return(
         <>
@@ -8,7 +31,7 @@ function Main(){
                 <div className={styles.title}>
                     <p className={styles.title1}>Help your dogs<br/>
                     Health</p>
-                    <button className={styles.button1}>맞춤 사료 찾기</button>
+                    <Link to={'/curation'} className={styles.button1} >맞춤 사료 찾기</Link>
                     <img className={styles.img1} src='./images/main/maindog1.png'/>
                 </div>
                 <div>    
@@ -18,32 +41,39 @@ function Main(){
                 <hr className={styles.line1}/>
                 <p className={styles.title2}>Our Services</p>
                 <div className={styles.iconContainer}>
-                    <img className={styles.icon1} src='./images/main/Icon1.png' alt='견종백과'/>
-                    <img className={styles.icon1} src='./images/main/Icon2.png' alt='맞춤 사료 찾기'/>
-                    <img className={styles.icon1} src='./images/main/Icon3.png' alt='게시판'/>
+                    <NavLink to={'/dict'}>
+                        <img className={styles.icon1} src='./images/main/Icon1.png' alt='견종백과'/>
+                    </NavLink>
+                    <NavLink to={'/curation'}>
+                        <img className={styles.icon1} src='./images/main/Icon2.png' alt='맞춤 사료 찾기'/>
+                    </NavLink>
+                    <NavLink to={'/board'}>
+                        <img className={styles.icon1} src='./images/main/Icon3.png' alt='게시판'/>
+                    </NavLink>
                 </div>
                 <div className={styles.iconContainer1}>
-                    <p className={styles.text1}>견종백과</p>
-                    <p className={styles.text1}>맞춤사료찾기</p>
-                    <p className={styles.text1}>게시판</p>
+                    <Link to={'/dict'} className={styles.text1}>견종백과</Link>
+                    <Link to={'/curation'} className={styles.text5}>맞춤사료찾기</Link>
+                    <Link to={'/board'} className={styles.text6}>게시판</Link>
                 </div>
             </div>
             <div className={styles.container2}>
                 <hr className={styles.line2}/>
                 <span className={styles.title3}>User's</span>
                 <span className={styles.title4}> Best</span>
-                <div className={styles.prodContainer}>
-                    <img className={styles.prods} src='./images/main/goNative1.png'/>
-                    <img className={styles.prods} src='./images/main/goNative2.png'/>
-                    <img className={styles.prods} src='./images/main/goNative3.png'/>
+                <div className={styles.wrapContainer}>
+                {lastProds.map(prod => (
+                    <div className={styles.prodContainer} key={prod.prodCode} onClick={()=> handleProductClick(prod.prodCode)}>
+                        <img className={styles.prods} src={prod.prodImage}/>
+                        <div className={styles.prodText}>
+                            <p className={styles.text7}>{prod.prodManufac}</p>
+                            <p className={styles.text8}>{prod.prodName}</p>
+                        </div>
+                    </div>
+                ))}
                 </div>
-                <div className={styles.prodContainer2}>
-                    <p className={styles.text2}>고네이티브<br/>스몰브리드 청어</p>
-                    <p className={styles.text2}>고네이티브<br/>스몰브리드 오리</p>
-                    <p className={styles.text2}>고네이티브<br/>스몰브리드 연어</p>
                 </div>
-                <button className={styles.button2}>사료 검색하기</button>
-            </div>
+                <Link to={'/products'} className={styles.button2}>사료 검색하기</Link>
             <div className={styles.container2}>
                 <hr className={styles.line3}></hr>
                 <div className={styles.dogsContainer}>
@@ -58,13 +88,15 @@ function Main(){
                         사회화는 물론이고 기본적인 행복과 관련된 요구를 비롯해 <br/>
                         사회적, 행동적 요구까지 해결해주는 것이 좋습니다.<br/>
                         </p>
-                    <button className={styles.button3}>더 알아가기</button>
+                    <Link to={'/dict'} className={styles.button3}>더 알아가기</Link>
                     </div>
                 </div>
             </div>
             <div className={styles.container2}>
                 <hr className={styles.line4}></hr>
-                <img className={styles.img3} src='./images/main/boards1.png'/>
+                <NavLink to={'/board'}>
+                    <img className={styles.img3} src='./images/main/boards1.png' />
+                </NavLink>
             </div>
             <div className={styles.container2}>
                 <hr className={styles.line5}></hr>
@@ -74,7 +106,7 @@ function Main(){
                         <p className={styles.title6}>About DogSeek</p>
                         <p className={styles.text4}>반려견의 취향 혹은 필요한 요소 등을 통해 <br/>
                         적합한 사료를 추천해주는 큐레이션 서비스를 제공하는 사이트 입니다.</p>
-                        <button className={styles.button4}>회사 소개</button>
+                        <Link to={'/company'} className={styles.button4}>회사 소개</Link>
                     </div>
                 </div>
             </div>

@@ -35,6 +35,7 @@ a{
 
 .rightText {
     margin-right: 22px;
+    cursor: pointer;
 }
 
 .mainText{
