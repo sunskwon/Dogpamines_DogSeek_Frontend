@@ -1,9 +1,14 @@
 import styles from './SignUpIdentity.module.css';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
+import { checkAPI } from '../../api/RestAPIs';
 
 function SignUpIdentity(){
     const [email, setEmail] = useState("");
+    const [checkEmail, setCheckEmail] = useState({
+        type: '',
+        info: ''
+    });
     const [authNum, setAuthNum] = useState("");
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [showConfirmed, setShowConfirmed] = useState(true);
@@ -18,17 +23,30 @@ function SignUpIdentity(){
     // email 정규식
     const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
 
-    const onEmailChange = (e) => setEmail(e.target.value);
+    const onEmailChange = (e) => {
+        setEmail(e.target.value);
+        setCheckEmail({...checkEmail, type: 'email', info: e.target.value});
+    };
     const onAuthNumChange = (e) => setAuthNum(e.target.value);
 
-    const onClickConfirm = () => {
+    const onClickConfirm = async () => {
         // 이메일 유효성 검사
         if (email.length !== 0 && emailRegEx.test(email)) {  // 빈 문자열이 아니고 정규식에 맞을때
             // 이메일 중복 여부 확인 로직 (백에서 처리)
             console.log(`email : ${email}`);
-            setIsConfirmed(true);
-            setShowConfirmed(false);
-            setShowCheck(true);
+            console.log(`checkEmail : ${checkEmail.info}`);
+            console.log(`type : ${checkEmail.type}`);
+
+            const result = await checkAPI(checkEmail);
+            console.log(`result : ${result}`);
+
+            if(result === 'true') {
+                setIsConfirmed(true);
+                setShowConfirmed(false);
+                setShowCheck(true);
+            } else {
+                alert('중복된 이메일 입니다.');
+            }
         } else if (!emailRegEx.test(email)) {   // 정규식에 맞지 않을 때
             setShowEmailModal(true);
         } else {

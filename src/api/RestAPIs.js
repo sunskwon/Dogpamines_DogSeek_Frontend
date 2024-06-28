@@ -92,6 +92,7 @@ export const callLoginAPI = async({ user }) => {
 
         const jwtToken = response.headers.get("Authorization");
         const result = await response.json();
+        
         const userCode = result.userInfo.userCode;
         const userNick = result.userInfo.userNick;
         const userAuth = result.userInfo.userAuth;
@@ -113,3 +114,72 @@ export const callLoginAPI = async({ user }) => {
         return { status: 'error', message: error.message };
     }
 };
+
+export const checkAPI = async (check) => {
+    const requestURL = 'http://localhost:8080/user/check';
+
+    try {
+        const response = await fetch(requestURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+                'Access-Control-Allow-Origin': '*', // CORS 설정
+            },
+            body: JSON.stringify(check),
+        });
+
+        console.log(`response : ${response}`);
+        console.log(`headers : ${response.headers}`);
+
+        if (response.status === 200) {
+            // 모든 헤더 출력
+            const allHeaders = [];
+            for (let pair of response.headers.entries()) {
+                allHeaders.push(`${pair[0]}: ${pair[1]}`);
+            }
+            console.log('Response headers:', allHeaders);
+
+            const result = response.headers.get("Result");
+            console.log(`q result : ${result}`);
+            return result;
+        } else {
+            console.error(`HTTP 상태 코드: ${response.status}`);
+            return null;
+        }
+    } catch (error) {
+        console.error('에러 발생', error);
+        return { status: 'error', message: error.message };
+    }
+};
+
+// 회원가입
+export const callRegisterAPI = async ({ user }) => {
+
+    const requestURL = 'http://localhost:8080/signup';
+
+    const requestBody = JSON.stringify({
+        userId: user.userId,
+        userPass: user.password,
+        userNick: user.nick,
+        userPhone: user.phone
+    });
+
+    const response = await fetch(requestURL, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "*/*"
+        },
+        body: requestBody
+    });
+
+    const result = await response.json();
+
+    if (result.status === 201) {
+        return result;
+    } else {
+        throw new Error("Failed to register");
+    }
+
+}

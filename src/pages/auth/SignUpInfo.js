@@ -1,14 +1,26 @@
 import styles from './SignUpInfo.module.css';
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { checkAPI } from '../../api/RestAPIs';
 
 function SignUpInfo() {
 
     const [user, setUser] = useState({
+        userId: '',
         nick: '',
         password: '',
         rePassword: '',
         phone: ''
+    });
+
+    const [checkNick, setCheckNick] = useState({
+        type: '',
+        info: ''
+    });
+
+    const [checkPhone, setCheckPhone] = useState({
+        type: '',
+        info: ''
     });
 
     const [pwdHide, setPwdHide] = useState(true);
@@ -46,17 +58,24 @@ function SignUpInfo() {
     // 연락처('-' 사용)
     const phoneRegEx = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
 
-    const onNickChange = (e) => setUser({...user, nick: e.target.value});
+    const onNickChange = (e) => {
+        setUser({...user, nick: e.target.value});
+        setCheckNick({...checkNick, type: 'nick', info: e.target.value});
+    };
     const onPwdChange = (e) => {
         const temp = e.target.value;
-        setUser({...user, password: temp});
-        if (pwdRegEx.test(user.password)) {
+
+        if (pwdRegEx.test(temp)) {
             setShowPwdDefault(false);
             setShowPwdTxt(true);
         } else {
             setShowPwdTxt(false);
             setShowPwdDefault(true);
         }
+
+        setUser({...user, password: temp});
+        console.log(`pwd : ${temp}`)
+        console.log(`length : ${temp.length}`);
     }
     const onPwdReChange = (e) => {
         const temp = e.target.value;
@@ -71,15 +90,25 @@ function SignUpInfo() {
             setShowRePwdError(true);
         }
     }
-    const onPhoneChange = (e) => setUser({...user, phone: e.target.value});
+    const onPhoneChange = (e) => {
+        setUser({...user, phone: e.target.value});
+        setCheckPhone({...checkPhone, type: 'phone', info: e.target.value});
+    }
 
-    const onClickConfirm = () => {
+    const onClickConfirm = async () => {
         // 닉네임 유효성 검사
         if (nickRegEx.test(user.nick)) {
             // 닉네임 중복 여부 확인 로직 (백에서 처리)
             console.log(`nick : ${user.nick}`);
-            setShowCheck(true);
-            setShowConfirmed(false);
+            const result = await checkAPI(checkNick);
+            console.log(`result : ${result}`);
+
+            if(result === 'true') {
+                setShowCheck(true);
+                setShowConfirmed(false);
+            } else {
+                alert('중복된 닉네임 입니다.');
+            }
         } else if (!nickRegEx.test(user.nick)) { 
             setShowNickModal(true);
         } else {
@@ -109,10 +138,18 @@ function SignUpInfo() {
         }
     }
 
-    const onClickComplete = () => {
+    const onClickComplete = async () => {
         const phoneCheck = phoneRegEx.test(user.phone);
         if (showCheck && showPwdTxt && showRePwdTxt && phoneCheck) {    // 모든 항목 true 일때
-            navigate('/signupcomplete');
+            const result =  await checkAPI(checkPhone);
+            console.log(`result : ${result}`);
+
+            if(result === 'true') {
+                navigate('/signupcomplete');
+            } else {
+                alert('중복된 연락처 입니다.');
+            }
+            
         } else if (!showCheck) {
             setShowNickCheckModal(true);
         } else if (showCheck && !showPwdTxt) {
@@ -133,8 +170,8 @@ function SignUpInfo() {
     }
 
     useEffect(() => {
-
-    })
+        setUser({...user, userId: email});
+    }, [user.userId]);
 
     return (
         <>
