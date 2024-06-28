@@ -56,8 +56,8 @@ function SelectProductByCode({ Location }) {
                                 <div className={styles.detailBoxMid}>
                                     <p>제품명</p>
                                     <div
-                                        className={styles.spanBox}
-                                        style={{ width: "290px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
+                                        className={`${styles.spanBox} ${styles.ellipsisBox}`}
+                                        style={{ width: "290px", }}
                                     >
                                         <span>{product?.prodName}</span>
                                     </div>
@@ -66,15 +66,15 @@ function SelectProductByCode({ Location }) {
                             <div style={{ clear: "both", }}>
                                 <div className={styles.detailBoxShort}>
                                     <p>제조사</p>
-                                    <div className={styles.spanBox}>
+                                    <div className={`${styles.spanBox} ${styles.ellipsisBox}`}>
                                         <span>{product?.prodManufac}</span>
                                     </div>
                                 </div>
                                 <div className={styles.detailBoxMid}>
                                     <p>사이트 주소</p>
                                     <div
-                                        className={styles.spanBox}
-                                        style={{ width: "290px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}>
+                                        className={`${styles.spanBox} ${styles.ellipsisBox}`}
+                                        style={{ width: "290px", }}>
                                         <a href={product?.prodSite}>
                                             {product?.prodSite}
                                         </a>
@@ -91,7 +91,7 @@ function SelectProductByCode({ Location }) {
                                 <div className={styles.detailBoxShort}>
                                     <p>조회수</p>
                                     <div className={styles.spanBox}>
-                                        <span>0회</span>
+                                        <span>{`${product?.prodVisit}회`}</span>
                                     </div>
                                 </div>
                                 <div className={styles.detailBoxShort}>
