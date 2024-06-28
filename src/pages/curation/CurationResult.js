@@ -125,8 +125,8 @@ function CurationResult() {
                     cook: cook,
                     size: size
                 } 
-        });
-    };
+            });
+        };
 
     const formatPrice = (price) => {
         return new Intl.NumberFormat('ko-KR').format(price);
