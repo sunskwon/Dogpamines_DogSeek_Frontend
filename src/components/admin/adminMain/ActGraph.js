@@ -31,7 +31,7 @@ ChartJS.register(
     BarController
 );
 
-function UserGraph({ counts }) {
+function ActGraph({ counts }) {
 
     const [reverseCounts, setReverseCounts] = useState([]);
 
@@ -40,8 +40,8 @@ function UserGraph({ counts }) {
         setReverseCounts(reverse);
     }, [counts]);
 
-    let accumSignup = 1;
-    let accumSignin = 0;
+    let accumProducts = 1;
+    let accumBoards = 0;
 
     const labels = reverseCounts?.map(count => count?.countsDate);
 
@@ -50,39 +50,39 @@ function UserGraph({ counts }) {
         datasets: [
             {
                 type: 'line',
-                label: '누적 가입자 수',
-                borderColor: 'rgba(99, 197, 74, 1)',
+                label: '누적 사료 조회',
+                borderColor: 'rgba(212, 212, 212, 1)',
                 borderWidth: 2,
                 fill: false,
                 data: reverseCounts?.map(count => {
-                    accumSignup += count?.countsSignup
-                    return accumSignup;
+                    accumProducts += count?.countsProducts
+                    return accumProducts;
                 }),
             },
             {
                 type: 'line',
-                label: '누적 접속자 수',
-                borderColor: 'rgba(0, 86, 0, 1)',
+                label: '누적 게시물',
+                borderColor: 'rgba(153, 153, 153, 1)',
                 borderWidth: 2,
                 fill: false,
                 data: reverseCounts?.map(count => {
-                    accumSignin += count?.countsSignin
-                    return accumSignin;
+                    accumBoards += count?.countsBoards
+                    return accumBoards;
                 }),
             },
             {
                 type: 'bar',
-                label: '가입자 수',
-                backgroundColor: 'rgba(99, 197, 74, 1)',
-                data: reverseCounts.map(count => count?.countsSignup),
+                label: '사료 조회 수',
+                backgroundColor: 'rgba(212, 212, 212, 1)',
+                data: reverseCounts.map(count => count?.countsProducts),
                 borderColor: 'white',
                 borderWidth: 1,
             },
             {
                 type: 'bar',
-                label: '접속자 수',
-                backgroundColor: 'rgba(0, 86, 0, 1)',
-                data: reverseCounts.map(count => count?.countsSignin),
+                label: '게시물 작성',
+                backgroundColor: 'rgba(153, 153, 153, 1)',
+                data: reverseCounts.map(count => count?.countsBoards),
                 borderColor: 'white',
                 borderWidth: 1,
             },
@@ -129,4 +129,4 @@ function UserGraph({ counts }) {
     );
 }
 
-export default UserGraph;
+export default ActGraph;

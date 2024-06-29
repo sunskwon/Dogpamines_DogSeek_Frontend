@@ -1,8 +1,29 @@
+import { useState, useEffect } from "react";
+
+import { GetAPI } from "../../api/RestAPIs";
+
 import DashBoardGraph from "../../components/admin/adminMain/DashBoardGraph";
 
 import styles from "./AdminPages.module.css"
 
 function AdminDashBoard() {
+
+    const [counts, setCounts] = useState([]);
+
+    const call = async () => {
+
+        const address = '/dashboard';
+
+        const response = await GetAPI(address);
+
+        const result = response.Counts;
+
+        return result;
+    };
+
+    useEffect(() => {
+        call().then(res => setCounts(res));
+    }, []);
 
     return (
         <div>
@@ -14,7 +35,9 @@ function AdminDashBoard() {
                 >
                     <p className={styles.subjectTitle}>한눈에 살펴보기</p>
                     <div style={{ clear: "both", }}>
-                        <DashBoardGraph />
+                        <DashBoardGraph
+                            counts={counts}
+                        />
                     </div>
                 </div>
                 <div style={{ display: "flex", }}>
