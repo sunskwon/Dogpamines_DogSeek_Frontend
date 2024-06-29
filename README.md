@@ -1,7 +1,6 @@
 <br>
 <h1 align="middle" style="text-weight: bold">DogSeek 애견 맞춤 식품 Curation</h1>
 
-
 ## 프로젝트 소개
 입력된 강아지의 정보를 기반으로 보유 중인 사료와 간식 데이터들 중 사용자의 요구사항에 가장 적합한 제품을 추천해주는 서비스입니다.
 <br>
