@@ -94,13 +94,13 @@ export const callLoginAPI = async ({ user }) => {
 
         if (response.status === 200 && jwtToken) {
 
-            // 토큰과 사용자 정보 localStorage에 저장
+            // 토큰 localStorage에 저장
             window.localStorage.setItem('accessToken', jwtToken);
 
-            const result = await response.json();
+            const result = 'true';
             return result;
         } else {
-            const result = await response.json();
+            const result = 'false';
             return result;
         }
 
