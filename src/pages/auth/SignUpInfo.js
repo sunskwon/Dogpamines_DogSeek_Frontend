@@ -1,7 +1,7 @@
 import styles from './SignUpInfo.module.css';
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { checkAPI } from '../../api/RestAPIs';
+import { callRegisterAPI, checkAPI } from '../../api/RestAPIs';
 
 function SignUpInfo() {
 
@@ -145,7 +145,14 @@ function SignUpInfo() {
             console.log(`result : ${result}`);
 
             if(result === 'true') {
-                navigate('/signupcomplete');
+
+                const signupResult = await callRegisterAPI({user});
+
+                if(signupResult) {
+                    navigate('/signupcomplete');
+                } else {
+                    alert('회원가입에 실패했습니다.');
+                }
             } else {
                 alert('중복된 연락처 입니다.');
             }
