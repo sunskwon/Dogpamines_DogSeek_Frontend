@@ -2,6 +2,7 @@ import styles from "./Login.module.css";
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { callLoginAPI } from "../../api/RestAPIs";
+import { jwtDecode } from 'jwt-decode';
 
 function Login(){
 
@@ -23,9 +24,22 @@ function Login(){
             if (response) {
                 console.log('auth')
                 // console.log(response.userInfo.userAuth);
+                const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
+
+                const userCode = decodedToken.userCode;
+                const userNick = decodedToken.userNick;
+                const userAuth = decodedToken.userAuth;
+                console.log(`userCode: ${userCode}`);
+                console.log(`userNick: ${userNick}`);
+                console.log(`userAuth: ${userAuth}`);
+
+                window.localStorage.setItem('userCode', userCode);
+                window.localStorage.setItem('userNick', userNick);
+                window.localStorage.setItem('userAuth', userAuth);
+
                 const auth = response.userInfo.userAuth;
 
-                const userCode = window.localStorage.getItem("userCode");
+                // const userCode = window.localStorage.getItem("userCode");
                 console.log(`login userCode : ${userCode}`);
                 if (auth === 'ADMIN') {
                     navigate('/admin');
