@@ -44,9 +44,9 @@ function AdminInsertDict() {
         const address = '/dict';
 
         const response = await PostAPI(address, dict);
-        
+
         navigate("/admin/dictdetail", {
-            state: { Location: response.headers.get('Location')}
+            state: { Location: response.headers.get('Location') }
         })
     };
 

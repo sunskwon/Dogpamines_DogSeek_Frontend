@@ -1,19 +1,23 @@
-import UserGraph from "./UserGraph";
-import ActGraph from "./ActGraph";
+import DiscreteGraph from "./DiscreteGraph";
+import AccumulateGraph from "./AccumulateGraph";
 
-function DashBoardGraph({ counts }) {
+function DashBoardGraph({ counts, date }) {
 
     return (
-        <div style={{ display: "flex", }}>
-            <div style={{ width: "480px", }}>
-                <UserGraph
-                    counts={counts}
-                />
-            </div>
-            <div style={{ width: "480px", }}>
-                <ActGraph
-                    counts={counts}
-                />
+        <div>
+            <div style={{ display: "flex", }}>
+                <div style={{ width: "480px", }}>
+                    <DiscreteGraph
+                        counts={counts}
+                        date={date}
+                    />
+                </div>
+                <div style={{ width: "480px", }}>
+                    <AccumulateGraph
+                        counts={counts}
+                        date={date}
+                    />
+                </div>
             </div>
         </div>
     );

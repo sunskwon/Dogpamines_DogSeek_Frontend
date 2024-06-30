@@ -31,17 +31,14 @@ ChartJS.register(
     BarController
 );
 
-function ActGraph({ counts }) {
+function DiscreteGraph({ counts, date }) {
 
     const [reverseCounts, setReverseCounts] = useState([]);
 
     useEffect(() => {
-        const reverse = counts?.slice(0, 7).reverse().map(num => num);
+        const reverse = counts?.slice(0, date).reverse().map(num => num);
         setReverseCounts(reverse);
-    }, [counts]);
-
-    let accumProducts = 1;
-    let accumBoards = 0;
+    }, [counts, date]);
 
     const labels = reverseCounts?.map(count => count?.countsDate);
 
@@ -49,39 +46,33 @@ function ActGraph({ counts }) {
         labels,
         datasets: [
             {
-                type: 'line',
-                label: '누적 사료 조회',
-                borderColor: 'rgba(212, 212, 212, 1)',
-                borderWidth: 2,
-                fill: false,
-                data: reverseCounts?.map(count => {
-                    accumProducts += count?.countsProducts
-                    return accumProducts;
-                }),
-            },
-            {
-                type: 'line',
-                label: '누적 게시물',
-                borderColor: 'rgba(153, 153, 153, 1)',
-                borderWidth: 2,
-                fill: false,
-                data: reverseCounts?.map(count => {
-                    accumBoards += count?.countsBoards
-                    return accumBoards;
-                }),
+                type: 'bar',
+                label: '가입자',
+                backgroundColor: 'rgba(153, 153, 153, 1)',
+                data: reverseCounts?.map(count => count?.countsSignup),
+                borderColor: 'white',
+                borderWidth: 1,
             },
             {
                 type: 'bar',
-                label: '사료 조회 수',
-                backgroundColor: 'rgba(212, 212, 212, 1)',
+                label: '접속자',
+                backgroundColor: 'rgba(99, 197, 74, 1)',
+                data: reverseCounts?.map(count => count?.countsSignin),
+                borderColor: 'white',
+                borderWidth: 1,
+            },
+            {
+                type: 'bar',
+                label: '사료 조회',
+                backgroundColor: 'rgba(0, 86, 0, 1)',
                 data: reverseCounts.map(count => count?.countsProducts),
                 borderColor: 'white',
                 borderWidth: 1,
             },
             {
                 type: 'bar',
-                label: '게시물 작성',
-                backgroundColor: 'rgba(153, 153, 153, 1)',
+                label: '게시물',
+                backgroundColor: 'rgba(212, 212, 212, 1)',
                 data: reverseCounts.map(count => count?.countsBoards),
                 borderColor: 'white',
                 borderWidth: 1,
@@ -129,4 +120,4 @@ function ActGraph({ counts }) {
     );
 }
 
-export default ActGraph;
+export default DiscreteGraph;

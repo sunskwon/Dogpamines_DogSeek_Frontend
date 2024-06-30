@@ -31,17 +31,42 @@ ChartJS.register(
     BarController
 );
 
-function UserGraph({ counts }) {
+function AccumulateGraph({ counts, date }) {
 
     const [reverseCounts, setReverseCounts] = useState([]);
+    const [signup, setSignup] = useState(0);
+    const [signin, setSignin] = useState(0);
+    const [products, setProducts] = useState(0);
+    const [boards, setBoards] = useState(0);
 
     useEffect(() => {
-        const reverse = counts?.slice(0, 7).reverse().map(num => num);
-        setReverseCounts(reverse);
-    }, [counts]);
+        const reverse = counts?.slice(0, date).reverse().map(num => num);
+        const remains = counts?.slice(date).map(num => num);
 
-    let accumSignup = 1;
+        let i = 0;
+        let remainSignup = 0;
+        let remainSignin = 0;
+        let remainProducts = 0;
+        let remainBoards = 0;
+
+        for (i; i < remains.length; i++) {
+            remainSignup += remains[i].countsSignup;
+            remainSignin += remains[i].countsSignin;
+            remainProducts += remains[i].countsProducts;
+            remainBoards += remains[i].countsBoards;
+        }
+
+        setReverseCounts(reverse);
+        setSignup(remainSignup);
+        setSignin(remainSignin);
+        setProducts(remainProducts);
+        setBoards(remainBoards);
+    }, [counts, date]);
+
+    let accumSignup = 0;
     let accumSignin = 0;
+    let accumProducts = 0;
+    let accumBoards = 0;
 
     const labels = reverseCounts?.map(count => count?.countsDate);
 
@@ -50,41 +75,47 @@ function UserGraph({ counts }) {
         datasets: [
             {
                 type: 'line',
-                label: '누적 가입자 수',
-                borderColor: 'rgba(99, 197, 74, 1)',
+                label: '누적 가입자',
+                borderColor: 'rgba(212, 212, 212, 1)',
                 borderWidth: 2,
                 fill: false,
                 data: reverseCounts?.map(count => {
                     accumSignup += count?.countsSignup
-                    return accumSignup;
+                    return signup + accumSignup;
                 }),
             },
             {
                 type: 'line',
-                label: '누적 접속자 수',
-                borderColor: 'rgba(0, 86, 0, 1)',
+                label: '누적 접속자',
+                borderColor: 'rgba(99, 197, 74, 1)',
                 borderWidth: 2,
                 fill: false,
                 data: reverseCounts?.map(count => {
                     accumSignin += count?.countsSignin
-                    return accumSignin;
+                    return signin + accumSignin;
                 }),
             },
             {
-                type: 'bar',
-                label: '가입자 수',
-                backgroundColor: 'rgba(99, 197, 74, 1)',
-                data: reverseCounts.map(count => count?.countsSignup),
-                borderColor: 'white',
-                borderWidth: 1,
+                type: 'line',
+                label: '누적 사료 조회',
+                borderColor: 'rgba(0, 86, 0, 1)',
+                borderWidth: 2,
+                fill: false,
+                data: reverseCounts?.map(count => {
+                    accumProducts += count?.countsProducts
+                    return products + accumProducts;
+                }),
             },
             {
-                type: 'bar',
-                label: '접속자 수',
-                backgroundColor: 'rgba(0, 86, 0, 1)',
-                data: reverseCounts.map(count => count?.countsSignin),
-                borderColor: 'white',
-                borderWidth: 1,
+                type: 'line',
+                label: '누적 게시물',
+                borderColor: 'rgba(212, 212, 212, 1)',
+                borderWidth: 2,
+                fill: false,
+                data: reverseCounts.map(count => {
+                    accumBoards += count?.countsBoards
+                    return boards + accumBoards;
+                }),
             },
         ],
     };
@@ -129,4 +160,4 @@ function UserGraph({ counts }) {
     );
 }
 
-export default UserGraph;
+export default AccumulateGraph;
