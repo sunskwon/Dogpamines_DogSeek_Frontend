@@ -6,12 +6,14 @@ import DashBoardGraph from "../../components/admin/adminMain/DashBoardGraph";
 import DashBoardSummary from "../../components/admin/adminMain/DashBoardSummary";
 
 import styles from "./AdminPages.module.css"
+import DashBoardPopular from "../../components/admin/adminMain/DashBoardPopular";
 
 function AdminDashBoard() {
 
     const [date, setDate] = useState(7);
     const [counts, setCounts] = useState([]);
     const [summary, setSummary] = useState([]);
+    const [popular, setPopular] = useState([]);
 
     const call = async () => {
 
@@ -26,8 +28,15 @@ function AdminDashBoard() {
 
     useEffect(() => {
         call().then(res => {
+            const tempSummary = res.Summary;
+            let editedSummary = tempSummary;
+            editedSummary[0].countsDate = `이번달(${tempSummary[0].countsDate})`;
+            editedSummary[1].countsDate = `지난달(${tempSummary[1].countsDate})`;
+            editedSummary[2].countsDate = `전체`;
+
             setCounts(res.Overview);
-            setSummary(res.Summary);
+            setSummary(editedSummary);
+            setPopular(res.Popular);
         });
     }, []);
 
@@ -93,6 +102,11 @@ function AdminDashBoard() {
                         style={{ width: "257px", height: "317px", }}
                     >
                         <p className={styles.subjectTitle}>인기 페이지</p>
+                        <div style={{ clear: "both", }}>
+                            <DashBoardPopular
+                                popular={popular}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

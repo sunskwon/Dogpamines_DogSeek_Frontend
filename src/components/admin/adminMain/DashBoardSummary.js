@@ -1,6 +1,53 @@
+import { useState, useEffect } from "react";
+
 import styles from "./AdminMain.module.css";
 
 function DashBoardSummary({ counts, summary }) {
+
+    const [weeks, setWeeks] = useState([]);
+
+    useEffect(() => {
+        let thisWeekSignup = 0;
+        let thisWeekSignin = 0;
+        let thisWeekProducts = 0;
+        let thisWeekBoards = 0;
+        let lastWeekSignup = 0;
+        let lastWeekSignin = 0;
+        let lastWeekProducts = 0;
+        let lastWeekBoards = 0;
+
+        const thisWeekCounts = counts?.slice(0, 7).map(num => num);
+        const lastWeekCounts = counts?.slice(7, 14).map(num => num);
+
+        for (let i = 0; i < 7; i++) {
+            thisWeekSignup += thisWeekCounts[i]?.countsSignup;
+            thisWeekSignin += thisWeekCounts[i]?.countsSignin;
+            thisWeekProducts += thisWeekCounts[i]?.countsProducts;
+            thisWeekBoards += thisWeekCounts[i]?.countsBoards;
+
+            lastWeekSignup += lastWeekCounts[i]?.countsSignup;
+            lastWeekSignin += lastWeekCounts[i]?.countsSignin;
+            lastWeekProducts += lastWeekCounts[i]?.countsProducts;
+            lastWeekBoards += lastWeekCounts[i]?.countsBoards;
+        }
+
+        setWeeks([
+            {
+                date: `${counts[6]?.countsDate} ~ ${counts[0]?.countsDate}`,
+                signup: thisWeekSignup,
+                signin: thisWeekSignin,
+                products: thisWeekProducts,
+                boards: thisWeekBoards
+            },
+            {
+                date: `${counts[13]?.countsDate} ~ ${counts[7]?.countsDate}`,
+                signup: lastWeekSignup,
+                signin: lastWeekSignin,
+                products: lastWeekProducts,
+                boards: lastWeekBoards
+            }
+        ]);
+    }, [counts]);
 
     return (
         <>
@@ -18,55 +65,33 @@ function DashBoardSummary({ counts, summary }) {
                             <hr />
                         </td>
                     </tr>
-                    <tr key={counts[0]?.countsDate}>
-                        <td>{counts[0]?.countsDate}</td>
-                        <td>{counts[0]?.countsSignup}</td>
-                        <td>{counts[0]?.countsSignin}</td>
-                        <td>{counts[0]?.countsProducts}</td>
-                        <td>{counts[0]?.countsBoards}</td>
-                    </tr>
-                    <tr key={counts[1]?.countsDate}>
-                        <td>{counts[1]?.countsDate}</td>
-                        <td>{counts[1]?.countsSignup}</td>
-                        <td>{counts[1]?.countsSignin}</td>
-                        <td>{counts[1]?.countsProducts}</td>
-                        <td>{counts[1]?.countsBoards}</td>
-                    </tr>
-                    <tr key={counts[2]?.countsDate}>
-                        <td>{counts[2]?.countsDate}</td>
-                        <td>{counts[2]?.countsSignup}</td>
-                        <td>{counts[2]?.countsSignin}</td>
-                        <td>{counts[2]?.countsProducts}</td>
-                        <td>{counts[2]?.countsBoards}</td>
-                    </tr>
-                    <tr key={summary[2]?.countsDate}>
-                        <td>{`일주일(${summary[2]?.countsDate} ~ ${counts[0]?.countsDate})`}</td>
-                        <td>{summary[2]?.countsSignup}</td>
-                        <td>{summary[2]?.countsSignin}</td>
-                        <td>{summary[2]?.countsProducts}</td>
-                        <td>{summary[2]?.countsBoards}</td>
-                    </tr>
-                    <tr key={summary[0]?.countsDate}>
-                        <td>{`지난달(${summary[0]?.countsDate})`}</td>
-                        <td>{summary[0]?.countsSignup}</td>
-                        <td>{summary[0]?.countsSignin}</td>
-                        <td>{summary[0]?.countsProducts}</td>
-                        <td>{summary[0]?.countsBoards}</td>
-                    </tr>
-                    <tr key={summary[1]?.countsDate}>
-                        <td>{`이번달(${summary[1]?.countsDate})`}</td>
-                        <td>{summary[1]?.countsSignup}</td>
-                        <td>{summary[1]?.countsSignin}</td>
-                        <td>{summary[1]?.countsProducts}</td>
-                        <td>{summary[1]?.countsBoards}</td>
-                    </tr>
-                    <tr key={summary[3]?.countsDate}>
-                        <td>전체</td>
-                        <td>{summary[3]?.countsSignup}</td>
-                        <td>{summary[3]?.countsSignin}</td>
-                        <td>{summary[3]?.countsProducts}</td>
-                        <td>{summary[3]?.countsBoards}</td>
-                    </tr>
+                    {counts?.slice(0, 3).map((count, index) => (
+                        <tr key={index}>
+                            <td>{count?.countsDate}</td>
+                            <td>{count?.countsSignup}</td>
+                            <td>{count?.countsSignin}</td>
+                            <td>{count?.countsProducts}</td>
+                            <td>{count?.countsBoards}</td>
+                        </tr>
+                    ))}
+                    {weeks.map((week, index) => (
+                        <tr key={index}>
+                            <td>{String(week.date)}</td>
+                            <td>{String(week.signup)}</td>
+                            <td>{String(week.signin)}</td>
+                            <td>{String(week.products)}</td>
+                            <td>{String(week.boards)}</td>
+                        </tr>
+                    ))}
+                    {summary.map((item, index) => (
+                        <tr key={index}>
+                            <td>{item?.countsDate}</td>
+                            <td>{item?.countsSignup}</td>
+                            <td>{item?.countsSignin}</td>
+                            <td>{item?.countsProducts}</td>
+                            <td>{item?.countsBoards}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
         </>
