@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import GradeInput from "../adminCommon/GradeInput";
 import ListInput from "../adminCommon/ListInput";
 
 import styles from "./AdminProducts.module.css";
+import ImageInputModal from "../adminCommon/ImageInputModal";
 
 function InsertProduct({ product, setProduct }) {
 
     const date = new Date();
-    const today = `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)}-${date.getDate()}`;
+    const today = `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)}-${date.getDate() < 10 ? '0' + date.getDate() : date.getDate()}`;
 
     const [effiList, setEffiList] = useState([]);
     const [ingraList, setIngraList] = useState([]);
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const modalBackground = useRef();
 
     const valueChangeHandler = e => {
         setProduct({
@@ -20,13 +24,31 @@ function InsertProduct({ product, setProduct }) {
         });
     };
 
+    useEffect(() => {
+    },[product] );
+
     return (
         <div className={styles.detailBox}>
             <div style={{ width: "680px", }}>
                 <div>
                     <div className={styles.detailBoxImage}>
                         <p>이미지</p>
+                        <img
+                            src={product?.prodImage}
+                            alt='사료'
+                            onClick={() => {
+                                setModalOpen(true);
+                            }}
+                        />
                     </div>
+                    <ImageInputModal
+                        name='prodImage'
+                        item={product}
+                        setItem={setProduct}
+                        modalOpen={modalOpen}
+                        setModalOpen={setModalOpen}
+                        modalBackground={modalBackground}
+                    />
                     <div style={{ width: "510px", float: "left", }}>
                         <div>
                             <div className={styles.detailBoxShort}>
@@ -69,7 +91,7 @@ function InsertProduct({ product, setProduct }) {
                             <div className={styles.detailBoxShort}>
                                 <p>등록일</p>
                                 <input
-                                    style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
+                                    style={{ backgroundColor: "rgba(212, 212, 212, 1)", }}
                                     disabled
                                     value={today}
                                 />
@@ -143,6 +165,7 @@ function InsertProduct({ product, setProduct }) {
                                 onChange={valueChangeHandler}
                             >
                                 <option value={'건식'}>건식</option>
+                                <option value={'소프트'}>소프트</option>
                                 <option value={'습식'}>습식</option>
                                 <option value={'화식'}>화식</option>
                             </select>

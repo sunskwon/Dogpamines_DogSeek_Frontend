@@ -121,7 +121,7 @@ function SelectProductByCode({ Location }) {
                             </div>
                             <div className={styles.detailBoxShort}>
                                 <p>평점</p>
-                                <div className={styles.gradeBox}>
+                                <div className={styles.gradeOutputBox}>
                                     <GradeOutput
                                         grade={product?.prodGrade}
                                     />

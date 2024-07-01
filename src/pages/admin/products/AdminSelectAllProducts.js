@@ -55,6 +55,11 @@ function AdminSelectAllProducts() {
                                 name="input"
                                 style={{ width: "150px", height: "30px", }}
                                 onChange={valueChangeHandler}
+                                onKeyDown={(e) => {
+                                    if (e.keyCode === 13) {
+                                        searchSubmitHandler(e);
+                                    }
+                                }}
                             />
                             <button
                                 className={styles.submitButton}
@@ -74,14 +79,14 @@ function AdminSelectAllProducts() {
                             </button>
                         </div>
                     </div>
-                    <div style={{ clear: "right", }}>
-                    </div>
-                    <div className={styles.productList}>
-                        <SelectAllProducts
-                            search={search}
-                            bool={bool}
-                            setBool={setBool}
-                        />
+                    <div style={{ clear: "both", }}>
+                        <div className={styles.productList}>
+                            <SelectAllProducts
+                                search={search}
+                                bool={bool}
+                                setBool={setBool}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

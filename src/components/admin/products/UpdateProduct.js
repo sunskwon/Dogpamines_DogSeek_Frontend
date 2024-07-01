@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { GetAPI } from "../../../api/RestAPIs";
 
 import GradeInput from "../adminCommon/GradeInput";
 import ListInput from "../adminCommon/ListInput";
+
+import ImageInputModal from "../adminCommon/ImageInputModal";
 
 import styles from "./AdminProducts.module.css";
 
@@ -11,6 +13,9 @@ function UpdateProduct({ Location, product, setProduct }) {
 
     const [effiList, setEffiList] = useState([]);
     const [ingraList, setIngraList] = useState([]);
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const modalBackground = useRef();
 
     const call = async () => {
 
@@ -46,7 +51,22 @@ function UpdateProduct({ Location, product, setProduct }) {
                 <div>
                     <div className={styles.detailBoxImage}>
                         <p>이미지</p>
+                        <img
+                            src={product?.prodImage}
+                            alt='사료'
+                            onClick={() => {
+                                setModalOpen(true);
+                            }}
+                        />
                     </div>
+                    <ImageInputModal
+                        name='prodImage'
+                        item={product}
+                        setItem={setProduct}
+                        modalOpen={modalOpen}
+                        setModalOpen={setModalOpen}
+                        modalBackground={modalBackground}
+                    />
                     <div style={{ width: "510px", float: "left", }}>
                         <div>
                             <div className={styles.detailBoxShort}>
@@ -64,7 +84,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                                     name="prodName"
                                     style={{ width: "290px", }}
                                     onChange={valueChangeHandler}
-                                    placeholder={product?.prodName}
+                                    value={product?.prodName}
                                 />
                             </div>
                         </div>
@@ -75,7 +95,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                                     type="text"
                                     name="prodManufac"
                                     onChange={valueChangeHandler}
-                                    placeholder={product?.prodManufac}
+                                    value={product?.prodManufac}
                                 />
                             </div>
                             <div className={styles.detailBoxMid}>
@@ -85,7 +105,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                                     name="prodSite"
                                     style={{ width: "290px", }}
                                     onChange={valueChangeHandler}
-                                    placeholder={product?.prodSite}
+                                    value={product?.prodSite}
                                 />
                             </div>
                         </div>
@@ -103,6 +123,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                                 <input
                                     style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                                     disabled
+                                    value={product?.prodVisit}
                                 />
                             </div>
                             <div className={styles.detailBoxShort}>
@@ -129,7 +150,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                                 name="prodPrice"
                                 style={{ width: "100px", }}
                                 onChange={valueChangeHandler}
-                                placeholder={product?.prodPrice}
+                                value={product?.prodPrice}
                             />
                             <span>원</span>
                         </div>
@@ -140,7 +161,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                                 name="prodVolume"
                                 style={{ width: "100px" }}
                                 onChange={valueChangeHandler}
-                                placeholder={product?.prodVolume}
+                                value={product?.prodVolume}
                             />
                             <span>kg</span>
                         </div>
@@ -163,7 +184,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                                 name="prodSize"
                                 style={{ width: "100px", }}
                                 onChange={valueChangeHandler}
-                                placeholder={product?.prodSize}
+                                value={product?.prodSize}
                             />
                             <span>mm</span>
                         </div>
@@ -176,6 +197,7 @@ function UpdateProduct({ Location, product, setProduct }) {
                                 value={product?.prodCook}
                             >
                                 <option value={'건식'}>건식</option>
+                                <option value={'소프트'}>소프트</option>
                                 <option value={'습식'}>습식</option>
                                 <option value={'화식'}>화식</option>
                             </select>
