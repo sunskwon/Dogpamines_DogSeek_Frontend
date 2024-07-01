@@ -16,6 +16,8 @@ function AdminSelectAllDicts() {
 
     const navigate = useNavigate();
 
+    const input = document.getElementById('typeInput');
+
     const valueChangeHandler = e => {
         setSearch({
             ...search,
@@ -24,6 +26,7 @@ function AdminSelectAllDicts() {
     };
 
     const searchSubmitHandler = () => {
+        input.value = '';
         setBool(!bool);
     };
 
@@ -37,8 +40,8 @@ function AdminSelectAllDicts() {
                         <div style={{ float: "right", }}>
                             <select
                                 name="type"
-                                onChange={valueChangeHandler}
                                 style={{ width: "80px", height: "34px", }}
+                                onChange={valueChangeHandler}
                             >
                                 <option
                                     value={'dogName'}
@@ -52,9 +55,15 @@ function AdminSelectAllDicts() {
                                 </option>
                             </select>
                             <input
+                                id="typeInput"
                                 name="input"
-                                onChange={valueChangeHandler}
                                 style={{ width: "150px", height: "30px", }}
+                                onChange={valueChangeHandler}
+                                onKeyDown={(e) => {
+                                    if (e.keyCode === 13) {
+                                        searchSubmitHandler(e);
+                                    }
+                                }}
                             />
                             <button
                                 onClick={searchSubmitHandler}
@@ -74,28 +83,14 @@ function AdminSelectAllDicts() {
                             </button>
                         </div>
                     </div>
-                    <div className={styles.productList}>
-                        <table className={styles.productListTable}>
-                            <tbody>
-                                <tr>
-                                    <th style={{ width: "120px", }}>견종코드</th>
-                                    <th style={{ width: "370px", }}>견종명</th>
-                                    <th style={{ width: "240px", }}>견종크기</th>
-                                    <th style={{ width: "90px", }}></th>
-                                    <th style={{ width: "90px", }}></th>
-                                </tr>
-                                <tr>
-                                    <td colSpan={5}>
-                                        <hr className={styles.tableLine} />
-                                    </td>
-                                </tr>
-                                <SelectAllDicts
-                                    search={search}
-                                    bool={bool}
-                                    setBool={setBool}
-                                />
-                            </tbody>
-                        </table>
+                    <div style={{ clear: "both", }}>
+                        <div className={styles.productList}>
+                            <SelectAllDicts
+                                search={search}
+                                bool={bool}
+                                setBool={setBool}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

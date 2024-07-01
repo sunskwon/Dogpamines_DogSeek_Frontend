@@ -116,6 +116,15 @@
     cursor: pointer;
 }
 
+.gradeOutputBox {
+    padding-top: 7px;
+    padding-left: 10px;
+}
+
+.gradeOutputBox img {
+    margin: 1px;
+}
+
 .listBox {
     width: 100%;
     float: left;
@@ -135,6 +144,18 @@
     overflow-x: hidden;
     overflow-y: auto;
 }
+
+/* .scrollBox:hover {
+    width: 680px;
+    overflow: unset;
+    background-color: white;
+    position: fixed;
+    transform: translate(-33%, -50%);
+    top: 63%;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+} */
 
 .scrollBox::-webkit-scrollbar {
     width: 10px;
@@ -179,4 +200,20 @@
     font-size: 14px;
     text-decoration: underline;
     color: rgba(112, 178, 222, 1);
+}
+
+.errorBox {
+    width: 560px;
+    height: 560px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+}
+
+.errorBox p {
+    font-weight: bold;
+    font-size: 24px;
+    color: rgba(153, 153, 153, 1);
 }

@@ -44,88 +44,102 @@ function SelectAllProducts({ search, bool, setBool }) {
 
     return (
         <>
-            <table className={styles.productListTable}>
-                <tbody>
-                    <tr>
-                        <th>사료코드</th>
-                        <th>제품명</th>
-                        <th>제조사</th>
-                        <th>조회수</th>
-                        <th>사이트 주소</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <td colSpan={7}>
-                            <hr className={styles.tableLine} />
-                        </td>
-                    </tr>
-                    {products.map(product => (
-                        <tr key={product.prodCode}>
-                            <td style={{ width: "80px", }}>
-                                {product.prodCode}
-                            </td>
-                            <td>
-                                <div
-                                    className={styles.ellipsisBox}
-                                    style={{ width: "200px", }}
-                                >
-                                    {product.prodName}
-                                </div>
-                            </td>
-                            <td>
-                                <div
-                                    className={styles.ellipsisBox}
-                                    style={{ width: "100px", }}
-                                >
-                                    {product.prodManufac}
-                                </div>
-                            </td>
-                            <td>
-                                <div
-                                    className={styles.ellipsisBox}
-                                    style={{ width: "80px", }}
-                                >
-                                    {product.prodVisit}
-                                </div>
-                            </td>
-                            <td>
-                                <div
-                                    className={styles.ellipsisBox}
-                                    style={{ width: "200px", }}
-                                >
-                                    <a href={product.prodSite}>{product.prodSite}</a>
-                                </div>
-                            </td>
-                            <td>
-                                <button
-                                    className={styles.acceptButton}
-                                    onClick={() => {
-                                        navigate("/admin/productdetail", { state: { Location: `/products/${product.prodCode}` } });
-                                    }}
-                                >
-                                    상세
-                                </button>
-                            </td>
-                            <td>
-                                <button
-                                    className={styles.cancelButton}
-                                    onClick={async () => {
-
-                                        const address = `/products/${product.prodCode}`;
-
-                                        await DeleteAPI(address);
-
-                                        setBool(!bool);
-                                    }}
-                                >
-                                    삭제
-                                </button>
+            {products.length === 0 &&
+                <div className={styles.errorBox}>
+                    <div>
+                        <img
+                            src="/images/admin/Nothing Found.png"
+                            alt="슬픈 돋보기 아이콘"
+                        />
+                        <p>적합한 사료가 없습니다</p>
+                        <p>다시 시도해주세요</p>
+                    </div>
+                </div>
+            }
+            {products.length > 0 &&
+                <table className={styles.productListTable}>
+                    <tbody>
+                        <tr>
+                            <th>사료코드</th>
+                            <th>제품명</th>
+                            <th>제조사</th>
+                            <th>조회수</th>
+                            <th>사이트 주소</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td colSpan={7}>
+                                <hr className={styles.tableLine} />
                             </td>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                        {products.map(product => (
+                            <tr key={product.prodCode}>
+                                <td style={{ width: "80px", }}>
+                                    {product.prodCode}
+                                </td>
+                                <td>
+                                    <div
+                                        className={styles.ellipsisBox}
+                                        style={{ width: "200px", }}
+                                    >
+                                        {product.prodName}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div
+                                        className={styles.ellipsisBox}
+                                        style={{ width: "100px", }}
+                                    >
+                                        {product.prodManufac}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div
+                                        className={styles.ellipsisBox}
+                                        style={{ width: "80px", }}
+                                    >
+                                        {product.prodVisit}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div
+                                        className={styles.ellipsisBox}
+                                        style={{ width: "200px", }}
+                                    >
+                                        <a href={product.prodSite}>{product.prodSite}</a>
+                                    </div>
+                                </td>
+                                <td>
+                                    <button
+                                        className={styles.acceptButton}
+                                        onClick={() => {
+                                            navigate("/admin/productdetail", { state: { Location: `/products/${product.prodCode}` } });
+                                        }}
+                                    >
+                                        상세
+                                    </button>
+                                </td>
+                                <td>
+                                    <button
+                                        className={styles.cancelButton}
+                                        onClick={async () => {
+
+                                            const address = `/products/${product.prodCode}`;
+
+                                            await DeleteAPI(address);
+
+                                            setBool(!bool);
+                                        }}
+                                    >
+                                        삭제
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            }
         </>
     );
 }

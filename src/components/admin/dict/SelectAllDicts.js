@@ -44,58 +44,74 @@ function SelectAllDicts({ search, bool, setBool }) {
 
     return (
         <>
-            {dicts.map(dict => (
-                <tr
-                    key={dict.dogCode}
-                >
-                    <td
-                        style={{ width: "120px", textAlign: "center", }}
-                    >
-                        {dict.dogCode}
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "370px", textAlign: "center", }}
+            <table className={styles.productListTable}>
+                <tbody>
+                    <tr>
+                        <th style={{ width: "120px", }}>견종코드</th>
+                        <th style={{ width: "370px", }}>견종명</th>
+                        <th style={{ width: "240px", }}>견종크기</th>
+                        <th style={{ width: "90px", }}></th>
+                        <th style={{ width: "90px", }}></th>
+                    </tr>
+                    <tr>
+                        <td colSpan={5}>
+                            <hr className={styles.tableLine} />
+                        </td>
+                    </tr>
+                    {dicts.map(dict => (
+                        <tr
+                            key={dict.dogCode}
                         >
-                            {dict.dogName}
-                        </div>
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "240px", textAlign: "center", }}
-                        >
-                            {dict.dogSize}
-                        </div>
-                    </td>
-                    <td>
-                        <button
-                            className={styles.acceptButton}
-                            onClick={() => {
-                                navigate("/admin/dictdetail", {
-                                    state: { Location: `/dict/${dict.dogCode}` }
-                                });
-                            }}
-                        >
-                            상세
-                        </button>
-                    </td>
-                    <td>
-                        <button
-                            className={styles.cancelButton}
-                            onClick={async () => {
+                            <td
+                                style={{ width: "120px", textAlign: "center", }}
+                            >
+                                {dict.dogCode}
+                            </td>
+                            <td>
+                                <div
+                                    style={{ width: "370px", textAlign: "center", }}
+                                >
+                                    {dict.dogName}
+                                </div>
+                            </td>
+                            <td>
+                                <div
+                                    style={{ width: "240px", textAlign: "center", }}
+                                >
+                                    {dict.dogSize}
+                                </div>
+                            </td>
+                            <td>
+                                <button
+                                    className={styles.acceptButton}
+                                    onClick={() => {
+                                        navigate("/admin/dictdetail", {
+                                            state: { Location: `/dict/${dict.dogCode}` }
+                                        });
+                                    }}
+                                >
+                                    상세
+                                </button>
+                            </td>
+                            <td>
+                                <button
+                                    className={styles.cancelButton}
+                                    onClick={async () => {
 
-                                const address = `/dict/${dict.dogCode}`;
+                                        const address = `/dict/${dict.dogCode}`;
 
-                                const response = await DeleteAPI(address);
+                                        const response = await DeleteAPI(address);
 
-                                setBool(!bool);
-                            }}
-                        >
-                            삭제
-                        </button>
-                    </td>
-                </tr>
-            ))}
+                                        setBool(!bool);
+                                    }}
+                                >
+                                    삭제
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </>
     );
 }

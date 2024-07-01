@@ -19,8 +19,17 @@ function AdminSelectProductByCode() {
                         <p className={styles.subjectTitle}>상세 사료 정보</p>
                         <div style={{ float: "right", }}>
                             <button
-                                className={styles.submitButton}
+                                className={styles.cancelButton}
                                 style={{ marginRight: "10px", }}
+                                onClick={() => {
+                                    navigate("/admin/products");
+                                }}
+                            >
+                                돌아가기
+                            </button>
+                            <button
+                                className={styles.submitButton}
+                                style={{ marginRight: "15px", }}
                                 onClick={() => {
                                     navigate("/admin/updateproduct", {
                                         state: { Location: state.Location }
@@ -28,15 +37,6 @@ function AdminSelectProductByCode() {
                                 }}
                             >
                                 수정
-                            </button>
-                            <button
-                                className={styles.cancelButton}
-                                style={{ marginRight: "15px", }}
-                                onClick={() => {
-                                    navigate("/admin/products");
-                                }}
-                            >
-                                돌아가기
                             </button>
                         </div>
                         <div className={styles.productDetail}>

@@ -158,3 +158,19 @@
     color: rgba(153, 153, 153, 1);
     cursor: pointer;
 }
+
+.inputBox {
+    width: 500px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    padding-top: 60px;
+}
+
+.inputBox input {
+    width: 290px;
+    height: 30px;
+    margin: 15px;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+}

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -6,28 +6,37 @@ import { PutAPI } from "../../../api/RestAPIs";
 
 import UpdateProduct from "../../../components/admin/products/UpdateProduct";
 
+import AlertModal from "../../../components/admin/adminCommon/AlertModal";
+
 import styles from "../AdminPages.module.css";
 
 function AdminUpdateProduct() {
 
     const [product, setProduct] = useState(
         {
+            prodImage: '/images/admin/No Image Available.png',
             prodCode: 0,
             prodName: '',
-            prodPrice: 0,
-            prodAge: '',
-            prodEffi: '',
-            prodRecom: '',
+            prodManufac: '',
             prodSite: '',
-            prodCook: '',
+            prodDate: '2000-01-01',
+            prodVisit: 0,
+            prodStatus: '',
+            prodPrice: 0,
             prodVolume: '',
             prodGrade: 0,
-            prodIngra: '',
             prodSize: '',
-            prodDate: '2000-01-01',
-            prodImage: '/images/admin/No Image Available.png',
+            prodCook: '',
+            prodRecom: '',
+            prodAge: '',
+            prodEffi: '',
+            prodIngra: '',
         }
     );
+    const [message, setMessage] = useState('');
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const modalBackground = useRef();
 
     const { state } = useLocation();
 
@@ -35,13 +44,19 @@ function AdminUpdateProduct() {
 
     const submitHandler = async () => {
 
-        const address = '/products';
+        if (Object.is(Number(product.prodVolume), NaN)) {
+            setMessage('사료 용량은 숫자로 입력해야 합니다');
+            setModalOpen(true);
+        } else {
 
-        const response = await PutAPI(address, product);
+            const address = '/products';
 
-        navigate("/admin/productdetail", {
-            state: { Location: response.headers.get('Location') }
-        });
+            const response = await PutAPI(address, product);
+
+            navigate("/admin/productdetail", {
+                state: { Location: response.headers.get('Location') }
+            });
+        }
     };
 
     return (
@@ -53,22 +68,28 @@ function AdminUpdateProduct() {
                         <p className={styles.subjectTitle}>사료 정보 수정</p>
                         <div style={{ float: "right", }}>
                             <button
-                                className={styles.submitButton}
-                                style={{ marginRight: "10px", }}
-                                onClick={submitHandler}
-                            >
-                                수정
-                            </button>
-                            <button
                                 className={styles.cancelButton}
-                                style={{ marginRight: "15px", }}
+                                style={{ marginRight: "10px", }}
                                 onClick={() => {
                                     navigate(-1);
                                 }}
                             >
                                 돌아가기
                             </button>
+                            <button
+                                className={styles.submitButton}
+                                style={{ marginRight: "15px", }}
+                                onClick={submitHandler}
+                            >
+                                변경
+                            </button>
                         </div>
+                        <AlertModal
+                            message={message}
+                            modalOpen={modalOpen}
+                            setModalOpen={setModalOpen}
+                            modalBackground={modalBackground}
+                        />
                         <div className={styles.productDetail}>
                             <UpdateProduct
                                 Location={state.Location}
