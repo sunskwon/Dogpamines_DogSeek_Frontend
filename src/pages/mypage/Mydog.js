@@ -2,17 +2,24 @@ import styles from './Mydog.module.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useRef, useEffect } from "react";
 import { GetAPI } from '../../api/RestAPIs';
+import { jwtDecode } from 'jwt-decode';
 
 function Mydog() {
     const navigate = useNavigate();
-    const userCode = 1;
+
+    // 토큰 디코딩
+    const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
+
+    const userCode = decodedToken.userCode;
+    const userNick = decodedToken.userNick;
+    const userAuth = decodedToken.userAuth;
 
     const [modalOpen, setModalOpen] = useState(false);
     const [modalCuration, setModalCuration] = useState(null);
     const modalBackground = useRef();
 
-    const openModal = (curationDog) => {
-        setModalCuration(curationDog);
+    const openModal = (curationDog,curationCode) => {
+        setModalCuration(curationDog, curationCode);
         setModalOpen(true);
     }
 
@@ -21,10 +28,25 @@ function Mydog() {
         setModalOpen(false);
     };
 
+    const [modalOpen2, setModalOpen2] = useState(false);
+    const [modalProd, setModalProd] = useState([]);
+
+    const openModal2 = (curationCode, prodCode) => {
+        setModalProd(curationCode, prodCode);
+        setModalOpen2(true);
+    }
+
+    const closeModal2 = () => {
+        setModalProd(null);
+        setModalOpen2(false);
+    }
+
     const [curations, setCurations] = useState([]);
     const [curationsDog, setCurationsDog] = useState([]);
     const [curationCode, setCurationCode] = useState([]);
     const [curationName, setCurationName] = useState([]);
+    const [myCurationResult , setMyCurationResult] = useState([]);
+    const [prodCode, setProdCode] = useState([]);
 
     const fetchCurations = async () => {
         const curationsAddress = `/curations?userCode=${userCode}`;
@@ -33,7 +55,7 @@ function Mydog() {
 
         // if (curationsResponse.curations.length > 0) {
         //     const curationNames = curationsResponse.curations.map(curation => curation.curationName);
-        //     setCurationName(curationNames.join(',')); 
+        //     setCurationName(curationNames.join([','])); 
         // }
 
         return result;
@@ -52,6 +74,18 @@ function Mydog() {
         return result;
     };
 
+    const fetchMyCurationResult = async () => {
+        const myCurationResultAddress = `/mycurationresult?curationCode=${curationCode}`;
+        const mycurationresultResponse = await GetAPI(myCurationResultAddress);
+        const result = await mycurationresultResponse.myCurationResult;
+
+        // if (mycurationresultResponse.myCurationResult.length > 0) {
+        //     const prodCodes = mycurationresultResponse.myCurationResult.map(myCurationResult => myCurationResult.prodCode);
+        //     setMyCurationResult(prodCodes.join([',']));
+        // }
+        return result;
+    };
+
     useEffect(() => {
         fetchCurations().then(res => setCurations(res));
     }, [userCode]);
@@ -62,9 +96,20 @@ function Mydog() {
         }
     }, [curationName]);
 
-    const onClick = (name, code) => {
+    useEffect(() => {
+        if (prodCode) {
+            fetchMyCurationResult().then(res => setMyCurationResult(res));
+        }
+    }, [prodCode]);
+
+    const onClick = (name, code, prodCode) => {
         setCurationName(name);
         setCurationCode(code);
+        setProdCode(prodCode);
+    };
+
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('ko-KR').format(price);
     };
 
     return (
@@ -103,7 +148,7 @@ function Mydog() {
                             <div className={styles.btnWrapper}>
                                 <button type='button' className={styles.btn2} onClick={() => openModal(curationDog)}>상세보기</button>
                             </div>
-                            <button className={styles.btn1}>맞춤사료</button>
+                                <button className={styles.btn1} onClick={() => openModal2(curationDog.curationCode)}>맞춤사료</button>
                         </div>
                     ))}
                 </div>
@@ -172,6 +217,22 @@ function Mydog() {
                     </div>
                 </div>
             )}
+
+            {/* Modal2 */}
+            {
+                modalOpen2 && modalProd &&
+                <div className={styles.modalContainer} ref={modalBackground} onClick={e => {
+                    if (e.target === modalBackground.current) {
+                        setModalOpen2(false)
+                    }
+                }}>
+                    <div className={styles.modalContent}>
+                        <div className={styles.modalTextContainer}>
+                            <button className={styles.modalCloseBtn} onClick={closeModal2}>닫기</button>
+                        </div>
+                </div>
+            </div>
+        }
         </>
     )
 }

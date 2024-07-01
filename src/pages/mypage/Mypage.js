@@ -3,6 +3,7 @@ import styles from './Mypage.module.css';
 import { useState, useEffect } from "react";
 import Modal from '../../components/common/Modal';
 import { GetAPI } from '../../api/RestAPIs';
+import { jwtDecode } from 'jwt-decode';
 
 function Mypage(){
 
@@ -11,7 +12,13 @@ function Mypage(){
     const [modalAfterPath, setModalAfterPath] = useState('/');
     const [isDeleteModal, setIsDeleteModal] = useState(false);
 
-    const userCode = 1;
+    // 토큰 디코딩
+    const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
+
+    const userCode = decodedToken.userCode;
+    const userNick = decodedToken.userNick;
+    const userAuth = decodedToken.userAuth;
+    
     const [users, setUsers] = useState([]);
 
     const selectUserDetail = async () => {

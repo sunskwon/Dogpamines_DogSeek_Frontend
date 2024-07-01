@@ -115,6 +115,14 @@
     justify-content: space-around;
 }
 
+.resultBox2{
+    width: 980px;
+    margin: 0 auto;
+    margin-bottom: 7px;
+    display: flex;
+    justify-content: space-around;
+}
+
 .span2{
     font-size: 14px;
 }
