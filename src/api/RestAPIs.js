@@ -184,3 +184,61 @@ export const callRegisterAPI = async ({ user }) => {
     }
 
 }
+
+// 이메일 인증 코드 발송
+export const callEmailVerification = async ( email ) => {
+
+    const requestURL = 'http://localhost:8080/api/auth/send-verification-email';
+    const requestBody = JSON.stringify({
+        email: email,
+    });
+
+    const response = await fetch(requestURL, {
+
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "*/*",
+            'Access-Control-Allow-Origin': '*',
+        },
+        body: requestBody
+    });
+
+    if (response.status === 200) {
+        const result = 'true';
+        return result;
+    } else {
+        const result = 'false';
+        return result;
+    }
+}
+
+// 이메일 인증 확인
+export const callEmailVerify = async ( email, authNum ) => {
+
+    const requestURL = 'http://localhost:8080/api/auth/verify-email';
+    const requestBody = JSON.stringify({
+        email: email,
+        token: authNum
+    });
+
+    const response = await fetch(requestURL, {
+
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "*/*",
+            'Access-Control-Allow-Origin': '*',
+        },
+        body: requestBody
+    });
+
+    if (response.status === 200) {
+        const result = response.headers.get("Result");
+            console.log(`q result : ${result}`);
+            return result;
+    } else {
+        const result = 'false';
+        return result;
+    }
+}

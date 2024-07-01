@@ -263,7 +263,8 @@ function SignUpInfo() {
                     <div className={styles.phoneBox}>
                         <label>연락처</label>
                         <div className={styles.phoneInputBox}>
-                            <input value={user.phone} onChange={onPhoneChange}></input>
+                            <input type='tel' value={user.phone} onChange={onPhoneChange} 
+                                    pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}" required></input>
                             <p>이메일 찾기 시 사용되는 정보 입니다. ex) 010-0000-0000</p>
                         </div>
                     </div>
