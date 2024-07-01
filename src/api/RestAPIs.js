@@ -174,10 +174,16 @@ export const callRegisterAPI = async ({ user }) => {
         body: requestBody
     });
 
-    const result = await response.json();
+    if (response.status === 200) {
+        const allHeaders = [];
+            for (let pair of response.headers.entries()) {
+                allHeaders.push(`${pair[0]}: ${pair[1]}`);
+            }
+            console.log('Response headers:', allHeaders);
 
-    if (result.status === 201) {
-        return result;
+            const result = response.headers.get("Result");
+            console.log(`q result : ${result}`);
+            return result;
     } else {
         throw new Error("Failed to register");
     }
