@@ -1,7 +1,7 @@
 import styles from './SignUpIdentity.module.css';
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import { checkAPI } from '../../api/RestAPIs';
+import { callEmailVerification, callEmailVerify, checkAPI } from '../../api/RestAPIs';
 
 function SignUpIdentity(){
     const [email, setEmail] = useState("");
@@ -54,13 +54,32 @@ function SignUpIdentity(){
         }
     }
 
-    const onClickLastConfirm = () => {
+    const onClickEmail = async() => {
+        if (showCheck === true) {
+
+            const result = await callEmailVerification(email);
+
+            if (result === 'true') {
+                alert('인증번호가 발송되었습니다.');
+            } else {
+                alert('인증번호 발송 실패.');
+            }
+        } else {
+            alert('이메일 중복 확인이 필요합니다.');
+        }
+    }
+
+    const onClickLastConfirm = async() => {
         if (isConfirmed && authNum.length !== 0) {
             // 인증 번호 확인 로직 (백에서)
-            setShowConfirmNextModal(true);
+            const result = await callEmailVerify(email, authNum);
 
-        } else if (isConfirmed && authNum.length < 6) {    // 우선은 글자 수 체크만(수정 필요)
-            setShowNumConfirmModal(true);
+            if (result === 'true') {
+                setShowConfirmNextModal(true);
+            } else {
+                setShowNumConfirmModal(true);
+            }
+
         } else {
              setShowLastConfirmModal(true);
         }
@@ -133,7 +152,7 @@ function SignUpIdentity(){
                     <div className={styles.numberBox}>
                         <label>인증번호</label>
                         <input type='text' onChange={onAuthNumChange}></input>
-                        <button>전송</button>
+                        <button type='submit' onClick={onClickEmail}>전송</button>
                     </div>
                 </div>
                 <div className={styles.buttonContainer}>

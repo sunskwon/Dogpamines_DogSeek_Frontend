@@ -128,13 +128,6 @@ export const checkAPI = async (check) => {
         console.log(`headers : ${response.headers}`);
 
         if (response.status === 200) {
-            // 모든 헤더 출력
-            const allHeaders = [];
-            for (let pair of response.headers.entries()) {
-                allHeaders.push(`${pair[0]}: ${pair[1]}`);
-            }
-            console.log('Response headers:', allHeaders);
-
             const result = response.headers.get("Result");
             console.log(`q result : ${result}`);
             return result;
@@ -170,17 +163,69 @@ export const callRegisterAPI = async ({ user }) => {
     });
 
     if (response.status === 200) {
-        const allHeaders = [];
-            for (let pair of response.headers.entries()) {
-                allHeaders.push(`${pair[0]}: ${pair[1]}`);
-            }
-            console.log('Response headers:', allHeaders);
-
-            const result = response.headers.get("Result");
-            console.log(`q result : ${result}`);
-            return result;
+        const result = response.headers.get("Result");
+        console.log(`q result : ${result}`);
+        return result;
     } else {
         throw new Error("Failed to register");
     }
 
+}
+
+// 이메일 인증 코드 발송
+export const callEmailVerification = async ( email ) => {
+
+    const requestURL = 'http://localhost:8080/api/auth/send-verification-email';
+    const requestBody = JSON.stringify({
+        email: email,
+    });
+
+    const response = await fetch(requestURL, {
+
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "*/*",
+            'Access-Control-Allow-Origin': '*',
+        },
+        body: requestBody
+    });
+
+    if (response.status === 200) {
+        const result = 'true';
+        return result;
+    } else {
+        const result = 'false';
+        return result;
+    }
+}
+
+// 이메일 인증 확인
+export const callEmailVerify = async ( email, authNum ) => {
+
+    const requestURL = 'http://localhost:8080/api/auth/verify-email';
+    const requestBody = JSON.stringify({
+        email: email,
+        token: authNum
+    });
+
+    const response = await fetch(requestURL, {
+
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "*/*",
+            'Access-Control-Allow-Origin': '*',
+        },
+        body: requestBody
+    });
+
+    if (response.status === 200) {
+        const result = response.headers.get("Result");
+            console.log(`q result : ${result}`);
+            return result;
+    } else {
+        const result = 'false';
+        return result;
+    }
 }
