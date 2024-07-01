@@ -71,12 +71,11 @@ export function DeleteAPI(address) {
 };
 
 // Login
-export const callLoginAPI = async({ user }) => {
+export const callLoginAPI = async ({ user }) => {
 
     const requestURL = 'http://localhost:8080/login';
 
     try {
-
         const response = await fetch(requestURL, {
             method: "POST",
             headers: {
@@ -91,23 +90,19 @@ export const callLoginAPI = async({ user }) => {
         });
 
         const jwtToken = response.headers.get("Authorization");
-        const result = await response.json();
-        
-        const userCode = result.userInfo.userCode;
-        const userNick = result.userInfo.userNick;
-        const userAuth = result.userInfo.userAuth;
-        console.log(`userCode : ${userCode}`)
-        // console.log('[callLoginAPI] 로그인 API : ', result);
+        // console.log(`JWT Token: ${jwtToken}`);
 
-        if (response.status === 200) {
-            // 토큰과 사용자 정보 localStorage에 저장
-            window.localStorage.setItem('userCode',userCode);
-            window.localStorage.setItem('userNick', userNick);
-            window.localStorage.setItem('userAuth', userAuth);
+        if (response.status === 200 && jwtToken) {
+
+            // 토큰 localStorage에 저장
             window.localStorage.setItem('accessToken', jwtToken);
-        };
 
-        return result;
+            const result = 'true';
+            return result;
+        } else {
+            const result = 'false';
+            return result;
+        }
 
     } catch (error) {
         console.error('에러 발생', error);

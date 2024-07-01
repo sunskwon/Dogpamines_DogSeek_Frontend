@@ -2,6 +2,7 @@ import styles from "./Login.module.css";
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { callLoginAPI } from "../../api/RestAPIs";
+import { jwtDecode } from 'jwt-decode';
 
 function Login(){
 
@@ -20,24 +21,36 @@ function Login(){
         if (user.userId.length !== 0 && user.userPass.length !== 0) {
 
             const response = await callLoginAPI({user});
-            if (response) {
-                console.log('auth')
-                // console.log(response.userInfo.userAuth);
-                const auth = response.userInfo.userAuth;
 
-                const userCode = window.localStorage.getItem("userCode");
-                console.log(`login userCode : ${userCode}`);
-                if (auth === 'ADMIN') {
+            if (response === 'true') {
+                
+                // 토큰 디코딩
+                const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
+
+                const userCode = decodedToken.userCode;
+                const userNick = decodedToken.userNick;
+                const userAuth = decodedToken.userAuth;
+
+                window.localStorage.setItem('userCode', userCode);
+                window.localStorage.setItem('userNick', userNick);
+                window.localStorage.setItem('userAuth', userAuth);
+
+                if (userAuth === 'ADMIN') {
                     navigate('/admin');
-                } else if (auth === 'USER') {
+                } else if (userAuth === 'USER') {
                     navigate('/');
-                } else if (auth === 'SLEEP') {
+                } else if (userAuth === 'SLEEP') {
                     alert('휴면회원입니다.');
                 } else {
                     alert('올바르지 않은 접근입니다.');
                 };
                 window.location.reload();
+            } else {
+                alert('아이디 또는 비밀번호를 확인해 주세요.')
+                window.location.reload();
             }
+        } else {
+            
         }
     }
 
