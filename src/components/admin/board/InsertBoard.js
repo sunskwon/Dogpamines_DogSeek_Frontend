@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import styles from "./AdminBoards.module.css";
 
 function InsertBoard({ notice, setNotice }) {

@@ -23,7 +23,7 @@ function AdminSelectDictByCode() {
                                 style={{ marginRight: "10px", }}
                                 onClick={() => {
                                     navigate("/admin/updatedict", {
-                                        state: {Location: state.Location}
+                                        state: { Location: state.Location }
                                     });
                                 }}
                             >
@@ -40,7 +40,7 @@ function AdminSelectDictByCode() {
                             </button>
                         </div>
                         <div className={styles.productDetail}>
-                            <SelectDictByCode 
+                            <SelectDictByCode
                                 Location={state.Location}
                             />
                         </div>

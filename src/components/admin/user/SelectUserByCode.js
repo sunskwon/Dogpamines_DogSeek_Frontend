@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 
 import { GetAPI } from "../../../api/RestAPIs";
 
-
 import styles from "./AdminUsers.module.css"
 
 function SelectUserByCode({ Location, user, setUser, bool, setBool }) {

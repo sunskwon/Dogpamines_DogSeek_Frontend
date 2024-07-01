@@ -65,13 +65,40 @@
     width: 100px;
     height: 34px;
     border-radius: 10px;
-    border: 0;
     background-color: white;
     border: 1px solid rgba(0, 86, 0, 1);
     margin-top: 15px;
     font-weight: bold;
     font-size: 16px;
     color: rgba(153, 153, 153, 1);
+    cursor: pointer;
+}
+
+.selectButton {
+    width: 60px;
+    height: 34px;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid rgba(99, 197, 74, 1);
+    margin-top: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: rgba(99, 197, 74, 1);
+    cursor: pointer;
+}
+
+.selectedButton {
+    width: 60px;
+    height: 34px;
+    border-radius: 10px;
+    background-color: rgba(99, 197, 74, 1);
+    border: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
     cursor: pointer;
 }
 

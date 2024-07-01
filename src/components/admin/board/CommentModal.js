@@ -56,12 +56,12 @@ function CommentModal({ commentModalOpen, setCommentModalOpen, modalBackground, 
                                                     {/* <span>{comment.commentDate}</span> */}
                                                 </div>
                                             </div>
-                                        <div className={styles.detailBoxFull}>
-                                            <p>내용</p>
-                                            <div className={styles.spanBox}>
-                                                <span>{comment.commentContext}</span>
+                                            <div className={styles.detailBoxFull}>
+                                                <p>내용</p>
+                                                <div className={styles.spanBox}>
+                                                    <span>{comment.commentContext}</span>
+                                                </div>
                                             </div>
-                                        </div>
                                         </div>
                                     </div>
                                 ))}

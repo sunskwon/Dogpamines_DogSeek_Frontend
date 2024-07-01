@@ -13,29 +13,29 @@ function AdminUpdateDict() {
     const [dict, setDict] = useState(
         {
             dogCode: 0,
-        dogName: '',
-        dogSize: '소형견',
-        dogSummary: '',
-        dogHeightM: '',
-        dogWeightM: '',
-        dogHeightF: '',
-        dogWeightF: '',
-        dogChild: '',
-        dogYouth: '',
-        dogEld: '',
-        dogDisease: '',
-        dogDrool: 0,
-        dogSocial: 0,
-        dogShed: 0,
-        dogBark: 0,
-        dogPet: 0,
-        dogHot: 0,
-        dogCold: 0,
-        dogHouse: 0,
-        dogGroom: 0,
-        dogActi: 0,
-        dogImage: '/images/admin/No Image Available.png',
-        dogDetail: '/images/admin/No Image Available.png',
+            dogName: '',
+            dogSize: '소형견',
+            dogSummary: '',
+            dogHeightM: '',
+            dogWeightM: '',
+            dogHeightF: '',
+            dogWeightF: '',
+            dogChild: '',
+            dogYouth: '',
+            dogEld: '',
+            dogDisease: '',
+            dogDrool: 0,
+            dogSocial: 0,
+            dogShed: 0,
+            dogBark: 0,
+            dogPet: 0,
+            dogHot: 0,
+            dogCold: 0,
+            dogHouse: 0,
+            dogGroom: 0,
+            dogActi: 0,
+            dogImage: '/images/admin/No Image Available.png',
+            dogDetail: '/images/admin/No Image Available.png',
         }
     );
 
@@ -48,9 +48,9 @@ function AdminUpdateDict() {
         const address = '/dict';
 
         const response = await PutAPI(address, dict);
-        
+
         navigate("/admin/dictdetail", {
-            state: {Location: response.headers.get('Location')}
+            state: { Location: response.headers.get('Location') }
         });
     };
 

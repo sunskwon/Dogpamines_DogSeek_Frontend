@@ -38,9 +38,9 @@ function AdminUpdateProduct() {
         const address = '/products';
 
         const response = await PutAPI(address, product);
-        
+
         navigate("/admin/productdetail", {
-            state: {Location: response.headers.get('Location')}
+            state: { Location: response.headers.get('Location') }
         });
     };
 
