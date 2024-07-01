@@ -46,11 +46,20 @@ function Login(){
                 };
                 window.location.reload();
             } else {
-                alert('아이디 또는 비밀번호를 확인해 주세요.')
+                alert('아이디 또는 비밀번호를 확인해주세요.')
                 window.location.reload();
             }
+        } else if (user.userId.length !== 0 && user.userPass.length === 0) {
+            alert('비밀번호를 입력해주세요.');
         } else {
-            
+            alert('아이디(이메일)을 입력해주세요.')
+        }
+    }
+
+    // Enter키 사용
+    const activeEnter = (e) => {
+        if (e.key === "Enter") {
+            onClickLogin();
         }
     }
 
@@ -65,13 +74,13 @@ function Login(){
                     <div className={styles.infoBox}>
                         {/* id */}
                         <div className={styles.idBox}>
-                            <p>EMAIL</p>
-                            <input placeholder="이메일을 입력해주세요." name={user.userId} onChange={onEmailChange}></input>
+                            <p>ID(EMAIL)</p>
+                            <input placeholder="아이디를 입력해주세요." name={user.userId} onChange={onEmailChange} onKeyDown={activeEnter}></input>
                         </div>
                         {/* pwd */}
                         <div className={styles.pwdBox}>
                             <p>PASSWORD</p>
-                            <input placeholder="비밀번호를 입력해주세요." name={user.userPass} type="password" onChange={onPwdChange}></input>
+                            <input placeholder="비밀번호를 입력해주세요." name={user.userPass} type="password" onChange={onPwdChange} onKeyDown={activeEnter}></input>
                         </div>
                         <div className={styles.findBox}>
                             <p>이메일/비밀번호 찾기</p>

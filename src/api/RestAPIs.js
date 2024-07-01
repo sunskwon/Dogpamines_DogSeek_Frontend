@@ -128,13 +128,6 @@ export const checkAPI = async (check) => {
         console.log(`headers : ${response.headers}`);
 
         if (response.status === 200) {
-            // 모든 헤더 출력
-            const allHeaders = [];
-            for (let pair of response.headers.entries()) {
-                allHeaders.push(`${pair[0]}: ${pair[1]}`);
-            }
-            console.log('Response headers:', allHeaders);
-
             const result = response.headers.get("Result");
             console.log(`q result : ${result}`);
             return result;
@@ -170,15 +163,9 @@ export const callRegisterAPI = async ({ user }) => {
     });
 
     if (response.status === 200) {
-        const allHeaders = [];
-            for (let pair of response.headers.entries()) {
-                allHeaders.push(`${pair[0]}: ${pair[1]}`);
-            }
-            console.log('Response headers:', allHeaders);
-
-            const result = response.headers.get("Result");
-            console.log(`q result : ${result}`);
-            return result;
+        const result = response.headers.get("Result");
+        console.log(`q result : ${result}`);
+        return result;
     } else {
         throw new Error("Failed to register");
     }
