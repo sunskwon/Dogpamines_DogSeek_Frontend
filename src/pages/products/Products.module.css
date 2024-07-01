@@ -160,6 +160,10 @@ input::placeholder {
     margin-top: 80px;
 }
 
+.productsBox:hover {
+    transform: scale(1.1);
+}
+
 .prodText {
     margin: 0;
     color: #999999;
@@ -167,4 +171,16 @@ input::placeholder {
     font-size: 16px;
     font-weight: bold;
     width: 100%;
+}
+
+.productHover{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.56);
+    width: 282px;
+    height: 282px;
+    display: none;
+}
+
+.productsBox:hover .productHover {
+    display: block;
 }

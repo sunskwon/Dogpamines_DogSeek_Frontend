@@ -7,6 +7,7 @@ function Products () {
     
     const navigate = useNavigate();
     const [product, setProduct] = useState([]);
+    const [most, setMost] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const modalBackground = useRef();
     const [maxPrice, setMaxPrice] = useState();
@@ -17,15 +18,6 @@ function Products () {
     const [filterSize, setFilterSize] = useState('');
     const [filterEffi, setFilterEffi] = useState('');
     const [value, setValue] = useState('');
-    const [search] = useState({
-        value: value,
-        prodRecom: filterRecom,
-        prodAge: filterAge,
-        prodCook: filterCook,
-        prodSize: filterSize,
-        prodEffi: filterEffi,
-        prodPrice: filterPrice
-    })
 
     const productsList = async () => {
 
@@ -38,9 +30,37 @@ function Products () {
         setMaxPrice(maxProdPrice);
     };
 
+    const mostProducts = async () => {
+
+        const mostProductsAddress = "/products/mostProducts"
+        const mostProductsResponse = await GetAPI(mostProductsAddress);
+        setMost(mostProductsResponse.products);
+    };
+
     useEffect(() => {
         productsList();
+        mostProducts();
     }, []);
+
+    useEffect(() => {
+        setFilterPrice(maxPrice)
+    }, [maxPrice]);
+
+    const searchProducts = async () => {
+        const searchProductsAddress = `/products/search?value=${value}&prodRecom=${filterRecom}&prodAge=${filterAge}&prodCook=${filterCook}&prodSize=${filterSize}&prodEffi=${filterEffi}&prodPrice=${filterPrice}`
+        const searchProductsResponse = await GetAPI(searchProductsAddress);
+        setProduct(searchProductsResponse.products);
+    }
+
+    const handleSearchClick = () => {
+            searchProducts();
+    };
+
+    const onSubmitSearch = (e) => {
+        if (e.key === "Enter") {
+            searchProducts();
+        }
+    };
 
     const onClick = (prodCode, age, size, cook, prodIngra, prodEffi) => {
         const ingra = prodIngra.split(",")[0];
@@ -75,12 +95,12 @@ function Products () {
         }
     };
 
-    const handleFilterClick = () => {
-        setModalOpen(true);
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('ko-KR').format(price);
     };
 
-    const handleSearchClick = () => {
-        console.log("뜨냐?");
+    const handleFilterClick = () => {
+        setModalOpen(true);
     };
 
     const rangeChange = (event) => {
@@ -96,21 +116,11 @@ function Products () {
         }
     };
 
-    const handleConfirm = () => {
-        console.log('검색내용 : ', value);
-        console.log('recom:', filterRecom);
-        console.log('age:', filterAge);
-        console.log('cook:', filterCook);
-        console.log('size:', filterSize);
-        console.log('effi:', filterEffi);
-        console.log('price:', filterPrice);
-    };
-
     return(
         <div style={{width:"1180px", margin:"0 auto"}}>
             <div className={styles.box}>
                 <div style={{position:"relative", display:"inline-block"}}>
-                    <input type="text" className={styles.searchBox} placeholder="키워드를 입력해주세요" name='value' onChange={searchText}/>
+                    <input type="text" className={styles.searchBox} placeholder="키워드를 입력해주세요" name='value' onChange={searchText} onKeyPress={onSubmitSearch}/>
                     <div className={styles.filterIcon} onClick={handleFilterClick} alt="Filter Icon" />
                     <div className={styles.searchIcon} onClick={handleSearchClick} alt="Search Icon" />
                 </div>
@@ -289,7 +299,7 @@ function Products () {
                                 </>
                                 <div style={{display:"flex", gap:"50px", margin:"0 auto", marginTop:"20px"}}>
                                     <button className={styles.modalCancelButton} onClick={() => setModalOpen(false)}>취소</button>
-                                    <button className={styles.modalCheckButton} onClick={handleConfirm}>확인</button>
+                                    <button className={styles.modalCheckButton} onClick={() => setModalOpen(false)}>확인</button>
                                 </div>
                             </div>
                         </div>
@@ -307,14 +317,29 @@ function Products () {
                 <p style={{fontSize:"36px", fontWeight:"bold", color:"#63C54A", marginLeft:"10px", margin:"0"}}>Most Recommend</p>
             </div>
             <div style={{width:"9555x", height:"420px"}}>
-                <p style={{textAlign:"center", paddingTop:"210px"}}>최근 조회수</p>
+            {most
+                .map(most => (
+                    <div key={most.prodCode}>
+                        <p>{most.prodCode}</p>
+                    </div>
+                ))}
             </div>
             <p style={{fontSize:"36px", fontWeight:"bold", margin:"0", marginLeft:"100px", marginTop:"50px"}}>ALL</p>
             <div className={styles.productsAllBox}>
             {product
                 .map(product => (
                         <div key={product.prodCode} className={styles.productsBox} onClick={() => onClick(product.prodCode, product.prodRecom, product.prodSize, product.prodCook, product.prodIngra, product.prodEffi)}>
-                            <img src={product.prodImage} style={{width:"100%"}}/>
+                                <img src={product.prodImage} style={{width:"100%"}}/>
+                                <div className={styles.productHover}>
+                                    <div style={{display:"flex", justifyContent:"center", marginTop:"70px"}}>
+                                        <p style={{color:"white", fontWeight:"bold"}}>가격</p>
+                                        <p style={{color:"white", marginLeft:"10px", fontWeight:"bold"}}>￦{formatPrice(product.prodPrice)}</p>
+                                    </div>
+                                    <div style={{display:"flex", justifyContent:"center"}}>
+                                        <p style={{color:"white", fontWeight:"bold"}}>제조사</p>
+                                        <p style={{color:"white", marginLeft:"10px", fontWeight:"bold"}}>{product.prodManufac}</p>
+                                    </div>
+                                </div>
                             <div style={{display:"flex"}}>
                                 <p style={{margin:"0", fontSize:"16px", fontWeight:"bold"}}>평점</p>
                                 <img style={{width:"79px", height:"15px", marginTop:"5px", marginLeft:"10px"}} src={getStarImage(product.prodGrade)} alt={`${product.prodGrade} stars`}/>
