@@ -31,9 +31,9 @@ function Login(){
                 const userNick = decodedToken.userNick;
                 const userAuth = decodedToken.userAuth;
 
-                window.localStorage.setItem('userCode', userCode);
-                window.localStorage.setItem('userNick', userNick);
-                window.localStorage.setItem('userAuth', userAuth);
+                // window.localStorage.setItem('userCode', userCode);
+                // window.localStorage.setItem('userNick', userNick);
+                // window.localStorage.setItem('userAuth', userAuth);
 
                 if (userAuth === 'ADMIN') {
                     navigate('/admin');
