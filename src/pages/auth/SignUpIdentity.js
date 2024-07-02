@@ -33,10 +33,6 @@ function SignUpIdentity(){
         // 이메일 유효성 검사
         if (email.length !== 0 && emailRegEx.test(email)) {  // 빈 문자열이 아니고 정규식에 맞을때
             // 이메일 중복 여부 확인 로직 (백에서 처리)
-            console.log(`email : ${email}`);
-            console.log(`checkEmail : ${checkEmail.info}`);
-            console.log(`type : ${checkEmail.type}`);
-
             const result = await checkAPI(checkEmail);
             console.log(`result : ${result}`);
 
@@ -56,8 +52,8 @@ function SignUpIdentity(){
 
     const onClickEmail = async() => {
         if (showCheck === true) {
-
-            const result = await callEmailVerification(email);
+            const type = 'signup';
+            const result = await callEmailVerification(email, type);
 
             if (result === 'true') {
                 alert('인증번호가 발송되었습니다.');
@@ -157,7 +153,7 @@ function SignUpIdentity(){
                 </div>
                 <div className={styles.buttonContainer}>
                     <button className={styles.cancelBtn} onClick={handleCancel}>취소</button>
-                    <button className={styles.nextBtn} onClick={onClickLastConfirm}>인증 확인</button>
+                    <button className={styles.nextBtn} onClick={onClickLastConfirm}>인증확인</button>
                 </div>
                 {showEmailModal && (
                     <div className={styles.modal}>

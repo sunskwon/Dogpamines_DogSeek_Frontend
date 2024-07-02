@@ -173,11 +173,12 @@ export const callRegisterAPI = async ({ user }) => {
 }
 
 // 이메일 인증 코드 발송
-export const callEmailVerification = async ( email ) => {
+export const callEmailVerification = async ( email, type ) => {
 
     const requestURL = 'http://localhost:8080/api/auth/send-verification-email';
     const requestBody = JSON.stringify({
         email: email,
+        type: type
     });
 
     const response = await fetch(requestURL, {
@@ -223,6 +224,35 @@ export const callEmailVerify = async ( email, authNum ) => {
     if (response.status === 200) {
         const result = response.headers.get("Result");
             console.log(`q result : ${result}`);
+            return result;
+    } else {
+        const result = 'false';
+        return result;
+    }
+}
+
+// 사용자 ID 조회
+export const callFindUserId = async ( phone ) => {
+
+    const requestURL = 'http://localhost:8080/user/find/email';
+    const requestBody = JSON.stringify({
+        phoneNumber: phone
+    });
+
+    const response = await fetch(requestURL, {
+
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "*/*",
+            'Access-Control-Allow-Origin': '*',
+        },
+        body: requestBody
+    });
+
+    if (response.status === 200) {
+        const result = response.headers.get("Result");
+            console.log(`q result : ${result}`);    // userId
             return result;
     } else {
         const result = 'false';

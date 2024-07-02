@@ -1,5 +1,5 @@
 import styles from "./Login.module.css";
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { callLoginAPI } from "../../api/RestAPIs";
 import { jwtDecode } from 'jwt-decode';
@@ -63,6 +63,10 @@ function Login(){
         }
     }
 
+    const onClickFind = () => {
+        navigate('/findemail');
+    }
+
     return(
 
         <>
@@ -75,15 +79,15 @@ function Login(){
                         {/* id */}
                         <div className={styles.idBox}>
                             <p>ID(EMAIL)</p>
-                            <input placeholder="아이디를 입력해주세요." name={user.userId} onChange={onEmailChange} onKeyDown={activeEnter}></input>
+                            <input placeholder="아이디를 입력해주세요." name={user.userId} type="email" onChange={onEmailChange} onKeyDown={activeEnter}></input>
                         </div>
                         {/* pwd */}
                         <div className={styles.pwdBox}>
                             <p>PASSWORD</p>
                             <input placeholder="비밀번호를 입력해주세요." name={user.userPass} type="password" onChange={onPwdChange} onKeyDown={activeEnter}></input>
                         </div>
-                        <div className={styles.findBox}>
-                            <p>이메일/비밀번호 찾기</p>
+                        <div className={styles.findBox} onClick={onClickFind}>
+                            <p>아이디/비밀번호 찾기</p>
                         </div>
                         <div className={styles.loginBtnBox}>
                             <button type="submit" onClick={onClickLogin}>로그인</button>

@@ -16,6 +16,7 @@ import SignUp from "./pages/auth/SignUp.js";
 import SignUpIdentity from "./pages/auth/SignUpIdentity.js";
 import SignUpInfo from "./pages/auth/SignUpInfo.js";
 import SignUpComplete from "./pages/auth/SignUpComplete.js";
+import FindEmail from "./pages/auth/FindEmail.js";
 import Terms from "./pages/etc/Terms.js";
 import PrivacyPolicy from "./pages/etc/PrivacyPolicy.js";
 import Dict from "./pages/dict/Dict.js";
@@ -58,6 +59,7 @@ function App() {
             <Route path="/signupidentity" element={<SignUpIdentity />} />
             <Route path="/signupinfo" element={<SignUpInfo />} />
             <Route path="/signupcomplete" element={<SignUpComplete />} />
+            <Route path="/findemail" element={<FindEmail/>}/>
             <Route path="/curation" element={<Curation />} />
             <Route path="/curationsizeselect" element={<CurationSizeSelect />} />
             <Route path="/curationselectage" element={<CurationSelectAge />} />
