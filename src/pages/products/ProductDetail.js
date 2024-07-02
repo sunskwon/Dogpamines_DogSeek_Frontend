@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import { GetAPI } from "../../api/RestAPIs";
 import React, {useState, useEffect, useRef} from 'react';
 import styles from './ProductDetail.module.css';
+import axios from "axios";
 
 function ProductDetail () {
 
@@ -14,6 +15,7 @@ function ProductDetail () {
     const [comparison, setComparison] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const modalBackground = useRef();
+    // const [nDate, setNDate] = useState([]);
 
     const detailProduct = async () => {
 
@@ -31,7 +33,7 @@ function ProductDetail () {
         const curationProductsAddress = `/curation?curationAge=${age}&curationIngra=${ingra}&curationDisease=${disease}&curationAllergy=${allergy}&curationCook=${cook}&curationSize=${size}`;
         const curationProductsResponse = await GetAPI(curationProductsAddress);
         setSimilarProduct(curationProductsResponse.curationProducts);
-
+        
     };
 
     useEffect(() => {
@@ -73,6 +75,26 @@ function ProductDetail () {
         setModalOpen(true);
     };
 
+    // const getSearchDate = async () => {
+    //     const response = await axios.get("https://openapi.naver.com/v1/search/shop.json", {
+    //         params: {
+    //             query:`${product.prodName}`,
+    //             display: 10,
+    //             start: 1,
+    //             sort: 'sim'
+    //         },
+    //         headers:{
+    //             'X-Naver-Client-Id': process.env.REACT_APP_NAVER_CLIENT_ID,
+    //             'X-Naver-Client-Secret': process.env.REACT_APP_NAVER_CLIENT_SECRET
+    //         }
+    //     });
+
+    //     setNDate(response.data.items);
+    // };
+
+    // useEffect(() => {
+    //     getSearchDate();
+    // }, []);
 
     return (
         <div className={styles.allBox}>
@@ -84,26 +106,26 @@ function ProductDetail () {
                     <p className={styles.priceText}>￦{formatPrice(product.prodPrice)}</p>
                     <div className={styles.prodTextBox}>
                         <p style={{fontWeight:"bold", fontSize:"20px", margin:"0"}}>평점</p>
-                        <img style={{width:"79px", height:"15px", marginTop:"8px", marginLeft:"5px"}} src={getStarImage(product.prodGrade)} alt={`${product.prodGrade} stars`}/>
+                        <img style={{width:"79px", height:"15px", marginTop:"8px", marginLeft:"10px"}} src={getStarImage(product.prodGrade)} alt={`${product.prodGrade} stars`}/>
                     </div>
                     <div className={styles.prodTextBox}>
-                        <p style={{fontWeight:"bold", fontSize:"20px", margin:"0", width:"90px"}}>제품기능:</p>
+                        <p style={{fontWeight:"bold", fontSize:"20px", margin:"0", width:"90px"}}>제품기능</p>
                         <p className={styles.prodText}>{product.prodEffi}</p>
                     </div>
                     <div className={styles.prodTextBox}>
-                        <p style={{fontWeight:"bold", fontSize:"20px", margin:"0", width:"90px"}}>추천견종:</p>
+                        <p style={{fontWeight:"bold", fontSize:"20px", margin:"0", width:"90px"}}>추천견종</p>
                         <p className={styles.prodText}>{product.prodRecom}</p>
                     </div>
                     <div className={styles.prodTextBox}>
-                        <p style={{fontWeight:"bold", fontSize:"20px", margin:"0", width:"90px"}}>조리방식:</p>
+                        <p style={{fontWeight:"bold", fontSize:"20px", margin:"0", width:"90px"}}>조리방식</p>
                         <p className={styles.prodText}>{product.prodCook}</p>
                     </div>
                     <div className={styles.prodTextBox}>
-                        <p style={{fontWeight:"bold", fontSize:"20px", margin:"0", width:"90px"}}>입자크기:</p>
+                        <p style={{fontWeight:"bold", fontSize:"20px", margin:"0", width:"90px"}}>입자크기</p>
                         <p className={styles.prodText}>{product.prodSize}mm</p>
                     </div>
                     <div className={styles.prodTextBox}>
-                        <p style={{fontWeight:"bold", fontSize:"20px", margin:"0"}}>재료:</p>
+                        <p style={{fontWeight:"bold", fontSize:"20px", margin:"0"}}>재료</p>
                         <p className={styles.prodText}>{product.prodIngra}</p>
                     </div>
                     <hr className={styles.hr}/>
@@ -124,90 +146,106 @@ function ProductDetail () {
             </div>
             <div style={{width:"500px", height:"500px", margin:"0 auto"}}>
                 <p style={{textAlign:"center", paddingTop:"250px"}}>최저가 들어갈곳</p>
+                <p>법적고지 들어가야함(DogSeek은 통신판매중개자이며, 통신판매의 당사자가 아닙니다. 상품, 상품정보, 거래에 관한 의무와 책임은 판매자에게 있습니다.)</p>
+                {/* {nDate.map(product => (
+                    <div key={product.link}>
+                        <p>{product.title}</p>
+                    </div>
+                ))} */}
             </div>
             <p style={{color:"#005600", fontSize:"24px", fontWeight:"bold", margin:"0"}}>비슷한 제품</p>
             <div className={styles.allSimilarBox}>
-                {similarProduct
-                    .filter(similarProd => similarProd.prodCode !== product.prodCode)
-                    .map(similarProd => (
-                        <div key={similarProd.prodCode} className={styles.similarProductBox}>
-                            <img src={similarProd.prodImage} style={{width:"100%"}} alt={similarProd.prodName} />
-                            <div className={styles.prodTextBox}>
-                                <p style={{fontWeight:"bold", fontSize:"16px", margin:"0"}}>제품명:</p>
-                                <p style={{fontWeight:"bold", fontSize:"16px", color:"#999999", width:"234px", margin:"0", marginLeft:"5px", height:"50px"}}>{similarProd.prodName}</p>
+            {similarProduct.length === 1 ? (
+                <div style={{width:"967px", textAlign:"center"}}>
+                    <div style={{display:"flex", flexDirection:"column", gap:"20px", margin:"0 auto", marginTop:"150px", marginBottom:"50px"}}>
+                    <img src="/images/product/Empty Dog Bowl.png" style={{width:"100px", margin:"0 auto"}}/>
+                    <p style={{margin:"0", textAlign:"center", fontWeight:"bold"}}>비슷한 사료가 존재하지 않습니다!</p>
+                    <p style={{margin:"0", textAlign:"center", fontWeight:"bold"}}>더 많은 사료로 찾아 뵙겠습니다!</p>
+                </div>
+                </div>
+            ) : (
+            similarProduct
+            .filter(similarProd => similarProd.prodCode !== product.prodCode)
+            .map(similarProd => (
+            <div key={similarProd.prodCode} className={styles.similarProductBox}>
+                <img src={similarProd.prodImage} style={{ width: "100%" }} alt={similarProd.prodName} />
+                <div className={styles.prodTextBox}>
+                    <p style={{ fontWeight: "bold", fontSize: "16px", margin: "0" }}>제품명</p>
+                    <p style={{fontWeight: "bold", fontSize: "16px", color: "#999999", width: "234px", margin: "0",marginLeft: "10px",height: "50px"}}>{similarProd.prodName}</p>
+                </div>
+                <div className={styles.prodTextBox}>
+                    <p style={{ fontWeight: "bold", fontSize: "16px", margin: "0" }}>평점</p>
+                    <img style={{ width: "79px", height: "15px", marginTop: "5px", marginLeft: "10px" }}
+                        src={getStarImage(similarProd.prodGrade)} alt={`${similarProd.prodGrade} stars`} />
+                </div>
+                <button className={styles.button} onClick={() => onClick(similarProd.prodCode)}>비교하기</button>
+                {modalOpen && (
+                    <div className={styles.modalContainer} ref={modalBackground} onClick={e => {
+                        if (e.target === modalBackground.current) {
+                            setModalOpen(false);
+                        }
+                    }}>
+                        <div className={styles.modalContent}>
+                            <div style={{ display: "flex", marginTop: "50px", marginLeft: "50px" }}>
+                                <p style={{ fontSize: "20px", fontWeight: "bold", margin: "0" }}>DogSeek</p>
+                                <p style={{ fontSize: "20px", fontWeight: "bold", color: "#63C54A", margin: "0", marginLeft: "5px"}}>Compare</p>
                             </div>
-                            <div className={styles.prodTextBox}>
-                                <p style={{fontWeight:"bold", fontSize:"16px", margin:"0"}}>평점</p>
-                                <img style={{width:"79px", height:"15px", marginTop:"5px", marginLeft:"5px"}} src={getStarImage(similarProd.prodGrade)} alt={`${similarProd.prodGrade} stars`}/>
-                            </div>
-                            <button className={styles.button} onClick={() => onClick(similarProd.prodCode)}>비교하기</button>
-                            {
-                                modalOpen &&
-                                <div className={styles.modalContainer} ref={modalBackground} onClick={e => {
-                                    if (e.target === modalBackground.current) {
-                                        setModalOpen(false)
-                                    }
-                                }}>
-                                    <div className={styles.modalContent}>
-                                        <div style={{display:"flex", marginTop:"50px", marginLeft:"50px"}}>
-                                            <p style={{fontSize:"20px", fontWeight:"bold", margin:"0"}}>DogSeek</p>
-                                            <p style={{fontSize:"20px", fontWeight:"bold", color:"#63C54A", margin:"0", marginLeft:"5px"}}>Compare</p>
-                                        </div>
-                                        <div style={{display:"flex", width:"700px"}}>
-                                        {comparison
-                                            .map(comparison => (
-                                                <div key={comparison.prodCode} className={styles.comparisonBox}>
-                                                    <img src={comparison.prodImage} style={{width:"100%"}}/>
-                                                    <div className={styles.prodTextBox}>
-                                                        <p style={{fontWeight:"bold", fontSize:"12px", margin:"0"}}>평점</p>
-                                                        <img src={getStarImage(comparison.prodGrade)} style={{width:"79px", height:"15px", marginTop:"2px", marginLeft:"5px"}}/>
-                                                    </div>
-                                                    <div className={styles.comparisonTextBox}>
-                                                        <p style={{fontWeight:"bold", fontSize:"12px", margin:"0"}}>제조사:</p>
-                                                        <p className={styles.comparisonText}>{comparison.prodManufac}</p>
-                                                    </div>
-                                                    <div className={styles.comparisonTextBox}>
-                                                        <p style={{fontWeight:"bold", fontSize:"12px", margin:"0"}}>제품명:</p>
-                                                        <p className={styles.comparisonText}>{comparison.prodName}</p>
-                                                    </div>
-                                                    <div className={styles.comparisonTextBox}>
-                                                        <p style={{fontWeight:"bold", fontSize:"12px", margin:"0"}}>가격:</p>
-                                                        <p className={styles.comparisonText}>￦{formatPrice(comparison.prodPrice)}</p>
-                                                    </div>
-                                                    <div className={styles.comparisonTextBox}>
-                                                        <p style={{fontWeight:"bold", fontSize:"12px", margin:"0"}}>제품기능:</p>
-                                                        <p className={styles.comparisonText}>{comparison.prodEffi}</p>
-                                                    </div>
-                                                    <div className={styles.comparisonTextBox}>
-                                                        <p style={{fontWeight:"bold", fontSize:"12px", margin:"0"}}>추천견종:</p>
-                                                        <p className={styles.comparisonText}>{comparison.prodRecom}</p>
-                                                    </div>
-                                                    <div className={styles.comparisonTextBox}>
-                                                        <p style={{fontWeight:"bold", fontSize:"12px", margin:"0"}}>조리방식:</p>
-                                                        <p className={styles.comparisonText}>{comparison.prodCook}</p>
-                                                    </div>
-                                                    <div className={styles.comparisonTextBox}>
-                                                        <p style={{fontWeight:"bold", fontSize:"12px", margin:"0"}}>입자크기:</p>
-                                                        <p className={styles.comparisonText}>{comparison.prodSize}mm</p>
-                                                    </div>
-                                                    <div className={styles.comparisonTextBox}>
-                                                        <p style={{fontWeight:"bold", fontSize:"12px", margin:"0"}}>재료:</p>
-                                                        <p className={styles.comparisonText}>{comparison.prodIngra}</p>
-                                                    </div>
-                                                <div className={styles.comparisonTextBox}>
-                                                    <p style={{fontWeight:"bold", fontSize:"12px", margin:"0"}}>사이트주소:</p>
-                                                    <Link to={comparison.prodSite} className={styles.comparisonTextSite}>{comparison.prodSite}</Link>
-                                                </div>
+                            <div style={{ display: "flex", width: "700px" }}>
+                                {comparison
+                                    .map(comparison => (
+                                        <div key={comparison.prodCode} className={styles.comparisonBox}>
+                                            <img src={comparison.prodImage} style={{ width: "100%" }} />
+                                            <div className={styles.prodTextBox}>
+                                                <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>평점</p>
+                                                <img src={getStarImage(comparison.prodGrade)}
+                                                    style={{ width: "79px", height: "15px", marginTop: "2px", marginLeft: "10px" }} />
                                             </div>
-                                        ))}
-                                    </div>
+                                            <div className={styles.comparisonTextBox}>
+                                                <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>제조사</p>
+                                                <p className={styles.comparisonText}>{comparison.prodManufac}</p>
+                                            </div>
+                                            <div className={styles.comparisonTextBox}>
+                                                <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>제품명</p>
+                                                <p className={styles.comparisonText}>{comparison.prodName}</p>
+                                            </div>
+                                            <div className={styles.comparisonTextBox}>
+                                                <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>가격</p>
+                                                <p className={styles.comparisonText}>￦{formatPrice(comparison.prodPrice)}</p>
+                                            </div>
+                                            <div className={styles.comparisonTextBox}>
+                                                <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>제품기능</p>
+                                                <p className={styles.comparisonText}>{comparison.prodEffi}</p>
+                                            </div>
+                                            <div className={styles.comparisonTextBox}>
+                                                <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>추천견종</p>
+                                                <p className={styles.comparisonText}>{comparison.prodRecom}</p>
+                                            </div>
+                                            <div className={styles.comparisonTextBox}>
+                                                <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>조리방식</p>
+                                                <p className={styles.comparisonText}>{comparison.prodCook}</p>
+                                            </div>
+                                            <div className={styles.comparisonTextBox}>
+                                                <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>입자크기</p>
+                                                <p className={styles.comparisonText}>{comparison.prodSize}mm</p>
+                                            </div>
+                                            <div className={styles.comparisonTextBox}>
+                                                <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>재료</p>
+                                                <p className={styles.comparisonText}>{comparison.prodIngra}</p>
+                                            </div>
+                                            <div className={styles.comparisonTextBox}>
+                                                <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>사이트주소</p>
+                                                <Link to={comparison.prodSite} className={styles.comparisonTextSite}>{comparison.prodSite}</Link>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             </div>
-                        }
-                    </div>
-                ))}
-            </div>
+                        </div>
+                    )}
+                </div>
+            )))}
         </div>
+    </div>
     )
 }
 

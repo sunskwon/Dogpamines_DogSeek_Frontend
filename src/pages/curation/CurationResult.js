@@ -159,19 +159,19 @@ function CurationResult() {
                                 </div>
                             </div>
                             <div className={styles.textBox1}>
-                                <p className={styles.text}>제조사:</p>
+                                <p className={styles.text}>제조사</p>
                                 <div className={styles.productText}>{product.prodManufac}</div>
                             </div>
                             <div className={styles.textBox1}>
-                                <p className={styles.text}>제품명:</p>
+                                <p className={styles.text}>제품명</p>
                                 <div className={styles.productText}>{product.prodName}</div>
                             </div>
                             <div className={styles.textBox1}>
-                                <p className={styles.text}>가격:</p>
+                                <p className={styles.text}>가격</p>
                                 <div className={styles.productText}>￦{formatPrice(product.prodPrice)}</div>
                             </div>
                             <div className={styles.textBox1}>
-                                <p className={styles.text}>제품기능:</p>
+                                <p className={styles.text}>제품기능</p>
                                 <div className={styles.productText}>{product.prodEffi}</div>
                             </div>
                             <button className={styles.detailButton} onClick={() => onClick(product.prodCode)}>상세보기</button>

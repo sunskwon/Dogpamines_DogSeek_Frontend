@@ -2,6 +2,13 @@ import { GetAPI } from "../../api/RestAPIs";
 import React, {useState, useEffect, useRef} from 'react';
 import styles from "./Products.module.css"
 import { useNavigate } from 'react-router-dom';
+import { Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/autoplay';
+import { Pagination, Autoplay } from 'swiper/modules';
+import './Paging.css';
+import Paginations from "react-js-pagination";
 
 function Products () {
     
@@ -18,6 +25,11 @@ function Products () {
     const [filterSize, setFilterSize] = useState('');
     const [filterEffi, setFilterEffi] = useState('');
     const [value, setValue] = useState('');
+    const [page, setPage] = useState(1);
+
+    const handlePageChange = (page) => {
+        setPage(page);
+    };
 
     const productsList = async () => {
 
@@ -314,48 +326,96 @@ function Products () {
             <hr style={{width:"1180px", marginTop:"45px", border:"1px solid #D4D4D4"}}/>
             <div style={{display:"flex", marginTop:"50px", marginLeft:"100px"}}>
                 <p style={{fontSize:"36px", fontWeight:"bold", margin:"0"}}>DogSeek</p>
-                <p style={{fontSize:"36px", fontWeight:"bold", color:"#63C54A", marginLeft:"10px", margin:"0"}}>Most Recommend</p>
+                <p style={{fontSize:"36px", fontWeight:"bold", color:"#63C54A", margin:"0", marginLeft:"10px"}}>Most Recommend</p>
             </div>
-            <div style={{width:"9555x", height:"420px"}}>
-            {most
-                .map(most => (
-                    <div key={most.prodCode}>
-                        <p>{most.prodCode}</p>
+            <div style={{width:"940px", margin:"0 auto"}}>
+            <Swiper
+                modules={[Pagination, Autoplay]}
+                spaceBetween={30}
+                slidesPerView={3}
+                autoplay={true}
+                // pagination={{ clickable: true }}
+                className="mySwiper"
+                style={{"--swiper-theme-color":"#63C54A"}}
+            >
+            {most.map(most => (
+                <SwiperSlide  key={most.prodCode}>
+                    <div className={styles.productsBox2} onClick={() => onClick(most.prodCode, most.prodAge, most.prodRecom, most.prodCook, most.prodIngra, most.prodEffi)}>
+                        <img src={most.prodImage} style={{width:"282px"}}/>
+                        <div className={styles.productHover}>
+                            <div style={{display:"flex", justifyContent:"center", marginTop:"70px"}}>
+                                <p style={{color:"white", fontWeight:"bold"}}>가격</p>
+                                <p style={{color:"white", marginLeft:"10px", fontWeight:"bold"}}>￦{formatPrice(most.prodPrice)}</p>
+                            </div>
+                            <div style={{display:"flex", justifyContent:"center"}}>
+                                <p style={{color:"white", fontWeight:"bold"}}>제조사</p>
+                                <p style={{color:"white", marginLeft:"10px", fontWeight:"bold"}}>{most.prodManufac}</p>
+                            </div>
+                        </div>
+                        <div style={{display:"flex"}}>
+                            <p style={{margin:"0", fontSize:"16px", fontWeight:"bold"}}>평점</p>
+                            <img style={{width:"79px", height:"15px", marginTop:"5px", marginLeft:"10px"}} src={getStarImage(most.prodGrade)} alt={`${product.prodGrade} stars`}/>
+                        </div>
+                        <div style={{display:"flex"}}>
+                            <p style={{margin:"0", fontSize:"16px", fontWeight:"bold", width:"55px"}}>제품명</p>
+                            <p className={styles.prodText}>{most.prodName}</p>
+                        </div>
+                        <div style={{display:"flex"}}>
+                            <p style={{margin:"0", fontSize:"16px", fontWeight:"bold", width:"78px"}}>제품기능</p>
+                            <p className={styles.prodText}>{most.prodEffi}</p>
+                        </div>
                     </div>
-                ))}
+                </SwiperSlide>
+            ))}
+            </Swiper>
             </div>
             <p style={{fontSize:"36px", fontWeight:"bold", margin:"0", marginLeft:"100px", marginTop:"50px"}}>ALL</p>
             <div className={styles.productsAllBox}>
-            {product
-                .map(product => (
-                        <div key={product.prodCode} className={styles.productsBox} onClick={() => onClick(product.prodCode, product.prodRecom, product.prodSize, product.prodCook, product.prodIngra, product.prodEffi)}>
-                                <img src={product.prodImage} style={{width:"100%"}}/>
-                                <div className={styles.productHover}>
-                                    <div style={{display:"flex", justifyContent:"center", marginTop:"70px"}}>
-                                        <p style={{color:"white", fontWeight:"bold"}}>가격</p>
-                                        <p style={{color:"white", marginLeft:"10px", fontWeight:"bold"}}>￦{formatPrice(product.prodPrice)}</p>
-                                    </div>
-                                    <div style={{display:"flex", justifyContent:"center"}}>
-                                        <p style={{color:"white", fontWeight:"bold"}}>제조사</p>
-                                        <p style={{color:"white", marginLeft:"10px", fontWeight:"bold"}}>{product.prodManufac}</p>
-                                    </div>
-                                </div>
-                            <div style={{display:"flex"}}>
-                                <p style={{margin:"0", fontSize:"16px", fontWeight:"bold"}}>평점</p>
-                                <img style={{width:"79px", height:"15px", marginTop:"5px", marginLeft:"10px"}} src={getStarImage(product.prodGrade)} alt={`${product.prodGrade} stars`}/>
-                            </div>
-                            <div style={{display:"flex"}}>
-                                <p style={{margin:"0", fontSize:"16px", fontWeight:"bold", width:"55px"}}>제품명</p>
-                                <p className={styles.prodText}>{product.prodName}</p>
-                            </div>
-                            <div style={{display:"flex"}}>
-                                <p style={{margin:"0", fontSize:"16px", fontWeight:"bold", width:"78px"}}>제품기능</p>
-                                <p className={styles.prodText}>{product.prodEffi}</p>
-                            </div>
+            {product.length === 0 ? (
+                <div style={{display:"flex", flexDirection:"column", gap:"20px", margin:"0 auto", marginTop:"150px", marginBottom:"50px"}}>
+                    <img src="/images/product/Empty Dog Bowl.png" style={{width:"100px", margin:"0 auto"}}/>
+                    <p style={{margin:"0", textAlign:"center", fontWeight:"bold"}}>적합한 사료가 존재하지 않습니다!</p>
+                    <p style={{margin:"0", textAlign:"center", fontWeight:"bold"}}>다시 시도해주세요!</p>
+                </div>
+            ) : (
+            product
+            .map(product => (
+                <div key={product.prodCode} className={styles.productsBox} onClick={() => onClick(product.prodCode, product.prodAge, product.prodRecom, product.prodCook, product.prodIngra, product.prodEffi)}>
+                    <img src={product.prodImage} style={{width:"100%"}}/>
+                    <div className={styles.productHover}>
+                        <div style={{display:"flex", justifyContent:"center", marginTop:"70px"}}>
+                            <p style={{color:"white", fontWeight:"bold"}}>가격</p>
+                            <p style={{color:"white", marginLeft:"10px", fontWeight:"bold"}}>￦{formatPrice(product.prodPrice)}</p>
                         </div>
-                ))
-            }
+                        <div style={{display:"flex", justifyContent:"center"}}>
+                            <p style={{color:"white", fontWeight:"bold"}}>제조사</p>
+                            <p style={{color:"white", marginLeft:"10px", fontWeight:"bold"}}>{product.prodManufac}</p>
+                        </div>
+                    </div>
+                    <div style={{display:"flex"}}>
+                        <p style={{margin:"0", fontSize:"16px", fontWeight:"bold"}}>평점</p>
+                        <img style={{width:"79px", height:"15px", marginTop:"5px", marginLeft:"10px"}} src={getStarImage(product.prodGrade)} alt={`${product.prodGrade} stars`}/>
+                    </div>
+                    <div style={{display:"flex"}}>
+                        <p style={{margin:"0", fontSize:"16px", fontWeight:"bold", width:"55px"}}>제품명</p>
+                        <p className={styles.prodText}>{product.prodName}</p>
+                    </div>
+                    <div style={{display:"flex"}}>
+                        <p style={{margin:"0", fontSize:"16px", fontWeight:"bold", width:"78px"}}>제품기능</p>
+                        <p className={styles.prodText}>{product.prodEffi}</p>
+                    </div>
+                </div>
+                )))}
             </div>
+            <Paginations
+                activePage={page}
+                itemsCountPerPage={30}
+                totalItemsCount={product.length}
+                pageRangeDisplayed={product.length % 2}
+                prevPageText={"‹"}
+                nextPageText={"›"}
+                onChange={handlePageChange} 
+                />
         </div>
     )
 }
