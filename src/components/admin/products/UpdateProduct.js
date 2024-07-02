@@ -51,13 +51,24 @@ function UpdateProduct({ Location, product, setProduct }) {
                 <div>
                     <div className={styles.detailBoxImage}>
                         <p>이미지</p>
-                        <img
-                            src={product?.prodImage}
-                            alt='사료'
-                            onClick={() => {
-                                setModalOpen(true);
-                            }}
-                        />
+                        <div>
+
+                            <img
+                                src={product?.prodImage}
+                                alt='사료'
+                                onClick={() => setModalOpen(true)}
+                            />
+                            <div
+                                className={styles.imageInfo}
+                                onClick={() => setModalOpen(true)}
+                            >
+                                <span>클릭하여</span>
+                                <br />
+                                <span>이미지 URL을</span>
+                                <br />
+                                <span>입력하세요</span>
+                            </div>
+                        </div>
                     </div>
                     <ImageInputModal
                         name='prodImage'

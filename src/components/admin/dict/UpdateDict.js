@@ -1,15 +1,20 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import { GetAPI } from "../../../api/RestAPIs";
 
 import GradeInput from "../adminCommon/GradeInput";
 import ListInput from "../adminCommon/ListInput";
 
+import ImageInputModal from "../adminCommon/ImageInputModal";
+
 import styles from "./AdminDict.module.css";
 
 function UpdateProduct({ Location, dict, setDict }) {
 
     const [diseaseList, setDiseaseList] = useState([]);
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const modalBackground = useRef();
 
     const call = async () => {
 
@@ -45,7 +50,32 @@ function UpdateProduct({ Location, dict, setDict }) {
                         <div>
                             <div className={styles.detailBoxImage}>
                                 <p>이미지</p>
+                                <div>
+                                    <img
+                                        src={dict?.dogImage}
+                                        alt='견종'
+                                        onClick={() => setModalOpen(true)}
+                                    />
+                                    <div
+                                        className={styles.imageInfo}
+                                        onClick={() => setModalOpen(true)}
+                                    >
+                                        <span>클릭하여</span>
+                                        <br />
+                                        <span>이미지 URL을</span>
+                                        <br />
+                                        <span>입력하세요</span>
+                                    </div>
+                                </div>
                             </div>
+                            <ImageInputModal
+                                name='dogImage'
+                                item={dict}
+                                setItem={setDict}
+                                modalOpen={modalOpen}
+                                setModalOpen={setModalOpen}
+                                modalBackground={modalBackground}
+                            />
                             <div style={{ width: "340px", float: "left", }}>
                                 <div>
                                     <div className={styles.detailBoxShort}>
@@ -62,7 +92,7 @@ function UpdateProduct({ Location, dict, setDict }) {
                                             type="text"
                                             name="dogName"
                                             onChange={valueChangeHandler}
-                                            placeholder={dict?.dogName}
+                                            value={dict?.dogName}
                                         />
                                     </div>
                                 </div>
@@ -82,7 +112,7 @@ function UpdateProduct({ Location, dict, setDict }) {
                                             name="dogHeightM"
                                             style={{ width: "100px", }}
                                             onChange={valueChangeHandler}
-                                            placeholder={dict?.dogHeightM}
+                                            value={dict?.dogHeightM}
                                         />
                                         <span>cm</span>
                                     </div>
@@ -101,7 +131,7 @@ function UpdateProduct({ Location, dict, setDict }) {
                                             name="dogHeightF"
                                             style={{ width: "100px", }}
                                             onChange={valueChangeHandler}
-                                            placeholder={dict?.dogHeightF}
+                                            value={dict?.dogHeightF}
                                         />
                                         <span>cm</span>
                                     </div>
@@ -122,7 +152,7 @@ function UpdateProduct({ Location, dict, setDict }) {
                                             name="dogWeightM"
                                             style={{ width: "100px", }}
                                             onChange={valueChangeHandler}
-                                            placeholder={dict?.dogWeightM}
+                                            value={dict?.dogWeightM}
                                         />
                                         <span>kg</span>
                                     </div>
@@ -141,7 +171,7 @@ function UpdateProduct({ Location, dict, setDict }) {
                                             name="dogWeightF"
                                             style={{ width: "100px" }}
                                             onChange={valueChangeHandler}
-                                            placeholder={dict?.dogWeightF}
+                                            value={dict?.dogWeightF}
                                         />
                                         <span>kg</span>
                                     </div>
@@ -155,7 +185,7 @@ function UpdateProduct({ Location, dict, setDict }) {
                                     type="text"
                                     name="dogChild"
                                     onChange={valueChangeHandler}
-                                    placeholder={`유아기: ${dict?.dogChild}`}
+                                    value={`유아기: ${dict?.dogChild}`}
                                 />
                             </div>
                             <div className={styles.detailBoxShort}>
@@ -164,7 +194,7 @@ function UpdateProduct({ Location, dict, setDict }) {
                                     type="text"
                                     name="dogYouth"
                                     onChange={valueChangeHandler}
-                                    placeholder={`청년기: ${dict?.dogYouth}`}
+                                    value={`청년기: ${dict?.dogYouth}`}
                                 />
                             </div>
                             <div className={styles.detailBoxShort}>
@@ -173,7 +203,7 @@ function UpdateProduct({ Location, dict, setDict }) {
                                     type="text"
                                     name="dogEld"
                                     onChange={valueChangeHandler}
-                                    placeholder={`노년기: ${dict?.dogEld}`}
+                                    value={`노년기: ${dict?.dogEld}`}
                                 />
                             </div>
                         </div>

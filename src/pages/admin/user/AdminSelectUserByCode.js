@@ -50,13 +50,6 @@ function AdminSelectUserByCode() {
                         <p className={styles.subjectTitle}>회원 상세</p>
                         <div style={{ float: "right", }}>
                             <button
-                                className={styles.submitButton}
-                                style={{ marginRight: "10px", }}
-                                onClick={updateHandler}
-                            >
-                                관리자 승급
-                            </button>
-                            <button
                                 className={styles.cancelButton}
                                 style={{ marginRight: "15px", }}
                                 onClick={() => {
@@ -65,6 +58,13 @@ function AdminSelectUserByCode() {
                             >
                                 돌아가기
                             </button>
+                            <button
+                                className={styles.submitButton}
+                                style={{ marginRight: "10px", }}
+                                onClick={updateHandler}
+                            >
+                                관리자 승급
+                            </button>
                         </div>
                         <div className={styles.productDetail}>
                             <SelectUserByCode
@@ -72,7 +72,6 @@ function AdminSelectUserByCode() {
                                 user={user}
                                 setUser={setUser}
                                 bool={bool}
-                                setBool={setBool}
                             />
                         </div>
                     </div>

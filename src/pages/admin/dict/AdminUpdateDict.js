@@ -12,10 +12,9 @@ function AdminUpdateDict() {
 
     const [dict, setDict] = useState(
         {
+            dogImage: '/images/admin/No Image Available.png',
             dogCode: 0,
             dogName: '',
-            dogSize: '소형견',
-            dogSummary: '',
             dogHeightM: '',
             dogWeightM: '',
             dogHeightF: '',
@@ -23,7 +22,9 @@ function AdminUpdateDict() {
             dogChild: '',
             dogYouth: '',
             dogEld: '',
+            dogSize: '소형견',
             dogDisease: '',
+            dogSummary: '',
             dogDrool: 0,
             dogSocial: 0,
             dogShed: 0,
@@ -34,8 +35,6 @@ function AdminUpdateDict() {
             dogHouse: 0,
             dogGroom: 0,
             dogActi: 0,
-            dogImage: '/images/admin/No Image Available.png',
-            dogDetail: '/images/admin/No Image Available.png',
         }
     );
 
@@ -63,13 +62,6 @@ function AdminUpdateDict() {
                         <p className={styles.subjectTitle}>견종 정보 수정</p>
                         <div style={{ float: "right", }}>
                             <button
-                                className={styles.submitButton}
-                                style={{ marginRight: "10px", }}
-                                onClick={submitHandler}
-                            >
-                                수정
-                            </button>
-                            <button
                                 className={styles.cancelButton}
                                 style={{ marginRight: "15px", }}
                                 onClick={() => {
@@ -77,6 +69,13 @@ function AdminUpdateDict() {
                                 }}
                             >
                                 돌아가기
+                            </button>
+                            <button
+                                className={styles.submitButton}
+                                style={{ marginRight: "10px", }}
+                                onClick={submitHandler}
+                            >
+                                변경
                             </button>
                         </div>
                         <div className={styles.productDetail}>

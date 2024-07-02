@@ -2,13 +2,19 @@ import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import { GetAPI, DeleteAPI } from "../../../api/RestAPIs"
+import { GetAPI } from "../../../api/RestAPIs"
 
 import styles from "./AdminProducts.module.css";
 
-function SelectAllProducts({ search, bool, setBool }) {
+function SelectAllProducts({ search, bool, setModalOpen, setProduct }) {
 
-    const [products, setProducts] = useState([]);
+    const [products, setProducts] = useState(
+        [
+            {
+                prodCode: 0
+            }
+        ]
+    );
 
     const navigate = useNavigate();
 
@@ -114,7 +120,9 @@ function SelectAllProducts({ search, bool, setBool }) {
                                     <button
                                         className={styles.acceptButton}
                                         onClick={() => {
-                                            navigate("/admin/productdetail", { state: { Location: `/products/${product.prodCode}` } });
+                                            navigate("/admin/productdetail", {
+                                                state: { Location: `/products/${product.prodCode}` }
+                                            });
                                         }}
                                     >
                                         상세
@@ -123,13 +131,10 @@ function SelectAllProducts({ search, bool, setBool }) {
                                 <td>
                                     <button
                                         className={styles.cancelButton}
-                                        onClick={async () => {
+                                        onClick={() => {
 
-                                            const address = `/products/${product.prodCode}`;
-
-                                            await DeleteAPI(address);
-
-                                            setBool(!bool);
+                                            setModalOpen(true);
+                                            setProduct(product);
                                         }}
                                     >
                                         삭제

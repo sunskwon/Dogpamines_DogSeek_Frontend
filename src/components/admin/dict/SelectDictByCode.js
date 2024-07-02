@@ -174,7 +174,7 @@ function SelectDictByCode({ Location }) {
                             >
                                 침 흘림
                             </span>
-                            <div className={styles.gradeBox}>
+                            <div className={styles.gradeOutputBox}>
                                 <GradeOutput
                                     grade={dict?.dogDrool}
                                 />
@@ -186,7 +186,7 @@ function SelectDictByCode({ Location }) {
                             >
                                 공동생활
                             </span>
-                            <div className={styles.gradeBox}>
+                            <div className={styles.gradeOutputBox}>
                                 <GradeOutput
                                     grade={dict?.dogSocial}
                                 />
@@ -198,7 +198,7 @@ function SelectDictByCode({ Location }) {
                             >
                                 털 빠짐
                             </span>
-                            <div className={styles.gradeBox}>
+                            <div className={styles.gradeOutputBox}>
                                 <GradeOutput
                                     grade={dict?.dogShed}
                                 />
@@ -210,7 +210,7 @@ function SelectDictByCode({ Location }) {
                             >
                                 짖음
                             </span>
-                            <div className={styles.gradeBox}>
+                            <div className={styles.gradeOutputBox}>
                                 <GradeOutput
                                     grade={dict?.dogBark}
                                 />
@@ -222,7 +222,7 @@ function SelectDictByCode({ Location }) {
                             >
                                 반려동물
                             </span>
-                            <div className={styles.gradeBox}>
+                            <div className={styles.gradeOutputBox}>
                                 <GradeOutput
                                     grade={dict?.dogPet}
                                 />
@@ -234,7 +234,7 @@ function SelectDictByCode({ Location }) {
                             >
                                 더위 적응
                             </span>
-                            <div className={styles.gradeBox}>
+                            <div className={styles.gradeOutputBox}>
                                 <GradeOutput
                                     grade={dict?.dogHot}
                                 />
@@ -246,7 +246,7 @@ function SelectDictByCode({ Location }) {
                             >
                                 추위 적응
                             </span>
-                            <div className={styles.gradeBox}>
+                            <div className={styles.gradeOutputBox}>
                                 <GradeOutput
                                     grade={dict?.dogCold}
                                 />
@@ -258,7 +258,7 @@ function SelectDictByCode({ Location }) {
                             >
                                 실내 적합
                             </span>
-                            <div className={styles.gradeBox}>
+                            <div className={styles.gradeOutputBox}>
                                 <GradeOutput
                                     grade={dict?.dogHouse}
                                 />
@@ -270,7 +270,7 @@ function SelectDictByCode({ Location }) {
                             >
                                 그루밍
                             </span>
-                            <div className={styles.gradeBox}>
+                            <div className={styles.gradeOutputBox}>
                                 <GradeOutput
                                     grade={dict?.dogGroom}
                                 />
@@ -282,7 +282,7 @@ function SelectDictByCode({ Location }) {
                             >
                                 활용량
                             </span>
-                            <div className={styles.gradeBox}>
+                            <div className={styles.gradeOutputBox}>
                                 <GradeOutput
                                     grade={dict?.dogActi}
                                 />

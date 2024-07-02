@@ -45,6 +45,7 @@ function ImageInput({ name, item, setItem, modalOpen, setModalOpen, modalBackgro
                                         name={name}
                                         type='text'
                                         onChange={onChangeHandler}
+                                        style={{ width: "290px", }}
                                     />
                                     <div>
                                         <button
