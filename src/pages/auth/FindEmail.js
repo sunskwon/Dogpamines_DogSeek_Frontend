@@ -1,6 +1,7 @@
 import style from './FindEmail.module.css';
 import React, {useState} from 'react';
 import { checkAPI, callEmailVerification, callEmailVerify, callFindUserId } from '../../api/RestAPIs';
+import { useNavigate } from 'react-router-dom';
 
 function FindEmail(){
 
@@ -15,6 +16,7 @@ function FindEmail(){
     const [showConfirmed, setShowConfirmed] = useState(true);
     const [userId, setUserId] = useState('');
     const [showUserId, setShowUserId ] = useState(false);
+    const navigate = useNavigate();
 
     const onPhoneChange = (e) => {
         setCheckPhone({...checkPhone, type: 'phone', info: e.target.value});
@@ -95,6 +97,10 @@ function FindEmail(){
         }
     }
 
+    const onClickMoveFindPwd = () => {
+        navigate('/findpwd');
+    }
+
     return(
 
         <>
@@ -137,6 +143,7 @@ function FindEmail(){
                                 <p>{userId}</p>
                             </div>
                         )}
+                        <button onClick={onClickMoveFindPwd}>비밀번호 찾기</button>
                     </div>
                 </div>
             </div>
