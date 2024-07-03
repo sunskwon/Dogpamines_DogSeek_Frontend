@@ -56,7 +56,7 @@ function SignUpInfo() {
     // 비밀번호 정규식(최소 8자 및 최대 12자, 영문자 or 숫자 or 특수문자 2가지 이상 조합)
     const pwdRegEx = /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,12}$/;
     // 연락처('-' 사용)
-    const phoneRegEx = /^01([0|1|6|7|8|9])-?([0-9]{3,4})-?([0-9]{4})$/;
+    const phoneRegEx = /^01([0|1|6|7|8|9])-([0-9]{3,4})-([0-9]{4})$/;
 
     const onNickChange = (e) => {
         setUser({...user, nick: e.target.value});
@@ -225,7 +225,7 @@ function SignUpInfo() {
                             <p>한글, 영문, 숫자 사용 가능 2~7자 이내</p>
                         </div>
                         {showConfirmed && (
-                            <button type='submit' onClick={onClickConfirm}>중복 확인</button>    
+                            <button type='submit' onClick={onClickConfirm}>중복확인</button>    
                         )}
                         {showCheck && (
                             <img src='./images/auth/check_icon.png' alt='check_icon'></img>
