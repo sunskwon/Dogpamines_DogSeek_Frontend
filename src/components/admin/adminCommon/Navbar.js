@@ -44,7 +44,7 @@ function Navbar() {
                 <img src="/images/admin/Open Book.png" alt="Open Book icon" />
                 <span>견종 백과 관리</span>
             </div>
-            <div
+            {/* <div
                 style={{
                     display: "flex",
                     marginBottom: "30px",
@@ -55,7 +55,7 @@ function Navbar() {
             >
                 <img src="/images/admin/Flipboard.png" alt="Flipboard icon" />
                 <span>게시판 관리</span>
-            </div>
+            </div> */}
             <div
                 style={{
                     display: "flex",
