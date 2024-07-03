@@ -45,6 +45,7 @@ import AdminSelectBoardByCode from "./pages/admin/board/AdminSelectBoardByCode.j
 import AdminUpdateBoard from "./pages/admin/board/AdminUpdateBoard.js";
 import AdminSelectAllUsers from "./pages/admin/user/AdminSelectAllUsers.js";
 import AdminSelectUserByCode from "./pages/admin/user/AdminSelectUserByCode.js"
+import AnimalRegist from "./pages/animalRegist/AnimalRegist.js";
 
 function App() {
   return (
@@ -71,6 +72,7 @@ function App() {
             <Route path="/productdetail" element={<ProductDetail/>} />
             <Route path="/dict" element={<Dict />} />
             <Route path="/dict/:dogName" element={<DictDetail />} />
+            <Route path="/animalRegist" element={<AnimalRegist />} />
             <Route path="/board" element={<Board />} />
             <Route path="/board/boardkakao" element={<BoardKakao />} />
             <Route path="/board/boardpost" element={<BoardPost />} />
