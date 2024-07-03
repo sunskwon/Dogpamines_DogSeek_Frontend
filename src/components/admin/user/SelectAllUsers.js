@@ -2,13 +2,19 @@ import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import { PostAPI, DeleteAPI } from "../../../api/RestAPIs"
+import { PostAPI } from "../../../api/RestAPIs"
 
 import styles from "./AdminUsers.module.css";
 
-function SelectAllUsers({ search, bool, setBool }) {
+function SelectAllUsers({ search, bool, setModalOpen, setUser }) {
 
-    const [users, setUsers] = useState([]);
+    const [users, setUsers] = useState(
+        [
+            {
+                userCode: 0
+            }
+        ]
+    );
 
     const navigate = useNavigate();
 
@@ -51,76 +57,85 @@ function SelectAllUsers({ search, bool, setBool }) {
 
     return (
         <>
-            {users?.map(user => (
-                <tr
-                    key={user?.userCode}
-                >
-                    <td
-                        style={{ width: "80px", textAlign: "center", }}
-                    >
-                        {user?.userCode}
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "270px", textAlign: "center", }}
-                        >
-                            {user?.userNick}
-                        </div>
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "120px", textAlign: "center", }}
-                        >
-                            {user?.userAuth === 'ADMIN' ? '관리자' : (user.userAuth === 'USER' ? '회원' : '휴면회원')}
-                        </div>
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "120px", textAlign: "center", }}
-                        >
-                            {user?.userSignup}
-                        </div>
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "120px", textAlign: "center", }}
-                        >
-                            {user?.userLatest}
-                        </div>
-                    </td>
-                    <td>
-                        <button
-                            className={styles.acceptButton}
-                            onClick={() => {
-                                navigate("/admin/userdetail", {
-                                    state: { Location: `/admin/users/${user?.userCode}` }
-                                });
-                            }}
-                        >
-                            상세
-                        </button>
-                    </td>
-                    <td>
-                        <button
-                            className={styles.cancelButton}
-                            onClick={async () => {
+            {users.length === 0 &&
+                <div className={styles.errorBox}>
+                    <div>
+                        <img
+                            src="/images/admin/Nothing Found.png"
+                            alt="슬픈 돋보기 아이콘"
+                        />
+                        <p>적합한 사료가 없습니다</p>
+                        <p>다시 시도해주세요</p>
+                    </div>
+                </div>
+            }
+            {users.length > 0 &&
+                <table className={styles.productListTable}>
+                    <tbody>
+                        <tr>
+                            <th>회원코드</th>
+                            <th>닉네임</th>
+                            <th>권한</th>
+                            <th>가입일</th>
+                            <th>최근 접속일</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td colSpan={7}>
+                                <hr className={styles.tableLine} />
+                            </td>
+                        </tr>
+                        {users?.map(user => (
+                            <tr
+                                key={user?.userCode}
+                            >
+                                <td style={{ width: "80px", }}>
+                                    {user.userCode}
+                                </td>
+                                <td style={{ width: "250px", }}>
+                                    {user?.userNick}
+                                </td>
+                                <td style={{ width: "120px", }}>
+                                    {user?.userAuth === 'ADMIN' ? '관리자' : (user.userAuth === 'USER' ? '회원' : '휴면회원')}
+                                </td>
+                                <td style={{ width: "120px", }}>
+                                    {user?.userSignup}
+                                </td>
+                                <td style={{ width: "120px", }}>
+                                    {user?.userLatest}
+                                </td>
+                                <td>
+                                    <button
+                                        className={styles.acceptButton}
+                                        onClick={() => {
+                                            navigate("/admin/userdetail", {
+                                                state: { Location: `/admin/users/${user?.userCode}` }
+                                            });
+                                        }}
+                                    >
+                                        상세
+                                    </button>
+                                </td>
+                                <td>
+                                    <button
+                                        className={
+                                            user.userAuth === 'SLEEP' ? styles.acceptButton : styles.cancelButton
+                                        }
+                                        onClick={() => {
 
-                                const address = `/admin/users/${user?.userCode}`;
-
-                                if (user?.userAuth === 'ADMIN') {
-                                    alert('관리자는 휴면 처리할 수 없습니다');
-                                } else {
-                                    const response = await DeleteAPI(address, search);
-                                }
-
-                                setBool(!bool);
-                            }}
-                        >
-                            휴면
-                        </button>
-                    </td>
-                </tr>
-            ))}
+                                            setModalOpen(true);
+                                            setUser(user);
+                                        }}
+                                    >
+                                        {user.userAuth === 'SLEEP' ? '활성화' : '휴면'}
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            }
         </>
     );
 }

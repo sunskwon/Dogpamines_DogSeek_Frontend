@@ -53,6 +53,12 @@
     color: rgba(153, 153, 153, 1);
 }
 
+.detailBox input::placeholder {
+    font-weight: normal;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+}
+
 .detailBox select {
     width: 130px;
     height: 35px;
@@ -103,6 +109,33 @@
     padding-top: 30px;
 }
 
+.imageInfo {
+    width: 120px;
+    height: 120px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.5);
+    position: relative;
+    left: 0;
+    bottom: 125px;
+    padding: 15px;
+    padding-top: 25px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.35s ease-in-out;
+    cursor: pointer;
+}
+
+.imageInfo span {
+    font-size: 14px;
+    color: white;
+}
+
+.imageInfo:hover {
+    opacity: 1;
+}
+
 .detailBoxShort {
     width: 170px;
     height: 75px;
@@ -142,6 +175,15 @@
 .gradeBox img {
     margin: 1px;
     cursor: pointer;
+}
+
+.gradeOutputBox {
+    padding-top: 7px;
+    padding-left: 10px;
+}
+
+.gradeOutputBox img {
+    margin: 1px;
 }
 
 .listBox {

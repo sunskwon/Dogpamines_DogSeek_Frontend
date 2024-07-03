@@ -152,6 +152,38 @@
     border-radius: 10px;
 }
 
+.productListTable {
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    display: flex;
+    /* justify-content: center; */
+    text-align: center;
+    margin: 20px;
+}
+
+.productListTable th {
+    position: sticky;
+    top: -5px;
+    background-color: white;
+    table-layout: fixed;
+    height: 32px;
+}
+
+.errorBox {
+    width: 560px;
+    height: 560px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+}
+
+.errorBox p {
+    font-weight: bold;
+    font-size: 24px;
+    color: rgba(153, 153, 153, 1);
+}
 
 .itemList {
     clear: both;

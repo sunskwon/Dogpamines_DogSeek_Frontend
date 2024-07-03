@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import { useNavigate } from "react-router-dom";
+
+import { DeleteAPI } from "../../../api/RestAPIs";
 
 import SelectAllDicts from "../../../components/admin/dict/SelectAllDicts";
 
 import styles from "../AdminPages.module.css";
+import ConfirmModal from "../../../components/admin/adminCommon/ConfirmModal";
 
 function AdminSelectAllDicts() {
 
@@ -13,6 +16,10 @@ function AdminSelectAllDicts() {
         input: ''
     });
     const [bool, setBool] = useState(true);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [dict, setDict] = useState({});
+
+    const modalBackground = useRef();
 
     const navigate = useNavigate();
 
@@ -30,6 +37,16 @@ function AdminSelectAllDicts() {
         setBool(!bool);
     };
 
+    const deleteHandler = async () => {
+
+        const address = `/dict/${dict.dogCode}`;
+
+        const response = await DeleteAPI(address);
+
+        setBool(!bool);
+        setModalOpen(false);
+    };
+
     return (
         <div>
             <p className={styles.subTitle}>견종 정보 관리</p>
@@ -40,13 +57,13 @@ function AdminSelectAllDicts() {
                         <div style={{ float: "right", }}>
                             <select
                                 name="type"
-                                style={{ width: "80px", height: "34px", }}
+                                style={{ width: "100px", height: "34px", }}
                                 onChange={valueChangeHandler}
                             >
                                 <option
                                     value={'dogName'}
                                 >
-                                    견종명
+                                    견종이름
                                 </option>
                                 <option
                                     value={'dogSize'}
@@ -88,12 +105,20 @@ function AdminSelectAllDicts() {
                             <SelectAllDicts
                                 search={search}
                                 bool={bool}
-                                setBool={setBool}
+                                setModalOpen={setModalOpen}
+                                setDict={setDict}
                             />
                         </div>
                     </div>
                 </div>
             </div>
+            <ConfirmModal
+                message={`${dict.dogCode}번 견종(${dict.dogName})을(를) 삭제 하시겠습니까?`}
+                onClickHandler={deleteHandler}
+                modalOpen={modalOpen}
+                setModalOpen={setModalOpen}
+                modalBackground={modalBackground}
+            />
         </div>
     );
 }

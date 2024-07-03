@@ -4,9 +4,8 @@ import { GetAPI } from "../../../api/RestAPIs";
 
 import styles from "./AdminUsers.module.css"
 
-function SelectUserByCode({ Location, user, setUser, bool, setBool }) {
+function SelectUserByCode({ Location, user, setUser, bool, }) {
 
-    // const [user, setUser] = useState();
     const [dogs, setDogs] = useState([]);
     const [boards, setBoards] = useState([]);
 
@@ -42,6 +41,9 @@ function SelectUserByCode({ Location, user, setUser, bool, setBool }) {
                     board.countComment = countList[board.postCode];
                 }
             }
+
+            console.log(board);
+            console.log(dogArray);
 
             setUser(user);
             setDogs(dogArray);
@@ -156,7 +158,7 @@ function SelectUserByCode({ Location, user, setUser, bool, setBool }) {
                                             <hr />
                                         </td>
                                     </tr>
-                                    {boards.map((board, index) => (
+                                    {/* {boards.map((board, index) => (
                                         <tr key={index}>
                                             <td>{board?.postCode}</td>
                                             <td>{board?.postTitle}</td>
@@ -164,7 +166,7 @@ function SelectUserByCode({ Location, user, setUser, bool, setBool }) {
                                             <td>{board?.postStatus}</td>
                                             <td>{board?.countComment}</td>
                                         </tr>
-                                    ))}
+                                    ))} */}
                                 </tbody>
                             </table>
                         </div>

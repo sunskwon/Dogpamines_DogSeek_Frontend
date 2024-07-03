@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import { DeleteAPI } from "../../../api/RestAPIs";
+
 import SelectAllProducts from "../../../components/admin/products/SelectAllProducts";
+
+import ConfirmModal from "../../../components/admin/adminCommon/ConfirmModal";
 
 import styles from "../AdminPages.module.css";
 
@@ -13,6 +17,10 @@ function AdminSelectAllProducts() {
         input: ''
     });
     const [bool, setBool] = useState(true);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [product, setProduct] = useState({});
+
+    const modalBackground = useRef();
 
     const navigate = useNavigate();
 
@@ -30,6 +38,16 @@ function AdminSelectAllProducts() {
         setBool(!bool);
     };
 
+    const deleteHandler = async () => {
+
+        const address = `/products/${product.prodCode}`;
+
+        await DeleteAPI(address);
+
+        setBool(!bool);
+        setModalOpen(false);
+    };
+
     return (
         <div>
             <p className={styles.subTitle}>사료 정보 관리</p>
@@ -40,7 +58,7 @@ function AdminSelectAllProducts() {
                         <div style={{ float: "right", }}>
                             <select
                                 name="type"
-                                style={{ width: "80px", height: "34px", }}
+                                style={{ width: "100px", height: "34px", }}
                                 onChange={valueChangeHandler}
                             >
                                 <option value={'prodName'}>
@@ -57,7 +75,7 @@ function AdminSelectAllProducts() {
                                 onChange={valueChangeHandler}
                                 onKeyDown={(e) => {
                                     if (e.keyCode === 13) {
-                                        searchSubmitHandler(e);
+                                        searchSubmitHandler();
                                     }
                                 }}
                             />
@@ -84,12 +102,20 @@ function AdminSelectAllProducts() {
                             <SelectAllProducts
                                 search={search}
                                 bool={bool}
-                                setBool={setBool}
+                                setModalOpen={setModalOpen}
+                                setProduct={setProduct}
                             />
                         </div>
                     </div>
                 </div>
             </div>
+            <ConfirmModal
+                message={`${product.prodCode}번 사료(${product.prodName})을(를) 삭제 하시겠습니까?`}
+                onClickHandler={deleteHandler}
+                modalOpen={modalOpen}
+                setModalOpen={setModalOpen}
+                modalBackground={modalBackground}
+            />
         </div>
     );
 }

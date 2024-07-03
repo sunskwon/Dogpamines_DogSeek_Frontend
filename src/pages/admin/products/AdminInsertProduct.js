@@ -38,7 +38,7 @@ function AdminInsertProduct() {
     const submitHandler = async () => {
 
         if (product.prodName === '') {
-            setMessage('사료의 제폼명을 입력해야 합니다');
+            setMessage('사료의 제품명을 입력해야 합니다');
             setModalOpen(true);
         } else if (product.prodManufac === '') {
             setMessage('사료의 제조사를 입력해야 합니다');

@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
-// import { useNavigate } from "react-router-dom";
+import { DeleteAPI } from "../../../api/RestAPIs";
 
 import SelectAllUsers from "../../../components/admin/user/SelectAllUsers";
+
+import AlertModal from "../../../components/admin/adminCommon/AlertModal";
+import ConfirmModal from "../../../components/admin/adminCommon/ConfirmModal";
 
 import styles from "../AdminPages.module.css";
 
@@ -13,8 +16,12 @@ function AdminSelectAllUsers() {
         input: ''
     });
     const [bool, setBool] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [user, setUser] = useState({});
 
-    // const navigate = useNavigate();
+    const modalBackground = useRef();
+
+    const input = document.getElementById('typeInput');
 
     const valueChangeHandler = e => {
         setSearch({
@@ -24,8 +31,18 @@ function AdminSelectAllUsers() {
     };
 
     const searchSubmitHandler = () => {
+        input.value='';
         setBool(!bool);
-        document.getElementById('input').value = '';
+    };
+
+    const deleteHandler = async () => {
+
+        const address = `/admin/users/${user?.userCode}`;
+
+        const response = await DeleteAPI(address, search);
+
+        setBool(!bool);
+        setModalOpen(false);
     };
 
     return (
@@ -38,7 +55,7 @@ function AdminSelectAllUsers() {
                         <div style={{ float: "right", }}>
                             <select
                                 name="type"
-                                style={{ width: "80px", height: "34px", }}
+                                style={{ width: "100px", height: "34px", }}
                                 onChange={valueChangeHandler}
                             >
                                 <option value={'userNick'}>
@@ -55,10 +72,15 @@ function AdminSelectAllUsers() {
                                 </option>
                             </select>
                             <input
-                                id="input"
+                                id="typeInput"
                                 name="input"
                                 style={{ width: "150px", height: "30px", }}
                                 onChange={valueChangeHandler}
+                                onKeyDown={(e) => {
+                                    if (e.keyCode === 13) {
+                                        searchSubmitHandler();
+                                    }
+                                }}
                             />
                             <button
                                 className={styles.submitButton}
@@ -72,33 +94,42 @@ function AdminSelectAllUsers() {
                     </div>
                     <div style={{ clear: "both", }}>
                         <div className={styles.productList}>
-                            <table className={styles.productListTable}>
-                                <tbody>
-                                    <tr>
-                                        <th style={{ width: "80px", }}>회원코드</th>
-                                        <th style={{ width: "270px", }}>닉네임</th>
-                                        <th style={{ width: "120px", }}>권한</th>
-                                        <th style={{ width: "120px", }}>가입일</th>
-                                        <th style={{ width: "120px", }}>최근 접속일</th>
-                                        <th style={{ width: "100px", }}></th>
-                                        <th style={{ width: "100px", }}></th>
-                                    </tr>
-                                    <tr>
-                                        <td colSpan={7}>
-                                            <hr className={styles.tableLine} />
-                                        </td>
-                                    </tr>
-                                    <SelectAllUsers
-                                        search={search}
-                                        bool={bool}
-                                        setBool={setBool}
-                                    />
-                                </tbody>
-                            </table>
+                            <SelectAllUsers
+                                search={search}
+                                bool={bool}
+                                setModalOpen={setModalOpen}
+                                setUser={setUser}
+                            />
                         </div>
                     </div>
                 </div>
             </div>
+            {user?.userAuth === 'ADMIN' &&
+                <AlertModal
+                    message='관리자는 휴면 처리할 수 없습니다'
+                    modalOpen={modalOpen}
+                    setModalOpen={setModalOpen}
+                    modalBackground={modalBackground}
+                />
+            }
+            {user?.userAuth === 'USER' &&
+                <ConfirmModal
+                    message={`${user.userCode}번 사용자(${user.userNick})를(을) 휴면 처리 하시겠습니까?`}
+                    onClickHandler={deleteHandler}
+                    modalOpen={modalOpen}
+                    setModalOpen={setModalOpen}
+                    modalBackground={modalBackground}
+                />
+            }
+            {user?.userAuth === 'SLEEP' &&
+                <ConfirmModal
+                    message={`${user.userCode}번 사용자(${user.userNick})를(을) 활성화 처리 하시겠습니까?`}
+                    onClickHandler={deleteHandler}
+                    modalOpen={modalOpen}
+                    setModalOpen={setModalOpen}
+                    modalBackground={modalBackground}
+                />
+            }
         </div>
     );
 }

@@ -1,6 +1,6 @@
 import styles from "../adminCommon/AdminModal.module.css";
 
-function ImageInputModal({ message, modalOpen, setModalOpen, modalBackground }) {
+function AlertModal({ message, modalOpen, setModalOpen, modalBackground }) {
 
     return (
         <>
@@ -43,4 +43,4 @@ function ImageInputModal({ message, modalOpen, setModalOpen, modalBackground }) 
     );
 }
 
-export default ImageInputModal;
+export default AlertModal;

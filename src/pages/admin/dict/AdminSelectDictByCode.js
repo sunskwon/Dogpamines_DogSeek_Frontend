@@ -19,6 +19,15 @@ function AdminSelectDictByCode() {
                         <p className={styles.subjectTitle}>상세 견종 정보</p>
                         <div style={{ float: "right", }}>
                             <button
+                                className={styles.cancelButton}
+                                style={{ marginRight: "15px", }}
+                                onClick={() => {
+                                    navigate("/admin/dicts");
+                                }}
+                            >
+                                돌아가기
+                            </button>
+                            <button
                                 className={styles.submitButton}
                                 style={{ marginRight: "10px", }}
                                 onClick={() => {
@@ -28,15 +37,6 @@ function AdminSelectDictByCode() {
                                 }}
                             >
                                 수정
-                            </button>
-                            <button
-                                className={styles.cancelButton}
-                                style={{ marginRight: "15px", }}
-                                onClick={() => {
-                                    navigate(-1);
-                                }}
-                            >
-                                돌아가기
                             </button>
                         </div>
                         <div className={styles.productDetail}>

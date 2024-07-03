@@ -1,13 +1,14 @@
 import styles from "./AdminModal.module.css";
 
-function ConfirmModal({ setModalOpen, message, onClickHandler }) {
+function ConfirmModal({ message, onClickHandler, modalOpen, setModalOpen, modalBackground }) {
 
     return (
         <>
             {
-                boardModalOpen &&
+                modalOpen &&
                 <div
                     className={styles.modalContainer}
+                    style={{ paddingTop: "500px", }}
                     ref={modalBackground}
                     onClick={e => {
                         if (e.target === modalBackground.current) {
@@ -17,25 +18,31 @@ function ConfirmModal({ setModalOpen, message, onClickHandler }) {
                 >
                     <div
                         className={styles.modalContent}
-                        style={{ height: "390px", }}
+                        style={{ height: "260px", }}
                     >
-                        <div>
-                            {message}
+                        <div className={styles.detailBox}>
+                            <div className={styles.inputBox}>
+                                <div>
+                                    <p>{message}</p>
+                                    <div style={{ paddingTop: "70px", }}>
+                                        <button
+                                            className={styles.cancelButton}
+                                            onClick={() => {
+                                                setModalOpen(false);
+                                            }}
+                                        >
+                                            취소
+                                        </button>
+                                        <button
+                                            className={styles.acceptButton}
+                                            onClick={onClickHandler}
+                                        >
+                                            확인
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <button
-                            className={styles.cancelButton}
-                            onClick={() => {
-                                setModalOpen(false);
-                            }}
-                        >
-                            취소
-                        </button>
-                        <button
-                            className={styles.acceptButton}
-                            onClick={onClickHandler}
-                        >
-                            확인
-                        </button>
                     </div>
                 </div>
             }

@@ -1,13 +1,18 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
-import ListInput from "../adminCommon/ListInput";
 import GradeInput from "../adminCommon/GradeInput";
+import ListInput from "../adminCommon/ListInput";
+
+import ImageInputModal from "../adminCommon/ImageInputModal";
 
 import styles from "./AdminDict.module.css";
 
 function InsertDict({ dict, setDict }) {
 
     const [diseaseList, setDiseaseList] = useState([]);
+    const [modalOpen, setModalOpen] = useState(false);
+
+    const modalBackground = useRef();
 
     const valueChangeHandler = e => {
         setDict({
@@ -24,7 +29,32 @@ function InsertDict({ dict, setDict }) {
                         <div>
                             <div className={styles.detailBoxImage}>
                                 <p>이미지</p>
+                                <div>
+                                    <img
+                                        src={dict?.dogImage}
+                                        alt='견종'
+                                        onClick={() => setModalOpen(true)}
+                                    />
+                                    <div
+                                        className={styles.imageInfo}
+                                        onClick={() => setModalOpen(true)}
+                                    >
+                                        <span>클릭하여</span>
+                                        <br />
+                                        <span>이미지 URL을</span>
+                                        <br />
+                                        <span>입력하세요</span>
+                                    </div>
+                                </div>
                             </div>
+                            <ImageInputModal
+                                name='dogImage'
+                                item={dict}
+                                setItem={setDict}
+                                modalOpen={modalOpen}
+                                setModalOpen={setModalOpen}
+                                modalBackground={modalBackground}
+                            />
                             <div style={{ width: "340px", float: "left", }}>
                                 <div>
                                     <div className={styles.detailBoxShort}>
