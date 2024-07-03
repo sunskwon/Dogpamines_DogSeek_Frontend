@@ -5,8 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/pagination';
+import 'swiper/css/navigation'
 import 'swiper/css/autoplay';
-import { Pagination, Autoplay } from 'swiper/modules';
+import { Autoplay, Navigation } from 'swiper/modules';
 import './Paging.css';
 import Paginations from "react-js-pagination";
 
@@ -330,11 +331,11 @@ function Products () {
             </div>
             <div style={{width:"940px", margin:"0 auto"}}>
             <Swiper
-                modules={[Pagination, Autoplay]}
+                modules={[Autoplay, Navigation]}
                 spaceBetween={30}
                 slidesPerView={3}
                 autoplay={true}
-                // pagination={{ clickable: true }}
+                navigation={{ clickable: true }}
                 className="mySwiper"
                 style={{"--swiper-theme-color":"#63C54A"}}
             >
@@ -379,6 +380,7 @@ function Products () {
                 </div>
             ) : (
             product
+            .slice((page - 1) * 30, page * 30)
             .map(product => (
                 <div key={product.prodCode} className={styles.productsBox} onClick={() => onClick(product.prodCode, product.prodAge, product.prodRecom, product.prodCook, product.prodIngra, product.prodEffi)}>
                     <img src={product.prodImage} style={{width:"100%"}}/>
