@@ -16,6 +16,15 @@ function Mydog() {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [modalCuration, setModalCuration] = useState(null);
+    const [curations, setCurations] = useState([]);
+    const [curationsDog, setCurationsDog] = useState([]);
+    const [curationCode, setCurationCode] = useState([]);
+    const [curationName, setCurationName] = useState([]);
+    const [prodCode, setProdCode] = useState([]);
+    const [myCurationResult , setMyCurationResult] = useState([]);
+    const [modalOpen2, setModalOpen2] = useState(false);
+    const [modalProd, setModalProd] = useState([]);
+    
     const modalBackground = useRef();
 
     const openModal = (curationDog,curationCode) => {
@@ -28,11 +37,9 @@ function Mydog() {
         setModalOpen(false);
     };
 
-    const [modalOpen2, setModalOpen2] = useState(false);
-    const [modalProd, setModalProd] = useState([]);
 
-    const openModal2 = (curationCode, prodCode) => {
-        setModalProd(curationCode, prodCode);
+    const openModal2 = (myCurationResult, prodCode) => {
+        setModalProd(myCurationResult, prodCode);
         setModalOpen2(true);
     }
 
@@ -40,13 +47,6 @@ function Mydog() {
         setModalProd(null);
         setModalOpen2(false);
     }
-
-    const [curations, setCurations] = useState([]);
-    const [curationsDog, setCurationsDog] = useState([]);
-    const [curationCode, setCurationCode] = useState([]);
-    const [curationName, setCurationName] = useState([]);
-    const [myCurationResult , setMyCurationResult] = useState([]);
-    const [prodCode, setProdCode] = useState([]);
 
     const fetchCurations = async () => {
         const curationsAddress = `/curations?userCode=${userCode}`;
@@ -79,10 +79,11 @@ function Mydog() {
         const mycurationresultResponse = await GetAPI(myCurationResultAddress);
         const result = await mycurationresultResponse.myCurationResult;
 
-        // if (mycurationresultResponse.myCurationResult.length > 0) {
-        //     const prodCodes = mycurationresultResponse.myCurationResult.map(myCurationResult => myCurationResult.prodCode);
-        //     setMyCurationResult(prodCodes.join([',']));
-        // }
+        if (mycurationresultResponse && mycurationresultResponse.myCurationResult && Array.isArray(mycurationresultResponse.myCurationResult)) {
+            const prodCodes = mycurationresultResponse.myCurationResult.map(myCurationResult => myCurationResult.prodCode);
+            setProdCode(prodCodes.join([',']));
+        }
+
         return result;
     };
 
@@ -97,10 +98,15 @@ function Mydog() {
     }, [curationName]);
 
     useEffect(() => {
-        if (prodCode) {
+        if (curationCode){
             fetchMyCurationResult().then(res => setMyCurationResult(res));
         }
     }, [prodCode]);
+
+    console.log(userCode);
+    console.log(curationName);
+    console.log(curationCode);
+    console.log(prodCode);
 
     const onClick = (name, code, prodCode) => {
         setCurationName(name);
@@ -148,7 +154,7 @@ function Mydog() {
                             <div className={styles.btnWrapper}>
                                 <button type='button' className={styles.btn2} onClick={() => openModal(curationDog)}>상세보기</button>
                             </div>
-                                <button className={styles.btn1} onClick={() => openModal2(curationDog.curationCode)}>맞춤사료</button>
+                                <button className={styles.btn1} onClick={() => openModal2()}>맞춤사료</button>
                         </div>
                     ))}
                 </div>
@@ -228,11 +234,17 @@ function Mydog() {
                 }}>
                     <div className={styles.modalContent}>
                         <div className={styles.modalTextContainer}>
+                            <p className={styles.modalText1}>{`회원님 반려견 ${modalProd.curationName}의 맞춤사료 정보입니다.`}</p>
+                            <hr />
+                            <div>
+                                <img />
+                                <p>제품명</p>
+                            </div>
                             <button className={styles.modalCloseBtn} onClick={closeModal2}>닫기</button>
                         </div>
+                    </div>
                 </div>
-            </div>
-        }
+            }
         </>
     )
 }

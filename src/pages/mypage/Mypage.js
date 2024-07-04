@@ -2,8 +2,9 @@ import { Link } from 'react-router-dom';
 import styles from './Mypage.module.css';
 import { useState, useEffect } from "react";
 import Modal from '../../components/common/Modal';
-import { GetAPI } from '../../api/RestAPIs';
+import { GetAPI, PostAPI } from '../../api/RestAPIs';
 import { jwtDecode } from 'jwt-decode';
+
 
 function Mypage(){
 
@@ -20,6 +21,17 @@ function Mypage(){
     const userAuth = decodedToken.userAuth;
     
     const [users, setUsers] = useState([]);
+    const [checkNick, setCheckNick] = useState({
+        type: '',
+        info: '',
+        isDuplicate: false
+    });
+
+    // 닉네임 정규식(2자 이상 7자 이하/ 한글, 영어, 숫자 사용 가능/ 한글 초성 및 모음은 허가하지 않음)
+    const userNickRegex = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,7}$/;
+    
+    // 비밀번호 정규식(최소 8자 및 최대 12자, 영문자 or 숫자 or 특수문자 2가지 이상 조합)
+    const userPassRegex =  /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,12}$/;
 
     const selectUserDetail = async () => {
 
@@ -32,13 +44,30 @@ function Mypage(){
         return result;
     }
 
+    const checkNickname = async (userNick) => {
+
+        const address = `/mypage/check`;
+
+        const response = await PostAPI(address, userNick);
+
+        const result = await response.checkNick;
+
+        return result;
+    }
+
+
+
     useEffect(() => {
         selectUserDetail().then(res =>
 
             setUsers(res)
         );
     }, []);
-    
+
+
+    console.log(userCode);
+    console.log(userNick);
+
 
     const openDeleteModal = () => {
         setModalContent(["탈퇴하시겠습니까?"]);
@@ -93,14 +122,16 @@ function Mypage(){
                     <p className={styles.text6}>연락처</p>
                 </div>
                 <hr className={styles.line2}/>
-                {users.map (user => (
-                    <div className={styles.user2} key={user.userCode}>
-                        <p className={styles.text7}>{user.userId}</p>
+                {users.map (users => (
+                    <div className={styles.user2} key={users.userCode}>
+                        <p className={styles.text7}>{users.userId}</p>
                         <input type='password' className={styles.inputBox1}></input>
                         <input type='password' className={styles.inputBox2} placeholder='영문, 숫자, 특수문자 중 두 종류 이상  8~12자 이내'></input>
                         <input type='password' className={styles.inputBox2} placeholder='영문, 숫자, 특수문자 중 두 종류 이상  8~12자 이내'></input>
-                        <input type='text' className={styles.inputBox3} placeholder={user.userNick}></input>
-                        <p className={styles.text8}>{user.userPhone}</p>
+                        <input type='text' className={styles.inputBox3} placeholder={users.userNick} value={users.userNick}></input>
+                        {checkNick.isDuplicate && <span >이미 사용 중인 닉네임입니다.</span>}
+                        {!checkNick.isDuplicate && <span>사용 가능한 닉네임입니다.</span>}
+                        <p className={styles.text8}>{users.userPhone}</p>
                     </div>
                 ))}
             </div>
@@ -129,5 +160,6 @@ function Mypage(){
         </> 
     )
 }
+
 
 export default Mypage;
