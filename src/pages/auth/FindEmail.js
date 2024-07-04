@@ -15,7 +15,8 @@ function FindEmail(){
     const [isConfirmed, setIsConfirmed] = useState(false);
     const [showConfirmed, setShowConfirmed] = useState(true);
     const [userId, setUserId] = useState('');
-    const [showUserId, setShowUserId ] = useState(false);
+    const [signupDate, setSignupDate] = useState('');
+    const [showIdVerify, setShowIdVerify] = useState(true);
     const navigate = useNavigate();
 
     const onPhoneChange = (e) => {
@@ -78,9 +79,19 @@ function FindEmail(){
                     if (result === 'true') {
                         // 사용자 ID 조회
                         const result = await callFindUserId(checkPhone.info);
-                        setShowUserId(true);
                         if (result !== 'false') {
-                            setUserId(result);
+                            const cleanedResult = result.replace(/{|}/g, '');
+                            const resultObject = cleanedResult.split(', ').reduce((acc, current) => {
+                            const [key, value] = current.split('=');
+                            acc[key] = value;
+                            return acc;
+                            }, {});
+                            const signupDate = resultObject.signupDate;
+                            const userId = resultObject.userId;
+                            
+                            setUserId(userId);
+                            setSignupDate(signupDate);
+                            setShowIdVerify(false);
                         } else {
                             alert('일치하는 회원정보가 없습니다.');
                         }
@@ -106,9 +117,11 @@ function FindEmail(){
         <>
             <div className={style.container}>
                 <div className={style.box}>
-                    <div className={style.titleBox}>
-                        <p className={style.title}>아이디 찾기</p>
+                    <div className={style.findBox}>
+                        <div className={style.findId}>아이디 찾기</div>
+                        <div className={style.findPw} onClick={onClickMoveFindPwd}>비밀번호 찾기</div>
                     </div>
+                    { showIdVerify ? ( 
                     <div className={style.infoBox}>
                         <div className={style.phoneBox}>
                             <label>연락처</label>
@@ -138,13 +151,25 @@ function FindEmail(){
                             </div>
                             <button onClick={onClickNumCheck}>확인</button>
                         </div>
-                        {showUserId && (
-                            <div>
-                                <p>{userId}</p>
-                            </div>
-                        )}
-                        <button onClick={onClickMoveFindPwd}>비밀번호 찾기</button>
                     </div>
+                    ) : (
+                    <div className={style.infoBox}>
+                        <div className={style.resultBox}>
+                            <div className={style.userIdBox}>
+                                <label>아이디</label>
+                                <span>{userId}</span>
+                            </div>
+                            <div className={style.signupDateBox}>
+                                <label>가입일</label>
+                                <span>{signupDate}</span>
+                            </div>
+                        </div>
+                        <div className={style.buttonContainer}>
+                            <button className={style.mainBtn}>메인으로</button>
+                            <button className={style.loginBtn}>로그인</button>
+                        </div>
+                    </div>
+                    )}
                 </div>
             </div>
         </>

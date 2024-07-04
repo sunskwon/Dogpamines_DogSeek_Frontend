@@ -172,13 +172,18 @@ function FindPwd() {
         navigate('/');
     }
 
+    const onClickMoveFindId = () => {
+        navigate('/findemail');
+    }
+
     return(
 
         <>
             <div className={style.container}>
                 <div className={style.box}>
-                    <div className={style.titleBox}>
-                        <p className={style.title}>비밀번호 찾기</p>
+                <div className={style.findBox}>
+                        <div className={style.findId} onClick={onClickMoveFindId}>아이디 찾기</div>
+                        <div className={style.findPw}>비밀번호 찾기</div>
                     </div>
                     {showIdVerify && (
                     <div className={style.infoBox}>
