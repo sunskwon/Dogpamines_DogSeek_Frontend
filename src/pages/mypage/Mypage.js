@@ -1,17 +1,20 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './Mypage.module.css';
-import { useState, useEffect } from "react";
-import Modal from '../../components/common/Modal';
-import { GetAPI, PostAPI } from '../../api/RestAPIs';
+import { useState, useEffect, useRef } from "react";
+import { DeleteAPI, GetAPI, PostAPI, PutAPI } from '../../api/RestAPIs';
 import { jwtDecode } from 'jwt-decode';
 
 
 function Mypage(){
 
+    const navigate = useNavigate();
+
+    const location = useLocation();
+
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [modalContent, setModalContent] = useState([]);
-    const [modalAfterPath, setModalAfterPath] = useState('/');
-    const [isDeleteModal, setIsDeleteModal] = useState(false);
+    const modalBackground = useRef();
 
     // 토큰 디코딩
     const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
@@ -21,11 +24,24 @@ function Mypage(){
     const userAuth = decodedToken.userAuth;
     
     const [users, setUsers] = useState([]);
+    const [userInfo, setUserInfo] = useState({
+        userCode: '',
+        userPass: '',
+        newUserPass: '',
+        confirmNewUserPass: '',
+        userNick: ''
+    });
+    
     const [checkNick, setCheckNick] = useState({
         type: '',
-        info: '',
-        isDuplicate: false
+        info: ''
     });
+
+    const [nickAvailability, setNickAvailability] = useState({
+        available: true,
+        message: ''
+    });
+
 
     // 닉네임 정규식(2자 이상 7자 이하/ 한글, 영어, 숫자 사용 가능/ 한글 초성 및 모음은 허가하지 않음)
     const userNickRegex = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,7}$/;
@@ -46,54 +62,153 @@ function Mypage(){
 
     const checkNickname = async (userNick) => {
 
-        const address = `/mypage/check`;
-
-        const response = await PostAPI(address, userNick);
-
-        const result = await response.checkNick;
-
-        return result;
+        try {
+            const address = `/mypage/check`;
+            const response = await PostAPI(address, { type: 'nick', info: userNick });
+            
+            const result = await response.json();
+            
+            return result;
+        } catch (error) {
+            console.error("Error checking nickname:", error);
+            throw error;
+        }
     }
 
-
-
     useEffect(() => {
-        selectUserDetail().then(res =>
-
-            setUsers(res)
-        );
+        selectUserDetail().then(res =>setUsers(res));
     }, []);
 
+    useEffect(() => {
+        setUserInfo({...userInfo, userCode: userCode, userNick:userInfo.userNick})
+    },[userInfo.userCode]);
 
-    console.log(userCode);
-    console.log(userNick);
+    useEffect(() => {
+        if (userInfo.userNick && userNickRegex.test(userInfo.userNick)) {
+            const checkNickAvailability = async () => {
+                try {
+                    const result = await checkNickname(userInfo.userNick);
+                    if (result === false) {
+                        setNickAvailability({
+                            available: false,
+                            message: '이미 사용 중인 닉네임입니다.'
+                        });
+                    } else {
+                        setNickAvailability({
+                            available: true,
+                            message: '사용 가능한 닉네임입니다.'
+                        });
+                    }
+                } catch (error) {
+                    console.log(error);
+                }
+            };
+            checkNickAvailability();
+        } else {
+            setNickAvailability({
+                available: true,
+                message: '사용 가능한 닉네임입니다.'
+            });
+        }
+    }, [userInfo.userNick]);
 
-
-    const openDeleteModal = () => {
-        setModalContent(["탈퇴하시겠습니까?"]);
-        setModalAfterPath("/delete-account");
-        setIsDeleteModal(true);
+    const openModal = () => {
         setIsModalOpen(true);
-    };
+    }
 
-    const openChangeModal = () => {
-        setModalContent(["정보를 변경하시겠습니까?"]);
-        setModalAfterPath("/change-settings");
-        setIsDeleteModal(false);
-        setIsModalOpen(true);
-    };
-
-    const handleCancel = () => {
-        console.log("닫기");
+    const handleCancel = (e) => {
         setIsModalOpen(false);
     };
 
-    const handleConfirm = () => {
-        console.log("변경");
+    const onNickChange = (e) => {
+        setUserInfo({...userInfo, userNick: e.target.value});
+        setCheckNick({...checkNick, type: 'nick', info: e.target.value});
+        console.log(userInfo);
     };
 
-    const handleDelete = () => {
+    const handleConfirmNick = async () => {
+        if(userNickRegex.test(userInfo.userNick)) {
+            try{
+                const result = await checkNickname(userInfo.userNick);
+                console.log(result);
+
+                if(result === false) {
+                    alert("이미 사용 중인 닉네임입니다.");
+                    return;
+                }
+                const addressUpdate = `/mypage`;
+                const response = await PutAPI(addressUpdate, {
+                    userCode,
+                    userNick: userInfo.userNick
+                });
+                console.log(response);
+                alert("닉네임 변경 완료하였습니다.");
+                setIsModalOpen(false);
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            alert("닉네임 형식에 맞게 작성해주세요.");
+        }
+    };
+
+    const handleConfirm = async () => {
+        console.log("변경");
+        if(userInfo.newUserPass !== userInfo.confirmNewUserPass) {
+            alert("새 비밀번호와 일치하지 않습니다.");
+            return;
+        } 
+        if(!userPassRegex.test(userInfo.newUserPass)) {
+            alert("비밀번호 형식이 올바르지 않습니다.");
+            return;
+        }
+        try {
+            const address = `/mypage`;
+            const response = await PutAPI(address, {
+                userCode,
+                userPass: userInfo.userPass,
+                userNick: userInfo.userNick
+            });
+            console.log(response);
+            setIsModalOpen(false);
+        } catch(error) {
+            console.log(error);
+            alert("정보 변경 실패");
+        }
+    };
+
+    const checkPasswordMatch = () => {
+        if (userInfo.userPass === '비밀번호') {
+            alert('비밀번호가 일치합니다.');
+        } else {
+            alert('비밀번호가 일치하지 않습니다.');
+        }
+    };
+
+    const handleDelete = async () => {
         console.log("탈퇴");
+
+        const address = `/mypage`;
+        
+        const response = await DeleteAPI(address, userInfo);
+
+        alert("회원 탈퇴가 완료되었습니다.");
+        window.localStorage.removeItem('accessToken');
+        window.localStorage.removeItem('userCode');
+        window.localStorage.removeItem('userNick');
+        window.localStorage.removeItem('userAuth');
+        setIsLoggedIn(false);
+        navigate("/", {
+            state: { Location: response.headers.get('Location')}
+        });
+    };
+
+    const handleInputChange= (e) => {
+        const { name, value } = e.target;
+        setUserInfo({
+            ...userInfo,
+            [name]: value
+        });
     };
 
     return(
@@ -108,7 +223,7 @@ function Mypage(){
             </div>
             <div className={styles.container2}>
                 <hr className={styles.line1}/>
-                <p className={styles.text4} name='userCode'>회원님께서 가입하신 DogSeek 개인 정보입니다.</p>
+                <p className={styles.text4}>회원님께서 가입하신 DogSeek 개인 정보입니다.</p>
                 <p className={styles.text5}>필수 회원 정보</p>
                 <hr className={styles.line3}/>
             </div>
@@ -122,41 +237,55 @@ function Mypage(){
                     <p className={styles.text6}>연락처</p>
                 </div>
                 <hr className={styles.line2}/>
-                {users.map (users => (
-                    <div className={styles.user2} key={users.userCode}>
-                        <p className={styles.text7}>{users.userId}</p>
-                        <input type='password' className={styles.inputBox1}></input>
-                        <input type='password' className={styles.inputBox2} placeholder='영문, 숫자, 특수문자 중 두 종류 이상  8~12자 이내'></input>
-                        <input type='password' className={styles.inputBox2} placeholder='영문, 숫자, 특수문자 중 두 종류 이상  8~12자 이내'></input>
-                        <input type='text' className={styles.inputBox3} placeholder={users.userNick} value={users.userNick}></input>
-                        {checkNick.isDuplicate && <span >이미 사용 중인 닉네임입니다.</span>}
-                        {!checkNick.isDuplicate && <span>사용 가능한 닉네임입니다.</span>}
-                        <p className={styles.text8}>{users.userPhone}</p>
+                {users.map (user => (
+                    <div className={styles.user2} key={user.userCode}>
+                        <p className={styles.text7}>{user.userId}</p>
+                        <input type='password' className={styles.inputBox1} name='userPass' onChange={handleInputChange} value={userInfo.userPass}></input>
+                        <input type='password' className={styles.inputBox2} placeholder='영문, 숫자, 특수문자 중 두 종류 이상  8~12자 이내' name='newUserPass' onChange={handleInputChange} value={userInfo.newUserPass}></input>
+                        <input type='password' className={styles.inputBox2} placeholder='영문, 숫자, 특수문자 중 두 종류 이상  8~12자 이내' name='confirmNewUserPass' onChange={handleInputChange} value={userInfo.confirmNewUserPass}></input>
+                        <div className={styles.user3}>
+                            <input type='text' className={styles.inputBox3} placeholder={user.userNick} name='userNick' value={userInfo.userNick} onChange={onNickChange}/>
+                            {nickAvailability.message && (
+                                    <span className={`${styles.errorText} ${nickAvailability.available ? styles.green : styles.red}`}>
+                                    {nickAvailability.message}
+                                </span>
+                                )}
+                            <button type='submit' className={styles.btn2} onClick={handleConfirmNick}>변경</button>
+                        </div>
+                        <p className={styles.text8}>{user.userPhone}</p>
                     </div>
                 ))}
             </div>
             <div className={styles.container3}>
-                <p className={styles.text9} onClick={openDeleteModal}>탈퇴하기</p>
+                <p className={styles.text9} onClick={() => openModal()}>탈퇴하기</p>
             </div>
             <div className={styles.container3}>
-                <button className={styles.button1} onClick={openChangeModal}>변경</button>
-                {isModalOpen && (
-                        <Modal
-                            isModalOpen={isModalOpen}
-                            setIsModalOpen={setIsModalOpen}
-                            modalContent={modalContent}
-                            modalAfterPath={modalAfterPath}
-                            onConfirm={isDeleteModal ? handleDelete : handleConfirm}
-                            onCancel={handleCancel}
-                            showConfirmButton={true}
-                            showCancelButton={true}
-                            confirmButtonText={isDeleteModal ? "탈퇴" : "변경"}
-                            cancelButtonText="닫기"
-                        />
-                    )}
+                <button className={styles.button1} onClick={handleConfirm}>변경</button>
             </div>
         </div>
         
+        {/* Delete Modal */}
+            {
+                isModalOpen && 
+                <div className={styles.modalContainer} ref={modalBackground} onClick={e => {
+                    if (e.target === modalBackground.current) {
+                        setIsModalOpen(false)
+                    }
+                }}>
+                    <div className={styles.modalContent}>
+                        <div className={styles.modalTextContainer}>
+                            <div className={styles.modal_content}>
+                                <p>DogSeek을</p>
+                                <p>탈퇴하시겠습니까?</p>
+                            </div>
+                            <div className={styles.btnContainer}>
+                                <button className={styles.modalCloseBtn} onClick={handleCancel}>닫기</button>
+                                <button className={styles.modalDeleteBtn} onClick={handleDelete}>탈퇴</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
         </> 
     )
 }

@@ -38,8 +38,8 @@ function Mydog() {
     };
 
 
-    const openModal2 = (myCurationResult, prodCode) => {
-        setModalProd(myCurationResult, prodCode);
+    const openModal2 = (prodCode) => {
+        setModalProd(prodCode);
         setModalOpen2(true);
     }
 
@@ -154,7 +154,7 @@ function Mydog() {
                             <div className={styles.btnWrapper}>
                                 <button type='button' className={styles.btn2} onClick={() => openModal(curationDog)}>상세보기</button>
                             </div>
-                                <button className={styles.btn1} onClick={() => openModal2()}>맞춤사료</button>
+                                <button className={styles.btn1} onClick={() => openModal2(curationDog)}>맞춤사료</button>
                         </div>
                     ))}
                 </div>
@@ -237,8 +237,10 @@ function Mydog() {
                             <p className={styles.modalText1}>{`회원님 반려견 ${modalProd.curationName}의 맞춤사료 정보입니다.`}</p>
                             <hr />
                             <div>
-                                <img />
-                                <p>제품명</p>
+                            <img src={modalProd.prodImage} alt="Product Image" className={styles.modalImage} />
+                                <p>{modalProd.prodName}</p>
+                                <p>{modalProd.prodManufac}</p>
+                                <p>{formatPrice(modalProd.prodPrice)}원</p>
                             </div>
                             <button className={styles.modalCloseBtn} onClick={closeModal2}>닫기</button>
                         </div>
