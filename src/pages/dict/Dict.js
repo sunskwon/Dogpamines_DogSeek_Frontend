@@ -3,7 +3,7 @@ import React, {useState, useEffect} from "react";
 
 import { Link } from "react-router-dom";
 
-import { GetAPI } from "../../api/RestAPIs"
+import { GetAPI, GetAPINotToken } from "../../api/RestAPIs"
 
 function Dict(){
     
@@ -29,7 +29,7 @@ function Dict(){
         
         const address = '/dict';
         
-        const response = await GetAPI(address);
+        const response = await GetAPINotToken(address);
 
         const result = await response.dict;
 
@@ -37,9 +37,10 @@ function Dict(){
     };
 
     const searchDict = async () => {
+
         const address = `/dict/search?dogName=${search.dogName}`;
 
-        const response = await GetAPI(address);
+        const response = await GetAPINotToken(address);
 
         const result = await response.dict;
 
