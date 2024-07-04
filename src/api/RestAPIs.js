@@ -259,3 +259,33 @@ export const callFindUserId = async ( phone ) => {
         return result;
     }
 }
+
+// 사용자 비밀번호 변경
+export const callChangePwd = async( userId, userPass ) => {
+
+    const requestURL = 'http://localhost:8080/user/change/pwd';
+    const requestBody = JSON.stringify({
+        id: userId,
+        pwd: userPass
+    });
+
+    const response = await fetch(requestURL, {
+        
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "*/*",
+            "Access-Control-Allow-Origin": "*",
+        },
+        body: requestBody
+    });
+    
+    if (response.status === 201) {
+        const result = 'true';
+        return result;
+    } else {
+        const result = 'false';
+        return result;
+    }
+
+}
