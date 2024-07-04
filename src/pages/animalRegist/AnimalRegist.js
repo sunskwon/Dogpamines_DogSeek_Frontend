@@ -87,7 +87,9 @@ function AnimalRegist() {
             <br/>소유주의 정보가 등록되어 있어야 정상 조회가 가능합니다.</span>
             <span className={styles.ps}>※ 임의로 동물등록 사항을 확인하는 것을 방지하기 위한 등록번호 이외 소유주의 개인정보를 추가 입력이 필요합니다.</span>
          </div>
-         <form className={styles.searchContainer1} onSubmit={handleSubmit}>
+         <form onSubmit={handleSubmit}>
+            <div className={styles.searchContainer1}>
+                
             <select className={styles.selectBox} value={ownerType}
                     onChange={handleOwnerTypeChange}>
                 <option>소유주</option>
@@ -110,7 +112,9 @@ function AnimalRegist() {
                         
                     />
                 )}
+            </div>
                 
+            <div className={styles.searchContainer2}>
             <select className={styles.selectBox} value={numberType}
                     onChange={handleNumberTypeChange}>
                 <option>등록 번호</option>
@@ -133,6 +137,7 @@ function AnimalRegist() {
                        
                     />
                 )}
+            </div>
             </form>
             <div className={styles.buttonContainer}>
             <button type="submit" className={styles.button} >확인</button>
