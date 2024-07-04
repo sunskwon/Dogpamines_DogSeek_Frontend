@@ -76,7 +76,7 @@ function App() {
             <Route path="/productdetail" element={<ProductDetail/>} />
             <Route path="/dict" element={<Dict />} />
             <Route path="/dict/:dogName" element={<DictDetail />} />
-            <Route path="/animalRegist" element={<AnimalRegist />} />
+            <Route path="/animalregist" element={<AnimalRegist />} />
             <Route path="/board" element={<Board />} />
             <Route path="/board/boardkakao" element={<BoardKakao />} />
             <Route path="/board/boardpost" element={<BoardPost />} />

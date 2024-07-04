@@ -2,6 +2,12 @@
     font-family: 'Noto Sans Kr', 'Poppins';
 }
 
+.allContainer{
+    position: relative;
+    width: 1180px;
+    margin: auto;
+}
+
 .titleContainer{
     flex-direction: column;
     height: 300px;
@@ -40,18 +46,152 @@
 
 }
 
-.searchContainer{
+.searchContainer1{
 
-    height: 300px;
+    display: flex;
     width: 1180px;
-    margin: 0 auto;
-    align-items: center;
+    justify-content: center;
+    
+    margin: 81px auto 0px;
+}
 
-    margin-top: 81px;
+.searchContainer2{
+
+    display: flex;
+    width: 1180px;
+    justify-content: center;
+    
+    margin: 3px auto 0px;
 }
 
 .selectBox{
 
-    height:40px;
+    text-align: center;
+    width: 150px;
+    height: 30px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+
+    font-size: 12.5px;
+
+    border-color: #D4D4D4;
     
+
+}
+
+.inputBox{
+
+    border-width: 0.1px;
+    border-radius: 10px;
+    border-color: #D4D4D4;
+    box-shadow: none;
+    outline: none;
+
+    margin-left: 20px;
+    width: 350px;
+    height: 27px;
+
+    padding-left: 25px;
+    
+}
+
+.buttonContainer{
+
+    display: flex;
+    width: 1180px;
+    justify-content: center;
+    
+    margin: 3px auto 0px;
+}
+
+.button{
+
+    width: 100px;
+    height: 25px;
+    display: flex;
+    margin: 3px auto 60px;
+    background-color: #005600;
+    color: white;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+    border:none;
+    outline: none;
+    
+    cursor: pointer;
+
+    font-size: 12px;
+}
+
+.button:hover{
+
+    background-color:#63C54A;
+}
+
+.modalTitle{
+    display: flex;
+    align-items: center;
+    
+    font-weight: bold;
+    margin-left: 10%;
+    margin-bottom: 30px;
+}
+
+.table{
+    border-collapse: collapse;
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    margin: 0px auto;
+
+    font-size: 15px;
+
+}
+
+.table th {
+
+    border-bottom: 1px solid #999999;
+    border-right: 1px solid #999999;
+    border-left: 1px solid #999999;
+    width: 150px;
+    height: 45px;
+    
+}
+
+.table td {
+    border-bottom: 1px solid #999999;
+    border-right: 1px solid #999999;
+    border-left: 1px solid #999999;
+    padding-left: 20px;
+    width: 250px;
+    
+}
+
+.img{
+
+    height: 20px;
+}
+
+.errorContainer{
+
+    display: flex;
+    justify-content: center;
+    margin:0 auto;
+    flex-direction: column;
+    width: 300px;
+    height: 430px;
+    
+    > img {
+        width: 80%;
+        height: 80%;
+        margin: 0 auto;
+    }
+
+    > span {
+        text-align: center;
+        margin:0px;
+        padding: 0px;
+        font-size: 17px;
+        font-weight: bold;
+    }
 }
