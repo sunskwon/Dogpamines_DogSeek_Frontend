@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { GetAPI, PostAPI } from '../../api/RestAPIs';
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from 'jwt-decode';
 
 function CurationResult() {
 
@@ -11,7 +12,9 @@ function CurationResult() {
     const location = useLocation();
 
     const { name, gender, breed, weight, size, age, neut, allergy, disease, ingra, cook } = location.state;
-    const userCode = 1;
+    const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
+
+    const userCode = decodedToken.userCode;
     
     const today = new Date();
     const toDate = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
@@ -103,13 +106,22 @@ function CurationResult() {
 
     if (products.length === 0) {
         return (
-            <div className={styles.emptyMessageBox}>
-                <img src="/images/curation/3716655.jpg" style={{ width: "500px", margin: "0 auto" }} alt="Empty message" />
-                <a style={{ fontSize: '5px', color: 'black' }}>출처 freepik</a>
-                <p className={styles.emptyMessage}>
-                    죄송합니다... 현재는 <span style={{ margin: "0px", color: "#63C54A" }}>{name}</span>의 조건에 맞는 사료가 없습니다...
-                </p>
-                <p className={styles.emptyMessage}>더 많은 사료를 준비해 찾아뵙겠습니다!</p>
+            <div className={styles.mainBox}>
+                <div className={styles.emptyMessageBox}>
+                    <div className={styles.titleBox}>
+                    <p style={{ fontSize: '36px', fontWeight: 'bold' }}>DogSeek</p>
+                    <p style={{ fontSize: '36px', fontWeight: 'bold', color: '#63C54A', paddingLeft: '10px' }}>Recommend</p>
+                </div>
+                <div className={styles.nameBox}>
+                    <p style={{ fontSize: '32px', fontWeight: 'bold', color: '#63C54A', margin: '0' }}>{name}</p>
+                    <p style={{ fontSize: '32px', fontWeight: 'bold', margin: '0' }}>에게 어울리는 사료는?</p>
+                </div>
+                    <img src="/images/curation/cuteDog.png" style={{ width: "500px", margin: "0 auto" }} alt="Empty message" />
+                    <p className={styles.emptyMessage}>
+                        죄송합니다... 현재는 &nbsp;<p style={{ margin: "0px", color: "#63C54A" }}>{name}</p>의 조건에 맞는 사료가 없습니다...
+                    </p>
+                    <p className={styles.emptyMessage}>더 많은 사료를 준비해 찾아뵙겠습니다!</p>
+                </div>
             </div>
         );
     }

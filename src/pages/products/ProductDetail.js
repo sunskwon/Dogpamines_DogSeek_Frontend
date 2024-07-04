@@ -15,7 +15,7 @@ function ProductDetail () {
     const [comparison, setComparison] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
     const modalBackground = useRef();
-    // const [nDate, setNDate] = useState([]);
+    const [nDate, setNDate] = useState([]);
 
     const detailProduct = async () => {
 
@@ -75,26 +75,32 @@ function ProductDetail () {
         setModalOpen(true);
     };
 
-    // const getSearchDate = async () => {
-    //     const response = await axios.get("https://openapi.naver.com/v1/search/shop.json", {
-    //         params: {
-    //             query:`${product.prodName}`,
-    //             display: 10,
-    //             start: 1,
-    //             sort: 'sim'
-    //         },
-    //         headers:{
-    //             'X-Naver-Client-Id': process.env.REACT_APP_NAVER_CLIENT_ID,
-    //             'X-Naver-Client-Secret': process.env.REACT_APP_NAVER_CLIENT_SECRET
-    //         }
-    //     });
-
-    //     setNDate(response.data.items);
-    // };
-
-    // useEffect(() => {
-    //     getSearchDate();
-    // }, []);
+    const getSearchDate = async () => {
+        const URL = "/v1/search/shop.json";
+        const ClientID = "코드";
+        const ClientSecret = "코드";
+        
+        await axios
+        .get(URL, {
+            params: {
+                query: '사료',
+                display: 10,
+            },
+            headers: {
+                "X-Naver-Client-Id": ClientID,
+                "X-Naver-Client-Secret": ClientSecret,
+            },
+        })
+        .then((res) => setNDate(res.data.items))
+        .catch((e) => {
+            console.log('응 안돼', e)
+        });
+    };
+    
+    useEffect(() => {
+        getSearchDate();
+    }, []);
+    console.log(nDate);
 
     return (
         <div className={styles.allBox}>
@@ -147,11 +153,11 @@ function ProductDetail () {
             <div style={{width:"500px", height:"500px", margin:"0 auto"}}>
                 <p style={{textAlign:"center", paddingTop:"250px"}}>최저가 들어갈곳</p>
                 <p>법적고지 들어가야함(DogSeek은 통신판매중개자이며, 통신판매의 당사자가 아닙니다. 상품, 상품정보, 거래에 관한 의무와 책임은 판매자에게 있습니다.)</p>
-                {/* {nDate.map(product => (
+                {nDate.map((product) => (
                     <div key={product.link}>
                         <p>{product.title}</p>
                     </div>
-                ))} */}
+                ))}
             </div>
             <p style={{color:"#005600", fontSize:"24px", fontWeight:"bold", margin:"0"}}>비슷한 제품</p>
             <div className={styles.allSimilarBox}>
@@ -201,12 +207,16 @@ function ProductDetail () {
                                                     style={{ width: "79px", height: "15px", marginTop: "2px", marginLeft: "10px" }} />
                                             </div>
                                             <div className={styles.comparisonTextBox}>
+                                                <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>사이트주소</p>
+                                                <Link to={comparison.prodSite} className={styles.comparisonTextSite}>{comparison.prodSite}</Link>
+                                            </div>
+                                            <div className={styles.comparisonTextBox}>
                                                 <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>제조사</p>
                                                 <p className={styles.comparisonText}>{comparison.prodManufac}</p>
                                             </div>
                                             <div className={styles.comparisonTextBox}>
                                                 <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>제품명</p>
-                                                <p className={styles.comparisonText}>{comparison.prodName}</p>
+                                                <p className={styles.comparisonText} style={{height:"35px"}}>{comparison.prodName}</p>
                                             </div>
                                             <div className={styles.comparisonTextBox}>
                                                 <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>가격</p>
@@ -231,10 +241,6 @@ function ProductDetail () {
                                             <div className={styles.comparisonTextBox}>
                                                 <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>재료</p>
                                                 <p className={styles.comparisonText}>{comparison.prodIngra}</p>
-                                            </div>
-                                            <div className={styles.comparisonTextBox}>
-                                                <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>사이트주소</p>
-                                                <Link to={comparison.prodSite} className={styles.comparisonTextSite}>{comparison.prodSite}</Link>
                                             </div>
                                         </div>
                                     ))}
