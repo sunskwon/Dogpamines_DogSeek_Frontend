@@ -129,11 +129,113 @@ padding: 15px;
 .wrap .ch1 .textbox {background-color: white;}
 .wrap .ch1 .textbox::before {left: -15px; content: "◀"; color: white;}
 
-.wrap .ch2 {flex-direction: row-reverse; padding-top: 20px;}
-.wrap .ch2 .textbox {margin-right: 20px; background-color: #63C54A;}
-.wrap .ch2 .textbox::before {right: -15px; content: "▶"; color: #63C54A;}
+
 
 /* 답글 */
 .comment_wrap {width: 1180px;display: flex; justify-content: space-around; margin: 0 auto;}
 .comment_box {width: 1040px; height: 40px; border: 1px solid; border-radius: 10px; padding-left: 8px; color: #005600;}
 .comment_button {width: 100px; height: 44px; background-color: #005600; border: none; border-radius: 10px; color: white; display: flow; align-self: center;}
+
+.board_container {
+    width: 1180px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 스크롤 */
+.container {width: 1180px; min-height: 500px; display: flex;
+    flex-direction: column;
+    overflow: auto;
+    padding: 10px;
+    background-color: #d9d9d9;
+    border-radius: 10px;
+}
+.container::-webkit-scrollbar {
+    width: 10px;
+}
+.container::-webkit-scrollbar-thumb {
+    background-color: #D9D9D9;
+    border-radius: 10px;
+    background-clip: padding-box;
+    border: 2px solid transparent;
+}
+.container::-webkit-scrollbar-track {
+    background-color: grey;
+    border-radius: 10px;
+    box-shadow: inset 0px 0px 5px white;
+}
+
+
+.chat_wrap {
+    display: flex;
+    flex-direction: column;
+    height: 700px;
+}
+
+.chat_message {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.my_message {
+        align-items: end;
+}
+.wrap .ch2 {flex-direction: row-reverse; padding-top: 20px;}
+.wrap .ch2 .textbox {margin-right: 20px; background-color: #63C54A;}
+.wrap .ch2 .textbox::before {right: -15px; color: #63C54A;}
+
+.other_message {
+    align-self: flex-start;
+}
+
+.chat {
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+    padding: 10px;
+    border-radius: 10px;
+    word-wrap: break-word;
+}
+/* 다른 사용자의 글은 하얀색 */
+.textbox {padding: 10px; border-radius: 10px; background-color: #fff;}
+/* 사용자의 글은 초록색 */
+.my_message .textbox {background-color: #63C54A;}
+
+.talk_nick {
+    font-weight: bold;
+}
+
+.talk_date {
+    font-size: 0.8em;
+    color: #999;
+    align-self: flex-end;
+}
+
+.comment_wrap {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.comment_box {
+    width: 88%;
+    height: 30px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.comment_button {
+    padding: 10px 20px;
+    height: 50px;
+    border: none;
+    border-radius: 5px;
+    background-color: #005600;
+    color: white;
+    cursor: pointer;
+}
