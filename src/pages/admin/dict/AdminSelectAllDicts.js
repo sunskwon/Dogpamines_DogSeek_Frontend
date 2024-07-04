@@ -6,8 +6,9 @@ import { DeleteAPI } from "../../../api/RestAPIs";
 
 import SelectAllDicts from "../../../components/admin/dict/SelectAllDicts";
 
-import styles from "../AdminPages.module.css";
 import ConfirmModal from "../../../components/admin/adminCommon/ConfirmModal";
+
+import styles from "../AdminPages.module.css";
 
 function AdminSelectAllDicts() {
 
