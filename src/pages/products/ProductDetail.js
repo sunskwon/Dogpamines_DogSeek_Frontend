@@ -77,8 +77,8 @@ function ProductDetail () {
 
     const getSearchDate = async () => {
         const URL = "/v1/search/shop.json";
-        const ClientID = "UvNbh1rQxSdYB2_2OSHk";
-        const ClientSecret = "njgzqWd4qP";
+        const ClientID = "코드";
+        const ClientSecret = "코드";
         
         await axios
         .get(URL, {
