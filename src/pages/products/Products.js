@@ -25,6 +25,8 @@ function Products () {
     const [filterCook, setFilterCook] = useState('');
     const [filterSize, setFilterSize] = useState('');
     const [filterEffi, setFilterEffi] = useState('');
+    const [filterGrade, setFilterGrade] = useState('');
+    const [filterName, setFilterName] = useState('');
     const [value, setValue] = useState('');
     const [page, setPage] = useState(1);
 
@@ -318,11 +320,19 @@ function Products () {
                         </div>
                     </div>
                 }
-                <select className={styles.selectBox}>
-                    <option>정렬</option>
-                    <option>이름</option>
-                    <option>평점</option>
-                </select>
+                <button className={`${styles.selectBox} ${filterName === '이름순' ? styles.selectBox2 : ''}`} onClick={() => {
+                    let proudct1 = [...product]
+                    proudct1.sort((a,b) => a.prodName.toLowerCase() <
+                    b.prodName.toLowerCase() ? -1 : 1);
+                    setProduct(proudct1);
+                    toggleValue(filterName, '이름순', setFilterName)
+                }}>이름순</button>
+                <button className={`${styles.selectBox} ${filterGrade === '평점' ? styles.selectBox2 : ''}`} onClick={() => {
+                    let proudct2 = [...product]
+                    proudct2.sort((a,b) => b.prodGrade - a.prodGrade);
+                    setProduct(proudct2);
+                    toggleValue(filterGrade, '평점', setFilterGrade)
+                }}>평점순</button>
             </div>
             <hr style={{width:"1180px", marginTop:"45px", border:"1px solid #D4D4D4"}}/>
             <div style={{display:"flex", marginTop:"50px", marginLeft:"100px"}}>
