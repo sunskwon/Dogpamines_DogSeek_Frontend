@@ -2,13 +2,19 @@ import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import { GetAPI, DeleteAPI } from "../../../api/RestAPIs"
+import { GetAPI } from "../../../api/RestAPIs"
 
 import styles from "./AdminBoards.module.css";
 
-function SelectAllNotices({ search, bool, setBool }) {
+function SelectAllNotices({ search, noticeBool, setModalOpen, setPost }) {
 
-    const [notices, setNotices] = useState([]);
+    const [notices, setNotices] = useState(
+        [
+            {
+                postCode: 0
+            }
+        ]
+    );
 
     const navigate = useNavigate();
 
@@ -23,7 +29,7 @@ function SelectAllNotices({ search, bool, setBool }) {
         return result;
     };
 
-    const searchProd = async () => {
+    const searchNotice = async () => {
 
         const address = `/notice/search?type=${search.type}&input=${search.input}`;
 
@@ -39,77 +45,99 @@ function SelectAllNotices({ search, bool, setBool }) {
     }, []);
 
     useEffect(() => {
-        searchProd().then(res => setNotices(res));
-    }, [bool]);
+        searchNotice().then(res => setNotices(res));
+    }, [noticeBool]);
 
     return (
         <>
-            {notices.map(notice => (
-                <tr
-                    key={notice.postCode}
-                >
-                    <td
-                        style={{ width: "100px", textAlign: "center", }}
-                    >
-                        {notice.postCode}
-                    </td>
-                    <td>
+            {notices.length === 0 &&
+                <div className={styles.errorBox}>
+                    <div style={{ display: "flex", paddingTop: "30px", }}>
                         <div
-                            style={{ width: "150px", height: "30px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
+                            style={{ display: "flex", alignItems: "center", }}
                         >
-                            {notice.userNick}
+                            <img
+                                src="/images/admin/NothingFound.png"
+                                alt="슬픈 돋보기 아이콘"
+                            />
                         </div>
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "210px", height: "30px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
-                        >
-                            {notice.postTitle}
+                        <div>
+                            <p>검색 결과가 없습니다</p>
+                            <p>다시 시도해주세요</p>
                         </div>
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "150px", height: "30px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
-                        >
-                            {notice.postDate}
-                        </div>
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "100px", height: "30px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
-                        >
-                            <span>{notice.postStatus}</span>
-                        </div>
-                    </td>
-                    <td>
-                        <button
-                            className={styles.acceptButton}
-                            onClick={() => {
-                                navigate("/admin/boarddetail", { state: { Location: `/post/${notice.postCode}` } });
-                            }}
-                        >
-                            상세
-                        </button>
-                    </td>
-                    <td>
-                        <button
-                            className={
-                                notice?.postStatus === 'Y' ? styles.cancelButton : styles.acceptButton
-                            }
-                            onClick={async () => {
+                    </div>
+                </div>
+            }
+            {notices.length > 0 &&
+                <table className={styles.productListTable}>
+                    <tbody>
+                        <tr>
+                            <th style={{ width: "80px", }}>게시물코드</th>
+                            <th style={{ width: "150px", }}>작성자</th>
+                            <th style={{ width: "240px", }}>제목</th>
+                            <th style={{ width: "150px", }}>작성일</th>
+                            <th style={{ width: "80px", }}>게시여부</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td colSpan={7}>
+                                <hr className={styles.tableLine} />
+                            </td>
+                        </tr>
+                        {notices.map(notice => (
+                            <tr
+                                key={notice.postCode}
+                            >
+                                <td>
+                                    {notice.postCode}
+                                </td>
+                                <td>
+                                    {notice.userNick}
+                                </td>
+                                <td>
+                                    <div
+                                        className={styles.ellipsisBox}
+                                        style={{ width: "240px", }}
+                                    >
+                                        {notice.postTitle}
+                                    </div>
+                                </td>
+                                <td>
+                                    {notice.postDate}
+                                </td>
+                                <td>
+                                    {notice.postStatus === 'Y' ? '게시중' : '게시 중단'}
+                                </td>
+                                <td>
+                                    <button
+                                        className={styles.acceptButton}
+                                        onClick={() => {
+                                            navigate("/admin/boarddetail", { state: { Location: `/post/${notice.postCode}` } });
+                                        }}
+                                    >
+                                        상세
+                                    </button>
+                                </td>
+                                <td>
+                                    <button
+                                        className={
+                                            notice?.postStatus === 'Y' ? styles.cancelButton : styles.acceptButton
+                                        }
+                                        onClick={() => {
 
-                                const address = `/post/${notice.postCode}`;
-
-                                await DeleteAPI(address);
-
-                                setBool(!bool);
-                            }}
-                        >
-                            {notice?.postStatus === 'Y' ? '게시 중단' : '게시'}
-                        </button>
-                    </td>
-                </tr>
-            ))}
+                                            setModalOpen(true)
+                                            setPost(notice)
+                                        }}
+                                    >
+                                        {notice?.postStatus === 'Y' ? '게시 중단' : '게시'}
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            }
         </>
     );
 }

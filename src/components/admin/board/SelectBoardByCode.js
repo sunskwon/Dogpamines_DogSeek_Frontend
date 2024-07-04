@@ -60,7 +60,7 @@ function SelectBoardByCode({ Location }) {
                     <div className={styles.detailBoxShort}>
                         <p>게시여부</p>
                         <div className={styles.spanBox}>
-                            <span>{notice?.postStatus}</span>
+                            <span>{notice?.postStatus === 'Y' ? '게시중' : '게시 중단'}</span>
                         </div>
                     </div>
                 </div>

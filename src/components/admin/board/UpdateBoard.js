@@ -1,10 +1,16 @@
 import { useEffect } from "react";
 
+import { jwtDecode } from "jwt-decode";
+
 import { GetAPI } from "../../../api/RestAPIs";
 
 import styles from "./AdminBoards.module.css";
 
 function UpdateProduct({ Location, notice, setNotice }) {
+
+    const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
+    const userCode = decodedToken.userCode;
+    const userNick = decodedToken.userNick;
 
     const call = async () => {
 
@@ -16,7 +22,15 @@ function UpdateProduct({ Location, notice, setNotice }) {
     };
 
     useEffect(() => {
-        call().then(res => setNotice(res));
+        call().then(res => {
+            
+            var notice = res;
+            
+            notice.userCode = userCode;
+            notice.userNick = userNick;
+
+            setNotice(notice);
+        });
     }, []);
 
     const valueChangeHandler = e => {
@@ -35,7 +49,7 @@ function UpdateProduct({ Location, notice, setNotice }) {
                         <input
                             style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                             disabled
-                            placeholder={notice?.postCode}
+                            value={notice?.postCode}
                         />
                     </div>
                     <div className={styles.detailBoxLong}>
@@ -45,7 +59,7 @@ function UpdateProduct({ Location, notice, setNotice }) {
                             name="postTitle"
                             style={{ width: "460px", }}
                             onChange={valueChangeHandler}
-                            placeholder={notice?.postTitle}
+                            value={notice?.postTitle}
                         />
                     </div>
                 </div>
@@ -55,7 +69,7 @@ function UpdateProduct({ Location, notice, setNotice }) {
                         <input
                             style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                             disabled
-                            placeholder={notice?.postCategory}
+                            value={notice?.postCategory}
                         />
                     </div>
                     <div className={styles.detailBoxShort}>
@@ -63,7 +77,7 @@ function UpdateProduct({ Location, notice, setNotice }) {
                         <input
                             style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                             disabled
-                            placeholder={notice?.userNick}
+                            value={userNick}
                         />
                     </div>
                     <div className={styles.detailBoxShort}>
@@ -71,7 +85,7 @@ function UpdateProduct({ Location, notice, setNotice }) {
                         <input
                             style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                             disabled
-                            placeholder={notice?.postDate}
+                            value={notice?.postDate}
                         />
                     </div>
                     <div className={styles.detailBoxShort}>
@@ -96,6 +110,11 @@ function UpdateProduct({ Location, notice, setNotice }) {
                         value={notice?.postContext}
                     />
                 </div>
+                <input
+                    type="hidden"
+                    name="userCode"
+                    value={userCode}
+                />
             </div>
         </div>
     );

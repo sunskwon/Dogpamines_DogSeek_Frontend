@@ -17,7 +17,7 @@ function Navbar() {
                     navigate("/admin/dashboard");
                 }}
             >
-                <img src="/images/admin/Data Grid.png" alt="Data Grid icon" />
+                <img src="/images/admin/DataGrid.png" alt="Data Grid icon" />
                 <span>대시보드</span>
             </div>
             <div
@@ -29,7 +29,7 @@ function Navbar() {
                     navigate("/admin/products");
                 }}
             >
-                <img src="/images/admin/Open Delivered Box.png" alt="Open DeliveredBox icon" />
+                <img src="/images/admin/OpenDeliveredBox.png" alt="Open DeliveredBox icon" />
                 <span>사료 정보 관리</span>
             </div>
             <div
@@ -41,10 +41,10 @@ function Navbar() {
                     navigate("/admin/dicts");
                 }}
             >
-                <img src="/images/admin/Open Book.png" alt="Open Book icon" />
+                <img src="/images/admin/OpenBook.png" alt="Open Book icon" />
                 <span>견종 백과 관리</span>
             </div>
-            {/* <div
+            <div
                 style={{
                     display: "flex",
                     marginBottom: "30px",
@@ -55,7 +55,7 @@ function Navbar() {
             >
                 <img src="/images/admin/Flipboard.png" alt="Flipboard icon" />
                 <span>게시판 관리</span>
-            </div> */}
+            </div>
             <div
                 style={{
                     display: "flex",
@@ -85,7 +85,7 @@ function Navbar() {
                     navigate("/");
                 }}
             >
-                <img src="/images/admin/External Link.png" alt="External Link icon" />
+                <img src="/images/admin/ExternalLink.png" alt="External Link icon" />
                 <span>돌아가기</span>
             </div>
             <div

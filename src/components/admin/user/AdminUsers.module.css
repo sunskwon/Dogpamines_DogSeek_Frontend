@@ -169,6 +169,12 @@
     height: 32px;
 }
 
+.ellipsisBox {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .errorBox {
     width: 560px;
     height: 560px;

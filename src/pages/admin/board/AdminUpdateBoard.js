@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { jwtDecode } from "jwt-decode";
+
 import { PutAPI } from "../../../api/RestAPIs";
 
 import UpdateBoard from "../../../components/admin/board/UpdateBoard";
@@ -9,6 +11,9 @@ import UpdateBoard from "../../../components/admin/board/UpdateBoard";
 import styles from "../AdminPages.module.css";
 
 function AdminUpdateBoard() {
+
+    const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
+    const userCode = decodedToken.userCode;
 
     const [notice, setNotice] = useState(
         {
@@ -18,7 +23,7 @@ function AdminUpdateBoard() {
             postDate: '',
             postCategory: '공지',
             postStatus: 'N',
-            userCode: 1
+            userCode: userCode
         }
     );
 
@@ -46,13 +51,6 @@ function AdminUpdateBoard() {
                         <p className={styles.subjectTitle}>사료 정보 수정</p>
                         <div style={{ float: "right", }}>
                             <button
-                                className={styles.submitButton}
-                                style={{ marginRight: "10px", }}
-                                onClick={submitHandler}
-                            >
-                                수정
-                            </button>
-                            <button
                                 className={styles.cancelButton}
                                 style={{ marginRight: "15px", }}
                                 onClick={() => {
@@ -60,6 +58,13 @@ function AdminUpdateBoard() {
                                 }}
                             >
                                 돌아가기
+                            </button>
+                            <button
+                                className={styles.submitButton}
+                                style={{ marginRight: "10px", }}
+                                onClick={submitHandler}
+                            >
+                                변경
                             </button>
                         </div>
                         <div
