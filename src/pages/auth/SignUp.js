@@ -6,9 +6,13 @@ function SignUp() {
     const [isAllChecked, setIsAllChecked] = useState(false);
     const [isTerm1Checked, setIsTerm1Checked] = useState(false);
     const [isTerm2Checked, setIsTerm2Checked] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-    const [showCancelModal, setShowCancelModal] = useState(false);
     const navigate = useNavigate();
+
+    const [modal, setModal] = useState({
+        state: false,
+        isOneBtn: true,
+        text: '',
+    });
 
     const handleAllCheck = (e) => {
         const checked = e.target.checked;
@@ -39,21 +43,17 @@ function SignUp() {
         if (isTerm1Checked && isTerm2Checked) {
             navigate('/signupidentity'); // 다음 페이지 경로로 이동
         } else {
-            setShowModal(true);
+            setModal({ ...modal, state: true, isOneBtn: true, text: '필수 약관에 모두 동의해 주세요.' });
         }
     };
 
     const handleCancel = () => {
-        setShowCancelModal(true);
+        setModal({ ...modal, state: true, isOneBtn: false, text: '회원가입을 취소하시겠습니까?' });
     };
 
     const closeModal = () => {
-        setShowModal(false);
-    };
-
-    const closeCancelModal = () => {
-        setShowCancelModal(false);
-    };
+        setModal({ ...modal, state: false, text: '' });
+    }
 
     const confirmCancel = () => {
         // 회원가입 취소 로직 추가
@@ -104,24 +104,27 @@ function SignUp() {
                         </div>
                     </div>
                     <div className={styles.buttonContainer}>
-                        <button className={styles.cancelBtn} onClick={handleCancel}>취소</button>
-                        <button className={styles.nextBtn} onClick={handleNextPage}>다음</button>
+                        <button className={styles.leftBtn} onClick={handleCancel}>취소</button>
+                        <button className={styles.rightBtn} onClick={handleNextPage}>다음</button>
                     </div>
                 </div>
-                {showModal && (
+                {modal.state && (
                     <div className={styles.modal}>
                         <div className={styles.modalContent}>
-                            <p>필수 약관에 모두 동의해 주세요.</p>
-                            <button onClick={closeModal}>닫기</button>
-                        </div>
-                    </div>
-                )}
-                {showCancelModal && (
-                    <div className={styles.modal}>
-                        <div className={styles.modalContent}>
-                            <p>정말 회원가입을 취소하시겠습니까?</p>
-                            <button onClick={closeCancelModal}>아니오</button>
-                            <button onClick={confirmCancel}>예</button>
+                            <div className={styles.iconContainer}>
+                                <img src='./images/auth/exclamationmark_circle.png' alt='exclamation_circle'></img>
+                            </div>
+                            <div className={styles.modalTextContainer}>
+                                <p>{modal.text}</p>
+                            </div>
+                            {modal.isOneBtn ? (
+                                <button onClick={closeModal}>닫기</button>
+                            ) : (
+                                <div className={styles.btnContainer}>
+                                    <button className={styles.leftBtn} onClick={confirmCancel}>예</button>
+                                    <button className={styles.rightBtn} onClick={closeModal}>아니오</button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}

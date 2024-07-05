@@ -23,6 +23,13 @@ function SignUpInfo() {
         info: ''
     });
 
+    const [modal, setModal] = useState({
+        state: false,
+        isCheck: false,
+        isOneBtn: true,
+        text: '',
+    });
+
     const [pwdHide, setPwdHide] = useState(true);
     const [pwdType, setPwdType] = useState('password');
 
@@ -38,19 +45,13 @@ function SignUpInfo() {
 
     const [showConfirmed, setShowConfirmed] = useState(true);
     const [showCheck, setShowCheck] = useState(false);
-    const [showNickModal, setShowNickModal] = useState(false);
-
-    const [showNickCheckModal, setShowNickCheckModal] = useState(false);
-    const [showPwdCheckModal, setShowPwdCheckModal] = useState(false);
-    const [showRePwdCheckModal, setShowRePwdCheckModal] = useState(false);
-    const [showPhoneCheckModal, setShowPhoneCheckModal] = useState(false);
 
     const location = useLocation();
 
     const { email } = location.state;
 
     const navigate = useNavigate();
-    
+
     // 닉네임 정규식(2자 이상 7자 이하/ 한글, 영어, 숫자 사용 가능/ 한글 초성 및 모음은 허가하지 않음)
     const nickRegEx = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,7}$/;
     // 비밀번호 정규식(최소 8자 및 최대 12자, 영문자 or 숫자 or 특수문자 2가지 이상 조합)
@@ -59,8 +60,8 @@ function SignUpInfo() {
     const phoneRegEx = /^01([0|1|6|7|8|9])-([0-9]{3,4})-([0-9]{4})$/;
 
     const onNickChange = (e) => {
-        setUser({...user, nick: e.target.value});
-        setCheckNick({...checkNick, type: 'nick', info: e.target.value});
+        setUser({ ...user, nick: e.target.value });
+        setCheckNick({ ...checkNick, type: 'nick', info: e.target.value });
     };
     const onPwdChange = (e) => {
         const temp = e.target.value;
@@ -73,13 +74,13 @@ function SignUpInfo() {
             setShowPwdDefault(true);
         }
 
-        setUser({...user, password: temp});
+        setUser({ ...user, password: temp });
         console.log(`pwd : ${temp}`)
         console.log(`length : ${temp.length}`);
     }
     const onPwdReChange = (e) => {
         const temp = e.target.value;
-        setUser({...user, rePassword: temp});
+        setUser({ ...user, rePassword: temp });
         if (user.password === temp) {
             setShowRePwdDefault(false);
             setShowRePwdError(false);
@@ -91,35 +92,30 @@ function SignUpInfo() {
         }
     }
     const onPhoneChange = (e) => {
-        setUser({...user, phone: e.target.value});
-        setCheckPhone({...checkPhone, type: 'phone', info: e.target.value});
+        setUser({ ...user, phone: e.target.value });
+        setCheckPhone({ ...checkPhone, type: 'phone', info: e.target.value });
     }
 
     const onClickConfirm = async () => {
         // 닉네임 유효성 검사
         if (nickRegEx.test(user.nick)) {
             // 닉네임 중복 여부 확인 로직 (백에서 처리)
-            console.log(`nick : ${user.nick}`);
             const result = await checkAPI(checkNick);
-            console.log(`result : ${result}`);
 
-            if(result === 'true') {
+            if (result === 'true') {
+                setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '사용 가능한 닉네임 입니다.' });
                 setShowCheck(true);
                 setShowConfirmed(false);
             } else {
-                alert('중복된 닉네임 입니다.');
+                setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '중복된 닉네임 입니다.' });
             }
-        } else if (!nickRegEx.test(user.nick)) { 
-            setShowNickModal(true);
         } else {
-            setShowNickModal(true);
+            setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '닉네임 형식이 올바르지 않습니다.' });
         }
     }
 
     const onClickHide = () => {
         setPwdHide(!pwdHide);
-        console.log(`pwdHide : ${pwdHide}`);
-        console.log(`pwdType : ${pwdType}`);
         if (pwdType === 'password') {
             setPwdType('text');
         } else {
@@ -129,8 +125,6 @@ function SignUpInfo() {
 
     const onClickReHide = () => {
         setRePwdHide(!rePwdHide);
-        console.log(`re pwdHide : ${rePwdHide}`);
-        console.log(`re pwdType : ${rePwdType}`);
         if (rePwdType === 'password') {
             setRePwdType('text');
         } else {
@@ -141,49 +135,46 @@ function SignUpInfo() {
     const onClickComplete = async () => {
         const phoneCheck = phoneRegEx.test(user.phone);
         if (showCheck && showPwdTxt && showRePwdTxt && phoneCheck) {    // 모든 항목 true 일때
-            const result =  await checkAPI(checkPhone);
-            console.log(`result : ${result}`);
+            const result = await checkAPI(checkPhone);
 
-            if(result === 'true') {
+            if (result === 'true') {
 
-                const signupResult = await callRegisterAPI({user});
+                const signupResult = await callRegisterAPI({ user });
 
-                if(signupResult) {
+                if (signupResult) {
                     navigate('/signupcomplete');
                 } else {
-                    alert('회원가입에 실패했습니다.');
+                    setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '회원가입에 실패했습니다.' });
                 }
             } else {
-                alert('중복된 연락처 입니다.');
+                setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '중복된 연락처 입니다.' });
             }
-            
-        } else if (!showCheck) {
-            setShowNickCheckModal(true);
-        } else if (showCheck && !showPwdTxt) {
-            setShowPwdCheckModal(true);
-        } else if (showCheck && showPwdTxt && !showRePwdTxt) {
-            setShowRePwdCheckModal(true);
-        } else if (!phoneCheck) {
-            setShowPhoneCheckModal(true);
+        } else {
+            setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '연락처 형식이 올바르지 않습니다.' });
         }
     }
 
+    const handleCancel = () => {
+        setModal({ ...modal, state: true, isCheck: false, isOneBtn: false, text: '회원가입을 취소하시겠습니까?' });
+    };
+
     const closeModal = () => {
-        setShowNickModal(false);
-        setShowNickCheckModal(false);
-        setShowPwdCheckModal(false);
-        setShowRePwdCheckModal(false);
-        setShowPhoneCheckModal(false);
-    }
+        setModal({ ...modal, state: false, text: '' });
+    };
+
+    const confirmCancel = () => {
+        // 회원가입 취소 로직
+        navigate('/'); // 메인 페이지로 이동
+    };
 
     useEffect(() => {
-        setUser({...user, userId: email});
+        setUser({ ...user, userId: email });
     }, [user.userId]);
 
     return (
         <>
             <div className={styles.container}>
-            <div className={styles.titleBox}>
+                <div className={styles.titleBox}>
                     <p>회원가입</p>
                 </div>
                 <div className={styles.seqBox}>
@@ -225,7 +216,7 @@ function SignUpInfo() {
                             <p>한글, 영문, 숫자 사용 가능 2~7자 이내</p>
                         </div>
                         {showConfirmed && (
-                            <button type='submit' onClick={onClickConfirm}>중복확인</button>    
+                            <button type='submit' onClick={onClickConfirm}>중복확인</button>
                         )}
                         {showCheck && (
                             <img src='./images/auth/check_icon.png' alt='check_icon'></img>
@@ -236,13 +227,13 @@ function SignUpInfo() {
                         <div className={styles.pwdInputBox}>
                             <input type={pwdType} value={user.password} onChange={onPwdChange}></input>
                             <div className={styles.pwdHideBox} onClick={onClickHide}>
-                            {pwdHide ? 
-                            (<img src='./images/auth/pwd_hide.png' alt='pwd_hide'></img>) 
-                            : (<img src='./images/auth/pwd_eye.png' alt='pwd_eye'></img>)
-                            }
+                                {pwdHide ?
+                                    (<img src='./images/auth/pwd_hide.png' alt='pwd_hide'></img>)
+                                    : (<img src='./images/auth/pwd_eye.png' alt='pwd_eye'></img>)
+                                }
                             </div>
-                            { showPwdDefault && (<p>영문, 숫자, 특수문자 중 두 종류 이상 8~12자 이내</p>)}
-                            { showPwdTxt && (<p style={{color: "#63C54A", fontWeight: "500"}}>사용가능한 비밀번호입니다.</p>)}
+                            {showPwdDefault && (<p>영문, 숫자, 특수문자 중 두 종류 이상 8~12자 이내</p>)}
+                            {showPwdTxt && (<p style={{ color: "#63C54A", fontWeight: "500" }}>사용가능한 비밀번호입니다.</p>)}
                         </div>
                     </div>
                     <div className={styles.pwdReBox}>
@@ -250,69 +241,54 @@ function SignUpInfo() {
                         <div className={styles.pwdReInputBox}>
                             <input type={rePwdType} name={user.rePassword} onChange={onPwdReChange}></input>
                             <div className={styles.rePwdHideBox} onClick={onClickReHide}>
-                            {rePwdHide ? 
-                            (<img src='./images/auth/pwd_hide.png' alt='pwd_hide'></img>) 
-                            : (<img src='./images/auth/pwd_eye.png' alt='pwd_eye'></img>)
-                            }
+                                {rePwdHide ?
+                                    (<img src='./images/auth/pwd_hide.png' alt='pwd_hide'></img>)
+                                    : (<img src='./images/auth/pwd_eye.png' alt='pwd_eye'></img>)
+                                }
                             </div>
-                            { showRePwdDefault && (<p>확인을 위해 다시 입력하시기 바랍니다.</p>)}
-                            { showRePwdTxt && (<p style={{color: "#63C54A", fontWeight: "500"}}>비밀번호와 일치합니다.</p>)}
-                            { showRePwdError &&  (<p style={{color: "#FF0000", fontWeight: "500"}}>비밀번호와 일치하지 않습니다.</p>)}
+                            {showRePwdDefault && (<p>확인을 위해 다시 입력하시기 바랍니다.</p>)}
+                            {showRePwdTxt && (<p style={{ color: "#63C54A", fontWeight: "500" }}>비밀번호와 일치합니다.</p>)}
+                            {showRePwdError && (<p style={{ color: "#FF0000", fontWeight: "500" }}>비밀번호와 일치하지 않습니다.</p>)}
                         </div>
                     </div>
                     <div className={styles.phoneBox}>
                         <label>연락처</label>
                         <div className={styles.phoneInputBox}>
-                            <input type='tel' value={user.phone} onChange={onPhoneChange} 
-                                    pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}" required></input>
+                            <input type='tel' value={user.phone} onChange={onPhoneChange}
+                                pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}" required></input>
                             <p>이메일 찾기 시 사용되는 정보 입니다. ex) 010-0000-0000</p>
                         </div>
                     </div>
                 </div>
                 <div className={styles.buttonContainer}>
-                    <button className={styles.cancelBtn}>취소</button>
-                    <button className={styles.nextBtn} onClick={onClickComplete}>완료</button>
+                    <button className={styles.leftBtn} onClick={handleCancel}>취소</button>
+                    <button disabled={!showCheck || !showPwdTxt || !showRePwdTxt || !user.phone}
+                            className={styles.rightBtn} onClick={onClickComplete}>완료</button>
                 </div>
-                {showNickModal && (
+                {modal.state && (
                     <div className={styles.modal}>
                         <div className={styles.modalContent}>
-                            <p>닉네임 형식이 올바르지 않습니다.</p>
-                            <button onClick={closeModal}>닫기</button>
+                            <div className={styles.iconContainer}>
+                                {modal.isCheck ? (
+                                    <img src='./images/auth/modal_check.png' alt='modal_check'></img>
+                                ) : (
+                                    <img src='./images/auth/exclamationmark_circle.png' alt='exclamation_circle'></img>
+                                )}
+                            </div>
+                            <div className={styles.modalTextContainer}>
+                                <p>{modal.text}</p>
+                            </div>
+                            {modal.isOneBtn ? (
+                                <button onClick={closeModal}>닫기</button>
+                            ) : (
+                                <div className={styles.btnContainer}>
+                                    <button className={styles.leftBtn} onClick={confirmCancel}>예</button>
+                                    <button className={styles.rightBtn} onClick={closeModal}>아니오</button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}
-                {showNickCheckModal && (
-                    <div className={styles.modal}>
-                        <div className={styles.modalContent}>
-                            <p>닉네임 중복확인이 완료 되지 않았습니다.</p>
-                            <button onClick={closeModal}>닫기</button>
-                        </div>
-                    </div>
-                )}
-                {showPwdCheckModal && (
-                    <div className={styles.modal}>
-                        <div className={styles.modalContent}>
-                            <p>비밀번호 형식이 올바르지 않습니다.</p>
-                            <button onClick={closeModal}>닫기</button>
-                        </div>
-                    </div>
-                )}
-                {showRePwdCheckModal && (
-                    <div className={styles.modal}>
-                        <div className={styles.modalContent}>
-                            <p>비밀번호가 일치하지 않습니다.</p>
-                            <button onClick={closeModal}>닫기</button>
-                        </div>
-                    </div>
-                )}
-                {showPhoneCheckModal && (
-                    <div className={styles.modal}>
-                        <div className={styles.modalContent}>
-                            <p>연락처 형식이 올바르지 않습니다.</p>
-                            <button onClick={closeModal}>닫기</button>
-                        </div>
-                    </div>
-                )}     
             </div>
         </>
     );
