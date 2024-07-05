@@ -116,20 +116,6 @@ padding: 15px;
 /* gagao */
 .wrap {padding: 40px 0; background-color: #D9D9D9; width: 1180px; margin: 20px auto; border-radius: 10px;;}
 
-/* 닉, 날짜 */
-.talk_date {display: flex; align-self: end; font-size: 14px;}
-.talk_nick{padding-left: 20px;}
-
-.wrap .chat {display: flex; align-items: flex-start; padding-left: 20px;}
-
-/* 공용 css */
-.wrap .chat .textbox {position: relative; display: inline-block; max-width: calc(50% - 70px); padding: 10px; margin-top: 7px; font-size: 13px; border-radius: 10px;}
-.wrap .chat .textbox::before {position: absolute;display: block; top: 0; font-size: 1.5rem;}
-
-.wrap .ch1 .textbox {background-color: white;}
-.wrap .ch1 .textbox::before {left: -15px; content: "◀"; color: white;}
-
-
 
 /* 답글 */
 .comment_wrap {width: 1180px;display: flex; justify-content: space-around; margin: 0 auto;}
@@ -204,8 +190,15 @@ padding: 15px;
 /* 사용자의 글은 초록색 */
 .my_message .textbox {background-color: #63C54A;}
 
+
+/* 닉, 날짜 */
+.talk_date {display: flex; align-self: end; font-size: 14px;}
+.talk_nick{padding-left: 10px; }
+
 .talk_nick {
     font-weight: bold;
+    padding-right: 20px;
+    padding-top: 10px;
 }
 
 .talk_date {
@@ -218,7 +211,6 @@ padding: 15px;
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    border-top: 1px solid #ddd;
     background-color: #fff;
 }
 
