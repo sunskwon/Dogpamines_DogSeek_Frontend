@@ -18,6 +18,7 @@
 
 .innerContainer p {
     font-size: 16px;
+    margin: 5px;
 }
 
 .runningDog {
@@ -25,17 +26,25 @@
     margin-left: 140px;
 }
 
+.wrapBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: aliceblue; */
+}
+
 .emailAddress {
+    position: relative; left: 28%;
     color: rgba(112, 178, 222, 1);
     text-decoration: underline;
 }
 
 .hintText {
-    position: absolute; left: 41%; bottom: 39%;
+    position: relative; right: 21%; bottom: 0;
     border-radius: 10px;
     background-color: white;
     border: 1px solid rgba(99, 197, 74, 1);
-    padding: 0 20px;
+    padding: 0px 20px;
     opacity: 0;
     transition: opacity 0.3s ease-in;
 }
