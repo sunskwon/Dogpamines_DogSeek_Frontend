@@ -100,6 +100,8 @@ function ProductDetail () {
         getSearchDate();
     }, [`${product.prodName}`]);
 
+    nDate.sort((a, b) => a.lprice - b.lprice);
+
     return (
         <div className={styles.allBox}>
             <div className={styles.prodBox}>
