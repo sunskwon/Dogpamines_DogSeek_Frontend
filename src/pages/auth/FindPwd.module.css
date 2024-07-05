@@ -11,19 +11,56 @@
 
 .box {
     display: flex;
-    width: 480px;
-    height: 540px;
+    width: 500px;
+    height: 360px;
     border-radius: 12px;
     border-color: #005600;
     border-width: 2px;
     border-style: solid;
-    margin-top: 8%;
-    margin-bottom: 4%;
+    margin-top: 14%;
+    margin-bottom: 8%;
     box-shadow: 0px 2px 5px 0px #A6C4A6;
     /* align-content: space-evenly; */
     /* justify-items: center; */
     flex-direction: column;
 }
+
+.findBox {
+    display: flex;
+    width: 100%;
+    height: 84px;
+    align-content: space-between;
+    text-align: center;
+    /* border-bottom: 1px #005600 solid; */
+}
+
+.findBox>div {
+    display: block;
+    width: 50%;
+    height: 35%;
+    margin-top: 40px;
+    margin-bottom: 30px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.findBox>div:hover {
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.findId {
+    border-right: 1px solid #D4D4D4;
+    color: #999999;
+    font-weight: 400;
+    /* border-bottom: 1px solid #005600; */
+}
+
+.findPw {
+    color: #63C54A;
+    font-weight: bold;
+}
+
 
 .titleBox {
     display: block;
@@ -44,8 +81,8 @@
     display: flex;
     height: 200px;
     width: 460px;
-    margin-top: 80px;
-    margin-left: 30px;
+    margin-top: 50px;
+    margin-left: 40px;
     align-content: space-evenly;
     justify-items: center;
     flex-wrap: wrap;        /* 이메일, 비밀번호 박스 세로 정렬*/
@@ -216,7 +253,7 @@
     justify-content: center;
     width: 100%;
     gap: 22px;
-    margin-top: 60px;
+    margin-top: 30px;
     margin-bottom: 20px;
     margin-left: -30px;
 }
