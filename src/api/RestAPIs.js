@@ -16,6 +16,7 @@ export function GetAPI(address) {
     );
 };
 
+
 export function PostAPI(address, Object) {
 
     const baseUrl = 'http://localhost:8080';

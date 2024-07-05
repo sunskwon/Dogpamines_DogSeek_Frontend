@@ -1,181 +1,198 @@
-import React, {useState, useEffect} from "react";
-import { GetAPI } from '../../api/RestAPIs';
-import styles from'./AnimalRegist.module.css';
+import { useState, useEffect } from "react";
+import styles from './AnimalRegist.module.css';
+import axios from "axios";
 
 function AnimalRegist() {
 
 
     const [numberType, setNumberType] = useState('등록 번호');
     const [ownerType, setOwnerType] = useState('소유주');
-    const [dogRegNo, setDogRegNo] = useState('');
-    const [rfidCd, setRfidCd] = useState('');
-    const [ownerNm, setOwnerNm] = useState('');
-    const [ownerBirth, setOwnerBirth] = useState('');
+
+    const [formData, setFormData] = useState(
+        {
+            dog_reg_no: '',
+            rfid_cd: '',
+            owner_nm: '',
+            owner_birth: ''
+
+        });
+
     const [animalData, setAnimalData] = useState(null);
-    const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
 
+    function handleChange(e) {
+        const { name, value } = e.target;
+        setFormData(prevFormData => ({
+            ...prevFormData,
+            [name]: value
+        }));
+    }
 
-    const handleNumberTypeChange = (e) => {
-        setNumberType(e.target.value);
-        setDogRegNo('');
-        setRfidCd('');
-    };
-
-    const handleOwnerTypeChange = (e) => {
-        setOwnerType(e.target.value);
-        setOwnerNm(''); 
-        setOwnerBirth('');
-    };
-
-    const handleSubmit = async (e) => {
+    function handleSubmit(e) {
         e.preventDefault();
+        
+        fetchData();
+    }
 
-        let address = '/animalRegist'; 
+    function fetchData() {
+        setLoading(true);
+        setError(null);
 
-        if (numberType === '등록 번호' && dogRegNo) {
-            address += `?dogRegNo=${encodeURIComponent(dogRegNo)}`;
-        } else if (numberType === 'RFID' && rfidCd) {
-            address += `?rfidCd=${encodeURIComponent(rfidCd)}`;
+        const servicekey = ""; //.env 이동필요
+        const _type = 'json';
+        const { dog_reg_no, rfid_cd, owner_nm, owner_birth } = formData;
+
+        var url = 'http://apis.data.go.kr/1543061/animalInfoSrvc/animalInfo';
+        var queryParams = new URLSearchParams({
+            servicekey: servicekey,
+            _type: _type
+        })
+
+        if (numberType === '등록 번호') {
+            queryParams.append('dog_reg_no', dog_reg_no);
+        } else if (numberType === 'RFID') {
+            queryParams.append('rfid_cd', rfid_cd);
         }
 
-        if (ownerType === '소유주' && ownerNm) {
-            address += `&ownerNm=${encodeURIComponent(ownerNm)}`;
-        } else if (ownerType === '생년월일' && ownerBirth) {
-            address += `&ownerBirth=${encodeURIComponent(ownerBirth)}`;
+        if (ownerType === '소유주') {
+            queryParams.append('owner_nm', owner_nm);
+        } else if (owner_birth === '생년월일') {
+            queryParams.append('owner_birth', owner_birth);
         }
 
-        try {
-            const data = await GetAPI(address);
-            if (data) {
-                setAnimalData(data); 
-                setError('');
-            } else {
-                setAnimalData(null); 
-                setError('해당번호로 등록된 반려동물이 없습니다.'); 
-            }
-        } catch (error) {
-            setAnimalData(null);
-            setError(`Error: ${error.message}`); 
-    };
-}
+        axios.get(url + '?' + queryParams.toString())
+            .then(function (res) {
+                const data = res.data.response;
+                if (data.body.item?.dogRegNo) {
+                    setAnimalData(data.body.item);
+                } else {
+                    setError('해당 정보로 등록된 반려동물이 없습니다.')
+                    setAnimalData(null);
+                }
+                setLoading(false);
+                console.log('Status: ', res.status)
+                console.log('Headers: ', JSON.stringify(res.headers))
+                console.log('Body: ', data);
+            })
+            .catch(function (error) {
+                setError('데이터를 가져오는 중 오류가 발생하였습니다.');
+                setLoading(false);
+                console.error('Error fetxhing data: ', error);
+            });
 
-    // const [isModalOpen, setIsModalOpen] = useState(false);
+    }
 
-   /* const searchAnimal = () => {
+    const handleLink=() =>{
+        window.open('https://www.animal.go.kr/front/index.do', '_blank');
+    }
 
-        const address = "/animalRegist"
-        const response = GetAPI(address);
-        const result = response.
-
-
-
-    }*/
-
-    /*const toggleModal = () => {
-        setIsModalOpen(true);
-    };*/
-
-    /*const valueChangeHandler = e => {
-        const { }
-    }*/
-
-    return(
+    return (
         <div className={styles.allContainer}>
-         <div className={styles.titleContainer}>
-            <span className={styles.title}>동물 등록 번호 검색</span>
-            <span className={styles.titleContext}>동물등록 번호 검색의 경우 소유주가<span className={styles.link}>국가동물보호정보시스템</span>에 회원가입이 되어 있고,
-            <br/>소유주의 정보가 등록되어 있어야 정상 조회가 가능합니다.</span>
-            <span className={styles.ps}>※ 임의로 동물등록 사항을 확인하는 것을 방지하기 위한 등록번호 이외 소유주의 개인정보를 추가 입력이 필요합니다.</span>
-         </div>
-         <form onSubmit={handleSubmit}>
-            <div className={styles.searchContainer1}>
-                
-            <select className={styles.selectBox} value={ownerType}
-                    onChange={handleOwnerTypeChange}>
-                <option>소유주</option>
-                <option>생년월일</option>
-            </select>
-            {ownerType === '소유주' ? (
-                    <input
-                        className={styles.inputBox}
-                        type="text"
-                        value={ownerNm}
-                        onChange={(e) => setOwnerNm(e.target.value)}
-                    
-                    />
-                ) : (
-                    <input
-                        className={styles.inputBox}
-                        type="text"
-                        value={ownerBirth}
-                        onChange={(e) => setOwnerBirth(e.target.value)}
-                        
-                    />
-                )}
+            <div className={styles.titleContainer}>
+                <span className={styles.title}>동물 등록 번호 검색</span>
+                <span className={styles.titleContext}>동물등록 번호 검색의 경우 소유주가<span className={styles.link} onClick={handleLink}>국가동물보호정보시스템</span>에 회원가입이 되어 있고,
+                    <br/>소유주의 정보가 등록되어 있어야 정상 조회가 가능합니다.</span>
+                <span className={styles.ps}>※ 임의로 동물등록 사항을 확인하는 것을 방지하기 위한 등록번호 이외 소유주의 개인정보를 추가 입력이 필요합니다.</span>
             </div>
-                
-            <div className={styles.searchContainer2}>
-            <select className={styles.selectBox} value={numberType}
-                    onChange={handleNumberTypeChange}>
-                <option>등록 번호</option>
-                <option>RFID</option>
-            </select>
-                {numberType === '등록 번호' ? (
-                    <input
-                        className={styles.inputBox}
-                        type="text"
-                        value={dogRegNo}
-                        onChange={(e) => setDogRegNo(e.target.value)}
-                       
-                    />
-                ) : (
-                    <input
-                        className={styles.inputBox}
-                        type="text"
-                        value={rfidCd}
-                        onChange={(e) => setRfidCd(e.target.value)}
-                       
-                    />
-                )}
-            </div>
-            </form>
-            <div className={styles.buttonContainer}>
-            <button type="submit" className={styles.button} >확인</button>
-            </div>
+            <form onSubmit={handleSubmit}>
+                <div className={styles.searchContainer1}>
 
+                    <select className={styles.selectBox} value={ownerType} onChange={(e) => setOwnerType(e.target.value)}>
+                        <option>소유주</option>
+                        <option>생년월일</option>
+                    </select>
+                    {ownerType === '소유주' ? (
+                        <input
+                            className={styles.inputBox}
+                            type="text"
+                            name="owner_nm"
+                            value={formData.owner_nm}
+                            onChange={handleChange}
 
+                        />
+                    ) : (
+                        <input
+                            className={styles.inputBox}
+                            type="text"
+                            name="owner_birth"
+                            value={formData.owner_birth}
+                            onChange={handleChange}
 
-         <div className={styles.modalTitle}>
-            <img className={styles.img} src='/images/dict/DogPaw(green).png' alt='greenPaw'></img><span>등록 동물 정보</span>
-         </div>
-         {error && (
-                <div className={styles.errorContainer}>
-                    <img src='/images/animal/cuteDog.png' alt='error' />
-                    <span>{error}</span>
+                        />
+                    )}
                 </div>
-            )}
 
-            {animalData && (
-                <table className={styles.table}>
-                    <tbody>
-                        <tr>
-                            <th>등록번호</th> <td>{animalData.dogRegNo}</td> <th>RFID_CD</th> <td>{animalData.rfidCd}</td>
-                        </tr>
-                        <tr>
-                            <th>개이름</th> <td>{animalData.dogName}</td> <th>성별</th> <td>{animalData.gender}</td>
-                        </tr>
-                        <tr>
-                            <th>품종</th> <td>{animalData.breed}</td> <th>중성화 여부</th> <td>{animalData.neuterStatus}</td>
-                        </tr>
-                        <tr>
-                            <th>관할기관</th> <td>{animalData.authority}</td> <th>관할기관연락처</th> <td>{animalData.authorityContact}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div className={styles.searchContainer2}>
+                    <select className={styles.selectBox} value={numberType} onChange={(e) => { setNumberType(e.target.value) }}>
+                        <option>등록 번호</option>
+                        <option>RFID</option>
+                    </select>
+                    {numberType === '등록 번호' ? (
+                        <input
+                            className={styles.inputBox}
+                            type="text"
+                            name="dog_reg_no"
+                            value={formData.dog_reg_no}
+                            onChange={handleChange}
+
+                        />
+                    ) : (
+                        <input
+                            className={styles.inputBox}
+                            type="text"
+                            name="rfid_cd"
+                            value={formData.rfid_cd}
+                            onChange={handleChange}
+
+                        />
+                    )}
+                </div>
+                <div className={styles.buttonContainer}>
+                    <button type="submit" className={styles.button} >확인</button>
+                </div>
+            </form>
+
+            {loading && <p>loading...</p>}
+
+            {error ? (
+                <>
+                    <div className={styles.modalTitle}>
+                        <img className={styles.img} src='/images/dict/DogPaw(green).png' alt='greenPaw'></img><span>등록 동물 정보</span>
+                    </div>
+                    <div className={styles.errorContainer}>
+                        <img src='/images/animal/cuteDog.png' alt='error' />
+                        <span>{error}</span>
+                    </div>
+                </>
+
+            ) : (
+                animalData && (
+                    <>
+                        <div className={styles.modalTitle}>
+                            <img className={styles.img} src='/images/dict/DogPaw(green).png' alt='greenPaw'></img><span>등록 동물 정보</span>
+                        </div>
+                        <table className={styles.table}>
+                            <tbody>
+                                <tr>
+                                    <th>등록번호</th> <td>{animalData.dogRegNo}</td> <th>RFID_CD</th> <td>{animalData.rfidCd}</td>
+                                </tr>
+                                <tr>
+                                    <th>개이름</th> <td>{animalData.dogNm}</td> <th>성별</th> <td>{animalData.sexNm}</td>
+                                </tr>
+                                <tr>
+                                    <th>품종</th> <td>{animalData.kindNm}</td> <th>중성화 여부</th> <td>{animalData.neuterYn}</td>
+                                </tr>
+                                <tr>
+                                    <th>관할기관</th> <td>{animalData.orgNm}</td> <th>관할기관연락처</th> <td>{animalData.officeTel}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </>
+                )
             )}
-         
         </div>
-    )  
+    )
 }
 
 
