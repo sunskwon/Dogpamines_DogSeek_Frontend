@@ -39,7 +39,7 @@ function AnimalRegist() {
         setLoading(true);
         setError(null);
 
-        const servicekey = "cWQLIXqRtljq7xBRrn2LYC5eOfV3jhvQ+tZpUe5hXov+8TQcHIB7CoQIpcvo5mG5i9kL6wrWOJO5DMT8KsILKg=="; //.env 이동필요
+        const servicekey = ""; //.env 이동필요
         const _type = 'json';
         const { dog_reg_no, rfid_cd, owner_nm, owner_birth } = formData;
 
