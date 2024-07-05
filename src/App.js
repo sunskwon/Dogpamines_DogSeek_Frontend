@@ -48,6 +48,7 @@ import AdminUpdateBoard from "./pages/admin/board/AdminUpdateBoard.js";
 import AdminSelectAllUsers from "./pages/admin/user/AdminSelectAllUsers.js";
 import AdminSelectUserByCode from "./pages/admin/user/AdminSelectUserByCode.js"
 import AnimalRegist from "./pages/animalRegist/AnimalRegist.js";
+import NotFound from "./pages/common/NotFound.js";
 
 function App() {
   return (
@@ -61,8 +62,8 @@ function App() {
             <Route path="/signupidentity" element={<SignUpIdentity />} />
             <Route path="/signupinfo" element={<SignUpInfo />} />
             <Route path="/signupcomplete" element={<SignUpComplete />} />
-            <Route path="/findemail" element={<FindEmail/>}/>
-            <Route path="/findpwd" element={<FindPwd/>}/>
+            <Route path="/findemail" element={<FindEmail />} />
+            <Route path="/findpwd" element={<FindPwd />} />
             <Route path="/curation" element={<Curation />} />
             <Route path="/curationsizeselect" element={<CurationSizeSelect />} />
             <Route path="/curationselectage" element={<CurationSelectAge />} />
@@ -73,7 +74,7 @@ function App() {
             <Route path="/curationselectcook" element={<CurationSelectCook />} />
             <Route path="/curationresult" element={<CurationResult />} />
             <Route path="/products" element={<Products />} />
-            <Route path="/productdetail" element={<ProductDetail/>} />
+            <Route path="/productdetail" element={<ProductDetail />} />
             <Route path="/dict" element={<Dict />} />
             <Route path="/dict/:dogName" element={<DictDetail />} />
             <Route path="/animalregist" element={<AnimalRegist />} />
@@ -86,6 +87,9 @@ function App() {
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/mydog" element={<Mydog />} />
             <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+
+            {/* NotFound는 모든 Route보다 아래에 있을 것 */}
+            <Route path="/*" element={<NotFound />} />
           </Route>
           {/* </Routes> */}
 
@@ -108,6 +112,7 @@ function App() {
             <Route path="/admin/updateboard" element={<AdminUpdateBoard />} />
             <Route path="/admin/users" element={<AdminSelectAllUsers />} />
             <Route path="/admin/userdetail" element={<AdminSelectUserByCode />} />
+
           </Route>
         </Routes>
       </BrowserRouter>
