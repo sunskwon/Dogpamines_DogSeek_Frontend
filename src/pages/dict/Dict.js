@@ -83,7 +83,7 @@ function Dict(){
                 <span className={styles.titletext1}> 견종에 대해 찾아보세요.</span>
                 <span className={styles.titletext2}>반려견 품종의 특징과 요구사항에 대한 전문적인 정보를 찾아보세요. <br/> 
                 스크롤 또는 검색 기능을 사용해 원하는 견종에 대한 정보를 찾을 수 있습니다. </span>
-                <img className={styles.img} src='/images/dict/상단사진.png'/>
+                <img className={styles.img} src='https://lh3.google.com/u/0/d/1OYEelsFN-8xWWbi2SgMzZl3FN8fTx2mQ=w1920-h945-iv1'/>
                 <form className={styles.form} onSubmit={searchSubmitHandler}>
                         <input
                             className={styles.search}
