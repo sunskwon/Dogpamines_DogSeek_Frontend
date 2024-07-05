@@ -4,55 +4,53 @@ import { useNavigate } from 'react-router-dom';
 import { callLoginAPI } from "../../api/RestAPIs";
 import { jwtDecode } from 'jwt-decode';
 
-function Login(){
+function Login() {
 
     const [user, setUser] = useState({
         userId: '',
         userPass: '',
     });
 
+    const [modal, setModal] = useState({
+        state: false,
+        text: '',
+    });
+
     const navigate = useNavigate();
 
-    const onEmailChange = (e) => setUser({...user, userId: e.target.value});
-    const onPwdChange = (e) => setUser({...user, userPass: e.target.value});
+    const onEmailChange = (e) => setUser({ ...user, userId: e.target.value });
+    const onPwdChange = (e) => setUser({ ...user, userPass: e.target.value });
 
     const onClickLogin = async () => {
 
         if (user.userId.length !== 0 && user.userPass.length !== 0) {
 
-            const response = await callLoginAPI({user});
+            const response = await callLoginAPI({ user });
 
             if (response === 'true') {
-                
+
                 // 토큰 디코딩
                 const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
 
-                const userCode = decodedToken.userCode;
-                const userNick = decodedToken.userNick;
                 const userAuth = decodedToken.userAuth;
-
-                // window.localStorage.setItem('userCode', userCode);
-                // window.localStorage.setItem('userNick', userNick);
-                // window.localStorage.setItem('userAuth', userAuth);
 
                 if (userAuth === 'ADMIN') {
                     navigate('/admin');
                 } else if (userAuth === 'USER') {
                     navigate('/');
                 } else if (userAuth === 'SLEEP') {
-                    alert('휴면회원입니다.');
+                    setModal({ ...modal, state: true, text: '휴면회원입니다.' });
                 } else {
-                    alert('올바르지 않은 접근입니다.');
+                    setModal({ ...modal, state: true, text: '올바르지 않은 접근입니다.' });
                 };
-                window.location.reload();
+
             } else {
-                alert('아이디 또는 비밀번호를 확인해주세요.')
-                window.location.reload();
+                setModal({ ...modal, state: true, text: '일치하는 회원 정보가 없습니다.' });
             }
         } else if (user.userId.length !== 0 && user.userPass.length === 0) {
-            alert('비밀번호를 입력해주세요.');
+            setModal({ ...modal, state: true, text: '비밀번호를 입력해주세요.' });
         } else {
-            alert('아이디(이메일)을 입력해주세요.')
+            setModal({ ...modal, state: true, text: '아이디(이메일)을 입력해주세요.' });
         }
     }
 
@@ -67,7 +65,12 @@ function Login(){
         navigate('/findemail');
     }
 
-    return(
+    const closeModal = () => {
+        setModal({ ...modal, state: false, text: '' });
+        window.location.reload();
+    }
+
+    return (
 
         <>
             <div className={styles.container}>
@@ -79,7 +82,7 @@ function Login(){
                         {/* id */}
                         <div className={styles.idBox}>
                             <p>ID(EMAIL)</p>
-                            <input placeholder="아이디를 입력해주세요." name={user.userId} type="email" onChange={onEmailChange} onKeyDown={activeEnter}></input>
+                            <input placeholder="아이디를 입력해주세요." name={user.userId} type="email" onChange={onEmailChange} onKeyDown={activeEnter} autoFocus></input>
                         </div>
                         {/* pwd */}
                         <div className={styles.pwdBox}>
@@ -99,8 +102,20 @@ function Login(){
                         </div>
                     </div>
                 </div>
-                
-            </div>        
+                {modal.state && (
+                    <div className={styles.modal}>
+                        <div className={styles.modalContent}>
+                            <div className={styles.iconContainer}>
+                                <img src='./images/auth/exclamationmark_circle.png' alt='exclamation_circle'></img>
+                            </div>
+                            <div className={styles.modalTextContainer}>
+                                <p>{modal.text}</p>
+                            </div>
+                            <button onClick={closeModal}>닫기</button>
+                        </div>
+                    </div>
+                )}
+            </div>
         </>
     )
 }

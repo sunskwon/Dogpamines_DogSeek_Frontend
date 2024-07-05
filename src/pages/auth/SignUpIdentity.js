@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { callEmailVerification, callEmailVerify, checkAPI } from '../../api/RestAPIs';
 
-function SignUpIdentity(){
+function SignUpIdentity() {
     const [email, setEmail] = useState("");
     const [checkEmail, setCheckEmail] = useState({
         type: '',
@@ -11,21 +11,24 @@ function SignUpIdentity(){
     });
     const [authNum, setAuthNum] = useState("");
     const [isConfirmed, setIsConfirmed] = useState(false);
-    const [showConfirmed, setShowConfirmed] = useState(true);
-    const [showEmailModal, setShowEmailModal] = useState(false);
+    const [showSend, setShowSend] = useState(true);
     const [showCheck, setShowCheck] = useState(false);
-    const [showCancelModal, setShowCancelModal] = useState(false);
-    const [showLastConfirmModal, setShowLastConfirmModal] = useState(false);
-    const [showNumConfirmModal, setShowNumConfirmModal] = useState(false);
-    const [showConfirmNextModal, setShowConfirmNextModal] = useState(false);
+
     const navigate = useNavigate();
+
+    const [modal, setModal] = useState({
+        state: false,
+        isCheck: false,
+        isOneBtn: true,
+        text: '',
+    });
 
     // email 정규식
     const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
 
     const onEmailChange = (e) => {
         setEmail(e.target.value);
-        setCheckEmail({...checkEmail, type: 'email', info: e.target.value});
+        setCheckEmail({ ...checkEmail, type: 'email', info: e.target.value });
     };
     const onAuthNumChange = (e) => setAuthNum(e.target.value);
 
@@ -34,65 +37,58 @@ function SignUpIdentity(){
         if (email.length !== 0 && emailRegEx.test(email)) {  // 빈 문자열이 아니고 정규식에 맞을때
             // 이메일 중복 여부 확인 로직 (백에서 처리)
             const result = await checkAPI(checkEmail);
-            console.log(`result : ${result}`);
 
-            if(result === 'true') {
-                setIsConfirmed(true);
-                setShowConfirmed(false);
-                setShowCheck(true);
+            if (result === 'true') {
+                const type = 'signup';
+                const result = await callEmailVerification(email, type);
+
+                if (result === 'true') {
+                    setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '인증번호가 발송되었습니다.' });
+                    setShowSend(false);
+                    setShowCheck(true);
+                } else {
+                    setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '인증번호 발송 실패.' });
+                }
             } else {
-                alert('중복된 이메일 입니다.');
+                setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '중복된 이메일 입니다.' });
             }
         } else if (!emailRegEx.test(email)) {   // 정규식에 맞지 않을 때
-            setShowEmailModal(true);
+            setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '이메일 형식이 올바르지 않습니다.' });
         } else {
-            setShowEmailModal(true);
+            setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '이메일 형식이 올바르지 않습니다.' });
         }
     }
 
-    const onClickEmail = async() => {
+    const onClickEmailVerify = async () => {
         if (showCheck === true) {
-            const type = 'signup';
-            const result = await callEmailVerification(email, type);
 
-            if (result === 'true') {
-                alert('인증번호가 발송되었습니다.');
+            if (authNum.length !== 0) {
+                // 인증 번호 확인 로직 (백에서)
+                const result = await callEmailVerify(email, authNum);
+
+                if (result === 'true') {
+                    setIsConfirmed(true);
+                    setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '이메일 인증 완료!' });
+                } else {
+                    setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '인증번호가 맞지 않습니다.' });
+                }
+
             } else {
-                alert('인증번호 발송 실패.');
-            }
-        } else {
-            alert('이메일 중복 확인이 필요합니다.');
-        }
-    }
-
-    const onClickLastConfirm = async() => {
-        if (isConfirmed && authNum.length !== 0) {
-            // 인증 번호 확인 로직 (백에서)
-            const result = await callEmailVerify(email, authNum);
-
-            if (result === 'true') {
-                setShowConfirmNextModal(true);
-            } else {
-                setShowNumConfirmModal(true);
+                setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '인증번호를 입력해주세요.' });
             }
 
         } else {
-             setShowLastConfirmModal(true);
+            setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '이메일 중복 확인이 필요합니다.' });
         }
     }
+
 
     const handleCancel = () => {
-        setShowCancelModal(true);
+        setModal({ ...modal, state: true, isCheck: false, isOneBtn: false, text: '회원가입을 취소하시겠습니까?' });
     };
 
     const closeModal = () => {
-        setShowEmailModal(false);
-        setShowLastConfirmModal(false);
-        setShowNumConfirmModal(false);
-    };
-
-    const closeCancelModal = () => {
-        setShowCancelModal(false);
+        setModal({ ...modal, state: false, text: '' });
     };
 
     const confirmCancel = () => {
@@ -106,10 +102,10 @@ function SignUpIdentity(){
                 email: email
             }
         }); // 다음 페이지 경로로 이동
-        
+
     };
 
-    return(
+    return (
 
         <>
             <div className={styles.container}>
@@ -138,8 +134,8 @@ function SignUpIdentity(){
                     <div className={styles.emailBox}>
                         <label>이메일</label>
                         <input name='email' onChange={onEmailChange} type='email'></input>
-                        {showConfirmed && (
-                            <button type='submit' onClick={onClickConfirm}>중복확인</button>    
+                        {showSend && (
+                            <button type='submit' onClick={onClickConfirm}>전송</button>
                         )}
                         {showCheck && (
                             <img src='./images/auth/check_icon.png'></img>
@@ -148,51 +144,35 @@ function SignUpIdentity(){
                     <div className={styles.numberBox}>
                         <label>인증번호</label>
                         <input type='text' onChange={onAuthNumChange}></input>
-                        <button type='submit' onClick={onClickEmail}>전송</button>
+                        <button type='submit' onClick={onClickEmailVerify}>확인</button>
                     </div>
                 </div>
                 <div className={styles.buttonContainer}>
-                    <button className={styles.cancelBtn} onClick={handleCancel}>취소</button>
-                    <button className={styles.nextBtn} onClick={onClickLastConfirm}>인증확인</button>
+                    <button className={styles.leftBtn} onClick={handleCancel}>취소</button>
+                    <button disabled={!isConfirmed || !showCheck}
+                        className={styles.rightBtn} onClick={handleNextPage}>다음</button>
                 </div>
-                {showEmailModal && (
+                {modal.state && (
                     <div className={styles.modal}>
                         <div className={styles.modalContent}>
-                            <p>이메일 형식이 올바르지 않습니다.</p>
-                            <button onClick={closeModal}>닫기</button>
-                        </div>
-                    </div>
-                )}
-                {showCancelModal && (
-                    <div className={styles.modal}>
-                        <div className={styles.modalContent}>
-                            <p>정말 회원가입을 취소하시겠습니까?</p>
-                            <button onClick={closeCancelModal}>아니오</button>
-                            <button onClick={confirmCancel}>예</button>
-                        </div>
-                    </div>
-                )}
-                {showLastConfirmModal && (
-                    <div className={styles.modal}>
-                        <div className={styles.modalContent}>
-                            <p>이메일 중복 확인이 필요합니다.</p>
-                            <button onClick={closeModal}>닫기</button>
-                        </div>
-                    </div>
-                )}
-                {showNumConfirmModal && (
-                    <div className={styles.modal}>
-                        <div className={styles.modalContent}>
-                            <p>인증번호가 맞지 않습니다.</p>
-                            <button onClick={closeModal}>닫기</button>
-                        </div>
-                    </div>
-                )}
-                {showConfirmNextModal && (
-                    <div className={styles.modal}>
-                        <div className={styles.modalContent}>
-                            <p>이메일 인증 완료!</p>
-                            <button onClick={handleNextPage}>확인</button>
+                            <div className={styles.iconContainer}>
+                                {modal.isCheck ? (
+                                    <img src='./images/auth/modal_check.png' alt='modal_check'></img>
+                                ) : (
+                                    <img src='./images/auth/exclamationmark_circle.png' alt='exclamation_circle'></img>
+                                )}
+                            </div>
+                            <div className={styles.modalTextContainer}>
+                                <p>{modal.text}</p>
+                            </div>
+                            {modal.isOneBtn ? (
+                                <button onClick={closeModal}>닫기</button>
+                            ) : (
+                                <div className={styles.btnContainer}>
+                                    <button className={styles.leftBtn} onClick={confirmCancel}>예</button>
+                                    <button className={styles.rightBtn} onClick={closeModal}>아니오</button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}
