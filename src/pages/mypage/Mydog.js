@@ -21,14 +21,15 @@ function Mydog() {
     const [curationCode, setCurationCode] = useState([]);
     const [curationName, setCurationName] = useState([]);
     const [prodCode, setProdCode] = useState([]);
-    const [myCurationResult , setMyCurationResult] = useState([]);
     const [modalOpen2, setModalOpen2] = useState(false);
-    const [modalProd, setModalProd] = useState([]);
+    const [modalProd, setModalProd] = useState(null);
+    const [myCurationResult , setMyCurationResult] = useState([]);
     
     const modalBackground = useRef();
 
     const openModal = (curationDog,curationCode) => {
-        setModalCuration(curationDog, curationCode);
+        setModalCuration(curationDog);
+        setCurationCode(curationCode);
         setModalOpen(true);
     }
 
@@ -38,8 +39,9 @@ function Mydog() {
     };
 
 
-    const openModal2 = (prodCode) => {
-        setModalProd(prodCode);
+    const openModal2 = (curationDog) => {
+        setModalProd(curationDog);
+        fetchMyCurationResult(curationDog.curationCode);
         setModalOpen2(true);
     }
 
@@ -52,12 +54,7 @@ function Mydog() {
         const curationsAddress = `/curations?userCode=${userCode}`;
         const curationsResponse = await GetAPI(curationsAddress);
         const result = await curationsResponse.curations;
-
-        // if (curationsResponse.curations.length > 0) {
-        //     const curationNames = curationsResponse.curations.map(curation => curation.curationName);
-        //     setCurationName(curationNames.join([','])); 
-        // }
-
+        
         return result;
     };
 
@@ -66,25 +63,25 @@ function Mydog() {
         const curationsDogResponse = await GetAPI(curationsDogAddress);
         const result = await curationsDogResponse.curationsDog;
 
-        if (curationsDogResponse.curationsDog.length > 0) {
-            const curationCodes = curationsDogResponse.curationsDog.map(curationDog => curationDog.curationCode);
-            setCurationCode(curationCodes.join([','])); 
-        }
+        // if (curationsDogResponse.curationsDog.length > 0) {
+        //     const curationCodes = curationsDogResponse.curationsDog.map(curationDog => curationDog.curationCode);
+        //     setCurationCode(curationCodes.join([','])); 
+        // }
 
         return result;
     };
 
-    const fetchMyCurationResult = async () => {
-        const myCurationResultAddress = `/mycurationresult?curationCode=${curationCode}`;
+    const fetchMyCurationResult = async (code) => {
+        const myCurationResultAddress = `/mycurationresult?curationCode=${code}`;
         const mycurationresultResponse = await GetAPI(myCurationResultAddress);
-        const result = await mycurationresultResponse.myCurationResult;
+        const result = await mycurationresultResponse.mycurationresult;
 
-        if (mycurationresultResponse && mycurationresultResponse.myCurationResult && Array.isArray(mycurationresultResponse.myCurationResult)) {
-            const prodCodes = mycurationresultResponse.myCurationResult.map(myCurationResult => myCurationResult.prodCode);
+        if (mycurationresultResponse && mycurationresultResponse.myCurationResult && Array.isArray(mycurationresultResponse.data.myCurationResult)) {
+            const prodCodes = mycurationresultResponse.data.myCurationResult.map(myCurationResult => myCurationResult.prodCode);
             setProdCode(prodCodes.join([',']));
         }
 
-        return result;
+        setMyCurationResult(result || []);
     };
 
     useEffect(() => {
@@ -97,21 +94,25 @@ function Mydog() {
         }
     }, [curationName]);
 
-    useEffect(() => {
-        if (curationCode){
-            fetchMyCurationResult().then(res => setMyCurationResult(res));
-        }
-    }, [prodCode]);
-
-    console.log(userCode);
-    console.log(curationName);
-    console.log(curationCode);
-    console.log(prodCode);
-
-    const onClick = (name, code, prodCode) => {
+    const onClick = (name, code) => {
         setCurationName(name);
         setCurationCode(code);
-        setProdCode(prodCode);
+    };
+
+    const handleDetail = (prodCode,  age, size, cook, prodIngra, prodEffi) =>{
+        const ingra = prodIngra.split(",")[0];
+        const disease = prodEffi.split(",")[0];
+        navigate("/productdetail", {
+            state: {
+                prodCode: prodCode,
+                age: age,
+                size: size,
+                cook: cook,
+                ingra: ingra,
+                disease: disease,
+                allergy: ""
+            }
+        });
     };
 
     const formatPrice = (price) => {
@@ -152,7 +153,7 @@ function Mydog() {
                             <span className={styles.span2}>{curationDog.curationName}</span>
                             <span className={styles.span3}>{curationDog.curationDate}</span>
                             <div className={styles.btnWrapper}>
-                                <button type='button' className={styles.btn2} onClick={() => openModal(curationDog)}>상세보기</button>
+                                <button type='button' className={styles.btn2} onClick={() => openModal(curationDog, curationDog.curationCode)}>상세보기</button>
                             </div>
                                 <button className={styles.btn1} onClick={() => openModal2(curationDog)}>맞춤사료</button>
                         </div>
@@ -225,28 +226,34 @@ function Mydog() {
             )}
 
             {/* Modal2 */}
-            {
-                modalOpen2 && modalProd &&
+            {modalOpen2 && modalProd && myCurationResult && (
                 <div className={styles.modalContainer} ref={modalBackground} onClick={e => {
                     if (e.target === modalBackground.current) {
-                        setModalOpen2(false)
+                        closeModal2();
                     }
                 }}>
-                    <div className={styles.modalContent}>
+                    <div className={styles.modalContent2} key={modalProd.prodCode}>
                         <div className={styles.modalTextContainer}>
                             <p className={styles.modalText1}>{`회원님 반려견 ${modalProd.curationName}의 맞춤사료 정보입니다.`}</p>
                             <hr />
-                            <div>
-                            <img src={modalProd.prodImage} alt="Product Image" className={styles.modalImage} />
-                                <p>{modalProd.prodName}</p>
-                                <p>{modalProd.prodManufac}</p>
-                                <p>{formatPrice(modalProd.prodPrice)}원</p>
+                            <div className={styles.wrapBox}>
+                                { myCurationResult.map(prod => (
+                                    <div className={styles.prodContainer} key={prod.prodCode}>
+                                        <img src={prod.prodImage} alt="ProductImage" className={styles.prodImage} />
+                                        <div className={styles.prodContent}>
+                                            <p className={styles.prodName}>{prod.prodName}</p>
+                                            <p className={styles.prodName}>{prod.prodManufac}</p>
+                                            <p className={styles.prodName}>{formatPrice(prod.prodPrice)}원</p>
+                                            <button className={styles.prodBtn} onClick={() => handleDetail(prod.prodCode, prod.prodAge, prod.prodRecom, prod.prodCook, prod.prodIngra, prod.prodEffi)}>상세보기</button>
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
-                            <button className={styles.modalCloseBtn} onClick={closeModal2}>닫기</button>
+                                <button className={styles.modalCloseBtn} onClick={closeModal2}>닫기</button>
                         </div>
                     </div>
                 </div>
-            }
+            )}
         </>
     )
 }
