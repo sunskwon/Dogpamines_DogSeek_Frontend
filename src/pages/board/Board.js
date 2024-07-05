@@ -2,6 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './Board.module.css';
 import { useNavigate } from 'react-router-dom';
 import { GetAPI, PostAPI } from '../../api/RestAPIs';
+
+import { PutAPI } from '../../api/RestAPIs';
+
+import { DeleteAPI } from '../../api/RestAPIs';
+
 import { jwtDecode } from 'jwt-decode';
 
 function Board() {
@@ -9,15 +14,8 @@ function Board() {
     const today = `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)}-${date.getDate()}`;
     const currentTime = `${date.getHours()}:${date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()}`;
 
-    const [inputText, setInputText] = useState("");
-    const activeButton = () => {
-        alert(`${inputText}입력 완료`);
-    }
-    const activeEnter = (e) => {
-        if(e.key === "Enter") {
-            activeButton();
-        }
-    }
+    
+
     const [isOneNoticeOpen, setIsOneNoticeOpen] = useState(false); 
     const [isTwoNoticeOpen, setIsTwoNoticeOpen] = useState(false);
     const [isThreeNoticeOpen, setIsThreeNoticeOpen] = useState(false);
@@ -25,6 +23,9 @@ function Board() {
     const [posts, setPosts] = useState([]);
     const [newPost, setNewPost] = useState('');
     const [loaded, setLoaded] = useState(false); 
+    const [inputText, setInputText] = useState("");
+
+
 
     const messagesEndRef = useRef(null);
 
@@ -49,6 +50,23 @@ function Board() {
         return result;
     };
 
+    const activeButton = () => {
+        if (inputText.trim() !== '') {
+            inhandler();
+    } else {
+        alert('내용을 입력해주세요.');
+    }
+    }
+    const activeEnter = (e) => {
+        if (e.key === "Enter") {
+            if (inputText.trim() !== '') {
+                inhandler();
+            } else {
+                alert('내용 플리즈..');
+            }
+        }
+    }
+
     const inhandler = async () => {
         const address = '/boards';
         const newPostData = {
@@ -69,24 +87,27 @@ function Board() {
     } catch (error) {
         console.error('Error posting new data', error);
     }
+
 }
 
-    useEffect(() => {
-        if (!loaded) {
-            call().then(res => {
-                const noticeData = res.filter(post => post.postCategory === '공지');
-                const postData = res.filter(post => post.postCategory === '자유');
-                setNotices(noticeData);
-                setPosts(postData);
-                setLoaded(true);
-                scrollToBottom();
-            }).catch(error => {
-                console.error('Error fetching data:', error);
-                setNotices([]);
-                setPosts([]);
-            });
-        }
-    }, [loaded]);
+useEffect(() => {
+    if (!loaded) {
+        call().then(res => {
+            const noticeData = res.filter(post => post.postCategory === '공지')
+                .sort((a, b) => new Date(b.postDate) - new Date(a.postDate))
+                .slice(0, 3); // 최신순으로 정렬 후 최대 3개 선택
+            const postData = res.filter(post => post.postCategory === '자유');
+            setNotices(noticeData);
+            setPosts(postData);
+            setLoaded(true);
+            scrollToBottom();
+        }).catch(error => {
+            console.error('Error fetching data:', error);
+            setNotices([]);
+            setPosts([]);
+        });
+    }
+}, [loaded]);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -104,43 +125,40 @@ function Board() {
             </div>
 
             <div className={styles.toggle}>
-                <div>
-                    <hr color="D4D4D4" />
-                    <div>
-                        <button className={styles.notice_toggle} onClick={toggleOneModal}>
-                            {isOneNoticeOpen ? '-' : '+'}
-                            <span className={styles.notice_head}>{notices[0]?.postTitle}</span>
+                {notices.map((notices, index) => (
+                    <div key={index}>
+                        <hr color="D4D4D4"/>
+                        <div>
+                            <button
+                            className={styles.notice_toggle}
+                            onClick={() => {
+                                if (index === 0) toggleOneModal();
+                                if (index === 1) toggleTwoModal();
+                                if (index === 2) toggleThreeModal();
+                            }}
+                        >
+                            {index === 0 && (isOneNoticeOpen ? '-' : '+')}
+                            {index === 1 && (isTwoNoticeOpen ? '-' : '+')}
+                            {index === 2 && (isThreeNoticeOpen ? '-' : '+')}
+                            <span className={styles.notice_head}>{notices.postTitle}</span>
                         </button>
                     </div>
-                    {isOneNoticeOpen && notices[0] &&
-                        <div className={styles.notice_content}>
-                            {notices[0].postContext}
-                        </div>}
+                    {index === 0 && isOneNoticeOpen && (
+                        <div className={styles.notice_content}>{notices.postContext}</div>
+                    )}
+                    {index === 1 && isTwoNoticeOpen && (
+                    <div className={styles.notice_content}>{notices.postContext}</div>
+                    )}
+                    {index === 2 && isThreeNoticeOpen && (
+                    <div className={styles.notice_content}>{notices.postContext}</div>
+                    )}
                 </div>
-                <hr color="D4D4D4" />
-                <div>
-                    <button className={styles.notice_toggle} onClick={toggleTwoModal}>
-                        {isTwoNoticeOpen ? '-' : '+'}
-                        <span className={styles.notice_head}>{notices[1]?.postTitle}</span>
-                    </button>
-                </div>
-                {isTwoNoticeOpen && notices[1] &&
-                    <div className={styles.notice_content}>
-                        {notices[1].postContext}
-                    </div>}
-                <hr color="D4D4D4" />
-                <div>
-                    <button className={styles.notice_toggle} onClick={toggleThreeModal}>
-                        {isThreeNoticeOpen ? '-' : '+'}
-                        <span className={styles.notice_head}>{notices[2]?.postTitle}</span>
-                    </button>
-                </div>
-                {isThreeNoticeOpen && notices[2] &&
-                    <div className={styles.notice_content}>
-                        {notices[2].postContext}
-                    </div>}
-                <hr color="D4D4D4" />
+                ))}
+            <hr color="D4D4D4"/>
             </div>
+
+
+
 
             <div className={styles.board_title}>
                 <p>댕사이</p>
@@ -174,7 +192,7 @@ function Board() {
                     onChange={(e) => setNewPost(e.target.value)}
                     onKeyDown={(e) => activeEnter(e)}
                 />
-                <button className={styles.comment_button}  onClick={inhandler}>등록</button>
+                <button className={styles.comment_button} onClick={inhandler}>등록</button>
             </div>
         </div>
     );
