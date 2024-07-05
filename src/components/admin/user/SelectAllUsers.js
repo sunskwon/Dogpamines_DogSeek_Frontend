@@ -64,7 +64,7 @@ function SelectAllUsers({ search, bool, setModalOpen, setUser }) {
                             src="/images/admin/NothingFound.png"
                             alt="슬픈 돋보기 아이콘"
                         />
-                        <p>적합한 사료가 없습니다</p>
+                        <p>조건에 맞는 사용자가 없습니다</p>
                         <p>다시 시도해주세요</p>
                     </div>
                 </div>
@@ -73,7 +73,7 @@ function SelectAllUsers({ search, bool, setModalOpen, setUser }) {
                 <table className={styles.productListTable}>
                     <tbody>
                         <tr>
-                            <th>회원코드</th>
+                            <th>회원 No.</th>
                             <th>닉네임</th>
                             <th>권한</th>
                             <th>가입일</th>

@@ -47,7 +47,7 @@ function SelectDictByCode({ Location }) {
                             <div style={{ width: "340px", float: "left", }}>
                                 <div>
                                     <div className={styles.detailBoxShort}>
-                                        <p>견종코드</p>
+                                        <p>견종 No.</p>
                                         <div className={styles.spanBox}>
                                             <span>{dict?.dogCode}</span>
                                         </div>

@@ -62,7 +62,7 @@ function InsertProduct({ product, setProduct }) {
                     <div style={{ width: "510px", float: "left", }}>
                         <div>
                             <div className={styles.detailBoxShort}>
-                                <p>사료코드</p>
+                                <p>사료 No.</p>
                                 <input
                                     style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                                     disabled

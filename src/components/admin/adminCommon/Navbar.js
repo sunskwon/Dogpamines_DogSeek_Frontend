@@ -1,10 +1,25 @@
+import { useState, useRef } from "react";
+
 import { useNavigate } from "react-router-dom";
+
+import ConfirmModal from "../../../components/admin/adminCommon/ConfirmModal";
 
 import styles from "./Navbar.module.css";
 
 function Navbar() {
 
+    const [moveModalOpen, setMoveModalOpen] = useState(false);
+    const [logoutModalOpen, setLogoutModalOpen] = useState(false);
+
+    const modalBackground = useRef();
+
     const navigate = useNavigate();
+
+    const logoutHandler = () => {
+
+        window.localStorage.removeItem("accessToken");
+        navigate('/');
+    };
 
     return (
         <div className={styles.navbar}>
@@ -81,21 +96,32 @@ function Navbar() {
                     display: "flex",
                     marginBottom: "30px",
                 }}
-                onClick={() => {
-                    navigate("/");
-                }}
+                onClick={() => setMoveModalOpen(true)}
             >
                 <img src="/images/admin/ExternalLink.png" alt="External Link icon" />
-                <span>돌아가기</span>
+                <span>메인으로</span>
             </div>
             <div
-                style={{
-                    display: "flex",
-                }}
+                style={{ display: "flex", }}
+                onClick={() => setLogoutModalOpen(true)}
             >
                 <img src="/images/admin/Logout.png" alt="Logout icon" />
                 <span>로그아웃</span>
             </div>
+            <ConfirmModal
+                message='독식(DogSeek) 메인 페이지로 이동 하시겠습니까?'
+                onClickHandler={() => navigate('/')}
+                modalOpen={moveModalOpen}
+                setModalOpen={setMoveModalOpen}
+                modalBackground={modalBackground}
+            />
+            <ConfirmModal
+                message='정말 로그아웃 하시겠습니까?'
+                onClickHandler={logoutHandler}
+                modalOpen={logoutModalOpen}
+                setModalOpen={setLogoutModalOpen}
+                modalBackground={modalBackground}
+            />
         </div>
     );
 }

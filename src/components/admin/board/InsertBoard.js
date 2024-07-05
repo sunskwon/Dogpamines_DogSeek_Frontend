@@ -23,23 +23,12 @@ function InsertBoard({ notice, setNotice }) {
             <div style={{ width: "680px", }}>
                 <div>
                     <div className={styles.detailBoxShort}>
-                        <p>게시물코드</p>
+                        <p>게시물 No.</p>
                         <input
                             style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                             disabled
                         />
                     </div>
-                    <div className={styles.detailBoxLong}>
-                        <p>제목</p>
-                        <input
-                            type="text"
-                            name="postTitle"
-                            style={{ width: "460px", }}
-                            onChange={valueChangeHandler}
-                        />
-                    </div>
-                </div>
-                <div style={{ clear: "both", }}>
                     <div className={styles.detailBoxShort}>
                         <p>분류</p>
                         <input
@@ -62,6 +51,18 @@ function InsertBoard({ notice, setNotice }) {
                             style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                             disabled
                             value={today}
+                        />
+                    </div>
+                </div>
+                <div style={{ clear: "both", }}>
+
+                    <div className={styles.detailBoxLong}>
+                        <p>제목</p>
+                        <input
+                            type="text"
+                            name="postTitle"
+                            style={{ width: "460px", }}
+                            onChange={valueChangeHandler}
                         />
                     </div>
                     <div className={styles.detailBoxShort}>

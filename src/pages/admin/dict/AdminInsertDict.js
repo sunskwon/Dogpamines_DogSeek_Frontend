@@ -13,7 +13,7 @@ import styles from "../AdminPages.module.css";
 function AdminInsertDict() {
 
     const [dict, setDict] = useState({
-        dogImage: '/images/admin/No Image Available.png',
+        dogImage: '/images/admin/NoImageAvailable.png',
         dogCode: 0,
         dogName: '',
         dogHeightM: '',

@@ -13,11 +13,15 @@ function ImageInput({ name, item, setItem, modalOpen, setModalOpen, modalBackgro
 
     const onClickHandler = () => {
 
-        setItem({
-            ...item,
-            [name]: input
-        });
-        setModalOpen(false);
+        if (input.length < 255) {
+
+            setItem({
+                ...item,
+                [name]: input
+            });
+            setInput('');
+            setModalOpen(false);
+        }
     };
 
     return (
@@ -29,6 +33,7 @@ function ImageInput({ name, item, setItem, modalOpen, setModalOpen, modalBackgro
                     ref={modalBackground}
                     onClick={e => {
                         if (e.target === modalBackground.current) {
+                            setInput('');
                             setModalOpen(false);
                         }
                     }}
@@ -46,11 +51,34 @@ function ImageInput({ name, item, setItem, modalOpen, setModalOpen, modalBackgro
                                         type='text'
                                         onChange={onChangeHandler}
                                         style={{ width: "290px", }}
+                                        placeholder="255자 이내로 입력하세요"
+                                        onKeyDown={(e) => {
+                                            if (e.keyCode === 13) {
+                                                onClickHandler();
+                                            }
+                                        }}
                                     />
+                                    <div
+                                        style={{ marginBottom: "20px", }}
+                                    >
+                                        <span
+                                            style={{
+                                                color: input.length === 0 ?
+                                                    "rgba(153, 153, 153, 1)" :
+                                                    (input.length < 255 ? "rgba(99, 197, 74, 1)" :
+                                                        "rgba(255, 0, 0, 1)"
+                                                    ),
+                                            }}
+                                        >
+                                            {input.length}
+                                        </span>
+                                        <span>/255</span>
+                                    </div>
                                     <div>
                                         <button
                                             className={styles.cancelButton}
                                             onClick={() => {
+                                                setInput('');
                                                 setModalOpen(false);
                                             }}
                                         >

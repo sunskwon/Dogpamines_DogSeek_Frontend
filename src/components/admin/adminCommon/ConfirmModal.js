@@ -22,7 +22,7 @@ function ConfirmModal({ message, onClickHandler, modalOpen, setModalOpen, modalB
                     >
                         <div className={styles.detailBox}>
                             <div className={styles.inputBox}>
-                                <div>
+                                <div style={{ paddingTop: "20px", }}>
                                     <p>{message}</p>
                                     <div style={{ paddingTop: "70px", }}>
                                         <button

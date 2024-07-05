@@ -57,7 +57,7 @@ function SelectAllDicts({ search, bool, setModalOpen, setDict }) {
                             src="/images/admin/NothingFound.png"
                             alt="슬픈 돋보기 아이콘"
                         />
-                        <p>적합한 견종이 없습니다</p>
+                        <p>조건에 맞는 견종이 없습니다</p>
                         <p>다시 시도해주세요</p>
                     </div>
                 </div>
@@ -66,7 +66,7 @@ function SelectAllDicts({ search, bool, setModalOpen, setDict }) {
                 <table className={styles.productListTable}>
                     <tbody>
                         <tr>
-                            <th>견종코드</th>
+                            <th>견종 No.</th>
                             <th>견종명</th>
                             <th>견종크기</th>
                             <th></th>

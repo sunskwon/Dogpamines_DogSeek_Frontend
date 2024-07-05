@@ -23,9 +23,9 @@ function UpdateProduct({ Location, notice, setNotice }) {
 
     useEffect(() => {
         call().then(res => {
-            
+
             var notice = res;
-            
+
             notice.userCode = userCode;
             notice.userNick = userNick;
 
@@ -45,25 +45,13 @@ function UpdateProduct({ Location, notice, setNotice }) {
             <div style={{ width: "680px", }}>
                 <div>
                     <div className={styles.detailBoxShort}>
-                        <p>게시물코드</p>
+                        <p>게시물 No.</p>
                         <input
                             style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                             disabled
                             value={notice?.postCode}
                         />
                     </div>
-                    <div className={styles.detailBoxLong}>
-                        <p>제목</p>
-                        <input
-                            type="text"
-                            name="postTitle"
-                            style={{ width: "460px", }}
-                            onChange={valueChangeHandler}
-                            value={notice?.postTitle}
-                        />
-                    </div>
-                </div>
-                <div style={{ clear: "both", }}>
                     <div className={styles.detailBoxShort}>
                         <p>분류</p>
                         <input
@@ -86,6 +74,19 @@ function UpdateProduct({ Location, notice, setNotice }) {
                             style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                             disabled
                             value={notice?.postDate}
+                        />
+                    </div>
+
+                </div>
+                <div style={{ clear: "both", }}>
+                    <div className={styles.detailBoxLong}>
+                        <p>제목</p>
+                        <input
+                            type="text"
+                            name="postTitle"
+                            style={{ width: "460px", }}
+                            onChange={valueChangeHandler}
+                            value={notice?.postTitle}
                         />
                     </div>
                     <div className={styles.detailBoxShort}>

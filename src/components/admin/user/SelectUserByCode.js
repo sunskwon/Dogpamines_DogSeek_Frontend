@@ -76,13 +76,7 @@ function SelectUserByCode({ Location, user, setUser, bool, }) {
             <div style={{ width: "680px", }}>
                 <div style={{ width: "680px", }}>
                     <div>
-                        <div className={styles.detailBoxShort}>
-                            <p>회원코드</p>
-                            <div className={styles.spanBox}>
-                                <span>{user?.userCode}</span>
-                            </div>
-                        </div>
-                        <div className={styles.detailBoxShort}>
+                        <div className={styles.detailBoxMid}>
                             <p>닉네임</p>
                             <div className={styles.spanBox}>
                                 <span>{user?.userNick}</span>
