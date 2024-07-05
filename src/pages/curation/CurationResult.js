@@ -160,31 +160,33 @@ function CurationResult() {
                 {products.map(product => (
                     <div key={product.prodCode} className={styles.productBox}>
                         <div style={{width:"100%", marginLeft:"10%"}}>
-                            <img className={styles.imgBox} src={product.prodImage} alt={product.prodName} />
-                            <div className={styles.textBox}>
-                                <p className={styles.text}>평점</p>
-                                <div style={{ marginLeft: '10px' }}>
-                                    <img
-                                        src={getStarImage(product.prodGrade)}
-                                        alt={`${product.prodGrade} stars`}
-                                    />
+                            <div style={{height:"680px"}}>
+                                <img className={styles.imgBox} src={product.prodImage} alt={product.prodName} />
+                                <div className={styles.textBox}>
+                                    <p className={styles.text}>평점</p>
+                                    <div style={{ marginLeft: '10px' }}>
+                                        <img
+                                            src={getStarImage(product.prodGrade)}
+                                            alt={`${product.prodGrade} stars`}
+                                        />
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={styles.textBox1}>
-                                <p className={styles.text}>제조사</p>
-                                <div className={styles.productText}>{product.prodManufac}</div>
-                            </div>
-                            <div className={styles.textBox1}>
-                                <p className={styles.text}>제품명</p>
-                                <div className={styles.productText}>{product.prodName}</div>
-                            </div>
-                            <div className={styles.textBox1}>
-                                <p className={styles.text}>가격</p>
-                                <div className={styles.productText}>￦{formatPrice(product.prodPrice)}</div>
-                            </div>
-                            <div className={styles.textBox1}>
-                                <p className={styles.text}>제품기능</p>
-                                <div className={styles.productText}>{product.prodEffi}</div>
+                                <div className={styles.textBox1}>
+                                    <p className={styles.text}>제조사</p>
+                                    <div className={styles.productText}>{product.prodManufac}</div>
+                                </div>
+                                <div className={styles.textBox1} style={{height:"41px"}}>
+                                    <p className={styles.text}>제품명</p>
+                                    <div className={styles.productText}>{product.prodName}</div>
+                                </div>
+                                <div className={styles.textBox1}>
+                                    <p className={styles.text}>가격</p>
+                                    <div className={styles.productText}>￦{formatPrice(product.prodPrice)}</div>
+                                </div>
+                                <div className={styles.textBox1}>
+                                    <p className={styles.text}>제품기능</p>
+                                    <div className={styles.productText}>{product.prodEffi}</div>
+                                </div>
                             </div>
                             <button className={styles.detailButton} onClick={() => onClick(product.prodCode)}>상세보기</button>
                         </div>

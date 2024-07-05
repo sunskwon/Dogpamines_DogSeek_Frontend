@@ -133,7 +133,7 @@ input::placeholder {
 }
 
 .selectBox {
-    width: 100px;
+    width: 70px;
     height: 58px;
     border: 2px solid #005600;
     border-radius: 50px;
@@ -144,10 +144,12 @@ input::placeholder {
     font-weight: 500;
     background-color: white;
     cursor: pointer;
+    border: none;
+    margin-top: 50px;
 }
 
 .selectBox2 {
-    width: 100px;
+    width: 70px;
     height: 58px;
     border: 2px solid #005600;
     border-radius: 50px;

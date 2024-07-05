@@ -25,8 +25,7 @@ function Products () {
     const [filterCook, setFilterCook] = useState('');
     const [filterSize, setFilterSize] = useState('');
     const [filterEffi, setFilterEffi] = useState('');
-    const [filterGrade, setFilterGrade] = useState('');
-    const [filterName, setFilterName] = useState('');
+    const [sortType, setSortType] = useState('평점');
     const [value, setValue] = useState('');
     const [page, setPage] = useState(1);
 
@@ -69,6 +68,7 @@ function Products () {
 
     const handleSearchClick = () => {
             searchProducts();
+            setModalOpen(false);
     };
 
     const onSubmitSearch = (e) => {
@@ -129,6 +129,24 @@ function Products () {
         } else {
             setter(value);
         }
+    };
+
+    const sort = (event) => {
+        const value = event.target.value;
+        setSortType(value);
+
+        const sortedProducts = [...product];
+        if (value === '최신') {
+            sortedProducts.sort((a, b) => new Date(b.prodDate) - new Date(a.prodDate));
+        } else if (value === '평점') {
+            sortedProducts.sort((a, b) => b.prodGrade - a.prodGrade);
+        } else if (value === '높은') {
+            sortedProducts.sort((a, b) => b.prodPrice - a.prodPrice);
+        } else if (value === '낮은') {
+            sortedProducts.sort((a, b) => a.prodPrice - b.prodPrice);
+        }
+
+        setProduct(sortedProducts);
     };
 
     return(
@@ -314,25 +332,12 @@ function Products () {
                                 </>
                                 <div style={{display:"flex", gap:"50px", margin:"0 auto", marginTop:"20px"}}>
                                     <button className={styles.modalCancelButton} onClick={() => setModalOpen(false)}>취소</button>
-                                    <button className={styles.modalCheckButton} onClick={() => setModalOpen(false)}>확인</button>
+                                    <button className={styles.modalCheckButton} onClick={() => handleSearchClick()}>확인</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 }
-                <button className={`${styles.selectBox} ${filterName === '이름순' ? styles.selectBox2 : ''}`} onClick={() => {
-                    let proudct1 = [...product]
-                    proudct1.sort((a,b) => a.prodName.toLowerCase() <
-                    b.prodName.toLowerCase() ? -1 : 1);
-                    setProduct(proudct1);
-                    toggleValue(filterName, '이름순', setFilterName)
-                }}>이름순</button>
-                <button className={`${styles.selectBox} ${filterGrade === '평점' ? styles.selectBox2 : ''}`} onClick={() => {
-                    let proudct2 = [...product]
-                    proudct2.sort((a,b) => b.prodGrade - a.prodGrade);
-                    setProduct(proudct2);
-                    toggleValue(filterGrade, '평점', setFilterGrade)
-                }}>평점순</button>
             </div>
             <hr style={{width:"1180px", marginTop:"45px", border:"1px solid #D4D4D4"}}/>
             <div style={{display:"flex", marginTop:"50px", marginLeft:"100px"}}>
@@ -380,17 +385,28 @@ function Products () {
             ))}
             </Swiper>
             </div>
-            <p style={{fontSize:"36px", fontWeight:"bold", margin:"0", marginLeft:"100px", marginTop:"50px"}}>ALL</p>
+            <div style={{display:"flex"}}>    
+                <p style={{fontSize:"36px", fontWeight:"bold", margin:"0", marginLeft:"100px", marginTop:"50px"}}>ALL</p>
+                <div style={{display:"flex", marginLeft:"20px", marginTop:"65px"}}>
+                    <p style={{height:"30px", margin:"0px", fontSize:"14px", lineHeight:"30px"}}>정렬기준:</p>
+                    <select onChange={sort} style={{border:"none", height:"30px"}}>
+                        <option value='최신'>최신순</option>
+                        <option value='평점'>평점순</option>
+                        <option value='높은'>가격 높은순</option>
+                        <option value='낮은'>가격 낮은순</option>
+                    </select>
+                </div>
+            </div>
             <div className={styles.productsAllBox}>
             {product.length === 0 ? (
                 <div style={{display:"flex", flexDirection:"column", gap:"20px", margin:"0 auto", marginTop:"150px", marginBottom:"50px"}}>
-                    <img src="/images/product/Empty Dog Bowl.png" style={{width:"100px", margin:"0 auto"}}/>
+                    <img src="/images/product/EmptyDogBowl.png" style={{width:"100px", margin:"0 auto"}}/>
                     <p style={{margin:"0", textAlign:"center", fontWeight:"bold"}}>적합한 사료가 존재하지 않습니다!</p>
                     <p style={{margin:"0", textAlign:"center", fontWeight:"bold"}}>다시 시도해주세요!</p>
                 </div>
             ) : (
             product
-            .slice((page - 1) * 30, page * 30)
+            .slice((page - 1) * 15, page * 15)
             .map(product => (
                 <div key={product.prodCode} className={styles.productsBox} onClick={() => onClick(product.prodCode, product.prodAge, product.prodRecom, product.prodCook, product.prodIngra, product.prodEffi)}>
                     <img src={product.prodImage} style={{width:"100%"}}/>
@@ -421,7 +437,7 @@ function Products () {
             </div>
             <Paginations
                 activePage={page}
-                itemsCountPerPage={30}
+                itemsCountPerPage={15}
                 totalItemsCount={product.length}
                 pageRangeDisplayed={product.length % 2}
                 prevPageText={"‹"}
