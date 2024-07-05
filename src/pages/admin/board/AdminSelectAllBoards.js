@@ -2,15 +2,21 @@ import { useState, useRef } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import { DeleteAPI } from "../../../api/RestAPIs";
+
 import SelectAllNotices from "../../../components/admin/board/SelectAllNotices";
 import SelectAllBoards from "../../../components/admin/board/SelectAllBoards";
 
+import ConfirmModal from "../../../components/admin/adminCommon/ConfirmModal";
 import BoardModal from "../../../components/admin/board/BoardModal";
-import CommentModal from "../../../components/admin/board/CommentModal";
+import ReportsModal from "../../../components/admin/board/ReportsModal";
 
 import styles from "../AdminPages.module.css";
 
 function AdminSelectAllBoards() {
+
+    const noticeSearchInput = document.getElementById('noticeSearchInput');
+    const boardSearchInput = document.getElementById('boardSearchInput');
 
     const [searchNotice, setSearchNotice] = useState({
         type: 'postTitle',
@@ -18,16 +24,20 @@ function AdminSelectAllBoards() {
     });
 
     const [searchBoard, setSearchBoard] = useState({
-        type: 'postTitle',
+        type: 'postContext',
         input: ''
     });
 
-    const [noticeBool, setNoticeBool] = useState(true);
-    const [boardBool, setBoardBool] = useState(true);
-    const [boardModalOpen, setBoardModalOpen] = useState(false);
+    const [post, setPost] = useState({});
     const [board, setBoard] = useState({});
-    const [commentModalOpen, setCommentModalOpen] = useState(false);
-    const [comments, setComments] = useState([]);
+    const [reports, setReports] = useState([]);
+
+    const [noticeBool, setNoticeBool] = useState(false);
+    const [boardBool, setBoardBool] = useState(false);
+
+    const [boardModalOpen, setBoardModalOpen] = useState(false);
+    const [reportsModalOpen, setReportsModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
 
     const modalBackground = useRef();
 
@@ -47,6 +57,20 @@ function AdminSelectAllBoards() {
         })
     }
 
+    const deleteHandler = async () => {
+
+        const address = `/post/${post.postCode}`;
+
+        await DeleteAPI(address);
+
+        if (post.postCategory === '공지') {
+            setNoticeBool(!noticeBool);
+        } else {
+            setBoardBool(!boardBool);
+        }
+        setModalOpen(false);
+    };
+
     return (
         <div>
             <p className={styles.subTitle}>게시판 관리</p>
@@ -57,7 +81,7 @@ function AdminSelectAllBoards() {
                         <div style={{ float: "right", }}>
                             <select
                                 name="type"
-                                style={{ width: "80px", height: "34px", }}
+                                style={{ width: "100px", height: "34px", }}
                                 onChange={noticeValueChangeHandler}
                             >
                                 <option value={'postTitle'}>
@@ -66,18 +90,30 @@ function AdminSelectAllBoards() {
                                 <option value={'postContext'}>
                                     내용
                                 </option>
+                                <option value={'userNick'}>
+                                    작성자
+                                </option>
                             </select>
                             <input
+                                id="noticeSearchInput"
                                 name="input"
                                 style={{ width: "150px", height: "30px", }}
                                 onChange={noticeValueChangeHandler}
+                                onKeyDown={(e) => {
+                                    if (e.keyCode === 13) {
+                                        setNoticeBool(!noticeBool);
+                                        noticeSearchInput.value = '';
+                                    }
+                                }}
                             />
                             <button
                                 className={styles.submitButton}
                                 style={{ marginRight: "10px", }}
                                 onClick={() => {
                                     setNoticeBool(!noticeBool);
-                                }}                            >
+                                    noticeSearchInput.value = '';
+                                }}
+                            >
                                 검색
                             </button>
                             <button
@@ -96,29 +132,12 @@ function AdminSelectAllBoards() {
                             className={styles.productList}
                             style={{ height: "220px", }}
                         >
-                            <table className={styles.productListTable}>
-                                <tbody>
-                                    <tr>
-                                        <th style={{ width: "100px", }}>게시물코드</th>
-                                        <th style={{ width: "150px", }}>작성자</th>
-                                        <th style={{ width: "210px", }}>제목</th>
-                                        <th style={{ width: "150px", }}>작성일</th>
-                                        <th style={{ width: "100px", }}>게시여부</th>
-                                        <th style={{ width: "100px", }}></th>
-                                        <th style={{ width: "100px", }}></th>
-                                    </tr>
-                                    <tr>
-                                        <td colSpan={7}>
-                                            <hr className={styles.tableLine} />
-                                        </td>
-                                    </tr>
-                                    <SelectAllNotices
-                                        search={searchNotice}
-                                        bool={noticeBool}
-                                        setBool={setNoticeBool}
-                                    />
-                                </tbody>
-                            </table>
+                            <SelectAllNotices
+                                search={searchNotice}
+                                noticeBool={noticeBool}
+                                setModalOpen={setModalOpen}
+                                setPost={setPost}
+                            />
                         </div>
                     </div>
                     <div style={{ paddingTop: "20px", }}>
@@ -126,27 +145,36 @@ function AdminSelectAllBoards() {
                         <div style={{ float: "right", }}>
                             <select
                                 name="type"
-                                style={{ width: "80px", height: "34px", }}
+                                style={{ width: "100px", height: "34px", }}
                                 onChange={boardValueChangeHandler}
                             >
-                                <option value={'postTitle'}>
-                                    제목
-                                </option>
                                 <option value={'postContext'}>
                                     내용
                                 </option>
+                                <option value={'userNick'}>
+                                    작성자
+                                </option>
                             </select>
                             <input
+                                id="boardSearchInput"
                                 name="input"
                                 style={{ width: "150px", height: "30px", }}
                                 onChange={boardValueChangeHandler}
+                                onKeyDown={(e) => {
+                                    if (e.keyCode === 13) {
+                                        setBoardBool(!boardBool);
+                                        boardSearchInput.value = '';
+                                    }
+                                }}
                             />
                             <button
                                 className={styles.submitButton}
                                 style={{ marginRight: "10px", }}
                                 onClick={() => {
                                     setBoardBool(!boardBool);
-                                }}                            >
+                                    boardSearchInput.value = '';
+                                }}
+                            >
                                 검색
                             </button>
                             <div style={{ float: "right", width: "100px", height: "30px", marginRight: "15px", }}></div>
@@ -156,49 +184,40 @@ function AdminSelectAllBoards() {
                         className={styles.productList}
                         style={{ height: "300px", }}
                     >
-                        <table className={styles.productListTable}>
-                            <tbody>
-                                <tr>
-                                    <th style={{ width: "100px", }}>게시물코드</th>
-                                    <th style={{ width: "100px", }}>작성자</th>
-                                    <th style={{ width: "110px", }}>제목</th>
-                                    <th style={{ width: "100px", }}>작성일</th>
-                                    <th style={{ width: "100px", }}>게시여부</th>
-                                    <th style={{ width: "100px", }}></th>
-                                    <th style={{ width: "100px", }}></th>
-                                    <th style={{ width: "100px", }}>신고 횟수</th>
-                                    <th style={{ width: "100px", }}></th>
-                                </tr>
-                                <tr>
-                                    <td colSpan={9}>
-                                        <hr className={styles.tableLine} />
-                                    </td>
-                                </tr>
-                                <SelectAllBoards
-                                    search={searchBoard}
-                                    bool={boardBool}
-                                    setBool={setBoardBool}
-                                    setBoardModalOpen={setBoardModalOpen}
-                                    setCommentModalOpen={setCommentModalOpen}
-                                    setBoard={setBoard}
-                                    setComments={setComments}
-                                />
-                            </tbody>
-                        </table>
+                        <SelectAllBoards
+                            search={searchBoard}
+                            boardBool={boardBool}
+                            setModalOpen={setModalOpen}
+                            setBoardModalOpen={setBoardModalOpen}
+                            setReportsModalOpen={setReportsModalOpen}
+                            setPost={setPost}
+                            setBoard={setBoard}
+                            setReports={setReports}
+                        />
                     </div>
                 </div>
             </div>
+            <ConfirmModal
+                message={
+                    (post?.postStatus === 'Y') ?
+                        `${post?.postCode}번 ${post?.postCategory}글을 게시 중단 하겠습니까?`
+                        : `${post?.postCode}번 ${post?.postCategory}글을 게시 하겠습니까?`}
+                onClickHandler={deleteHandler}
+                modalOpen={modalOpen}
+                setModalOpen={setModalOpen}
+                modalBackground={modalBackground}
+            />
             <BoardModal
+                board={board}
                 boardModalOpen={boardModalOpen}
                 setBoardModalOpen={setBoardModalOpen}
                 modalBackground={modalBackground}
-                board={board}
             />
-            <CommentModal
-                commentModalOpen={commentModalOpen}
-                setCommentModalOpen={setCommentModalOpen}
+            <ReportsModal
+                reports={reports}
+                reportsModalOpen={reportsModalOpen}
+                setReportsModalOpen={setReportsModalOpen}
                 modalBackground={modalBackground}
-                comments={comments}
             />
         </div>
     );

@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import { jwtDecode } from "jwt-decode";
+
 import { PostAPI } from "../../../api/RestAPIs";
 
 import InsertBoard from "../../../components/admin/board/InsertBoard";
@@ -9,6 +11,9 @@ import InsertBoard from "../../../components/admin/board/InsertBoard";
 import styles from "../AdminPages.module.css";
 
 function AdminInsertBoard() {
+
+    const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
+    const userCode = decodedToken.userCode;
 
     const date = new Date();
     const today = `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)}-${date.getDate()}`;
@@ -20,7 +25,7 @@ function AdminInsertBoard() {
         postDate: today,
         postCategory: '공지',
         postStatus: 'N',
-        userCode: 1
+        userCode: userCode
     });
 
     const navigate = useNavigate();
@@ -43,13 +48,6 @@ function AdminInsertBoard() {
                         <p className={styles.subjectTitle}>신규 공지 등록</p>
                         <div style={{ float: "right", }}>
                             <button
-                                className={styles.submitButton}
-                                style={{ marginRight: "10px", }}
-                                onClick={submitHandler}
-                            >
-                                등록
-                            </button>
-                            <button
                                 className={styles.cancelButton}
                                 style={{ marginRight: "15px", }}
                                 onClick={() => {
@@ -57,6 +55,13 @@ function AdminInsertBoard() {
                                 }}
                             >
                                 돌아가기
+                            </button>
+                            <button
+                                className={styles.submitButton}
+                                style={{ marginRight: "10px", }}
+                                onClick={submitHandler}
+                            >
+                                등록
                             </button>
                         </div>
                     </div>

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
-import { GetAPI, DeleteAPI } from "../../../api/RestAPIs"
+import { GetAPI } from "../../../api/RestAPIs"
 
 import styles from "./AdminBoards.module.css";
 
-function SelectAllBoards({ search, bool, setBool, setBoardModalOpen, setCommentModalOpen, setBoard, setComments }) {
+function SelectAllBoards({ search, boardBool, setModalOpen, setBoardModalOpen, setReportsModalOpen, setPost, setBoard, setReports }) {
 
     const [boards, setBoards] = useState([]);
 
@@ -14,7 +14,9 @@ function SelectAllBoards({ search, bool, setBool, setBoardModalOpen, setCommentM
 
         const response = await GetAPI(address);
 
-        return response;
+        const result = await response.board;
+
+        return result;
     };
 
     const searchProd = async () => {
@@ -23,22 +25,22 @@ function SelectAllBoards({ search, bool, setBool, setBoardModalOpen, setCommentM
 
         const response = await GetAPI(address);
 
-        return response;
+        const result = await response.board;
+
+        return result;
     };
 
     useEffect(() => {
         call().then((res) => {
 
             const boardList = res.boardList;
-            const commentList = res.commentList;
-            const boardReportList = res.boardReportList;
 
             if (boardList?.length > 0) {
 
                 for (var board of boardList) {
 
-                    board.comments = [commentList[board.postCode]];
-                    board.countReport = boardReportList[board.postCode].length;
+                    board.countReport = res[board?.postCode]?.length;
+                    board.reports = res[board?.postCode];
                 }
             }
 
@@ -50,109 +52,134 @@ function SelectAllBoards({ search, bool, setBool, setBoardModalOpen, setCommentM
         searchProd().then((res) => {
 
             const boardList = res.boardList;
-            const commentList = res.commentList;
-            const boardReportList = res.boardReportList;
 
             if (boardList?.length > 0) {
 
                 for (var board of boardList) {
 
-                    board.comments = [commentList[board.postCode]];
-                    board.countReport = boardReportList[board.postCode].length;
+                    board.countReport = res[board?.postCode]?.length;
+                    board.reports = res[board?.postCode];
                 }
             }
 
             setBoards(boardList);
         });
-    }, [bool]);
+    }, [boardBool]);
 
     return (
         <>
-            {boards.map(board => (
-                <tr
-                    key={board.postCode}
-                >
-                    <td
-                        style={{ width: "100px", }}
-                    >
-                        {board.postCode}
-                    </td>
-                    <td>
+            {boards.length === 0 &&
+                <div className={styles.errorBox}>
+                    <div style={{ display: "flex", paddingTop: "60px", }}>
                         <div
-                            style={{ width: "100px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
+                            style={{ display: "flex", alignItems: "center", }}
                         >
-                            {board.userNick}
+                            <img
+                                src="/images/admin/NothingFound.png"
+                                alt="슬픈 돋보기 아이콘"
+                            />
                         </div>
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "110px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
-                        >
-                            {board.postTitle}
+                        <div>
+                            <p>검색 결과가 없습니다</p>
+                            <p>다시 시도해주세요</p>
                         </div>
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "100px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
-                        >
-                            {board.postDate}
-                        </div>
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "100px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
-                        >
-                            <span>{board.postStatus}</span>
-                        </div>
-                    </td>
-                    <td>
-                        <button
-                            className={styles.acceptButton}
-                            onClick={() => {
-                                setBoard(board);
-                                setBoardModalOpen(true);
-                            }}
-                        >
-                            상세
-                        </button>
-                    </td>
-                    <td>
-                        <button
-                            className={styles.acceptButton}
-                            onClick={async () => {
-                                setComments(board.comments);
-                                setCommentModalOpen(true);
-                            }}
-                        >
-                            댓글
-                        </button>
-                    </td>
-                    <td>
-                        <div
-                            style={{ width: "100px", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden", }}
-                        >
-                            {board.countReport}
-                        </div>
-                    </td>
-                    <td>
-                        <button
-                            className={
-                                board?.postStatus === 'Y' ? styles.cancelButton : styles.acceptButton
-                            }
-                            onClick={async () => {
+                    </div>
+                </div>
+            }
+            {boards.length > 0 &&
+                <table className={styles.productListTable}>
+                    <tbody>
+                        <tr>
+                            <th style={{ width: "80px", }}>게시물코드</th>
+                            <th style={{ width: "150px", }}>작성자</th>
+                            <th style={{ width: "150px", }}></th>
+                            <th style={{ width: "150px", }}>작성일</th>
+                            <th style={{ width: "80px", }}>게시여부</th>
+                            <th style={{ width: "80px", }}>신고 횟수</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        <tr>
+                            <td colSpan={8}>
+                                <hr className={styles.tableLine} />
+                            </td>
+                        </tr>
+                        {boards.map(board => (
+                            <tr key={board.postCode}>
+                                <td>
+                                    {board.postCode}
+                                </td>
+                                <td>
+                                    {board.userNick}
+                                </td>
+                                <td>
+                                    <button
+                                        className={styles.acceptButton}
+                                        onClick={() => {
 
-                                const address = `/post/${board.postCode}`;
+                                            setBoard(board);
+                                            setBoardModalOpen(true);
+                                        }}
+                                    >
+                                        상세
+                                    </button>
+                                </td>
+                                <td>
+                                    {board.postDate}
+                                </td>
+                                <td>
+                                    {board.postStatus === 'Y' ? '게시중' : '게시 중단'}
+                                </td>
+                                <td>
+                                    {board.countReport ? board.countReport : 0}
+                                </td>
+                                <td>
+                                    <button
+                                        className={
+                                            board?.postStatus === 'Y' && board?.countReport > 0 ?
+                                                styles.alertButton :
+                                                (board?.postStatus === 'N' && board?.countReport > 0 ?
+                                                    styles.warningButton :
+                                                    styles.cancelButton
+                                                )
+                                        }
+                                        onClick={async () => {
+                                            if (board?.countReport > 0) {
 
-                                await DeleteAPI(address);
+                                                setReports(board.reports);
+                                                setReportsModalOpen(true);
+                                            }
+                                        }}
+                                    >
+                                        신고 확인
+                                    </button>
+                                </td>
+                                <td>
+                                    <button
+                                        className={
+                                            board?.postStatus === 'Y' && board?.countReport > 0 ?
+                                                styles.alertButton :
+                                                (board?.postStatus === 'N' && board?.countReport > 0 ?
+                                                    styles.warningButton :
+                                                    (board?.postStatus === 'Y' ?
+                                                        styles.cancelButton : styles.acceptButton
+                                                    )
+                                                )
+                                        }
+                                        onClick={() => {
 
-                                setBool(!bool);
-                            }}
-                        >
-                            {board?.postStatus === 'Y' ? '게시 중단' : '게시'}
-                        </button>
-                    </td>
-                </tr>
-            ))}
+                                            setModalOpen(true)
+                                            setPost(board)
+                                        }}
+                                    >
+                                        {board?.postStatus === 'Y' ? '게시 중단' : '게시'}
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            }
         </>
     );
 }

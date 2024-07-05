@@ -174,3 +174,12 @@
     font-size: 14px;
     color: rgba(153, 153, 153, 1);
 }
+
+.reportsBox {
+    width: 680px;
+    height: 65px;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 212, 212, 1);
+    margin: 5px;
+    padding: 5px;
+}

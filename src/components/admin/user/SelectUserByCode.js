@@ -13,7 +13,13 @@ function SelectUserByCode({ Location, user, setUser, bool, }) {
             }
         ]
     );
-    const [boards, setBoards] = useState([]);
+    const [boards, setBoards] = useState(
+        [
+            {
+                postCode: 0
+            }
+        ]
+    );
 
     const call = async () => {
 
@@ -29,10 +35,10 @@ function SelectUserByCode({ Location, user, setUser, bool, }) {
 
             const user = res.user;
             const dogNames = res.dogs;
-            // const boardList = res.boardList;
-            // const countList = res.countList;
+            const boards = res.boardList;
 
             var dogList = new Array;
+            var boardList = new Array;
 
             if (dogNames?.length > 0) {
 
@@ -42,17 +48,22 @@ function SelectUserByCode({ Location, user, setUser, bool, }) {
                 }
             }
 
-            // if (boardList?.length > 0) {
+            if (boards?.length > 0) {
 
-            //     for (var board of boardList) {
+                for (var board of boards) {
 
-            //         board.countComment = countList[board.postCode];
-            //     }
-            // }
+                    const newBoard = {
+                        ...board,
+                        countReport: res[board.postCode].length
+                    }
 
-            setUser(user);
+                    boardList = [...boardList, newBoard];
+                }
+            }
+
             setDogs(dogList);
-            // setBoards(boardList);
+            setUser(user);
+            setBoards(boardList);
         });
     }, []);
 
@@ -120,7 +131,7 @@ function SelectUserByCode({ Location, user, setUser, bool, }) {
                                 <div
                                     className={styles.emptyList}
                                     style={{ height: "120px", }}
-                                    >
+                                >
                                     <img
                                         src="/images/admin/Dog.png"
                                         alt="강아지 뒷모습"
@@ -161,6 +172,19 @@ function SelectUserByCode({ Location, user, setUser, bool, }) {
                             }
                         </div>
                         <div className={styles.itemList}>
+                            {boards.length == 0 &&
+                                <div
+                                    className={styles.emptyList}
+                                    style={{ height: "240px", }}
+                                >
+                                    <img
+                                        src="/images/admin/UsedProduct.png"
+                                        alt="빈 박스"
+                                        style={{ width: "100px", height: "100px", }}
+                                    />
+                                    <p>작성된 게시물이 없습니다</p>
+                                </div>
+                            }
                             {boards.length > 0 &&
                                 <table
                                     className={styles.itemListTable}
@@ -168,26 +192,40 @@ function SelectUserByCode({ Location, user, setUser, bool, }) {
                                 >
                                     <tbody>
                                         <tr>
-                                            <th style={{ width: "120px", }}>게시물코드</th>
-                                            <th style={{ width: "200px", }}>제목</th>
-                                            <th style={{ width: "120px", }}>작성일</th>
-                                            <th style={{ width: "120px", }}>게시 여부</th>
-                                            <th style={{ width: "120px", }}>댓글 갯수</th>
+                                            <th style={{ width: "100px", }}>게시물코드</th>
+                                            <th style={{ width: "200px", }}>내용</th>
+                                            <th style={{ width: "180px", }}>작성일</th>
+                                            <th style={{ width: "100px", }}>게시 여부</th>
+                                            <th style={{ width: "100px", }}>신고</th>
                                         </tr>
                                         <tr>
                                             <td colSpan={5}>
                                                 <hr />
                                             </td>
                                         </tr>
-                                        {/* {boards.map((board, index) => (
-                                        <tr key={index}>
-                                            <td>{board?.postCode}</td>
-                                            <td>{board?.postTitle}</td>
-                                            <td>{board?.postDate}</td>
-                                            <td>{board?.postStatus}</td>
-                                            <td>{board?.countComment}</td>
-                                        </tr>
-                                    ))} */}
+                                        {boards.map((board, index) => (
+                                            <tr key={index}>
+                                                <td>{board?.postCode}</td>
+                                                <td>
+                                                    <div
+                                                        className={styles.ellipsisBox}
+                                                        style={{ width: "200px" }}
+                                                    >
+                                                        {board?.postContext}
+                                                    </div>
+                                                </td>
+                                                <td>{board?.postDate}</td>
+                                                <td>{board?.postStatus}</td>
+                                                <td
+                                                    style={{
+                                                        color:
+                                                            (board?.postStatus === 'Y' && board?.countReport >= 1 ? "red" : "")
+                                                    }}
+                                                >
+                                                    {board?.countReport}
+                                                </td>
+                                            </tr>
+                                        ))}
                                     </tbody>
                                 </table>
                             }

@@ -1,6 +1,12 @@
+import { jwtDecode } from "jwt-decode";
+
 import styles from "./AdminBoards.module.css";
 
 function InsertBoard({ notice, setNotice }) {
+
+    const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
+    const userCode = decodedToken.userCode;
+    const userNick = decodedToken.userNick;
 
     const date = new Date();
     const today = `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)}-${date.getDate()}`;
@@ -47,6 +53,7 @@ function InsertBoard({ notice, setNotice }) {
                         <input
                             style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                             disabled
+                            value={userNick}
                         />
                     </div>
                     <div className={styles.detailBoxShort}>
@@ -74,6 +81,11 @@ function InsertBoard({ notice, setNotice }) {
                         onChange={valueChangeHandler}
                     />
                 </div>
+                <input
+                    type="hidden"
+                    name="userCode"
+                    value={userCode}
+                />
             </div>
         </div>
     );

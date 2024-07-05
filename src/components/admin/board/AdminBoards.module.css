@@ -24,6 +24,32 @@
     cursor: pointer;
 }
 
+.alertButton {
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+    border: 0;
+    margin: 5px;
+    background-color: red;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+}
+
+.warningButton {
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid red;
+    margin: 5px;
+    background-color: white;
+    font-weight: bold;
+    font-size: 14px;
+    color: red;
+    cursor: pointer;
+}
+
 .detailBox {
     padding-top: 19px;
     display: flex;
@@ -168,4 +194,47 @@
 .scrollBox::-webkit-scrollbar-track {
     background: rgba(212, 212, 212, 1);
     border-radius: 10px;
+}
+
+.productListTable {
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    display: flex;
+    /* justify-content: center; */
+    text-align: center;
+    margin: 20px;
+}
+
+.productListTable th {
+    position: sticky;
+    top: -5px;
+    background-color: white;
+    table-layout: fixed;
+    height: 32px;
+}
+
+.ellipsisBox {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.errorBox {
+    width: 560px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+}
+
+.errorBox img {
+    width: 100px;
+    height: 100px;
+}
+
+.errorBox p {
+    font-weight: bold;
+    font-size: 24px;
+    color: rgba(153, 153, 153, 1);
 }

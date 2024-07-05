@@ -61,7 +61,7 @@ function SelectAllUsers({ search, bool, setModalOpen, setUser }) {
                 <div className={styles.errorBox}>
                     <div>
                         <img
-                            src="/images/admin/Nothing Found.png"
+                            src="/images/admin/NothingFound.png"
                             alt="슬픈 돋보기 아이콘"
                         />
                         <p>적합한 사료가 없습니다</p>
