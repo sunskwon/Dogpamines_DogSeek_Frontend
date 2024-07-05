@@ -246,3 +246,61 @@
     font-size: 14px;
     text-align: left;
 }
+
+.modalContent2{
+    width: 990px;
+    height: 500px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+}
+
+.wrapBox{
+    width: 879px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.prodContainer{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-top: 25px;
+    margin-bottom: 40px;
+    cursor: pointer;
+}
+
+.prodContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.prodImage {
+    display: flex;
+    margin: 0 auto;
+    width: 200px;
+}
+
+.prodName {
+    font-size: 14px;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.prodBtn {
+    width: 110px;
+    height: 30px;
+    background-color: white;
+    border: 1px solid #63C54A;
+    border-radius: 5px;
+    justify-self: center;
+    color: #63C54A;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}

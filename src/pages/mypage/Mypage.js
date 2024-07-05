@@ -198,9 +198,7 @@ function Mypage(){
         window.localStorage.removeItem('userNick');
         window.localStorage.removeItem('userAuth');
         setIsLoggedIn(false);
-        navigate("/", {
-            state: { Location: response.headers.get('Location')}
-        });
+        navigate("/");
     };
 
     const handleInputChange= (e) => {
@@ -260,7 +258,7 @@ function Mypage(){
                 <p className={styles.text9} onClick={() => openModal()}>탈퇴하기</p>
             </div>
             <div className={styles.container3}>
-                <button className={styles.button1} onClick={handleConfirm}>변경</button>
+                <button className={styles.button1} onClick={isLoggedIn ? handleConfirm : () => navigate("/")}>변경</button>
             </div>
         </div>
         
