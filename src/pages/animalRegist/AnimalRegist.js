@@ -64,8 +64,8 @@ function AnimalRegist() {
         axios.get(url + '?' + queryParams.toString())
             .then(function (res) {
                 const data = res.data.response;
-                if (data.body?.dogRegNo) {
-                    setAnimalData(data.body);
+                if (data.body.item?.dogRegNo) {
+                    setAnimalData(data.body.item);
                 } else {
                     setError('해당 정보로 등록된 반려동물이 없습니다.')
                     setAnimalData(null);
