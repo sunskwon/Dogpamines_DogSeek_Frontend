@@ -29,7 +29,7 @@ function Dict(){
         
         const address = '/dict';
         
-        const response = await GetAPINotToken(address);
+        const response = await GetAPI(address);
 
         const result = await response.dict;
 
@@ -40,7 +40,7 @@ function Dict(){
 
         const address = `/dict/search?dogName=${search.dogName}`;
 
-        const response = await GetAPINotToken(address);
+        const response = await GetAPI(address);
 
         const result = await response.dict;
 
