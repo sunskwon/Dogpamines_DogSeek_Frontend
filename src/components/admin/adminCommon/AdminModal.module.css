@@ -10,6 +10,7 @@
     justify-content: center;
     /* align-items: center; */
     padding-top: 400px;
+    z-index: 100;
 }
 
 .modalContent {
@@ -164,7 +165,7 @@
     display: flex;
     justify-content: center;
     text-align: center;
-    padding-top: 60px;
+    padding-top: 40px;
 }
 
 .inputBox input {
@@ -173,6 +174,10 @@
     margin: 15px;
     font-size: 14px;
     color: rgba(153, 153, 153, 1);
+}
+
+.inputBox input::placeholder {
+    font-size: 14px;
 }
 
 .reportsBox {

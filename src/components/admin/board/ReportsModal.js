@@ -29,7 +29,7 @@ function ReportsModal({ reportsModalOpen, setReportsModalOpen, modalBackground, 
                                         <div key={report.reportCode}>
                                             <div className={styles.reportsBox}>
                                                 <div className={styles.detailBoxShort}>
-                                                    <p>신고코드</p>
+                                                    <p>신고 No.</p>
                                                     <div className={styles.spanBox}>
                                                         <span>{report.reportCode}</span>
                                                     </div>

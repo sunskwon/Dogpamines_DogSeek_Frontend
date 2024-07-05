@@ -58,7 +58,7 @@ function InsertDict({ dict, setDict }) {
                             <div style={{ width: "340px", float: "left", }}>
                                 <div>
                                     <div className={styles.detailBoxShort}>
-                                        <p>견종코드</p>
+                                        <p>견종 No.</p>
                                         <input
                                             style={{ backgroundColor: "rgba(212, 212, 212, 1)" }}
                                             disabled

@@ -90,7 +90,7 @@ function SelectAllBoards({ search, boardBool, setModalOpen, setBoardModalOpen, s
                 <table className={styles.productListTable}>
                     <tbody>
                         <tr>
-                            <th style={{ width: "80px", }}>게시물코드</th>
+                            <th style={{ width: "80px", }}>게시물 No.</th>
                             <th style={{ width: "150px", }}>작성자</th>
                             <th style={{ width: "150px", }}></th>
                             <th style={{ width: "150px", }}>작성일</th>

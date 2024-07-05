@@ -26,19 +26,11 @@ function SelectBoardByCode({ Location }) {
             <div style={{ width: "680px", }}>
                 <div>
                     <div className={styles.detailBoxShort}>
-                        <p>게시물코드</p>
+                        <p>게시물 No.</p>
                         <div className={styles.spanBox}>
                             <span>{notice?.postCode}</span>
                         </div>
                     </div>
-                    <div className={styles.detailBoxLong}>
-                        <p>제목</p>
-                        <div className={styles.spanBox}>
-                            <span>{notice?.postTitle}</span>
-                        </div>
-                    </div>
-                </div>
-                <div style={{ clear: "both", }}>
                     <div className={styles.detailBoxShort}>
                         <p>분류</p>
                         <div className={styles.spanBox}>
@@ -55,6 +47,14 @@ function SelectBoardByCode({ Location }) {
                         <p>작성일</p>
                         <div className={styles.spanBox}>
                             <span>{notice?.postDate}</span>
+                        </div>
+                    </div>
+                </div>
+                <div style={{ clear: "both", }}>
+                    <div className={styles.detailBoxLong}>
+                        <p>제목</p>
+                        <div className={styles.spanBox}>
+                            <span>{notice?.postTitle}</span>
                         </div>
                     </div>
                     <div className={styles.detailBoxShort}>

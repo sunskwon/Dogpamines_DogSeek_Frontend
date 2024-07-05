@@ -57,7 +57,7 @@ function SelectAllProducts({ search, bool, setModalOpen, setProduct }) {
                             src="/images/admin/NothingFound.png"
                             alt="슬픈 돋보기 아이콘"
                         />
-                        <p>적합한 사료가 없습니다</p>
+                        <p>조건에 맞는 사료가 없습니다</p>
                         <p>다시 시도해주세요</p>
                     </div>
                 </div>
@@ -66,7 +66,7 @@ function SelectAllProducts({ search, bool, setModalOpen, setProduct }) {
                 <table className={styles.productListTable}>
                     <tbody>
                         <tr>
-                            <th>사료코드</th>
+                            <th>사료 No.</th>
                             <th>제품명</th>
                             <th>제조사</th>
                             <th>조회수</th>

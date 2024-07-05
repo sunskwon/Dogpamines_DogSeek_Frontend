@@ -49,7 +49,7 @@ function SelectProductByCode({ Location }) {
                         <div style={{ width: "510px", float: "left", }}>
                             <div>
                                 <div className={styles.detailBoxShort}>
-                                    <p>사료코드</p>
+                                    <p>사료 No.</p>
                                     <div className={styles.spanBox}>
                                         <span>{product?.prodCode}</span>
                                     </div>

@@ -13,7 +13,7 @@ import styles from "../AdminPages.module.css";
 function AdminInsertProduct() {
 
     const [product, setProduct] = useState({
-        prodImage: '/images/admin/No Image Available.png',
+        prodImage: '/images/admin/NoImageAvailable.png',
         prodCode: 0,
         prodName: '',
         prodManufac: '',
