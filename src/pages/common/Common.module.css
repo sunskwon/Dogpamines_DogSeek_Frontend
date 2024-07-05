@@ -1,0 +1,58 @@
+.outerContainer {
+    width: 100%;
+    height: 600px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.innerContainer {
+    width: 1180px;
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: rgba(99, 197, 74, 1);
+}
+
+.innerContainer p {
+    font-size: 16px;
+}
+
+.runningDog {
+    margin-bottom: -40px;
+    margin-left: 140px;
+}
+
+.emailAddress {
+    color: rgba(112, 178, 222, 1);
+    text-decoration: underline;
+}
+
+.hintText {
+    position: absolute; left: 41%; bottom: 39%;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid rgba(99, 197, 74, 1);
+    padding: 0 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in;
+}
+
+.hintText:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.backButton {
+    width: 350px;
+    height: 50px;
+    border-radius: 10px;
+    border: 0;
+    background-color: rgba(99, 197, 74, 1);
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+}
