@@ -42,7 +42,7 @@ function CurationSizeSelect() {
                     <div className={styles.textAndBox} name='size' onClick={() => onClick('소형견')}>
                         <div className={styles.selectBox}>
                             <div className={styles.circle}>
-                                <img className={styles.img} src='./images/curation/dog-7236101_1280 3.png'></img>
+                                <img className={styles.img} src='./images/curation/smallDog.png'></img>
                             </div>
                         </div>
                         <p className={styles.text}>소형견</p>
@@ -50,7 +50,7 @@ function CurationSizeSelect() {
                     <div className={styles.textAndBox} name='size' onClick={() => onClick('중형견')}>
                         <div className={styles.selectBox}>
                             <div className={styles.circle}>
-                                <img className={styles.img} src='./images/curation/dog-7760218_1280 2.png'></img>
+                                <img className={styles.img} src='./images/curation/middleDog.png'></img>
                             </div>
                         </div>
                         <p className={styles.text}>중형견</p>
@@ -58,7 +58,7 @@ function CurationSizeSelect() {
                     <div className={styles.textAndBox} name='size' onClick={() => onClick('대형견')}>
                         <div className={styles.selectBox}>
                             <div className={styles.circle}>
-                                <img className={styles.img} src='./images/curation/dog-7760218_1280 1.png'></img>
+                                <img className={styles.img} src='./images/curation/bigDog.png'></img>
                             </div>
                         </div>
                     <p className={styles.text}>대형견</p>

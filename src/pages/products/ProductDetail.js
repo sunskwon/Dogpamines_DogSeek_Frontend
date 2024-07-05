@@ -77,18 +77,17 @@ function ProductDetail () {
 
     const getSearchDate = async () => {
         const URL = "/v1/search/shop.json";
-        const ClientID = "코드";
-        const ClientSecret = "코드";
-        
         await axios
         .get(URL, {
             params: {
-                query: '사료',
+                query: `${product.prodName}`,
                 display: 10,
+                start: 1,
+                sort: "sim",
             },
             headers: {
-                "X-Naver-Client-Id": ClientID,
-                "X-Naver-Client-Secret": ClientSecret,
+                "X-Naver-Client-Id": process.env.REACT_APP_NAVER_CLIENT_ID,
+                "X-Naver-Client-Secret": process.env.REACT_APP_NAVER_CLIENT_SECRET,
             },
         })
         .then((res) => setNDate(res.data.items))
@@ -99,8 +98,7 @@ function ProductDetail () {
     
     useEffect(() => {
         getSearchDate();
-    }, []);
-    console.log(nDate);
+    }, [`${product.prodName}`]);
 
     return (
         <div className={styles.allBox}>
@@ -135,36 +133,47 @@ function ProductDetail () {
                         <p className={styles.prodText}>{product.prodIngra}</p>
                     </div>
                     <hr className={styles.hr}/>
-                    <div className={styles.addressBox}>
-                    <p style={{ fontWeight: "bold", fontSize: "20px", margin: "0", color: "#999999" }}>사이트 주소</p>
-                    <div onClick={toggle} style={{ width: "12px", height: "20px" }}>
-                        {toggleState ? 
-                            <img src="/images/product/vector.png" style={{ width: "12px", height: "20px", transform: "rotate(180deg)" }} alt="toggle arrow" /> 
-                            : 
-                            <img src="/images/product/vector.png" style={{ width: "12px", height: "20px" }} alt="toggle arrow" />}
+                    <div className={styles.addressBox} onClick={toggle} >
+                        <p style={{ fontWeight: "bold", fontSize: "20px", margin: "0", color: "#999999"}}>사이트 주소</p>
+                        <div style={{ width: "12px", height: "20px" }}>
+                            {toggleState ?
+                                <img src="/images/product/vector.png" style={{ width: "25px", height: "15px", transform: "rotate(180deg)", marginLeft:"275px"}} alt="toggle arrow" /> 
+                                :
+                                <img src="/images/product/vector.png" style={{ width: "25px", height: "15px", marginLeft:"275px"}} alt="toggle arrow" />}
                         </div>
                     </div>
                     {toggleState && (
-                        <Link to={product.prodSite} className={styles.prodTextSite}>{product.prodSite}</Link>
+                        <div onClick={() => {window.open(product.prodSite)}} className={styles.prodTextSite}>{product.prodSite}</div>
                     )}
                     <hr className={styles.hr} />
                 </div>
             </div>
-            <div style={{width:"500px", height:"500px", margin:"0 auto"}}>
-                <p style={{textAlign:"center", paddingTop:"250px"}}>최저가 들어갈곳</p>
-                <p>법적고지 들어가야함(DogSeek은 통신판매중개자이며, 통신판매의 당사자가 아닙니다. 상품, 상품정보, 거래에 관한 의무와 책임은 판매자에게 있습니다.)</p>
+            <div style={{width:"959px", margin:"0 auto", marginTop:"100px"}}>
+                <p style={{textAlign:"center"}}>(DogSeek은 통신판매중개자이며, 통신판매의 당사자가 아닙니다. 상품, 상품정보, 거래에 관한 의무와 책임은 판매자에게 있습니다.)</p>
+                <hr className={styles.hr2}/>
+                <div style={{display:"flex"}}>
+                    <p className={styles.hrText} style={{marginLeft:"40px", width:"100px"}}>판매처</p>
+                    <p className={styles.hrText} style={{marginLeft:"150px", width:"400px"}}>상품명</p>
+                    <p className={styles.hrText} style={{marginLeft:"100px"}}>판매가</p>
+                </div>
+                <hr className={styles.hr2}/>
                 {nDate.map((product) => (
-                    <div key={product.link}>
-                        <p>{product.title}</p>
+                    <div key={product.link} onClick={() => {window.open(product.link)}} style={{cursor:"pointer"}}>
+                        <div style={{display:"flex"}}>
+                            <p className={styles.naverText} style={{marginLeft:"40px", width:"100px"}}>{product.mallName}</p>
+                            <p className={styles.naverText} style={{marginLeft:"150px", width:"400px"}}>{product.title.replace(/(<([^>]+)>)/ig,"")}</p>
+                            <p className={styles.naverText} style={{marginLeft:"100px"}}>￦{formatPrice(product.lprice)}</p>
+                        </div>
+                        <hr className={styles.hr2}/>
                     </div>
                 ))}
             </div>
-            <p style={{color:"#005600", fontSize:"24px", fontWeight:"bold", margin:"0"}}>비슷한 제품</p>
+            <p style={{color:"#005600", fontSize:"24px", fontWeight:"bold", margin:"0", marginTop:"100px"}}>비슷한 제품</p>
             <div className={styles.allSimilarBox}>
             {similarProduct.length === 1 ? (
                 <div style={{width:"967px", textAlign:"center"}}>
                     <div style={{display:"flex", flexDirection:"column", gap:"20px", margin:"0 auto", marginTop:"150px", marginBottom:"50px"}}>
-                    <img src="/images/product/Empty Dog Bowl.png" style={{width:"100px", margin:"0 auto"}}/>
+                    <img src="/images/product/EmptyDogBowl.png" style={{width:"100px", margin:"0 auto"}}/>
                     <p style={{margin:"0", textAlign:"center", fontWeight:"bold"}}>비슷한 사료가 존재하지 않습니다!</p>
                     <p style={{margin:"0", textAlign:"center", fontWeight:"bold"}}>더 많은 사료로 찾아 뵙겠습니다!</p>
                 </div>
@@ -208,7 +217,7 @@ function ProductDetail () {
                                             </div>
                                             <div className={styles.comparisonTextBox}>
                                                 <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>사이트주소</p>
-                                                <Link to={comparison.prodSite} className={styles.comparisonTextSite}>{comparison.prodSite}</Link>
+                                                <div onClick={() => {window.open(comparison.prodSite)}} className={styles.comparisonTextSite}>{comparison.prodSite}</div>
                                             </div>
                                             <div className={styles.comparisonTextBox}>
                                                 <p style={{ fontWeight: "bold", fontSize: "12px", margin: "0" }}>제조사</p>
