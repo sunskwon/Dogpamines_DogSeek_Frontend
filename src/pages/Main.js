@@ -2,6 +2,12 @@ import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
 import styles from './Main.module.css'
 import { useState, useEffect } from "react";
 import { GetAPI } from '../api/RestAPIs';
+import { Swiper, SwiperSlide } from "swiper/react";
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation'
+import 'swiper/css/autoplay';
+import { Autoplay, Navigation } from 'swiper/modules';
 
 function Main(){
 
@@ -10,6 +16,7 @@ function Main(){
     const { prodCode } = useParams();
 
     const [lastProds, setLastProds] = useState([]);
+    const [most, setMost] = useState([]);
 
     const fetchProds = async () => {
         const prodsAddress = `/lastProds`
@@ -24,6 +31,55 @@ function Main(){
     const handleProductClick = (prodCode) => {
         navigate(`/productdetail/${prodCode}`);
     };
+
+    const mostProducts = async () => {
+
+        const mostProductsAddress = "/products/mostProducts"
+        const mostProductsResponse = await GetAPI(mostProductsAddress);
+        setMost(mostProductsResponse.products);
+    };
+
+    useEffect(() => {
+        mostProducts();
+    }, []);
+
+    const onClick = (prodCode, age, size, cook, prodIngra, prodEffi) => {
+        const ingra = prodIngra.split(",")[0];
+        const disease = prodEffi.split(",")[0];
+        navigate ("/productdetail", {
+            state: {
+                prodCode: prodCode,
+                age: age,
+                size: size,
+                cook: cook,
+                ingra: ingra,
+                disease: disease,
+                allergy: ""
+            } 
+        });
+    };
+
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('ko-KR').format(price);
+    };
+
+    const getStarImage = (grade) => {
+        switch (grade) {
+            case 5:
+                return "/images/curation/5star.png";
+            case 4:
+                return "/images/curation/4star.png";
+            case 3:
+                return "/images/curation/3star.png";
+            case 2:
+                return "/images/curation/2star.png";
+            case 1:
+                return "/images/curation/1star.png";
+            default:
+                return "/images/curation/default-star.png";
+        }
+    };
+
 
     return(
         <>
@@ -50,30 +106,61 @@ function Main(){
                     <NavLink to={'/board'}>
                         <img className={styles.icon1} src='./images/main/Icon3.png' alt='게시판'/>
                     </NavLink>
+                    <NavLink to={'/animalinfo'}>
+                        <img className={styles.icon1} src='./images/main/vector.png' alt='반려견 등록 확인'/>
+                    </NavLink>
                 </div>
                 <div className={styles.iconContainer1}>
                     <Link to={'/dict'} className={styles.text1}>견종백과</Link>
                     <Link to={'/curation'} className={styles.text5}>맞춤사료찾기</Link>
                     <Link to={'/board'} className={styles.text6}>게시판</Link>
+                    <Link to={'/animalinfo'} className={styles.text6}>반려견 등록 확인</Link>
                 </div>
             </div>
             <div className={styles.container2}>
-                <hr className={styles.line2}/>
-                <span className={styles.title3}>User's</span>
-                <span className={styles.title4}> Best</span>
-                <div className={styles.wrapContainer}>
-                {lastProds.map(prod => (
-                    <div className={styles.prodContainer} key={prod.prodCode} onClick={()=> handleProductClick(prod.prodCode)}>
-                        <img className={styles.prods} src={prod.prodImage}/>
-                        <div className={styles.prodText}>
-                            <p className={styles.text7}>{prod.prodManufac}</p>
-                            <p className={styles.text8}>{prod.prodName}</p>
+                <div style={{width:"940px", margin:"0 auto"}}>
+                <Swiper
+                    modules={[Autoplay, Navigation]}
+                    spaceBetween={30}
+                    slidesPerView={3}
+                    autoplay={true}
+                    navigation={{ clickable: true }}
+                    className="mySwiper"
+                    style={{"--swiper-theme-color":"#63C54A"}}
+                >
+                {most.map(most => (
+                    <SwiperSlide  key={most.prodCode}>
+                        <div className={styles.productsBox2} onClick={() => onClick(most.prodCode, most.prodAge, most.prodRecom, most.prodCook, most.prodIngra, most.prodEffi)}>
+                            <img src={most.prodImage} style={{width:"282px"}}/>
+                            <div className={styles.productHover}>
+                                <div style={{display:"flex", justifyContent:"center", marginTop:"70px"}}>
+                                    <p style={{color:"white", fontWeight:"bold"}}>가격</p>
+                                    <p style={{color:"white", marginLeft:"10px", fontWeight:"bold"}}>￦{formatPrice(most.prodPrice)}</p>
+                                </div>
+                                <div style={{display:"flex", justifyContent:"center"}}>
+                                    <p style={{color:"white", fontWeight:"bold"}}>제조사</p>
+                                    <p style={{color:"white", marginLeft:"10px", fontWeight:"bold"}}>{most.prodManufac}</p>
+                                </div>
+                            </div>
+                            <div style={{display:"flex"}}>
+                                <p style={{margin:"0", fontSize:"16px", fontWeight:"bold"}}>평점</p>
+                                <img style={{width:"79px", height:"15px", marginTop:"5px", marginLeft:"10px"}} src={getStarImage(most.prodGrade)} alt={`${most.prodGrade} stars`}/>
+                            </div>
+                            <div style={{display:"flex"}}>
+                                <p style={{margin:"0", fontSize:"16px", fontWeight:"bold", width:"55px"}}>제품명</p>
+                                <p className={styles.prodText}>{most.prodName}</p>
+                            </div>
+                            <div style={{display:"flex"}}>
+                                <p style={{margin:"0", fontSize:"16px", fontWeight:"bold", width:"78px"}}>제품기능</p>
+                                <p className={styles.prodText}>{most.prodEffi}</p>
+                            </div>
                         </div>
-                    </div>
+                    </SwiperSlide>
                 ))}
-                </div>
-                </div>
-                <Link to={'/products'} className={styles.button2}>사료 검색하기</Link>
+                </Swiper>
+                </div>    
+            </div>
+            <Link to={'/products'} className={styles.button2}>사료 검색하기</Link>
             <div className={styles.container2}>
                 <hr className={styles.line3}></hr>
                 <div className={styles.dogsContainer}>

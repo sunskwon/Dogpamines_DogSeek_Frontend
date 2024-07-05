@@ -71,14 +71,14 @@
 .iconContainer{
     display: flex;
     justify-content: space-evenly;
-    width: 500px;
+    width: 700px;
     margin: 0 auto;
 }
 
 .iconContainer1{
     display: flex;
     justify-content: space-evenly;
-    width: 500px;
+    width: 700px;
     margin: 0 auto;
     margin-top: 20px;
     position: static;
@@ -139,12 +139,6 @@
     margin: 0 auto;
     margin-top: 30px;
     cursor: pointer;
-}
-
-.prodText{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 .text7{
@@ -297,4 +291,30 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.productsBox2 {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 80px;
+    cursor: pointer;
+}
+
+.productHover{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.56);
+    width: 282px;
+    height: 282px;
+    display: none;
+}
+
+.prodText {
+    margin: 0;
+    color: #999999;
+    margin-left: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 100%;
+    height: 47px;
 }
