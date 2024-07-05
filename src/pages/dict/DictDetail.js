@@ -69,20 +69,6 @@ function DictDetail() {
         }
         return paws;
     }
-
-
-    const handleClickImage = (dog) => {
-
-        if(!isClicked) {
-            setChangeImage(dog.dogImage);
-        }else{
-            setChangeImage(null);
-        }
-        setIsClicked(preState => !preState);
-
-    };
-
-
     
     return (
         <>
@@ -92,8 +78,7 @@ function DictDetail() {
                     <div className={styles.titletext2}>
                        {dog.dogSummary}
                     </div>
-                    <img className={styles.img} src={changeImage ? changeImage : dog.dogDetail} 
-                    onClick={() => handleClickImage(dog)}/>
+                    <img className={styles.img} src={dog.dogImage}/>
                 </div>
             </div>
 

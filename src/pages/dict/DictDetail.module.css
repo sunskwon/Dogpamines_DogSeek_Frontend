@@ -52,6 +52,7 @@
     height: 400px;
     margin-left: 60%;
     object-fit: contain;
+    filter: grayscale(100);
 }
 
 .detailtitle {
