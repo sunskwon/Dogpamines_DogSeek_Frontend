@@ -149,8 +149,6 @@ function Products () {
         setProduct(sortedProducts);
     };
 
-    product.sort((a, b) => new Date(b.prodDate) - new Date(a.prodDate));
-
     return(
         <div style={{width:"1180px", margin:"0 auto"}}>
             <div className={styles.box}>
