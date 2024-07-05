@@ -2,12 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import styles from './Board.module.css';
 import { useNavigate } from 'react-router-dom';
 import { GetAPI, PostAPI } from '../../api/RestAPIs';
+import { jwtDecode } from 'jwt-decode';
 
 import { PutAPI } from '../../api/RestAPIs';
-
 import { DeleteAPI } from '../../api/RestAPIs';
 
-import { jwtDecode } from 'jwt-decode';
 
 function Board() {
     const date = new Date();
@@ -23,19 +22,21 @@ function Board() {
     const [posts, setPosts] = useState([]);
     const [newPost, setNewPost] = useState('');
     const [loaded, setLoaded] = useState(false); 
-    const [inputText, setInputText] = useState("");
-
+    const [nickInfo, setNickInfo] = useState({
+        userCode: '',
+        userNick: ''
+    });
 
 
     const messagesEndRef = useRef(null);
 
+    // 로그인토큰
     const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
-
     const userCode = decodedToken.userCode;
     const userNick = decodedToken.userNick;
     const userAuth = decodedToken.userAuth;
 
-
+    // 공지사항 모달
     const toggleOneModal = () => setIsOneNoticeOpen(prevState => !prevState);
     const toggleTwoModal = () => setIsTwoNoticeOpen(prevState => !prevState);
     const toggleThreeModal = () => setIsThreeNoticeOpen(prevState => !prevState);
@@ -43,6 +44,7 @@ function Board() {
     const navigate = useNavigate();
    // const onPostWritingClick = () => navigate("./BoardWriting");
 
+   // GET API
     const call = async () => {
         const address = '/boards';
         const response = await GetAPI(address);
@@ -50,23 +52,7 @@ function Board() {
         return result;
     };
 
-    const activeButton = () => {
-        if (inputText.trim() !== '') {
-            inhandler();
-    } else {
-        alert('내용을 입력해주세요.');
-    }
-    }
-    const activeEnter = (e) => {
-        if (e.key === "Enter") {
-            if (inputText.trim() !== '') {
-                inhandler();
-            } else {
-                alert('내용 플리즈..');
-            }
-        }
-    }
-
+    // POST API
     const inhandler = async () => {
         const address = '/boards';
         const newPostData = {
@@ -82,13 +68,39 @@ function Board() {
             if(response) {
             setPosts([...posts, newPostData]); // 성공 시 클라이언트 측 상태 업로드
             setNewPost(''); // 입력필드 초기화
-            scrollToBottom(); // 스크롤 맨 아래 이동
+            setTimeout(() => scrollToBottom(), 100); // 스크롤 맨 아래 이동
         }
     } catch (error) {
         console.error('Error posting new data', error);
     }
-
 }
+
+    // PUT API
+
+
+// alert는 모달로 변경
+const handleSubmit = async () => {
+    if (newPost.trim() === '') {
+        alert('댓글을 입력해주세요.');
+        return;
+    }
+    await inhandler();
+};
+
+const activeEnterKey = (e) => {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        if (newPost.trim() === '') {
+            alert('댓글을 입력해주세요.');
+            return;
+        }
+        handleSubmit();
+    }
+};
+
+useEffect(() => {
+    setNickInfo({...nickInfo, userCode: userCode, userNick:nickInfo.userNick})
+},[nickInfo.userCode]);
 
 useEffect(() => {
     if (!loaded) {
@@ -185,14 +197,18 @@ useEffect(() => {
 
             <div className={styles.comment_wrap}>
                 <input 
+                    type="text"
                     className={styles.comment_box} 
                     maxLength='100' 
                     placeholder='댓글을 입력해주세요 최대 100자까지 허용..'
                     value={newPost}
                     onChange={(e) => setNewPost(e.target.value)}
-                    onKeyDown={(e) => activeEnter(e)}
+                    onKeyDown={activeEnterKey}
                 />
-                <button className={styles.comment_button} onClick={inhandler}>등록</button>
+                <button className={styles.comment_button}
+                        onClick={handleSubmit}
+                        disabled={newPost.trim() === ''}
+                        >등록</button>
             </div>
         </div>
     );
