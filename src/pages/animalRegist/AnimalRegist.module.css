@@ -178,12 +178,12 @@
     justify-content: center;
     margin:0 auto;
     flex-direction: column;
-    width: 300px;
+    width: 330px;
     height: 200px;
     
     > img {
         width: 52%;
-        height: 90%;
+        height: 92%;
         margin: 0 auto 20px;
     }
 
