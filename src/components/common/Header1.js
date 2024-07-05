@@ -27,11 +27,23 @@ function Header1(){
     }
 
     useEffect(() => {
-        const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
+        var decodedToken = '';
+        
+        var userCode = '';
+        var userNick = '';
+        var userAuth = '';
+        
+        try {
+            decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
 
-        const userCode = decodedToken.userCode;
-        const userNick = decodedToken.userNick;
-        const userAuth = decodedToken.userAuth;
+            userCode = decodedToken.userCode;
+            userNick = decodedToken.userNick;
+            userAuth = decodedToken.userAuth;
+
+        } catch (error) {
+
+        }
+
 
         setIsLoggedIn(!!decodedToken);
         setUserAuth(userAuth);
