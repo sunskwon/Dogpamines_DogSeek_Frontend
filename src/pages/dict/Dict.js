@@ -83,8 +83,8 @@ function Dict(){
                 <span className={styles.titletext1}> 견종에 대해 찾아보세요.</span>
                 <span className={styles.titletext2}>반려견 품종의 특징과 요구사항에 대한 전문적인 정보를 찾아보세요. <br/> 
                 스크롤 또는 검색 기능을 사용해 원하는 견종에 대한 정보를 찾을 수 있습니다. </span>
-                <img className={styles.img} src='/images/dict/1. 상단_사진.png'/>
-                <form onSubmit={searchSubmitHandler}>
+                <img className={styles.img} src='/images/dict/상단사진.png'/>
+                <form className={styles.form} onSubmit={searchSubmitHandler}>
                         <input
                             className={styles.search}
                             type="text"
@@ -92,8 +92,10 @@ function Dict(){
                             placeholder="Search"
                             value={search.dogName}
                             onChange={valueChangeHandler}
-                            
                         />
+                 <button className={styles.searchButton} type="submit">
+                    <img value={search.dogName} onChange={valueChangeHandler} src='/images/dict/Search.png'/>
+                </button>
                     </form>
             </div>
         </div>
@@ -104,16 +106,21 @@ function Dict(){
                 소형
             </button>
 
-                {isSmallModalOpen && 
+           {isSmallModalOpen && 
             <div className={styles.grid} >
-                {filterDogBySize('소형견').map((dog) => (
+                {filterDogBySize('소형견').length > 0 ? 
+                (
+                filterDogBySize('소형견').map((dog) => (
                     <Link to={`/dict/${dog.dogName}`} key={dog.dogName} state={{dogName: dog.dogName}}>
                     <div className={styles.modalContainer}>
                        <img className={styles.dogImages} src={dog.dogImage}/>
                        <p className={styles.dogName}> {dog.dogName} </p>
                     </div>
                     </Link>
-                ))}
+                ))
+               ) : (
+                <p>해당 내용이 포함된 견종이 없습니다.</p>
+               )}
                 </div>
                 }
 
@@ -126,14 +133,19 @@ function Dict(){
 
             {isMediumModalOpen &&
             <div className={styles.grid}>
-                {filterDogBySize('중형견').map((dog) => (
+                 {filterDogBySize('중형견').length > 0 ? 
+                  (  
+                    filterDogBySize('중형견').map((dog) => (
                     <Link to={`/dict/${dog.dogName}`} key={dog.dogName} state={{dogName: dog.dogName}}>
                     <div className={styles.modalContainer} key={dog.dogCode}>
                        <img className={styles.dogImages} src={dog.dogImage}/>
                        <p className={styles.dogName}>{dog.dogName}</p> 
                     </div>
                     </Link>
-                ))}
+                ))
+            ) : (
+                <p>해당 내용이 포함된 견종이 없습니다.</p>
+            )}
                 </div>
                 }
 
@@ -146,14 +158,19 @@ function Dict(){
 
             {isLargeModalOpen &&
             <div className={styles.grid}>
-                {filterDogBySize('대형견').map((dog) => (
+                {filterDogBySize('대형견').length > 0 ? 
+                  (  
+                filterDogBySize('대형견').map((dog) => (
                     <Link to={`/dict/${dog.dogName}`} key={dog.dogName} state={{dogName: dog.dogName}}>
                     <div className={styles.modalContainer} key={dog.dogCode}>
                         <img className={styles.dogImages} src={dog.dogImage}/>
                         <p className={styles.dogName}>{dog.dogName}</p> 
                     </div>
                     </Link>
-                ))}
+                ))
+            ) : (
+                <p>해당 내용이 포함된 견종이 없습니다.</p>
+            )}
                 </div>
                 }
 

@@ -44,10 +44,16 @@
 
 }
 
+.form{
+    display: flex;
+    align-items: center;
+    margin-top: 120px;
+}
+
 .search{
+    
     width: 190px;
     height: 35px;
-    margin-top: 120px;
     margin-left: 120px;
     
     background-color: #005600;
@@ -57,10 +63,23 @@
     
     font-size: 18px;
     color: white;
-    display: flex;
 
     letter-spacing: 0.7px;
     padding-left: 20px;
+
+}
+
+.searchButton{
+    
+    cursor: pointer;
+    width: 50px;
+    
+    background-color: white;
+    border: none;
+
+    > img {
+        width:25px;
+    }
 
 }
 
