@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 import { PutAPI, DeleteAPI } from "../../../api/RestAPIs";
 
 import SelectUserByCode from "../../../components/admin/user/SelectUserByCode";
+import FetchErrorBoundary from "../../../components/admin/adminCommon/FetchErrorBoundary";
 
 import AlertModal from "../../../components/admin/adminCommon/AlertModal";
 import ConfirmModal from "../../../components/admin/adminCommon/ConfirmModal";
@@ -88,12 +89,14 @@ function AdminSelectUserByCode() {
                             </button>
                         </div>
                         <div className={styles.productDetail}>
-                            <SelectUserByCode
-                                Location={state.Location}
-                                user={user}
-                                setUser={setUser}
-                                bool={bool}
-                            />
+                            <FetchErrorBoundary height="560px">
+                                <SelectUserByCode
+                                    Location={state.Location}
+                                    user={user}
+                                    setUser={setUser}
+                                    bool={bool}
+                                />
+                            </FetchErrorBoundary>
                         </div>
                     </div>
                 </div>
