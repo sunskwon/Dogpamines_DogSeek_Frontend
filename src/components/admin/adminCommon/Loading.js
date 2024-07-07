@@ -4,11 +4,12 @@ import { Oval } from "react-loader-spinner";
 
 import styles from "./AdminCommon.module.css";
 
-function Loading() {
+function Loading({ height }) {
+
     return (
         <div
             className={styles.loadingBox}
-            style={{ height: "500px", }}
+            style={{ height: height ? height : "500px", }}
         >
             <div>
                 <h3>잠시만 기다려주세요</h3>

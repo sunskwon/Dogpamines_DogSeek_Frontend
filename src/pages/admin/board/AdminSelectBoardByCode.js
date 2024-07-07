@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 
 import SelectBoardByCode from "../../../components/admin/board/SelectBoardByCode";
+import FetchErrorBoundary from "../../../components/admin/adminCommon/FetchErrorBoundary";
 
 import styles from "../AdminPages.module.css";
 
@@ -43,9 +44,11 @@ function AdminSelectBoardByCode() {
                             className={styles.productDetail}
                             style={{ paddingTop: "100px", }}
                         >
-                            <SelectBoardByCode
-                                Location={state.Location}
-                            />
+                            <FetchErrorBoundary height="460px">
+                                <SelectBoardByCode
+                                    Location={state.Location}
+                                />
+                            </FetchErrorBoundary>
                         </div>
                     </div>
                 </div>
