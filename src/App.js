@@ -30,6 +30,7 @@ import CurationSelectDisease from "./pages/curation/CurationSelectDisease.js";
 import CurationSelectIngra from "./pages/curation/CurationSelectIngra.js";
 import CurationSelectCook from "./pages/curation/CurationSelectCook.js";
 import CurationResult from "./pages/curation/CurationResult.js";
+import AnimalRegist from "./pages/animalRegist/AnimalRegist.js";
 
 import Adminlayout from "./layouts/AdminLayout.js";
 import AdminDashBoard from "./pages/admin/AdminDashBoard.js";
@@ -47,7 +48,8 @@ import AdminSelectBoardByCode from "./pages/admin/board/AdminSelectBoardByCode.j
 import AdminUpdateBoard from "./pages/admin/board/AdminUpdateBoard.js";
 import AdminSelectAllUsers from "./pages/admin/user/AdminSelectAllUsers.js";
 import AdminSelectUserByCode from "./pages/admin/user/AdminSelectUserByCode.js"
-import AnimalRegist from "./pages/animalRegist/AnimalRegist.js";
+
+import ChatApp from "./pages/common/chat/ChatApp.js";
 import NotFound from "./pages/common/NotFound.js";
 
 function App() {
@@ -87,6 +89,8 @@ function App() {
             <Route path="/mypage" element={<Mypage />} />
             <Route path="/mydog" element={<Mydog />} />
             <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+
+            <Route path="/chat" element={<ChatApp />} />
 
             {/* NotFound는 모든 Route보다 아래에 있을 것 */}
             <Route path="/*" element={<NotFound />} />
