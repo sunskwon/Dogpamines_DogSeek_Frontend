@@ -2,6 +2,10 @@ import { useState, useRef } from "react";
 
 import { useNavigate } from "react-router-dom";
 
+import cookie from "react-cookies";
+
+import { callLogoutAPI} from "../../../api/RestAPIs";
+
 import ConfirmModal from "../../../components/admin/adminCommon/ConfirmModal";
 
 import styles from "./Navbar.module.css";
@@ -15,9 +19,18 @@ function Navbar() {
 
     const navigate = useNavigate();
 
-    const logoutHandler = () => {
+    const logoutHandler =  async () => {
 
-        window.localStorage.removeItem("accessToken");
+        const result = await callLogoutAPI();
+
+        if (result === 'true') {
+
+            window.localStorage.removeItem("accessToken");
+            window.localStorage.removeItem("refreshToken");
+
+            cookie.remove('Identifier', {path : '/'}, 1000);
+        }
+
         navigate('/');
     };
 

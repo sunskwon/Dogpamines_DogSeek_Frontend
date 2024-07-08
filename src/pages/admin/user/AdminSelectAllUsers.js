@@ -3,6 +3,7 @@ import { useState, useRef } from "react";
 import { DeleteAPI } from "../../../api/RestAPIs";
 
 import SelectAllUsers from "../../../components/admin/user/SelectAllUsers";
+import FetchErrorBoundary from "../../../components/admin/adminCommon/FetchErrorBoundary";
 
 import AlertModal from "../../../components/admin/adminCommon/AlertModal";
 import ConfirmModal from "../../../components/admin/adminCommon/ConfirmModal";
@@ -31,7 +32,7 @@ function AdminSelectAllUsers() {
     };
 
     const searchSubmitHandler = () => {
-        input.value='';
+        input.value = '';
         setBool(!bool);
     };
 
@@ -94,12 +95,14 @@ function AdminSelectAllUsers() {
                     </div>
                     <div style={{ clear: "both", }}>
                         <div className={styles.productList}>
-                            <SelectAllUsers
-                                search={search}
-                                bool={bool}
-                                setModalOpen={setModalOpen}
-                                setUser={setUser}
-                            />
+                            <FetchErrorBoundary height="560px">
+                                <SelectAllUsers
+                                    search={search}
+                                    bool={bool}
+                                    setModalOpen={setModalOpen}
+                                    setUser={setUser}
+                                />
+                            </FetchErrorBoundary>
                         </div>
                     </div>
                 </div>

@@ -29,7 +29,7 @@ function Dict(){
         
         const address = '/dict';
         
-        const response = await GetAPI(address);
+        const response = await GetAPINotToken(address);
 
         const result = await response.dict;
 
@@ -40,7 +40,7 @@ function Dict(){
 
         const address = `/dict/search?dogName=${search.dogName}`;
 
-        const response = await GetAPI(address);
+        const response = await GetAPINotToken(address);
 
         const result = await response.dict;
 
@@ -51,24 +51,22 @@ function Dict(){
         selectAllDict().then(res => setDogs(res));
     }, []);
 
-    useEffect(() => {
-        searchDict().then(res => setDogs(res));
-    }, [search]);
-
     const valueChangeHandler = e => {
         const { name, value } = e.target;
-    setSearch({
-        ...search,
-        [name]: value
-        });
+        setSearch({
+            ...search,
+            [name]: value
+            });
     }; 
 
-    const searchSubmitHandler = (e) => {
-        e.preventDefault();
-        toggleLargeModal();
-        toggleMediumModal();
-        toggleSmallModal();
-        console.log(search);
+    const searchSubmitHandler = async (e) => {
+            e.preventDefault();
+            const results = await searchDict();
+            setIsSmallModalOpen(true);
+            setIsMediumModalOpen(true);
+            setIsLargeModalOpen(true);
+            console.log(search);
+            setDogs(results);
     }
 
     const filterDogBySize = (size) => {
@@ -94,7 +92,7 @@ function Dict(){
                             onChange={valueChangeHandler}
                         />
                  <button className={styles.searchButton} type="submit">
-                    <img value={search.dogName} onChange={valueChangeHandler} src='/images/dict/Search.png'/>
+                    <img value={search.dogName} src='/images/dict/Search.png'/>
                 </button>
                     </form>
             </div>
@@ -108,7 +106,7 @@ function Dict(){
 
            {isSmallModalOpen && 
             <div className={styles.grid} >
-                {filterDogBySize('소형견').length > 0 ? 
+              {filterDogBySize('소형견').length > 0 ? 
                 (
                 filterDogBySize('소형견').map((dog) => (
                     <Link to={`/dict/${dog.dogName}`} key={dog.dogName} state={{dogName: dog.dogName}}>
@@ -119,7 +117,9 @@ function Dict(){
                     </Link>
                 ))
                ) : (
-                <p>해당 내용이 포함된 견종이 없습니다.</p>
+                <>
+                <p></p><p className={styles.error}>해당 내용이 포함된 견종이 없습니다.</p>
+                </>
                )}
                 </div>
                 }
@@ -144,7 +144,9 @@ function Dict(){
                     </Link>
                 ))
             ) : (
-                <p>해당 내용이 포함된 견종이 없습니다.</p>
+                <>
+                <p></p><p className={styles.error}>해당 내용이 포함된 견종이 없습니다.</p>
+                </>
             )}
                 </div>
                 }
@@ -169,7 +171,9 @@ function Dict(){
                     </Link>
                 ))
             ) : (
-                <p>해당 내용이 포함된 견종이 없습니다.</p>
+                <>
+                <p></p><p className={styles.error}>해당 내용이 포함된 견종이 없습니다.</p>
+                </>
             )}
                 </div>
                 }

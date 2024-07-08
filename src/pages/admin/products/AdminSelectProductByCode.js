@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 
 import SelectProductByCode from "../../../components/admin/products/SelectProductByCode";
+import FetchErrorBoundary from "../../../components/admin/adminCommon/FetchErrorBoundary";
 
 import styles from "../AdminPages.module.css";
 
@@ -40,9 +41,11 @@ function AdminSelectProductByCode() {
                             </button>
                         </div>
                         <div className={styles.productDetail}>
-                            <SelectProductByCode
-                                Location={state.Location}
-                            />
+                            <FetchErrorBoundary height="560px">
+                                <SelectProductByCode
+                                    Location={state.Location}
+                                />
+                            </FetchErrorBoundary>
                         </div>
                     </div>
                 </div>

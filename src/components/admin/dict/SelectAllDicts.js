@@ -4,17 +4,15 @@ import { useNavigate } from "react-router-dom";
 
 import { GetAPI } from "../../../api/RestAPIs"
 
+import Loading from "../adminCommon/Loading";
+
 import styles from "./AdminDict.module.css";
 
 function SelectAllDicts({ search, bool, setModalOpen, setDict }) {
 
-    const [dicts, setDicts] = useState(
-        [
-            {
-                dogCode: 0
-            }
-        ]
-    );
+    const [dicts, setDicts] = useState([]);
+    const [error, setError] = useState(null);
+    const [boolLoading, setBoolLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -22,22 +20,66 @@ function SelectAllDicts({ search, bool, setModalOpen, setDict }) {
 
         const address = '/dict';
 
-        const response = await GetAPI(address);
+        setBoolLoading(true);
 
-        const result = await response.dict;
+        try {
 
-        return result;
+            const response = await GetAPI(address);
+
+            if (response.error) {
+
+                setError(response.error);
+                setBoolLoading(false);
+
+                return [];
+            }
+
+            const result = await response.dict;
+
+            return result;
+        } catch (error) {
+
+            setError(error);
+            setBoolLoading(false);
+
+            return [];
+        } finally {
+
+            setBoolLoading(false);
+        }
     };
 
     const searchDict = async () => {
 
         const address = `/dict/dictsearch?type=${search.type}&input=${search.input}`;
 
-        const response = await GetAPI(address);
+        setBoolLoading(true);
 
-        const result = await response.dict;
+        try {
 
-        return result;
+            const response = await GetAPI(address);
+
+            if (response.error) {
+
+                setError(error);
+                setBoolLoading(false);
+
+                return [];
+            }
+
+            const result = await response.dict;
+
+            return result;
+        } catch (error) {
+
+            setError(error);
+            setBoolLoading(false);
+
+            return [];
+        } finally {
+
+            setBoolLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -48,21 +90,13 @@ function SelectAllDicts({ search, bool, setModalOpen, setDict }) {
         searchDict().then(res => setDicts(res));
     }, [bool]);
 
-    return (
-        <>
-            {dicts.length === 0 &&
-                <div className={styles.errorBox}>
-                    <div>
-                        <img
-                            src="/images/admin/NothingFound.png"
-                            alt="슬픈 돋보기 아이콘"
-                        />
-                        <p>조건에 맞는 견종이 없습니다</p>
-                        <p>다시 시도해주세요</p>
-                    </div>
-                </div>
-            }
-            {dicts.length > 0 &&
+    if (error) {
+        throw error;
+    }
+
+    return boolLoading ? (<Loading />) : (
+        dicts.length > 0 ? (
+            <>
                 <table className={styles.productListTable}>
                     <tbody>
                         <tr>
@@ -116,9 +150,22 @@ function SelectAllDicts({ search, bool, setModalOpen, setDict }) {
                         ))}
                     </tbody>
                 </table>
-            }
-        </>
-    );
-}
+            </>
+        ) : (
+            <>
+                <div className={styles.errorBox}>
+                    <div>
+                        <img
+                            src="/images/admin/NothingFound.png"
+                            alt="슬픈 돋보기 아이콘"
+                        />
+                        <p>조건에 맞는 견종이 없습니다</p>
+                        <p>다시 시도해주세요</p>
+                    </div>
+                </div>
+            </>
+        )
+    )
+};
 
 export default SelectAllDicts;

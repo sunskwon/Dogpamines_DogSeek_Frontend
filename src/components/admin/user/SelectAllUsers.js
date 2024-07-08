@@ -4,17 +4,15 @@ import { useNavigate } from "react-router-dom";
 
 import { PostAPI } from "../../../api/RestAPIs"
 
+import Loading from "../adminCommon/Loading";
+
 import styles from "./AdminUsers.module.css";
 
 function SelectAllUsers({ search, bool, setModalOpen, setUser }) {
 
-    const [users, setUsers] = useState(
-        [
-            {
-                userCode: 0
-            }
-        ]
-    );
+    const [users, setUsers] = useState([]);
+    const [error, setError] = useState(null);
+    const [boolLoading, setBoolLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -27,24 +25,64 @@ function SelectAllUsers({ search, bool, setModalOpen, setUser }) {
             input: ''
         }
 
-        const response = await PostAPI(address, welcomeSearch)
-            .then(res => res.json());
+        setBoolLoading(true);
 
-        const result = await response.users;
+        try {
 
-        return result;
+            const response = await PostAPI(address, welcomeSearch)
+                .then(res => res.json());
+
+            if (response.error) {
+
+                setError(response.error);
+
+                return [];
+            }
+
+            const result = await response.users;
+
+            return result;
+        } catch (error) {
+
+            setError(error);
+
+            return [];
+        } finally {
+
+            setBoolLoading(false);
+        }
     };
 
     const searchUser = async () => {
 
         const address = '/admin/users';
 
-        const response = await PostAPI(address, search)
-            .then(res => res.json());
+        setBoolLoading(true);
 
-        const result = await response.users;
+        try {
 
-        return result;
+            const response = await PostAPI(address, search)
+                .then(res => res.json());
+
+            if (response.error) {
+
+                setError(response.error);
+
+                return [];
+            }
+
+            const result = await response.users;
+
+            return result;
+        } catch (error) {
+
+            setError(error);
+
+            return [];
+        } finally {
+
+            setBoolLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -55,21 +93,13 @@ function SelectAllUsers({ search, bool, setModalOpen, setUser }) {
         searchUser().then(res => setUsers(res));
     }, [bool]);
 
-    return (
-        <>
-            {users.length === 0 &&
-                <div className={styles.errorBox}>
-                    <div>
-                        <img
-                            src="/images/admin/NothingFound.png"
-                            alt="슬픈 돋보기 아이콘"
-                        />
-                        <p>조건에 맞는 사용자가 없습니다</p>
-                        <p>다시 시도해주세요</p>
-                    </div>
-                </div>
-            }
-            {users.length > 0 &&
+    if (error) {
+        throw error;
+    }
+
+    return boolLoading ? (<Loading />) : (
+        users?.length > 0 ? (
+            <>
                 <table className={styles.productListTable}>
                     <tbody>
                         <tr>
@@ -135,8 +165,21 @@ function SelectAllUsers({ search, bool, setModalOpen, setUser }) {
                         ))}
                     </tbody>
                 </table>
-            }
-        </>
+            </>
+        ) : (
+            <>
+                <div className={styles.errorBox}>
+                    <div>
+                        <img
+                            src="/images/admin/NothingFound.png"
+                            alt="슬픈 돋보기 아이콘"
+                        />
+                        <p>조건에 맞는 사용자가 없습니다</p>
+                        <p>다시 시도해주세요</p>
+                    </div>
+                </div>
+            </>
+        )
     );
 }
 

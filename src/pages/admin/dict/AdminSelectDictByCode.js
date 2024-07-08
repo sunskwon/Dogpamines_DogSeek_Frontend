@@ -1,6 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 
 import SelectDictByCode from "../../../components/admin/dict/SelectDictByCode";
+import FetchErrorBoundary from "../../../components/admin/adminCommon/FetchErrorBoundary";
 
 import styles from "../AdminPages.module.css";
 
@@ -40,9 +41,11 @@ function AdminSelectDictByCode() {
                             </button>
                         </div>
                         <div className={styles.productDetail}>
-                            <SelectDictByCode
-                                Location={state.Location}
-                            />
+                            <FetchErrorBoundary height="560px">
+                                <SelectDictByCode
+                                    Location={state.Location}
+                                />
+                            </FetchErrorBoundary>
                         </div>
                     </div>
                 </div>
