@@ -1,5 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
-import { GetAPI } from "../../api/RestAPIs";
+import { useLocation } from "react-router-dom";
+import { GetAPINotToken } from "../../api/RestAPIs";
 import React, {useState, useEffect, useRef} from 'react';
 import styles from './ProductDetail.module.css';
 import axios from "axios";
@@ -20,7 +20,7 @@ function ProductDetail () {
     const detailProduct = async () => {
 
         const detailProductAddress = `/products/${prodCode}`;
-        const detailProductResponse = await GetAPI(detailProductAddress);
+        const detailProductResponse = await GetAPINotToken(detailProductAddress);
         setProduct(detailProductResponse.product);
     };
 
@@ -31,7 +31,7 @@ function ProductDetail () {
     const similarProducts = async () => {
 
         const curationProductsAddress = `/curation?curationAge=${age}&curationIngra=${ingra}&curationDisease=${disease}&curationAllergy=${allergy}&curationCook=${cook}&curationSize=${size}`;
-        const curationProductsResponse = await GetAPI(curationProductsAddress);
+        const curationProductsResponse = await GetAPINotToken(curationProductsAddress);
         setSimilarProduct(curationProductsResponse.curationProducts);
         
     };
@@ -68,7 +68,7 @@ function ProductDetail () {
     const onClick = (prodCode2) => {
         const comparsion = async () => {
             const comparisonProductsAddress = `/products/comparison?prodCode1=${product.prodCode}&prodCode2=${prodCode2}`;
-            const comparisonProductsResponse = await GetAPI(comparisonProductsAddress);
+            const comparisonProductsResponse = await GetAPINotToken(comparisonProductsAddress);
             setComparison(comparisonProductsResponse.products);
         };
         comparsion();

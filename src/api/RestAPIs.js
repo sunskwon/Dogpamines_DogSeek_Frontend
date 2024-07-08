@@ -50,6 +50,23 @@ export async function GetAPIWCookie(address) {
     return result;
 }
 
+export function GetAPINotToken(address) {
+
+    const baseUrl = 'http://localhost:8080';
+    const url = `${baseUrl}${address}`;
+
+    return (
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+                'Access-Cross-Allow-Origin': '*',
+            },
+        }).then(res => res.json())
+    );
+};
+
 export function PostAPI(address, Object) {
 
     const baseUrl = process.env.REACT_APP_SPRING_SERVER;;
@@ -124,12 +141,15 @@ export const callLoginAPI = async ({ user }) => {
         });
 
         const jwtToken = response.headers.get("Authorization");
+        const refreshToken = response.headers.get("Refresh-Token");
         // console.log(`JWT Token: ${jwtToken}`);
+        // console.log(`refreshToken : ${refreshToken}`);
 
         if (response.status === 200 && jwtToken) {
 
             // 토큰 localStorage에 저장
             window.localStorage.setItem('accessToken', jwtToken);
+            window.localStorage.setItem('refreshToken', refreshToken);
 
             const result = 'true';
             return result;
@@ -158,12 +178,12 @@ export const checkAPI = async (check) => {
             body: JSON.stringify(check),
         });
 
-        console.log(`response : ${response}`);
-        console.log(`headers : ${response.headers}`);
+        // console.log(`response : ${response}`);
+        // console.log(`headers : ${response.headers}`);
 
         if (response.status === 200) {
             const result = response.headers.get("Result");
-            console.log(`q result : ${result}`);
+            // console.log(`q result : ${result}`);
             return result;
         } else {
             console.error(`HTTP 상태 코드: ${response.status}`);
@@ -198,7 +218,7 @@ export const callRegisterAPI = async ({ user }) => {
 
     if (response.status === 200) {
         const result = response.headers.get("Result");
-        console.log(`q result : ${result}`);
+        // console.log(`q result : ${result}`);
         return result;
     } else {
         throw new Error("Failed to register");
@@ -317,6 +337,33 @@ export const callChangePwd = async (userId, userPass) => {
     if (response.status === 201) {
         const result = 'true';
         return result;
+    } else {
+        const result = 'false';
+        return result;
+    }
+
+}
+
+// 로그아웃
+export const callLogoutAPI = async() => {
+
+    const requestURL = 'http://localhost:8080/auth/logout';
+
+    const response = await fetch(requestURL, {
+
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "*/*",
+            'Access-Control-Allow-Origin': '*',
+            "Authorization": window.localStorage.getItem("accessToken"),
+            "Refresh-Token": window.localStorage.getItem("refreshToken"),
+        }
+    });
+
+    if (response.status === 200) {
+        const result = 'true';
+            return result;
     } else {
         const result = 'false';
         return result;

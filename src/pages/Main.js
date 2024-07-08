@@ -97,27 +97,36 @@ function Main(){
                 <hr className={styles.line1}/>
                 <p className={styles.title2}>Our Services</p>
                 <div className={styles.iconContainer}>
-                    <NavLink to={'/dict'}>
-                        <img className={styles.icon1} src='./images/main/Icon1.png' alt='견종백과'/>
-                    </NavLink>
-                    <NavLink to={'/curation'}>
-                        <img className={styles.icon1} src='./images/main/Icon2.png' alt='맞춤 사료 찾기'/>
-                    </NavLink>
-                    <NavLink to={'/board'}>
-                        <img className={styles.icon1} src='./images/main/Icon3.png' alt='게시판'/>
-                    </NavLink>
-                    <NavLink to={'/animalinfo'}>
-                        <img className={styles.icon1} src='./images/main/vector.png' alt='반려견 등록 확인'/>
-                    </NavLink>
-                </div>
-                <div className={styles.iconContainer1}>
-                    <Link to={'/dict'} className={styles.text1}>견종백과</Link>
-                    <Link to={'/curation'} className={styles.text5}>맞춤사료찾기</Link>
-                    <Link to={'/board'} className={styles.text6}>게시판</Link>
-                    <Link to={'/animalinfo'} className={styles.text6}>반려견 등록 확인</Link>
+                    <div style={{display:"flex", flexDirection:"column", textAlign:"center"}}>
+                        <NavLink to={'/dict'}>
+                            <img className={styles.icon1} src='./images/main/Icon1.png' alt='견종백과'/>
+                        </NavLink>
+                        <Link to={'/dict'} className={styles.text1}>견종백과</Link>
+                    </div>
+                    <div style={{display:"flex", flexDirection:"column", textAlign:"center"}}>
+                        <NavLink to={'/curation'}>
+                            <img className={styles.icon1} src='./images/main/Icon2.png' alt='맞춤 사료 찾기'/>
+                        </NavLink>
+                        <Link to={'/curation'} className={styles.text5}>맞춤사료찾기</Link>
+                    </div>
+                    <div style={{display:"flex", flexDirection:"column", textAlign:"center"}}>
+                        <NavLink to={'/board'}>
+                            <img className={styles.icon1} src='./images/main/Icon3.png' alt='게시판'/>
+                        </NavLink>
+                        <Link to={'/board'} className={styles.text6}>게시판</Link>
+                    </div>
+                    <div style={{display:"flex", flexDirection:"column", textAlign:"center"}}>
+                        <NavLink to={'/animalinfo'}>
+                            <img className={styles.icon1} src='./images/main/vector.png' alt='반려견 등록 확인'/>
+                        </NavLink>
+                        <Link to={'/animalinfo'} className={styles.text6}>반려견 등록 확인</Link>
+                    </div>
                 </div>
             </div>
             <div className={styles.container2}>
+                <hr className={styles.line2}/>
+                <span className={styles.title3}>User's</span>
+                <span className={styles.title4}> Best</span>
                 <div style={{width:"940px", margin:"0 auto"}}>
                 <Swiper
                     modules={[Autoplay, Navigation]}
