@@ -22,3 +22,49 @@
     cursor: pointer;
     align-self: center;
 }
+
+.errorBoundaryContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.boundary {
+    width: 987px;
+    height: 667px;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 212, 212, 1);
+}
+
+.errorBoundaryContainer img {
+    width: 150px;
+    height: 150px;
+}
+
+.errorBoundaryContainer p {
+    font-weight: bold;
+    font-size: 24px;
+    color: rgba(153, 153, 153, 1);
+}
+
+.loadingBox {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.loadingBox h3 {
+    color: rgba(153, 153, 153, 1);
+}
+
+.innerLoading {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    text-align: center;
+}

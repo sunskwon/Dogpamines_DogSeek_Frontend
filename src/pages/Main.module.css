@@ -73,27 +73,36 @@
     justify-content: space-evenly;
     width: 700px;
     margin: 0 auto;
-}
-
-.iconContainer1{
-    display: flex;
-    justify-content: space-evenly;
-    width: 700px;
-    margin: 0 auto;
-    margin-top: 20px;
-    position: static;
-    padding-right: 1%;
     margin-bottom: 40px;
 }
 
 .icon1{
     cursor: pointer;
+    width: 70px;
+    height: 70px;
 }
 
 .text1{
     color: #999999;
     font-size: 16px;
     cursor: pointer;
+}
+
+.line2{
+    color: #D4D4D4;
+    margin-bottom: 20px;
+}
+
+.title3{
+    padding-left: 120px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.title4{
+    font-size: 20px;
+    font-weight: bold;
+    color: #63C54A;
 }
 
 .text5{

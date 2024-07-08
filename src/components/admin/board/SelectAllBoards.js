@@ -2,32 +2,76 @@ import { useState, useEffect } from "react";
 
 import { GetAPI } from "../../../api/RestAPIs"
 
+import Loading from "../adminCommon/Loading";
+
 import styles from "./AdminBoards.module.css";
 
 function SelectAllBoards({ search, boardBool, setModalOpen, setBoardModalOpen, setReportsModalOpen, setPost, setBoard, setReports }) {
 
     const [boards, setBoards] = useState([]);
+    const [error, setError] = useState(null);
+    const [boolLoading, setBoolLoading] = useState(false);
 
     const call = async () => {
 
-        const address = '/board';
+        setBoolLoading(true);
 
-        const response = await GetAPI(address);
+        try {
 
-        const result = await response.board;
+            const address = '/board';
 
-        return result;
+            const response = await GetAPI(address);
+
+            if (response.error) {
+
+                setError(response.error);
+
+                return [];
+            }
+
+            const result = await response.board;
+
+            return result;
+        } catch (error) {
+
+            setError(error);
+
+            return [];
+        } finally {
+
+            setBoolLoading(false);
+        }
     };
 
     const searchProd = async () => {
 
-        const address = `/board/search?type=${search.type}&input=${search.input}`;
+        setBoolLoading(true);
 
-        const response = await GetAPI(address);
+        try {
 
-        const result = await response.board;
+            const address = `/board/search?type=${search.type}&input=${search.input}`;
 
-        return result;
+            const response = await GetAPI(address);
+
+            if (response.error) {
+
+                setError(error);
+
+                return [];
+            }
+
+            const result = await response.board;
+
+            return result;
+        } catch (error) {
+
+            setError(error);
+
+            return [];
+        } finally {
+
+            setBoolLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -66,27 +110,13 @@ function SelectAllBoards({ search, boardBool, setModalOpen, setBoardModalOpen, s
         });
     }, [boardBool]);
 
-    return (
-        <>
-            {boards.length === 0 &&
-                <div className={styles.errorBox}>
-                    <div style={{ display: "flex", paddingTop: "60px", }}>
-                        <div
-                            style={{ display: "flex", alignItems: "center", }}
-                        >
-                            <img
-                                src="/images/admin/NothingFound.png"
-                                alt="슬픈 돋보기 아이콘"
-                            />
-                        </div>
-                        <div>
-                            <p>검색 결과가 없습니다</p>
-                            <p>다시 시도해주세요</p>
-                        </div>
-                    </div>
-                </div>
-            }
-            {boards.length > 0 &&
+    if (error) {
+        throw error;
+    }
+
+    return boolLoading ? (<Loading height="300px" />) : (
+        boards?.length > 0 ? (
+            <>
                 <table className={styles.productListTable}>
                     <tbody>
                         <tr>
@@ -179,8 +209,27 @@ function SelectAllBoards({ search, boardBool, setModalOpen, setBoardModalOpen, s
                         ))}
                     </tbody>
                 </table>
-            }
-        </>
+            </>
+        ) : (
+            <>
+                <div className={styles.errorBox}>
+                    <div style={{ display: "flex", paddingTop: "60px", }}>
+                        <div
+                            style={{ display: "flex", alignItems: "center", }}
+                        >
+                            <img
+                                src="/images/admin/NothingFound.png"
+                                alt="슬픈 돋보기 아이콘"
+                            />
+                        </div>
+                        <div>
+                            <p>검색 결과가 없습니다</p>
+                            <p>다시 시도해주세요</p>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
     );
 }
 

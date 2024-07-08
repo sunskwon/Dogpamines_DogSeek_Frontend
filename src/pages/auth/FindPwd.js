@@ -38,6 +38,13 @@ function FindPwd() {
 
     const navigate = useNavigate();
 
+    const [modal, setModal] = useState({
+        state: false,
+        isCheck: false,
+        isOneBtn: true,
+        text: '',
+    });
+
     // email 정규식
     const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
     // 비밀번호 정규식(최소 8자 및 최대 12자, 영문자 or 숫자 or 특수문자 2가지 이상 조합)
@@ -54,19 +61,19 @@ function FindPwd() {
                     const type = 'findPw';
                     const sendResult = await callEmailVerification(checkId.info, type);
                     if (sendResult === 'true') {
-                        alert('인증번호가 발송되었습니다.');
+                        setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '인증번호가 발송되었습니다.' });
                     } else {
-                        alert('인증번호 발송 실패.');
+                        setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '인증번호 발송 실패.' });
                     }
                 } else {
-                    alert('존재하지 않는 아이디 입니다.');
+                    setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '존재하지 않는 아이디 입니다.' });
                 }
 
             } else {
-                alert('이메일 형식 올바르지 않습니다.')
+                setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '이메일 형식이 올바르지 않습니다.' });
             }
         } else {
-            alert('아이디를 입력해주세요.');
+            setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '아이디를 입력해주세요.' });
         }
     }
 
@@ -79,19 +86,19 @@ function FindPwd() {
 
                 if (result === 'true') {
 
-                    alert('인증되었습니다.');
+                    setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '이메일 인증 완료!' });
 
                     setShowIdVerify(false);
                     setShowUpdatePwd(true);
                     
                 } else {
-                    alert('인증번호를 확인해주세요.');  // 인증 실패
+                    setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '인증번호를 확인해주세요.' }); // 인증 실패
                 }
             } else {
-                alert('인증번호는 6자리 입니다.');
+                setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '인증번호는 6자리 입니다.' });
             }
         } else {
-            alert('인증번호를 입력해주세요.');
+            setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '인증번호를 입력해주세요.' });
         }
     }
 
@@ -152,19 +159,19 @@ function FindPwd() {
                     const result = await callChangePwd(checkId.info, userPwd.password);
 
                     if (result === 'true') {
-                        alert('비밀번호 변경 완료!');
+                        setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '비밀번호 변경 완료!' });
                         navigate("/login");
                     } else {
-                        alert('비밀번호 변경 실패!');
+                        setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '비밀번호 변경 실패!' });
                     }
                 } else {
-                    alert('비밀번호가 일치하지 않습니다.');
+                    setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '비밀번호가 일치하지 않습니다.' });
                 }
             } else {
-                alert('비밀번호 확인을 위해 한 번 더 입력해주시기 바랍니다.')
+                setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '비밀번호 확인을 위해 한 번 더 입력해주시기 바랍니다.' });
             }
         } else {
-            alert('변경할 비밀번호를 입력해주세요.');
+            setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '변경할 비밀번호를 입력해주세요.' });
         }
     }
 
@@ -175,6 +182,15 @@ function FindPwd() {
     const onClickMoveFindId = () => {
         navigate('/findemail');
     }
+
+    const closeModal = () => {
+        setModal({ ...modal, state: false, text: '' });
+    }
+
+    const confirmCancel = () => {
+        // 비밀번호 찾기 취소 로직
+        navigate('/'); // 메인 페이지로 이동
+    };
 
     return(
 
@@ -239,6 +255,30 @@ function FindPwd() {
                     </div>
                     )}
                 </div>
+                {modal.state && (
+                    <div className={style.modal}>
+                        <div className={style.modalContent}>
+                            <div className={style.iconContainer}>
+                                {modal.isCheck ? (
+                                    <img src='./images/auth/modal_check.png' alt='modal_check'></img>
+                                ) : (
+                                    <img src='./images/auth/exclamationmark_circle.png' alt='exclamation_circle'></img>
+                                )}
+                            </div>
+                            <div className={style.modalTextContainer}>
+                                <p>{modal.text}</p>
+                            </div>
+                            {modal.isOneBtn ? (
+                                <button onClick={closeModal}>닫기</button>
+                            ) : (
+                                <div className={style.btnContainer}>
+                                    <button className={style.leftBtn} onClick={confirmCancel}>예</button>
+                                    <button className={style.rightBtn} onClick={closeModal}>아니오</button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
             </div>
         </>
 

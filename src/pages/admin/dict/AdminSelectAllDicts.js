@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { DeleteAPI } from "../../../api/RestAPIs";
 
 import SelectAllDicts from "../../../components/admin/dict/SelectAllDicts";
+import FetchErrorBoundary from "../../../components/admin/adminCommon/FetchErrorBoundary";
 
 import ConfirmModal from "../../../components/admin/adminCommon/ConfirmModal";
 
@@ -103,12 +104,14 @@ function AdminSelectAllDicts() {
                     </div>
                     <div style={{ clear: "both", }}>
                         <div className={styles.productList}>
-                            <SelectAllDicts
-                                search={search}
-                                bool={bool}
-                                setModalOpen={setModalOpen}
-                                setDict={setDict}
-                            />
+                            <FetchErrorBoundary height="560px">
+                                <SelectAllDicts
+                                    search={search}
+                                    bool={bool}
+                                    setModalOpen={setModalOpen}
+                                    setDict={setDict}
+                                />
+                            </FetchErrorBoundary>
                         </div>
                     </div>
                 </div>

@@ -14,6 +14,7 @@ function Mypage(){
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isModalOpen2, setIsModalOpen2] = useState(false);
     const modalBackground = useRef();
 
     // 토큰 디코딩
@@ -38,6 +39,16 @@ function Mypage(){
     });
 
     const [nickAvailability, setNickAvailability] = useState({
+        available: true,
+        message: ''
+    });
+
+    const [checkPass, setCheckPass] = useState({
+        type: '',
+        info: ''
+    });
+
+    const [passAvailability, setPassAvailability] = useState({
         available: true,
         message: ''
     });
@@ -112,12 +123,27 @@ function Mypage(){
         }
     }, [userInfo.userNick]);
 
+    // useEffect(() => {
+    //     if(userInfo.userPass && userPassRegex.text(userInfo.userPass)) {
+    //         const checkPassAvailability = async () => {
+    //             try{
+    //                 const result = awa
+    //             }
+    //         }
+    //     }
+    // })
+
     const openModal = () => {
         setIsModalOpen(true);
     }
 
+    const openModal2 = () => {
+        setIsModalOpen2(true);
+    }
+
     const handleCancel = (e) => {
         setIsModalOpen(false);
+        setIsModalOpen2(false);
     };
 
     const onNickChange = (e) => {
@@ -159,7 +185,10 @@ function Mypage(){
             return;
         } 
         if(!userPassRegex.test(userInfo.newUserPass)) {
-            alert("비밀번호 형식이 올바르지 않습니다.");
+            setPassAvailability({
+                available:false,
+                message: '비밀번호 형식과 맞지 않습니다.'
+            })
             return;
         }
         try {
@@ -186,19 +215,20 @@ function Mypage(){
     };
 
     const handleDelete = async () => {
-        console.log("탈퇴");
 
-        const address = `/mypage`;
-        
-        const response = await DeleteAPI(address, userInfo);
+        const address = `/mypage/${userCode}`;
+        const response = await DeleteAPI(address, userCode);
 
-        alert("회원 탈퇴가 완료되었습니다.");
-        window.localStorage.removeItem('accessToken');
-        window.localStorage.removeItem('userCode');
-        window.localStorage.removeItem('userNick');
-        window.localStorage.removeItem('userAuth');
-        setIsLoggedIn(false);
-        navigate("/");
+        if(response.ok) {
+            alert("회원 탈퇴가 완료되었습니다.");
+            window.localStorage.removeItem('accessToken');
+            setIsLoggedIn(false);
+            navigate("/");
+            window.location.reload();
+        }
+        const result = await response.users;
+
+        return result;
     };
 
     const handleInputChange= (e) => {
@@ -229,8 +259,6 @@ function Mypage(){
                 <div className={styles.user1}>
                     <p className={styles.text6}>아이디</p>
                     <p className={styles.text6}>비밀번호</p>
-                    <p className={styles.text6}>새 비밀번호</p>
-                    <p className={styles.text6}>새 비밀번호 확인</p>
                     <p className={styles.text6}>닉네임</p>
                     <p className={styles.text6}>연락처</p>
                 </div>
@@ -238,9 +266,10 @@ function Mypage(){
                 {users.map (user => (
                     <div className={styles.user2} key={user.userCode}>
                         <p className={styles.text7}>{user.userId}</p>
-                        <input type='password' className={styles.inputBox1} name='userPass' onChange={handleInputChange} value={userInfo.userPass}></input>
-                        <input type='password' className={styles.inputBox2} placeholder='영문, 숫자, 특수문자 중 두 종류 이상  8~12자 이내' name='newUserPass' onChange={handleInputChange} value={userInfo.newUserPass}></input>
-                        <input type='password' className={styles.inputBox2} placeholder='영문, 숫자, 특수문자 중 두 종류 이상  8~12자 이내' name='confirmNewUserPass' onChange={handleInputChange} value={userInfo.confirmNewUserPass}></input>
+                        <div  className={styles.user4}>
+                            <input type='password' className={styles.inputBox1} name='userPass' value={user.userPass}></input>
+                            <button className={styles.btn2} onClick={() => openModal2()}>변경</button>
+                        </div><br/>
                         <div className={styles.user3}>
                             <input type='text' className={styles.inputBox3} placeholder={user.userNick} name='userNick' value={userInfo.userNick} onChange={onNickChange}/>
                             {nickAvailability.message && (
@@ -256,9 +285,6 @@ function Mypage(){
             </div>
             <div className={styles.container3}>
                 <p className={styles.text9} onClick={() => openModal()}>탈퇴하기</p>
-            </div>
-            <div className={styles.container3}>
-                <button className={styles.button1} onClick={isLoggedIn ? handleConfirm : () => navigate("/")}>변경</button>
             </div>
         </div>
         
@@ -279,6 +305,46 @@ function Mypage(){
                             <div className={styles.btnContainer}>
                                 <button className={styles.modalCloseBtn} onClick={handleCancel}>닫기</button>
                                 <button className={styles.modalDeleteBtn} onClick={handleDelete}>탈퇴</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            {/* Pwd Change Modal */}
+            {
+                isModalOpen2 && 
+                <div className={styles.modalContainer} ref={modalBackground} onClick={e => {
+                    if (e.target === modalBackground.current) {
+                        setIsModalOpen2(false)
+                    }
+                }}>
+                    <div className={styles.modalContent}>
+                        <div className={styles.modalTextContainer1}>
+                            <div className={styles.modal_content}>
+                            <p className={styles.modalText1}>비밀번호 변경</p>
+                            <hr />
+                                <div className={styles.pwdBox}>
+                                    <p className={styles.pwdText}>비밀번호</p>
+                                    <input type='password' className={styles.pwdInput1} name='userPass' onChange={handleInputChange} value={userInfo.userPass}></input>
+                                </div>
+                                <div className={styles.pwdBox}>
+                                    <p className={styles.pwdText}>새 비밀번호</p>
+                                    <input type='password' className={styles.pwdInput2} placeholder='영문, 숫자, 특수문자 중 두 종류 이상  8~12자 이내' name='newUserPass' onChange={handleInputChange} value={userInfo.newUserPass}></input>
+                                </div>
+                                {passAvailability.message && (
+                                    <span className={`${styles.errorText} ${passAvailability.available ? styles.green : styles.red}`}>
+                                    {passAvailability.message}
+                                </span>
+                                )}
+                                <div className={styles.pwdBox}>
+                                    <p className={styles.pwdText}>새 비밀번호 확인</p>
+                                    <input type='password' className={styles.pwdInput3} placeholder='영문, 숫자, 특수문자 중 두 종류 이상  8~12자 이내' name='confirmNewUserPass' onChange={handleInputChange} value={userInfo.confirmNewUserPass}></input>
+                                </div>
+                            </div>
+                            <div className={styles.btnContainer1}>
+                                <button className={styles.modalCloseBtn} onClick={handleCancel}>닫기</button>
+                                <button className={styles.modalDeleteBtn} onClick={handleConfirm}>변경</button>
                             </div>
                         </div>
                     </div>

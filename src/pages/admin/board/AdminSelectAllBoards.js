@@ -6,6 +6,7 @@ import { DeleteAPI } from "../../../api/RestAPIs";
 
 import SelectAllNotices from "../../../components/admin/board/SelectAllNotices";
 import SelectAllBoards from "../../../components/admin/board/SelectAllBoards";
+import FetchErrorBoundary from "../../../components/admin/adminCommon/FetchErrorBoundary";
 
 import ConfirmModal from "../../../components/admin/adminCommon/ConfirmModal";
 import BoardModal from "../../../components/admin/board/BoardModal";
@@ -132,12 +133,14 @@ function AdminSelectAllBoards() {
                             className={styles.productList}
                             style={{ height: "220px", }}
                         >
-                            <SelectAllNotices
-                                search={searchNotice}
-                                noticeBool={noticeBool}
-                                setModalOpen={setModalOpen}
-                                setPost={setPost}
-                            />
+                            <FetchErrorBoundary height="200px">
+                                <SelectAllNotices
+                                    search={searchNotice}
+                                    noticeBool={noticeBool}
+                                    setModalOpen={setModalOpen}
+                                    setPost={setPost}
+                                />
+                            </FetchErrorBoundary>
                         </div>
                     </div>
                     <div style={{ paddingTop: "20px", }}>
@@ -184,16 +187,18 @@ function AdminSelectAllBoards() {
                         className={styles.productList}
                         style={{ height: "300px", }}
                     >
-                        <SelectAllBoards
-                            search={searchBoard}
-                            boardBool={boardBool}
-                            setModalOpen={setModalOpen}
-                            setBoardModalOpen={setBoardModalOpen}
-                            setReportsModalOpen={setReportsModalOpen}
-                            setPost={setPost}
-                            setBoard={setBoard}
-                            setReports={setReports}
-                        />
+                        <FetchErrorBoundary height="300px">
+                            <SelectAllBoards
+                                search={searchBoard}
+                                boardBool={boardBool}
+                                setModalOpen={setModalOpen}
+                                setBoardModalOpen={setBoardModalOpen}
+                                setReportsModalOpen={setReportsModalOpen}
+                                setPost={setPost}
+                                setBoard={setBoard}
+                                setReports={setReports}
+                            />
+                        </FetchErrorBoundary>
                     </div>
                 </div>
             </div>

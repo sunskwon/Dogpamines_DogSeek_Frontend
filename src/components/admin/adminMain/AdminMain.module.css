@@ -181,3 +181,62 @@
     text-decoration: underline;
     color: rgba(112, 178, 222, 1);
 }
+
+.subTitle {
+    font-weight: bold;
+    font-size: 16px;
+    color: rgba(99, 197, 74, 1);
+    margin-top: 42px;
+    margin-left: 20px;
+    margin-bottom: 31.5px;
+}
+
+.mainOuter {
+    width: 990px;
+    height: 670px;
+    /* background-color: antiquewhite; */
+}
+
+.mainBox {
+    width: 987px;
+    height: 667px;
+    border-radius: 10px;
+    border: 1px solid rgba(212, 212, 212, 1);
+}
+
+.subjectTitle {
+    font-weight: bold;
+    font-size: 16px;
+    color: rgba(99, 197, 74, 1);
+    margin-top: 15px;
+    margin-left: 20px;
+    float: left;
+}
+
+.selectButton {
+    width: 60px;
+    height: 34px;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid rgba(99, 197, 74, 1);
+    margin-top: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: rgba(99, 197, 74, 1);
+    cursor: pointer;
+}
+
+.selectedButton {
+    width: 60px;
+    height: 34px;
+    border-radius: 10px;
+    background-color: rgba(99, 197, 74, 1);
+    border: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+}

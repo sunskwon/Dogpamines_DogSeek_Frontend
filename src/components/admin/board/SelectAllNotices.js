@@ -4,40 +4,77 @@ import { useNavigate } from "react-router-dom";
 
 import { GetAPI } from "../../../api/RestAPIs"
 
+import Loading from "../adminCommon/Loading";
+
 import styles from "./AdminBoards.module.css";
 
 function SelectAllNotices({ search, noticeBool, setModalOpen, setPost }) {
 
-    const [notices, setNotices] = useState(
-        [
-            {
-                postCode: 0
-            }
-        ]
-    );
+    const [notices, setNotices] = useState([]);
+    const [error, setError] = useState(null);
+    const [boolLoading, setBoolLoading] = useState(false);
 
     const navigate = useNavigate();
 
     const call = async () => {
 
-        const address = '/notice';
+        setBoolLoading(true);
 
-        const response = await GetAPI(address);
+        try {
 
-        const result = await response.notice;
+            const address = '/notice';
 
-        return result;
+            const response = await GetAPI(address);
+
+            if (response.error) {
+
+                setError(response.error);
+
+                return [];
+            }
+
+            const result = await response.notice;
+
+            return result;
+        } catch (error) {
+
+            setError(error);
+
+            return [];
+        } finally {
+            setBoolLoading(false);
+        }
     };
 
     const searchNotice = async () => {
 
-        const address = `/notice/search?type=${search.type}&input=${search.input}`;
+        setBoolLoading(true);
 
-        const response = await GetAPI(address);
+        try {
 
-        const result = await response.notice;
+            const address = `/notice/search?type=${search.type}&input=${search.input}`;
 
-        return result;
+            const response = await GetAPI(address);
+
+            if (response.error) {
+
+                setError(response.error);
+
+                return [];
+            }
+
+            const result = await response.notice;
+
+            return result;
+        } catch (error) {
+
+            setError(error);
+
+            return [];
+        } finally {
+
+            setBoolLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -48,27 +85,13 @@ function SelectAllNotices({ search, noticeBool, setModalOpen, setPost }) {
         searchNotice().then(res => setNotices(res));
     }, [noticeBool]);
 
-    return (
-        <>
-            {notices.length === 0 &&
-                <div className={styles.errorBox}>
-                    <div style={{ display: "flex", paddingTop: "30px", }}>
-                        <div
-                            style={{ display: "flex", alignItems: "center", }}
-                        >
-                            <img
-                                src="/images/admin/NothingFound.png"
-                                alt="슬픈 돋보기 아이콘"
-                            />
-                        </div>
-                        <div>
-                            <p>검색 결과가 없습니다</p>
-                            <p>다시 시도해주세요</p>
-                        </div>
-                    </div>
-                </div>
-            }
-            {notices.length > 0 &&
+    if (error) {
+        throw error;
+    }
+
+    return boolLoading ? (<Loading height="200px" />) : (
+        notices?.length > 0 ? (
+            <>
                 <table className={styles.productListTable}>
                     <tbody>
                         <tr>
@@ -137,9 +160,28 @@ function SelectAllNotices({ search, noticeBool, setModalOpen, setPost }) {
                         ))}
                     </tbody>
                 </table>
-            }
-        </>
-    );
+            </>
+        ) : (
+            <>
+                <div className={styles.errorBox}>
+                    <div style={{ display: "flex", paddingTop: "30px", }}>
+                        <div
+                            style={{ display: "flex", alignItems: "center", }}
+                        >
+                            <img
+                                src="/images/admin/NothingFound.png"
+                                alt="슬픈 돋보기 아이콘"
+                            />
+                        </div>
+                        <div>
+                            <p>검색 결과가 없습니다</p>
+                            <p>다시 시도해주세요</p>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
+    )
 }
 
 export default SelectAllNotices;
