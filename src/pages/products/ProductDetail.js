@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { GetAPINotToken } from "../../api/RestAPIs";
+import { GetAPINotToken, GetAPIWCookie } from "../../api/RestAPIs";
 import React, { useState, useEffect, useRef } from 'react';
 import styles from './ProductDetail.module.css';
 import axios from "axios";
@@ -21,7 +21,7 @@ function ProductDetail() {
     const detailProduct = async () => {
 
         const detailProductAddress = `/products/${prodCode}`;
-        const detailProductResponse = await GetAPINotToken(detailProductAddress);
+        const detailProductResponse = await GetAPIWCookie(detailProductAddress);
         setProduct(detailProductResponse.product);
     };
 
