@@ -1,7 +1,7 @@
 import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
 import styles from './Main.module.css'
 import { useState, useEffect } from "react";
-import { GetAPI } from '../api/RestAPIs';
+import { GetAPINotToken } from '../api/RestAPIs';
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -20,7 +20,7 @@ function Main(){
 
     const fetchProds = async () => {
         const prodsAddress = `/lastProds`
-        const prodsResponse =  await GetAPI(prodsAddress);
+        const prodsResponse =  await GetAPINotToken(prodsAddress);
         setLastProds(prodsResponse.lastProds);
     };
 
@@ -35,7 +35,7 @@ function Main(){
     const mostProducts = async () => {
 
         const mostProductsAddress = "/products/mostProducts"
-        const mostProductsResponse = await GetAPI(mostProductsAddress);
+        const mostProductsResponse = await GetAPINotToken(mostProductsAddress);
         setMost(mostProductsResponse.products);
     };
 

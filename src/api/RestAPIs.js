@@ -1,6 +1,6 @@
-export async function GetAPI(address) {
-
 import cookie from "react-cookies";
+
+export async function GetAPI(address) {
 
     const baseUrl = process.env.REACT_APP_SPRING_SERVER;
     const url = `${baseUrl}${address}`;
