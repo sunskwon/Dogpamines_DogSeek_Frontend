@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { GetAPI } from "../../../api/RestAPIs";
+import { GetAPIWCookie } from "../../../api/RestAPIs";
 
 import Loading from "../adminCommon/Loading";
 
@@ -23,7 +23,7 @@ function SelectProductByCode({ Location }) {
 
         try {
 
-            const response = await GetAPI(Location);
+            const response = await GetAPIWCookie(Location);
 
             if (response.error) {
 

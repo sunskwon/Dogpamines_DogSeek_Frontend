@@ -1,3 +1,5 @@
+import cookie from "react-cookies";
+
 export function GetAPI(address) {
 
     const baseUrl = process.env.REACT_APP_SPRING_SERVER;
@@ -16,6 +18,37 @@ export function GetAPI(address) {
     );
 };
 
+export async function GetAPIWCookie(address) {
+
+    const baseUrl = process.env.REACT_APP_SPRING_SERVER;
+    const url = baseUrl + address;
+
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': '*/*',
+            'Access-Cross-Allow-Origin': '*',
+            'Identifier': cookie.load('Identifier') ? cookie.load('Identifier') : '',
+            "Authorization": window.localStorage.getItem("accessToken"),
+        },
+    });
+
+    if (!cookie.load('Identifier')) {
+
+        const expires = new Date();
+        expires.setMinutes(expires.getMinutes() + 60);
+
+        cookie.save('Identifier', response.headers.get('Identifier', {
+            path: '/',
+            expires,
+        }));
+    };
+
+    const result = await response.json();
+
+    return result;
+}
 
 export function GetAPINotToken(address) {
 
@@ -33,8 +66,6 @@ export function GetAPINotToken(address) {
         }).then(res => res.json())
     );
 };
-
-
 
 export function PostAPI(address, Object) {
 
@@ -196,7 +227,7 @@ export const callRegisterAPI = async ({ user }) => {
 }
 
 // 이메일 인증 코드 발송
-export const callEmailVerification = async ( email, type ) => {
+export const callEmailVerification = async (email, type) => {
 
     const requestURL = 'http://localhost:8080/api/auth/send-verification-email';
     const requestBody = JSON.stringify({
@@ -225,7 +256,7 @@ export const callEmailVerification = async ( email, type ) => {
 }
 
 // 이메일 인증 확인
-export const callEmailVerify = async ( email, authNum ) => {
+export const callEmailVerify = async (email, authNum) => {
 
     const requestURL = 'http://localhost:8080/api/auth/verify-email';
     const requestBody = JSON.stringify({
@@ -246,8 +277,8 @@ export const callEmailVerify = async ( email, authNum ) => {
 
     if (response.status === 200) {
         const result = response.headers.get("Result");
-            console.log(`q result : ${result}`);
-            return result;
+        console.log(`q result : ${result}`);
+        return result;
     } else {
         const result = 'false';
         return result;
@@ -255,7 +286,7 @@ export const callEmailVerify = async ( email, authNum ) => {
 }
 
 // 사용자 ID 조회
-export const callFindUserId = async ( phone ) => {
+export const callFindUserId = async (phone) => {
 
     const requestURL = 'http://localhost:8080/user/find/email';
     const requestBody = JSON.stringify({
@@ -275,8 +306,8 @@ export const callFindUserId = async ( phone ) => {
 
     if (response.status === 200) {
         const result = response.headers.get("Result");
-            console.log(`q result : ${result}`);    // userId
-            return result;
+        console.log(`q result : ${result}`);    // userId
+        return result;
     } else {
         const result = 'false';
         return result;
@@ -284,7 +315,7 @@ export const callFindUserId = async ( phone ) => {
 }
 
 // 사용자 비밀번호 변경
-export const callChangePwd = async( userId, userPass ) => {
+export const callChangePwd = async (userId, userPass) => {
 
     const requestURL = 'http://localhost:8080/user/change/pwd';
     const requestBody = JSON.stringify({
@@ -293,7 +324,7 @@ export const callChangePwd = async( userId, userPass ) => {
     });
 
     const response = await fetch(requestURL, {
-        
+
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
@@ -302,7 +333,7 @@ export const callChangePwd = async( userId, userPass ) => {
         },
         body: requestBody
     });
-    
+
     if (response.status === 201) {
         const result = 'true';
         return result;
