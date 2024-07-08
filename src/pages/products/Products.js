@@ -1,4 +1,4 @@
-import { GetAPI } from "../../api/RestAPIs";
+import { GetAPINotToken } from "../../api/RestAPIs";
 import React, {useState, useEffect, useRef} from 'react';
 import styles from "./Products.module.css"
 import { useNavigate } from 'react-router-dom';
@@ -36,7 +36,7 @@ function Products () {
     const productsList = async () => {
 
         const productsListAddress = "/products"
-        const productsListResponse = await GetAPI(productsListAddress);
+        const productsListResponse = await GetAPINotToken(productsListAddress);
         setProduct(productsListResponse.products);
 
         const prices = productsListResponse.products.map(p => p.prodPrice);
@@ -47,7 +47,7 @@ function Products () {
     const mostProducts = async () => {
 
         const mostProductsAddress = "/products/mostProducts"
-        const mostProductsResponse = await GetAPI(mostProductsAddress);
+        const mostProductsResponse = await GetAPINotToken(mostProductsAddress);
         setMost(mostProductsResponse.products);
     };
 
@@ -62,7 +62,7 @@ function Products () {
 
     const searchProducts = async () => {
         const searchProductsAddress = `/products/search?value=${value}&prodRecom=${filterRecom}&prodAge=${filterAge}&prodCook=${filterCook}&prodSize=${filterSize}&prodEffi=${filterEffi}&prodPrice=${filterPrice}`
-        const searchProductsResponse = await GetAPI(searchProductsAddress);
+        const searchProductsResponse = await GetAPINotToken(searchProductsAddress);
         setProduct(searchProductsResponse.products);
     }
 

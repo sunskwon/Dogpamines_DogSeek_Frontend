@@ -16,6 +16,26 @@ export function GetAPI(address) {
     );
 };
 
+
+export function GetAPINotToken(address) {
+
+    const baseUrl = 'http://localhost:8080';
+    const url = `${baseUrl}${address}`;
+
+    return (
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+                'Access-Cross-Allow-Origin': '*',
+            },
+        }).then(res => res.json())
+    );
+};
+
+
+
 export function PostAPI(address, Object) {
 
     const baseUrl = process.env.REACT_APP_SPRING_SERVER;;
