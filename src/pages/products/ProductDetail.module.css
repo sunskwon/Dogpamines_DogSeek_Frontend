@@ -180,3 +180,33 @@
     font-size: 20px;
     font-weight: bold;
 }
+
+.volumeBox {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.volumeButton {
+    width: 70px;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #D4D4D4;
+    border-radius: 10px;
+    color: #999999;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.volumeButtonActive {
+    width: 70px;
+    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
+    border: 1px solid #005600;
+    background-color: #005600;
+    border-radius: 10px;
+    color: white;
+    margin-left: 10px;
+    cursor: pointer;
+}
