@@ -118,6 +118,11 @@
   margin: auto;
 }
 
+.error{
+    font-size: 20px;
+    margin: auto;
+}
+
 .modalContainer {
     margin: 15px auto;
     width: 230px;

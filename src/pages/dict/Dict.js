@@ -108,7 +108,7 @@ function Dict(){
 
            {isSmallModalOpen && 
             <div className={styles.grid} >
-                {filterDogBySize('소형견').length > 0 ? 
+              {filterDogBySize('소형견').length > 0 ? 
                 (
                 filterDogBySize('소형견').map((dog) => (
                     <Link to={`/dict/${dog.dogName}`} key={dog.dogName} state={{dogName: dog.dogName}}>
@@ -119,7 +119,9 @@ function Dict(){
                     </Link>
                 ))
                ) : (
-                <p>해당 내용이 포함된 견종이 없습니다.</p>
+                <>
+                <p></p><p className={styles.error}>해당 내용이 포함된 견종이 없습니다.</p>
+                </>
                )}
                 </div>
                 }
@@ -144,7 +146,9 @@ function Dict(){
                     </Link>
                 ))
             ) : (
-                <p>해당 내용이 포함된 견종이 없습니다.</p>
+                <>
+                <p></p><p className={styles.error}>해당 내용이 포함된 견종이 없습니다.</p>
+                </>
             )}
                 </div>
                 }
@@ -169,7 +173,9 @@ function Dict(){
                     </Link>
                 ))
             ) : (
-                <p>해당 내용이 포함된 견종이 없습니다.</p>
+                <>
+                <p></p><p className={styles.error}>해당 내용이 포함된 견종이 없습니다.</p>
+                </>
             )}
                 </div>
                 }
