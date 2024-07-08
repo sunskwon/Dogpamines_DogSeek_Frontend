@@ -4,17 +4,15 @@ import { useNavigate } from "react-router-dom";
 
 import { GetAPI } from "../../../api/RestAPIs"
 
+import Loading from "../adminCommon/Loading";
+
 import styles from "./AdminProducts.module.css";
 
 function SelectAllProducts({ search, bool, setModalOpen, setProduct }) {
 
-    const [products, setProducts] = useState(
-        [
-            {
-                prodCode: 0
-            }
-        ]
-    );
+    const [products, setProducts] = useState([]);
+    const [error, setError] = useState(null);
+    const [boolLoading, setBoolLoading] = useState(false);
 
     const navigate = useNavigate();
 
@@ -22,22 +20,66 @@ function SelectAllProducts({ search, bool, setModalOpen, setProduct }) {
 
         const address = '/products';
 
-        const response = await GetAPI(address);
+        setBoolLoading(true);
 
-        const result = await response.products;
+        try {
 
-        return result;
+            const response = await GetAPI(address);
+
+            if (response.error) {
+
+                setError(response.error);
+                setBoolLoading(false);
+
+                return [];
+            }
+
+            const result = await response.products;
+
+            return result;
+        } catch (error) {
+
+            setError(error);
+            setBoolLoading(false);
+
+            return [];
+        } finally {
+
+            setBoolLoading(false);
+        }
     };
 
     const searchProd = async () => {
 
         const address = `/products/prodsearch?type=${search.type}&input=${search.input}`;
 
-        const response = await GetAPI(address);
+        setBoolLoading(true);
 
-        const result = await response.products;
+        try {
 
-        return result;
+            const response = await GetAPI(address);
+
+            if (response.error) {
+
+                setError(response.error);
+                setBoolLoading(false);
+
+                return [];
+            }
+
+            const result = await response.products;
+
+            return result;
+        } catch (error) {
+
+            setError(error);
+            setBoolLoading(false);
+
+            return [];
+        } finally {
+
+            setBoolLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -48,21 +90,13 @@ function SelectAllProducts({ search, bool, setModalOpen, setProduct }) {
         searchProd().then(res => setProducts(res));
     }, [bool]);
 
-    return (
-        <>
-            {products.length === 0 &&
-                <div className={styles.errorBox}>
-                    <div>
-                        <img
-                            src="/images/admin/NothingFound.png"
-                            alt="슬픈 돋보기 아이콘"
-                        />
-                        <p>조건에 맞는 사료가 없습니다</p>
-                        <p>다시 시도해주세요</p>
-                    </div>
-                </div>
-            }
-            {products.length > 0 &&
+    if (error) {
+        throw error;
+    }
+
+    return boolLoading ? (<Loading />) : (
+        products?.length > 0 ? (
+            <>
                 <table className={styles.productListTable}>
                     <tbody>
                         <tr>
@@ -144,9 +178,22 @@ function SelectAllProducts({ search, bool, setModalOpen, setProduct }) {
                         ))}
                     </tbody>
                 </table>
-            }
-        </>
-    );
-}
+            </>
+        ) : (
+            <>
+                <div className={styles.errorBox}>
+                    <div>
+                        <img
+                            src="/images/admin/NothingFound.png"
+                            alt="슬픈 돋보기 아이콘"
+                        />
+                        <p>조건에 맞는 사료가 없습니다</p>
+                        <p>다시 시도해주세요</p>
+                    </div>
+                </div>
+            </>
+        )
+    )
+};
 
 export default SelectAllProducts;

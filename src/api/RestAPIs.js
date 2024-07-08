@@ -1,6 +1,6 @@
 export function GetAPI(address) {
 
-    const baseUrl = 'http://localhost:8080';
+    const baseUrl = process.env.REACT_APP_SPRING_SERVER;
     const url = `${baseUrl}${address}`;
 
     return (
@@ -16,10 +16,9 @@ export function GetAPI(address) {
     );
 };
 
-
 export function PostAPI(address, Object) {
 
-    const baseUrl = 'http://localhost:8080';
+    const baseUrl = process.env.REACT_APP_SPRING_SERVER;;
     const url = `${baseUrl}${address}`;
 
     return (
@@ -38,7 +37,7 @@ export function PostAPI(address, Object) {
 
 export function PutAPI(address, Object) {
 
-    const baseUrl = 'http://localhost:8080';
+    const baseUrl = process.env.REACT_APP_SPRING_SERVER;;
     const url = `${baseUrl}${address}`;
 
     return (
@@ -57,7 +56,7 @@ export function PutAPI(address, Object) {
 
 export function DeleteAPI(address) {
 
-    const baseUrl = 'http://localhost:8080';
+    const baseUrl = process.env.REACT_APP_SPRING_SERVER;;
     const url = `${baseUrl}${address}`;
 
     return (
