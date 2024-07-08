@@ -2,6 +2,7 @@ import styles from './Header1.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
+import { callLogoutAPI } from '../../api/RestAPIs';
 
 function Header1(){
 
@@ -10,15 +11,22 @@ function Header1(){
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userAuth, setUserAuth] = useState(null);
 
-    const handleLogout= () => {
-        window.localStorage.removeItem('accessToken');
-        window.localStorage.removeItem('userCode');
-        window.localStorage.removeItem('userNick');
-        window.localStorage.removeItem('userAuth');
-        setIsLoggedIn(false);
-        setUserAuth(null);
-        alert("로그아웃 되었습니다.");
-        navigate("/");
+    const handleLogout= async() => {
+        const result = await callLogoutAPI();
+
+        if (result === 'true') {
+            window.localStorage.removeItem('accessToken');
+            window.localStorage.removeItem('refreshToken');
+            window.localStorage.removeItem('userCode');
+            window.localStorage.removeItem('userNick');
+            window.localStorage.removeItem('userAuth');
+            setIsLoggedIn(false);
+            setUserAuth(null);
+            alert("로그아웃 되었습니다.");
+            navigate("/");
+        } else {
+            alert('로그아웃 실패');
+        }
     };
 
     const handleMypage= () => {
