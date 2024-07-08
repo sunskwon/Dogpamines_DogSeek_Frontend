@@ -204,11 +204,11 @@ function Mydog() {
                                 </div>
                                 <div className={styles.spanBox2}>
                                     <span className={styles.text7}>질병 여부</span>
-                                    <span className={styles.text9}>{modalCuration.curationDisease}</span>
+                                    <span className={styles.text9}>{modalCuration.curationDisease || '없음'}</span>
                                 </div>
                                 <div className={styles.spanBox2}>
                                     <span className={styles.text7}>알러지 여부</span>
-                                    <span className={styles.text9}>{modalCuration.curationAllergy}</span>
+                                    <span className={styles.text9}>{modalCuration.curationAllergy || '없음'}</span>
                                 </div>
                                 <div className={styles.spanBox2}>
                                     <span className={styles.text7}>선호 식재료</span>
@@ -226,7 +226,7 @@ function Mydog() {
             )}
 
             {/* Modal2 */}
-            {modalOpen2 && modalProd && myCurationResult && (
+            {modalOpen2 && modalProd && (
                 <div className={styles.modalContainer} ref={modalBackground} onClick={e => {
                     if (e.target === modalBackground.current) {
                         closeModal2();
@@ -234,22 +234,41 @@ function Mydog() {
                 }}>
                     <div className={styles.modalContent2} key={modalProd.prodCode}>
                         <div className={styles.modalTextContainer}>
-                            <p className={styles.modalText1}>{`회원님 반려견 ${modalProd.curationName}의 맞춤사료 정보입니다.`}</p>
-                            <hr />
-                            <div className={styles.wrapBox}>
-                                { myCurationResult.map(prod => (
-                                    <div className={styles.prodContainer} key={prod.prodCode}>
-                                        <img src={prod.prodImage} alt="ProductImage" className={styles.prodImage} />
-                                        <div className={styles.prodContent}>
-                                            <p className={styles.prodName}>{prod.prodName}</p>
-                                            <p className={styles.prodName}>{prod.prodManufac}</p>
-                                            <p className={styles.prodName}>{formatPrice(prod.prodPrice)}원</p>
-                                            <button className={styles.prodBtn} onClick={() => handleDetail(prod.prodCode, prod.prodAge, prod.prodRecom, prod.prodCook, prod.prodIngra, prod.prodEffi)}>상세보기</button>
+                            {myCurationResult.length === 0 ? (
+                                <>
+                                     <p className={styles.modalText1}>{`회원님 반려견 ${modalProd.curationName}의 맞춤사료 정보입니다.`}</p>
+                                     <hr/>
+                                     <div className={styles.wrapBox}>
+                                        <div>
+                                        <img src="/images/curation/cuteDog.png" style={{ width: "200px", margin: "0 auto" }} alt="Empty message" />
+                                        <p className={styles.emptyMessage}>
+                                            죄송합니다. 현재는 &nbsp;<p style={{ margin: "0px", color: "#63C54A" }}>{modalProd.curationName}</p>의 조건에 맞는 사료가 없습니다.
+                                        </p>
+                                        <p className={styles.emptyMessage}>더 많은 사료를 준비해 찾아뵙겠습니다!</p>
                                         </div>
+                                     </div>
+                                    <button className={styles.modalCloseBtn} onClick={closeModal2}>닫기</button>
+                                </>
+                            ) : (
+                                <>
+                                    <p className={styles.modalText1}>{`회원님 반려견 ${modalProd.curationName}의 맞춤사료 정보입니다.`}</p>
+                                    <hr />
+                                    <div className={styles.wrapBox}>
+                                        {myCurationResult.map(prod => (
+                                            <div className={styles.prodContainer} key={prod.prodCode}>
+                                                <img src={prod.prodImage} alt="ProductImage" className={styles.prodImage} />
+                                                <div className={styles.prodContent}>
+                                                    <p className={styles.prodName}>{prod.prodName}</p>
+                                                    <p className={styles.prodName}>{prod.prodManufac}</p>
+                                                    <p className={styles.prodName}>{formatPrice(prod.prodPrice)}원</p>
+                                                    <button className={styles.prodBtn} onClick={() => handleDetail(prod.prodCode, prod.prodAge, prod.prodRecom, prod.prodCook, prod.prodIngra, prod.prodEffi)}>상세보기</button>
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
-                                ))}
-                            </div>
-                                <button className={styles.modalCloseBtn} onClick={closeModal2}>닫기</button>
+                                    <button className={styles.modalCloseBtn} onClick={closeModal2}>닫기</button>
+                                </>
+                            )}
                         </div>
                     </div>
                 </div>

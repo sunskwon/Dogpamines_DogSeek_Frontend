@@ -314,36 +314,110 @@
 
 .pwdInput1{
     display: block;
+    width: 230px;
     font-size: 14px;
     margin-left: 74px;
     border: none;
     border: solid 1px #999999;
     border-radius: 5px;
+    padding-left: 5px;
 }
 
 .pwdInput2{
     display: block;
+    width: 230px;
     font-size: 14px;
     margin-left: 58px;
     border: none;
     border: solid 1px #999999;
     border-radius: 5px;
+    padding-left: 5px;
 }
 
 .pwdInput3{
     display: block;
+    width: 230px;
     font-size: 14px;
     margin-left: 30px;
     border: none;
     border: solid 1px #999999;
     border-radius: 5px;
-}
-    
-.pwdInput2::placeholder {
-    font-size: 9.3px;
+    padding-left: 5px;
 }
 
-.pwdInput3::placeholder {
-    font-size: 9.3px;
+.pwdInput1::placeholder {
+    font-size: 14px;
+}
+
+.pwdHideBox {
+    position: absolute;
+    margin-top: -35px;
+    margin-left: 380px;
+}
+
+.pwdHideBox> img {
+    width: 22px;
+}
+
+.pwdHideBox2 {
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 380px;
+}
+
+.pwdHideBox2> img {
+    width: 22px;
+}
+
+.rePwdHideBox {
+    position: absolute;
+    margin-top: 5px;
+    margin-left: 380px;
+}
+
+.rePwdHideBox> img {
+    width: 22px;
+}
+
+.defaultText{
+    display: flex;
+    position: absolute;
+    font-size: 10px;
+    margin-top: 53px;
+    margin-left: 137px;
+    padding-left: 2px;
+}
+
+.successText{
+    display: flex;
+    position: absolute;
+    font-size: 10px;
+    margin-top: 53px;
+    margin-left: 137px;
+    color: #63C54A;
+    font-weight: 500;
+    padding-left: 2px;
+}
+
+.failText{
+    display: flex;
+    position: absolute;
+    font-size: 10px;
+    margin-top: 53px;
+    margin-left: 137px;
+    color: #FF0000;
+    font-weight: 500;
+    padding-left: 2px;
+}
+
+.failText2{
+    display: flex;
+    position: absolute;
+    font-size: 10px;
+    margin-top: -10px;
+    margin-left: 137px;
+    color: #FF0000;
+    font-weight: 500;
+    padding-left: 2px;
 }
     
