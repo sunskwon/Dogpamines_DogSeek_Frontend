@@ -17,7 +17,7 @@ function DictDetail() {
     const selectOneDict = async (code) => {
         try {
             const address = `/dict/${code}`;
-            const response = await GetAPI(address);
+            const response = await GetAPINotToken(address);
             const result = response.dict;
             return result;
         } catch (error) {
