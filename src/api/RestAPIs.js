@@ -454,34 +454,3 @@ export async function GetValidAccessToken() {
     }
 
 }
-
-// 사용자 비밀번호 변경
-export const myPageChangePwd = async (userId, userPass) => {
-
-    const baseUrl = process.env.REACT_APP_SPRING_SERVER;
-    const requestURL = `${baseUrl}/mypage/change/pwd`;
-    const requestBody = JSON.stringify({
-        id: userId,
-        pwd: userPass
-    });
-
-    const response = await fetch(requestURL, {
-
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-            "Accept": "*/*",
-            "Access-Control-Allow-Origin": "*",
-        },
-        body: requestBody
-    });
-
-    if (response.status === 201) {
-        const result = 'true';
-        return result;
-    } else {
-        const result = 'false';
-        return result;
-    }
-
-}

@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './Mypage.module.css';
 import { useState, useEffect, useRef } from "react";
-import { DeleteAPI, GetAPI, PostAPI, PutAPI, myPageChangePwd } from '../../api/RestAPIs';
+import { DeleteAPI, GetAPI, PostAPI, PutAPI } from '../../api/RestAPIs';
 import { jwtDecode } from 'jwt-decode';
 
 
@@ -107,28 +107,13 @@ function Mypage(){
         }
     }
 
-    const verifyPassword = async (userCode, password) => {
-        try {
-            const address = `/mypage/verifyPassword`;
-            const response = await PostAPI(address, { userCode, password });
-            const result = await response.json();
-            return result.valid;
-        } catch (error) {
-            console.error("비밀번호 확인 오류:", error);
-            throw error;
-        }
-    };
-
     useEffect(() => {
         selectUserDetail().then(res =>setUsers(res));
     }, []);
 
     useEffect(() => {
-        setUserInfo(prevState => ({
-            ...prevState,
-            userCode: userCode
-        }));
-    }, [userCode]);
+        setUserInfo({...userInfo, userCode: userCode, userNick:userInfo.userNick})
+    },[userInfo.userCode]);
 
     useEffect(() => {
         if (userInfo.userNick && userNickRegex.test(userInfo.userNick)) {
@@ -174,6 +159,8 @@ function Mypage(){
 
     const onNickChange = (e) => {
         setUserInfo({...userInfo, userNick: e.target.value});
+        setCheckNick({...checkNick, type: 'nick', info: e.target.value});
+        console.log(userInfo);
     };
 
     const handleConfirmNick = async () => {
@@ -202,20 +189,18 @@ function Mypage(){
         }
     };
 
-    const onPwdChange1 = async (e) => {
+    const onPwdChange1 = (e) => {
         const enteredPassword = e.target.value;
-    
-        try {
-            const isValid = await verifyPassword(userCode, enteredPassword);
-    
-            if (isValid) {
-                setShowPwdError(false); 
-            } else {
-                setShowPwdError(true);
+        try{
+            const result = selectUserDetail(users.userPass);
+
+            if(result === enteredPassword) {
+                setShowPwdError(false);
             }
         } catch (error) {
-            console.log("비밀번호 확인 오류:", error);
+            console.log(error);
         }
+        
     };
 
     const onPwdChange = (e) => {
@@ -280,21 +265,22 @@ function Mypage(){
     }
 
     const onClickChange = async() => {
-        if (checkPass.password.length !== 0 && checkPass.rePassword.length !== 0) {
-            try {
-                const result = await verifyPassword(userCode, checkPass.password);
-                if (result === 'false') {
-                    setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '비밀번호 변경 실패!' });
+        if (checkPass.password.length !== 0) {
+            if (checkPass.rePassword.length !== 0) {
+                if (showRePwdTxt) {
+                    const address = `/mypage/change/pwd`
+                    const response = await PutAPI(address,checkPass.password);
+                    const result = setUserInfo({...userInfo, response});
+                    console.log(result);
+                    if (result === 'true') {
+                        setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '비밀번호 변경 완료!' });
+                    } else {
+                        setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '비밀번호 변경 실패!' });
+                    }
                 } 
-                const response = await myPageChangePwd(checkPass.password);
-                console.log(response);
-            } catch (error) {
-                console.log("Error changing password:", error);
-            }
-        } else {
-            console.log("올바른 비밀번호를 입력하세요.");
-        }
-    };
+            } 
+        } 
+    }
 
     const handleDelete = async () => {
 
@@ -320,14 +306,6 @@ function Mypage(){
             [name]: value
         });
     };
-
-    useEffect(() => {
-        if (modalBackground.state || isModalOpen || isModalOpen2) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
-        }
-    }, [isModalOpen, isModalOpen2]);
 
     return(
         <>
@@ -381,7 +359,11 @@ function Mypage(){
         {/* Delete Modal */}
             {
                 isModalOpen && 
-                <div className={styles.modalContainer} ref={modalBackground}>
+                <div className={styles.modalContainer} ref={modalBackground} onClick={e => {
+                    if (e.target === modalBackground.current) {
+                        setIsModalOpen(false)
+                    }
+                }}>
                     <div className={styles.modalContent}>
                         <div className={styles.modalTextContainer}>
                             <div className={styles.modal_content}>
@@ -400,7 +382,11 @@ function Mypage(){
             {/* Pwd Change Modal */}
             {
                 isModalOpen2 && 
-                <div className={styles.modalContainer} ref={modalBackground}>
+                <div className={styles.modalContainer} ref={modalBackground} onClick={e => {
+                    if (e.target === modalBackground.current) {
+                        setIsModalOpen2(false)
+                    }
+                }}>
                     <div className={styles.modalContent}>
                         <div className={styles.modalTextContainer1}>
                             <div className={styles.modal_content}>
