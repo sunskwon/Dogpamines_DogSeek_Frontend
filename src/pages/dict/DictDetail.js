@@ -1,4 +1,4 @@
-import { GetAPI } from '../../api/RestAPIs';
+import { GetAPI, GetAPINotToken } from '../../api/RestAPIs';
 import styles from './DictDetail.module.css';
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
@@ -13,10 +13,6 @@ function DictDetail() {
     const [loading, setLoading] = useState(true);
 
     const [disease, setDisease] = useState('');
-
-    const [changeImage, setChangeImage] = useState(null);
-
-    const [isClicked, setIsClicked] = useState();
 
     const selectOneDict = async (code) => {
         try {

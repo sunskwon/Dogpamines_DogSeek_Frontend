@@ -26,28 +26,32 @@ function Header1(){
         navigate("/mypage")
     }
 
-    useEffect(() => {
-        var decodedToken = '';
-        
-        var userCode = '';
-        var userNick = '';
-        var userAuth = '';
-        
-        try {
-            decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
-
-            userCode = decodedToken.userCode;
-            userNick = decodedToken.userNick;
-            userAuth = decodedToken.userAuth;
-
-        } catch (error) {
-
+    const login = (token) => {
+        if (token && typeof token === 'string') {
+            window.localStorage.setItem("accessToken", token);
+            const decodedToken = jwtDecode(token);
+            setIsLoggedIn(true);
+            setUserAuth(decodedToken.userAuth);
         }
+    };
 
-
-        setIsLoggedIn(!!decodedToken);
-        setUserAuth(userAuth);
-    },[]);
+    useEffect(() => {
+        const token = window.localStorage.getItem("accessToken");
+        if (token && typeof token === 'string') {
+            try {
+                const decodedToken = jwtDecode(token);
+                setIsLoggedIn(true);
+                setUserAuth(decodedToken.userAuth);
+            } catch (error) {
+                console.error("Invalid token:", error);
+                setIsLoggedIn(false);
+                setUserAuth(null);
+            }
+        } else {
+            setIsLoggedIn(false);
+            setUserAuth(null);
+        }
+    }, []);
 
     return(
         <header>
@@ -66,8 +70,12 @@ function Header1(){
                         <a aria-label="로그인 또는 로그아웃" className={styles.rightText} onClick={isLoggedIn ? handleLogout : () => navigate("/login")}>{isLoggedIn ? "Logout" : "Login"}</a>
                         {userAuth === "ADMIN" ? (
                             <a aria-label='회원가입 또는 AdminPage' className={styles.rightText} onClick={() => navigate("/admin")}>AdminPage</a>
-                        ) : (
-                            <a aria-label='회원가입 또는 마이페이지' className={styles.rightText} onClick={isLoggedIn ? handleMypage : () => navigate("/signup")}>{isLoggedIn ? "MyPage" : "SignUp"}</a>
+                        ) : (userAuth === "USER" && isLoggedIn ? 
+                            (
+                                    <a aria-label='마이페이지' className={styles.rightText} onClick={handleMypage}>MyPage</a>
+                                ) : ( 
+                                    <a aria-label='회원가입 또는 마이페이지' className={styles.rightText} onClick={() => navigate("/signup")}>SignUp</a>
+                                )
                         )}
                     </div>
                 </div>
