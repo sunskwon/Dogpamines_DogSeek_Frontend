@@ -99,7 +99,7 @@
 .inputBox1{
     display: block;
     font-size: 14px;
-    margin-top: 20px;
+    margin-top: 10px;
     border: none;
     border: solid 1px #999999;
     border-radius: 5px;
@@ -108,7 +108,6 @@
 .inputBox2{
     display: block;
     font-size: 14px;
-    margin-top: 30px;
     border: none;
     border: solid 1px #999999;
     border-radius: 5px;
@@ -165,6 +164,12 @@
     display: flex;
     display: ruby;
 }
+
+.user4{
+    display: flex;
+    display: ruby;
+}
+
 
 .btn2 {
     width: 50px;
@@ -269,3 +274,76 @@
 .red {
     color: red;
 }
+
+.modalTextContainer1{
+    width: 500px;
+    height: 50px;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.modalText1 {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.btnContainer1{
+    display: flex;
+    justify-content:space-evenly;
+    height: 30px;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+
+.pwdBox {
+    height: 50px;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.pwdText{
+    font-size: 14px;
+    line-height: 40px;
+    margin-left: 10px;
+}
+
+.pwdInput1{
+    display: block;
+    font-size: 14px;
+    margin-left: 74px;
+    border: none;
+    border: solid 1px #999999;
+    border-radius: 5px;
+}
+
+.pwdInput2{
+    display: block;
+    font-size: 14px;
+    margin-left: 58px;
+    border: none;
+    border: solid 1px #999999;
+    border-radius: 5px;
+}
+
+.pwdInput3{
+    display: block;
+    font-size: 14px;
+    margin-left: 30px;
+    border: none;
+    border: solid 1px #999999;
+    border-radius: 5px;
+}
+    
+.pwdInput2::placeholder {
+    font-size: 9.3px;
+}
+
+.pwdInput3::placeholder {
+    font-size: 9.3px;
+}
+    
