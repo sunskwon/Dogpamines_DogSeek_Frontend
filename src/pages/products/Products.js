@@ -25,7 +25,6 @@ function Products () {
     const [filterCook, setFilterCook] = useState('');
     const [filterSize, setFilterSize] = useState('');
     const [filterEffi, setFilterEffi] = useState('');
-    const [sortType, setSortType] = useState('평점');
     const [value, setValue] = useState('');
     const [page, setPage] = useState(1);
 
@@ -133,20 +132,15 @@ function Products () {
 
     const sort = (event) => {
         const value = event.target.value;
-        setSortType(value);
 
         const sortedProducts = [...product];
-        if (value === '최신') {
-            sortedProducts.sort((a, b) => new Date(b.prodDate) - new Date(a.prodDate));
-        } else if (value === '평점') {
-            sortedProducts.sort((a, b) => b.prodGrade - a.prodGrade);
-        } else if (value === '높은') {
+        if (value === '높은') {
             sortedProducts.sort((a, b) => b.prodPrice - a.prodPrice);
+            setProduct(sortedProducts);
         } else if (value === '낮은') {
             sortedProducts.sort((a, b) => a.prodPrice - b.prodPrice);
+            setProduct(sortedProducts);
         }
-
-        setProduct(sortedProducts);
     };
 
     return(
@@ -390,8 +384,7 @@ function Products () {
                 <div style={{display:"flex", marginLeft:"20px", marginTop:"65px"}}>
                     <p style={{height:"30px", margin:"0px", fontSize:"14px", lineHeight:"30px"}}>정렬기준:</p>
                     <select onChange={sort} style={{border:"none", height:"30px"}}>
-                        <option value='최신'>최신순</option>
-                        <option value='평점'>평점순</option>
+                        <option>선택</option>
                         <option value='높은'>가격 높은순</option>
                         <option value='낮은'>가격 낮은순</option>
                     </select>

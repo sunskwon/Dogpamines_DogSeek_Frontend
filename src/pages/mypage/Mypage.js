@@ -27,6 +27,7 @@ function Mypage(){
     const [users, setUsers] = useState([]);
     const [userInfo, setUserInfo] = useState({
         userCode: '',
+        userId: '',
         userPass: '',
         newUserPass: '',
         confirmNewUserPass: '',
@@ -44,13 +45,33 @@ function Mypage(){
     });
 
     const [checkPass, setCheckPass] = useState({
-        type: '',
-        info: ''
+        password: '',
+        rePassword: ''
     });
 
-    const [passAvailability, setPassAvailability] = useState({
-        available: true,
-        message: ''
+    const [pwdHide, setPwdHide] = useState(true);
+    const [pwdType, setPwdType] = useState('password');
+
+    const [pwdHide2, setPwdHide2] = useState(true);
+    const [pwdType2, setPwdType2] = useState('password');
+
+    const [rePwdHide, setRePwdHide] = useState(true);
+    const [rePwdType, setRePwdType] = useState('password');
+
+    const [showPwdDefault, setShowPwdDefault] = useState(true);
+    const [showPwdTxt, setShowPwdTxt] = useState(false);
+    const [showPwdError, setShowPwdError ] = useState(false);
+
+    const [showRePwdDefault, setShowRePwdDefault] = useState(true);
+    const [showRePwdTxt, setShowRePwdTxt] = useState(false);
+    const [showRePwdError, setShowRePwdError] = useState(false);
+
+    
+    const [modal, setModal] = useState({
+        state: false,
+        isCheck: false,
+        isOneBtn: true,
+        text: '',
     });
 
 
@@ -123,16 +144,6 @@ function Mypage(){
         }
     }, [userInfo.userNick]);
 
-    // useEffect(() => {
-    //     if(userInfo.userPass && userPassRegex.text(userInfo.userPass)) {
-    //         const checkPassAvailability = async () => {
-    //             try{
-    //                 const result = awa
-    //             }
-    //         }
-    //     }
-    // })
-
     const openModal = () => {
         setIsModalOpen(true);
     }
@@ -178,41 +189,98 @@ function Mypage(){
         }
     };
 
-    const handleConfirm = async () => {
-        console.log("변경");
-        if(userInfo.newUserPass !== userInfo.confirmNewUserPass) {
-            alert("새 비밀번호와 일치하지 않습니다.");
-            return;
-        } 
-        if(!userPassRegex.test(userInfo.newUserPass)) {
-            setPassAvailability({
-                available:false,
-                message: '비밀번호 형식과 맞지 않습니다.'
-            })
-            return;
-        }
-        try {
-            const address = `/mypage`;
-            const response = await PutAPI(address, {
-                userCode,
-                userPass: userInfo.userPass,
-                userNick: userInfo.userNick
-            });
-            console.log(response);
-            setIsModalOpen(false);
-        } catch(error) {
+    const onPwdChange1 = (e) => {
+        const enteredPassword = e.target.value;
+        try{
+            const result = selectUserDetail(users.userPass);
+
+            if(result === enteredPassword) {
+                setShowPwdError(false);
+            }
+        } catch (error) {
             console.log(error);
-            alert("정보 변경 실패");
         }
+        
     };
 
-    const checkPasswordMatch = () => {
-        if (userInfo.userPass === '비밀번호') {
-            alert('비밀번호가 일치합니다.');
+    const onPwdChange = (e) => {
+        const temp = e.target.value;
+
+        if (userPassRegex.test(temp)) {
+            setShowPwdDefault(false);
+            setShowPwdTxt(true);
         } else {
-            alert('비밀번호가 일치하지 않습니다.');
+            setShowPwdTxt(false);
+            setShowPwdDefault(true);
         }
-    };
+
+        setCheckPass({...checkPass, password: temp});
+    }
+
+    const onPwdReChange = (e) => {
+        const temp = e.target.value;
+        setCheckPass({...checkPass, rePassword: temp});
+        if (checkPass.password === temp) {
+            setShowRePwdDefault(false);
+            setShowRePwdError(false);
+            setShowRePwdTxt(true);
+        } else {
+            setShowRePwdDefault(false);
+            setShowRePwdTxt(false);
+            setShowRePwdError(true);
+        }
+    }
+
+    const onClickHide = () => {
+        setPwdHide(!pwdHide);
+        console.log(`pwdHide : ${pwdHide}`);
+        console.log(`pwdType : ${pwdType}`);
+        if (pwdType === 'password') {
+            setPwdType('text');
+        } else {
+            setPwdType('password');
+        }
+    }
+    
+    const onClickHide2 = () => {
+        setPwdHide2(!pwdHide2);
+        console.log(`pwdHide2 : ${pwdHide2}`);
+        console.log(`pwdType2 : ${pwdType2}`);
+        if (pwdType2 === 'password') {
+            setPwdType2('text');
+        } else {
+            setPwdType2('password');
+        }
+    }
+
+    const onClickReHide = () => {
+        setRePwdHide(!rePwdHide);
+        console.log(`re pwdHide : ${rePwdHide}`);
+        console.log(`re pwdType : ${rePwdType}`);
+        if (rePwdType === 'password') {
+            setRePwdType('text');
+        } else {
+            setRePwdType('password');
+        }
+    }
+
+    const onClickChange = async() => {
+        if (checkPass.password.length !== 0) {
+            if (checkPass.rePassword.length !== 0) {
+                if (showRePwdTxt) {
+                    const address = `/mypage/change/pwd`
+                    const response = await PutAPI(address,checkPass.password);
+                    const result = setUserInfo({...userInfo, response});
+                    console.log(result);
+                    if (result === 'true') {
+                        setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '비밀번호 변경 완료!' });
+                    } else {
+                        setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '비밀번호 변경 실패!' });
+                    }
+                } 
+            } 
+        } 
+    }
 
     const handleDelete = async () => {
 
@@ -326,25 +394,44 @@ function Mypage(){
                             <hr />
                                 <div className={styles.pwdBox}>
                                     <p className={styles.pwdText}>비밀번호</p>
-                                    <input type='password' className={styles.pwdInput1} name='userPass' onChange={handleInputChange} value={userInfo.userPass}></input>
+                                    <input type={pwdType} className={styles.pwdInput1} placeholder='비밀번호를 입력해주세요.' value={users.userPass} onChange={onPwdChange1}></input>
                                 </div>
+                                <div className={styles.pwdHideBox} onClick={onClickHide}>
+                                    {pwdHide ? 
+                                    (<img src='./images/auth/pwd_hide.png' alt='pwd_hide'></img>) 
+                                    : (<img src='./images/auth/pwd_eye.png' alt='pwd_eye'></img>)
+                                    }
+                                </div>
+                                    { showPwdError &&  (<p className={styles.failText2}>기존 비밀번호와 일치하지 않습니다.</p>)}
                                 <div className={styles.pwdBox}>
                                     <p className={styles.pwdText}>새 비밀번호</p>
-                                    <input type='password' className={styles.pwdInput2} placeholder='영문, 숫자, 특수문자 중 두 종류 이상  8~12자 이내' name='newUserPass' onChange={handleInputChange} value={userInfo.newUserPass}></input>
+                                    <input type={pwdType2} className={styles.pwdInput2} onChange={onPwdChange} value={checkPass.newUserPass}></input>
+                                    <div className={styles.pwdHideBox2} onClick={onClickHide2}>
+                                    {pwdHide2 ? 
+                                    (<img src='./images/auth/pwd_hide.png' alt='pwd_hide'></img>) 
+                                    : (<img src='./images/auth/pwd_eye.png' alt='pwd_eye'></img>)
+                                    }
+                                    </div>
+                                    { showPwdDefault && (<p className={styles.defaultText}>영문, 숫자, 특수문자 중 두 종류 이상 8~12자 이내</p>)}
+                                    { showPwdTxt && (<p className={styles.successText}>사용가능한 비밀번호입니다.</p>)}
                                 </div>
-                                {passAvailability.message && (
-                                    <span className={`${styles.errorText} ${passAvailability.available ? styles.green : styles.red}`}>
-                                    {passAvailability.message}
-                                </span>
-                                )}
                                 <div className={styles.pwdBox}>
                                     <p className={styles.pwdText}>새 비밀번호 확인</p>
-                                    <input type='password' className={styles.pwdInput3} placeholder='영문, 숫자, 특수문자 중 두 종류 이상  8~12자 이내' name='confirmNewUserPass' onChange={handleInputChange} value={userInfo.confirmNewUserPass}></input>
+                                    <input type={rePwdType} className={styles.pwdInput3} onChange={onPwdReChange} value={checkPass.confirmNewUserPass}></input>
+                                    <div className={styles.rePwdHideBox} onClick={onClickReHide}>
+                                    {rePwdHide ? 
+                                    (<img src='./images/auth/pwd_hide.png' alt='pwd_hide'></img>) 
+                                    : (<img src='./images/auth/pwd_eye.png' alt='pwd_eye'></img>)
+                                    }
+                                </div>
+                                { showRePwdDefault && (<p></p>)}
+                                { showRePwdTxt && (<p className={styles.successText}>새 비밀번호와 일치합니다.</p>)}
+                                { showRePwdError &&  (<p className={styles.failText}>새 비밀번호와 일치하지 않습니다.</p>)}
                                 </div>
                             </div>
                             <div className={styles.btnContainer1}>
                                 <button className={styles.modalCloseBtn} onClick={handleCancel}>닫기</button>
-                                <button className={styles.modalDeleteBtn} onClick={handleConfirm}>변경</button>
+                                <button className={styles.modalDeleteBtn} onClick={onClickChange}>변경</button>
                             </div>
                         </div>
                     </div>

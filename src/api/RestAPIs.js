@@ -1,5 +1,7 @@
 export async function GetAPI(address) {
 
+import cookie from "react-cookies";
+
     const baseUrl = process.env.REACT_APP_SPRING_SERVER;
     const url = `${baseUrl}${address}`;
     const accessToken = await GetValidAccessToken();
@@ -17,6 +19,37 @@ export async function GetAPI(address) {
     );
 };
 
+export async function GetAPIWCookie(address) {
+
+    const baseUrl = process.env.REACT_APP_SPRING_SERVER;
+    const url = baseUrl + address;
+
+    const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': '*/*',
+            'Access-Cross-Allow-Origin': '*',
+            'Identifier': cookie.load('Identifier') ? cookie.load('Identifier') : '',
+            "Authorization": window.localStorage.getItem("accessToken"),
+        },
+    });
+
+    if (!cookie.load('Identifier')) {
+
+        const expires = new Date();
+        expires.setMinutes(expires.getMinutes() + 60);
+
+        cookie.save('Identifier', response.headers.get('Identifier', {
+            path: '/',
+            expires,
+        }));
+    };
+
+    const result = await response.json();
+
+    return result;
+}
 
 export function GetAPINotToken(address) {
 
@@ -34,8 +67,6 @@ export function GetAPINotToken(address) {
         }).then(res => res.json())
     );
 };
-
-
 
 export async function PostAPI(address, Object) {
 

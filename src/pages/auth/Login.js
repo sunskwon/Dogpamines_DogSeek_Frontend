@@ -38,6 +38,7 @@ function Login() {
                     navigate('/admin');
                 } else if (userAuth === 'USER') {
                     navigate('/');
+                    window.location.reload();
                 } else if (userAuth === 'SLEEP') {
                     setModal({ ...modal, state: true, text: '휴면회원입니다.' });
                 } else {

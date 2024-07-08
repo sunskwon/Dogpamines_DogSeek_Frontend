@@ -258,20 +258,40 @@
 }
 
 .wrapBox{
-    width: 879px;
+    width: 800px;
+    height: 400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2열로 설정 */
+    gap: 20px; 
+    overflow-y: scroll;
+}
+
+.wrapBox1{
+    width: 800px;
     margin: 0 auto;
     display: flex;
     justify-content: space-evenly;
 }
 
+.wrapBox::-webkit-scrollbar {
+    width: 10px; 
+}
+
+.wrapBox::-webkit-scrollbar-thumb {
+    background: #63C54A; /* 스크롤바 색상 */
+    border-radius: 10px; /* 스크롤바 둥근 테두리 */
+}
+
+.wrapBox::-webkit-scrollbar-track {
+    background: #D4D4D4;  /*스크롤바 뒷 배경 색상*/
+    border-radius: 10px;
+}
+
 .prodContainer{
-    width: 50%;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
-    margin-top: 25px;
-    margin-bottom: 40px;
-    cursor: pointer;
+    align-items: center;
 }
 
 .prodContent{
@@ -283,6 +303,7 @@
 .prodImage {
     display: flex;
     margin: 0 auto;
+    margin-top: 30px;
     width: 200px;
 }
 
@@ -303,4 +324,13 @@
     font-size: 14px;
     font-weight: bold;
     cursor: pointer;
+}
+
+.emptyMessage{
+    font-size: 16px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
 }
