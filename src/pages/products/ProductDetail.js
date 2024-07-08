@@ -19,7 +19,7 @@ function ProductDetail () {
 
     const detailProduct = async () => {
 
-        const detailProductAddress = `/products/${prodCode}`;
+        const detailProductAddress = `/products/detail?prodCode=${prodCode}`;
         const detailProductResponse = await GetAPINotToken(detailProductAddress);
         setProduct(detailProductResponse.product);
     };
