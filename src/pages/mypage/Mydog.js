@@ -238,7 +238,7 @@ function Mydog() {
                                 <>
                                      <p className={styles.modalText1}>{`회원님 반려견 ${modalProd.curationName}의 맞춤사료 정보입니다.`}</p>
                                      <hr/>
-                                     <div className={styles.wrapBox}>
+                                     <div className={styles.wrapBox1}>
                                         <div>
                                         <img src="/images/curation/cuteDog.png" style={{ width: "200px", margin: "0 auto" }} alt="Empty message" />
                                         <p className={styles.emptyMessage}>
