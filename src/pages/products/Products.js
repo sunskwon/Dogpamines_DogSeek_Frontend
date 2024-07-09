@@ -47,9 +47,10 @@ function Products () {
 
         const mostProductsAddress = "/products/mostProducts"
         const mostProductsResponse = await GetAPINotToken(mostProductsAddress);
-        setMost(mostProductsResponse.products);
+        setMost(mostProductsResponse.products.Popular)
     };
-
+    
+    
     useEffect(() => {
         productsList();
         mostProducts();
@@ -143,6 +144,12 @@ function Products () {
         }
     };
 
+    if (modalOpen) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
+
     return(
         <div style={{width:"1180px", margin:"0 auto"}}>
             <div className={styles.box}>
@@ -153,11 +160,7 @@ function Products () {
                 </div>
                 {
                     modalOpen &&
-                    <div className={styles.modalContainer} ref={modalBackground} onClick={e => {
-                        if (e.target === modalBackground.current) {
-                            setModalOpen(false)
-                        }
-                    }}>
+                    <div className={styles.modalContainer} ref={modalBackground}>
                         <div className={styles.modalContent}>
                             <div className={styles.allBox}>
                                 <>
@@ -348,7 +351,9 @@ function Products () {
                 className="mySwiper"
                 style={{"--swiper-theme-color":"#63C54A"}}
             >
-            {most.map(most => (
+            {most
+            .slice(0, 10)
+            .map(most => (
                 <SwiperSlide  key={most.prodCode}>
                     <div className={styles.productsBox2} onClick={() => onClick(most.prodCode, most.prodAge, most.prodRecom, most.prodCook, most.prodIngra, most.prodEffi)}>
                         <img src={most.prodImage} style={{width:"282px"}}/>
