@@ -137,6 +137,7 @@
     width: 45%;
     margin-left: 60px;
     margin-top: 40px;
+    position: relative;
 }
 
 .comparisonText {
@@ -209,4 +210,17 @@
     color: white;
     margin-left: 10px;
     cursor: pointer;
+}
+
+.cancelButton {
+    position: absolute;
+    width: 150px;
+    height: 47px;
+    border-radius: 10px;
+    border: 1px solid #005600;
+    color: white;
+    background-color: #005600;
+    margin-left: 325px;
+    margin-top: 800px;
+
 }

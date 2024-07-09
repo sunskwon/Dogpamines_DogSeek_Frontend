@@ -14,7 +14,6 @@ function ProductDetail() {
     const [toggleState, setToggleState] = useState(false);
     const [comparison, setComparison] = useState([]);
     const [modalOpen, setModalOpen] = useState(false);
-    const modalBackground = useRef();
     const [nDate, setNDate] = useState([]);
     const [volume, setVolume] = useState([]);
 
@@ -113,6 +112,12 @@ function ProductDetail() {
     }, [`${product.prodName}`]);
 
     nDate.sort((a, b) => a.lprice - b.lprice);
+
+    if (modalOpen) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
 
     return (
         <div className={styles.allBox}>
@@ -217,13 +222,9 @@ function ProductDetail() {
                                 </div>
                                 <button className={styles.button} onClick={() => onClick(similarProd.prodCode)}>비교하기</button>
                                 {modalOpen && (
-                                    <div className={styles.modalContainer} ref={modalBackground} onClick={e => {
-                                        if (e.target === modalBackground.current) {
-                                            setModalOpen(false);
-                                        }
-                                    }}>
+                                    <div className={styles.modalContainer}>
                                         <div className={styles.modalContent}>
-                                            <div style={{ display: "flex", marginTop: "50px", marginLeft: "50px" }}>
+                                            <div style={{ display: "flex", marginTop: "30px", marginLeft: "50px" }}>
                                                 <p style={{ fontSize: "20px", fontWeight: "bold", margin: "0" }}>DogSeek</p>
                                                 <p style={{ fontSize: "20px", fontWeight: "bold", color: "#63C54A", margin: "0", marginLeft: "5px" }}>Compare</p>
                                             </div>
@@ -275,6 +276,7 @@ function ProductDetail() {
                                                             </div>
                                                         </div>
                                                     ))}
+                                                    <button className={styles.cancelButton} onClick={() => setModalOpen(false)}>닫기</button>
                                             </div>
                                         </div>
                                     </div>
