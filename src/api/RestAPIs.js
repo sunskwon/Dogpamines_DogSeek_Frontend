@@ -158,6 +158,9 @@ export const callLoginAPI = async ({ user }) => {
 
             const result = 'true';
             return result;
+        } else if (response.status === 204) {
+            const result = 'SLEEP'
+            return result;
         } else {
             const result = 'false';
             return result;
@@ -451,6 +454,36 @@ export async function GetValidAccessToken() {
     } else {
         const accessToken = window.localStorage.getItem('accessToken');
         return accessToken;
+    }
+
+}
+
+// 휴면해제
+export const callUpdateSleep = async(userId) => {
+
+    const baseUrl = process.env.REACT_APP_SPRING_SERVER;
+    const requestURL = `${baseUrl}/user/release/sleep`;
+    const requestBody = JSON.stringify({
+        id: userId
+    });
+
+    const response = await fetch(requestURL, {
+
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "*/*",
+            "Access-Control-Allow-Origin": "*",
+        },
+        body: requestBody
+    });
+
+    if (response.status === 201) {
+        const result = 'true';
+        return result;
+    } else {
+        const result = 'false';
+        return result;
     }
 
 }
