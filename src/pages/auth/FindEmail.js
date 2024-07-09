@@ -1,6 +1,6 @@
 import style from './FindEmail.module.css';
 import React, { useState } from 'react';
-import { checkAPI, callEmailVerification, callEmailVerify, callFindUserId } from '../../api/RestAPIs';
+import { checkAPI, callFindUserId } from '../../api/RestAPIs';
 import { useNavigate } from 'react-router-dom';
 
 function FindEmail() {
@@ -9,10 +9,7 @@ function FindEmail() {
         type: '',
         info: ''
     });
-    const [email, setEmail] = useState("");
-    const [authNum, setAuthNum] = useState("");
-    const [showCheck, setShowCheck] = useState(false);
-    const [showConfirmed, setShowConfirmed] = useState(true);
+
     const [userId, setUserId] = useState('');
     const [signupDate, setSignupDate] = useState('');
     const [showIdVerify, setShowIdVerify] = useState(true);
@@ -20,16 +17,20 @@ function FindEmail() {
 
     const [modal, setModal] = useState({
         state: false,
-        text: '',
         isCheck: false,
+        isOneBtn: true,
+        text: '',
     });
+
+    if (modal.state) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
 
     const onPhoneChange = (e) => {
         setCheckPhone({ ...checkPhone, type: 'phone', info: e.target.value });
     }
-
-    const onEmailChange = (e) => setEmail(e.target.value);
-    const onNumChange = (e) => setAuthNum(e.target.value);
 
 
     // 연락처('-' 사용)
@@ -44,73 +45,56 @@ function FindEmail() {
                 const result = await checkAPI(checkPhone);
 
                 if (result === 'false') {
-                    setShowConfirmed(false);
-                    setShowCheck(true);
-                } else {
-                    setModal({ ...modal, state: true, isCheck: false, text: '일치하는 정보가 없습니다.' });
-                }
-            } else {
-                setModal({ ...modal, state: true, isCheck: false, text: '연락처가 올바르지 않은 형식입니다.' });
-            }
-        } else {
-            setModal({ ...modal, state: true, isCheck: false, text: '연락처를 입력해주세요.' });
-        }
-    }
 
-    const onClickEmail = async () => {
-        if (showCheck === true) {
-            const type = 'findId';
-            const result = await callEmailVerification(email, type);
+                    const result = await callFindUserId(checkPhone.info);
 
-            if (result === 'true') {
-                setModal({ ...modal, state: true, isCheck: true, text: '인증번호가 발송되었습니다.' });
-            } else {
-                setModal({ ...modal, state: true, isCheck: false, text: '인증번호 발송 실패.' });
-            }
-        } else {
-            setModal({ ...modal, state: true, isCheck: false, text: '연락처 일치 여부 확인이 필요합니다.' });
-        }
-    }
+                    if (result !== 'false') {
+                        const cleanedResult = result.replace(/{|}/g, '');
+                        const resultObject = cleanedResult.split(', ').reduce((acc, current) => {
+                            const [key, value] = current.split('=');
+                            acc[key] = value;
+                            return acc;
+                        }, {});
+                        const signupDate = resultObject.signupDate;
+                        const userId = resultObject.userId;
+                        const maskedUserId = maskEmail(userId);
 
-    const onClickNumCheck = async () => {
-
-        if (showCheck === true) {
-
-            if (authNum.length !== 0) {
-                if (authNum.length === 6) {
-                    const result = await callEmailVerify(email, authNum);
-
-                    if (result === 'true') {
-                        // 사용자 ID 조회
-                        const result = await callFindUserId(checkPhone.info);
-                        if (result !== 'false') {
-                            const cleanedResult = result.replace(/{|}/g, '');
-                            const resultObject = cleanedResult.split(', ').reduce((acc, current) => {
-                                const [key, value] = current.split('=');
-                                acc[key] = value;
-                                return acc;
-                            }, {});
-                            const signupDate = resultObject.signupDate;
-                            const userId = resultObject.userId;
-
-                            setUserId(userId);
-                            setSignupDate(signupDate);
-                            setShowIdVerify(false);
-                        } else {
-                            setModal({ ...modal, state: true, isCheck: false, text: '일치하는 회원정보가 없습니다.' });
-                        }
+                        setUserId(maskedUserId);
+                        setSignupDate(signupDate);
+                        setShowIdVerify(false);
+                    } else {
+                        setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '일치하는 회원정보가 없습니다.' });
                     }
-                } else {
-                    setModal({ ...modal, state: true, isCheck: false, text: '인증번호는 6자리 입니다.' });
-                }
 
+                } else {
+                    setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '일치하는 정보가 없습니다.' });
+                }
             } else {
-                setModal({ ...modal, state: true, isCheck: false, text: '인증번호를 입력해주세요.' });
+                setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '연락처가 올바르지 않은 형식입니다.' });
             }
         } else {
-            setModal({ ...modal, state: true, isCheck: false, text: '연락처 일치 여부 확인이 필요합니다.' });
+            setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '연락처를 입력해주세요.' });
         }
     }
+
+    // 이메일 마스킹 함수 정의
+    const maskEmail = (email) => {
+        const [localPart, domainPart] = email.split('@');
+
+        // 숫자를 *로 치환
+        let maskedLocalPart = localPart.replace(/\d/g, '*');
+
+        // 숫자가 없으면 뒤에서 세 글자를 *로 치환
+        if (!/\d/.test(localPart)) {
+            const length = maskedLocalPart.length;
+            maskedLocalPart = length <= 3
+                ? '*'.repeat(length)
+                : maskedLocalPart.slice(0, length - 3) + '***';
+        }
+
+        return `${maskedLocalPart}@${domainPart}`;
+    };
+
 
     const onClickMoveFindPwd = () => {
         navigate('/findpwd');
@@ -119,6 +103,14 @@ function FindEmail() {
     const closeModal = () => {
         setModal({ ...modal, state: false, text: '' });
     }
+
+    const onClickCancel = () => {
+        setModal({ ...modal, state: true, isCheck: false, isOneBtn: false, text: '아이디 찾기를 취소하시겠습니까?' });
+    }
+    const confirmCancel = () => {
+        // 아이디 찾기 취소 로직
+        navigate('/'); // 메인 페이지로 이동
+    };
 
     return (
 
@@ -138,26 +130,10 @@ function FindEmail() {
                                         pattern="[0-9]{3}-[0-9]{3,4}-[0-9]{4}" required onChange={onPhoneChange}></input>
                                     <p>ex) 010-0000-0000</p>
                                 </div>
-                                {showConfirmed && (
-                                    <button type='submit' onClick={onClickPhoneMatch}>일치확인</button>
-                                )}
-                                {showCheck && (
-                                    <img src='./images/auth/check_icon.png'></img>
-                                )}
                             </div>
-                            <div className={style.emailBox}>
-                                <label>이메일</label>
-                                <div className={style.emailInputBox}>
-                                    <input type='email' value={email} placeholder='인증번호를 받을 이메일을 입력해주세요.' onChange={onEmailChange}></input>
-                                </div>
-                                <button onClick={onClickEmail}>전송</button>
-                            </div>
-                            <div className={style.numBox}>
-                                <label>인증번호</label>
-                                <div className={style.numInputBox}>
-                                    <input value={authNum} placeholder='6자리 인증번호를 입력해주세요.' onChange={onNumChange}></input>
-                                </div>
-                                <button onClick={onClickNumCheck}>확인</button>
+                            <div className={style.btnContainer}>
+                                <button className={style.leftBtn} onClick={onClickCancel}>취소</button>
+                                <button className={style.rightBtn} onClick={onClickPhoneMatch}>조회하기</button>
                             </div>
                         </div>
                     ) : (
@@ -173,8 +149,8 @@ function FindEmail() {
                                 </div>
                             </div>
                             <div className={style.buttonContainer}>
-                                <button className={style.mainBtn}>메인으로</button>
-                                <button className={style.loginBtn}>로그인</button>
+                                <button className={style.leftBtn} onClick={() => { navigate('/') }}>메인으로</button>
+                                <button className={style.rightBtn} onClick={() => { navigate('/login') }}>로그인</button>
                             </div>
                         </div>
                     )}
@@ -192,7 +168,14 @@ function FindEmail() {
                             <div className={style.modalTextContainer}>
                                 <p>{modal.text}</p>
                             </div>
-                            <button onClick={closeModal}>닫기</button>
+                            {modal.isOneBtn ? (
+                                <button onClick={closeModal}>닫기</button>
+                            ) : (
+                                <div className={style.modalButtonContainer}>
+                                    <button className={style.leftBtn} onClick={confirmCancel}>예</button>
+                                    <button className={style.rightBtn} onClick={closeModal}>아니오</button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}

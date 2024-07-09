@@ -420,4 +420,66 @@
     font-weight: 500;
     padding-left: 2px;
 }
-    
+
+.iconContainer {
+    margin-top: 45px;
+}
+
+.iconContainer> img {
+    width: 64px;
+    height: 64px;
+}
+
+.modalTextContainer> p {
+    justify-content: center;
+    color: #000;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+.modalContent> button {
+    margin: 10px;
+    border-radius: 10px;
+    width: 120px;
+    height: 38px;
+    background-color: #005600;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+
+.btnContainer1 {
+    display: flex;
+    justify-content: center;
+    gap: 22px;
+    /* margin-top: 120px; */
+    margin-bottom: 20px;
+}
+
+.btnContainer1>button {
+    width: 112px;
+    height: 32px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.leftBtn {
+    background-color: white;
+    color: #999999;
+    border: 1px solid #63C54A;
+}
+
+.rightBtn {
+    background-color: #005600;
+    border: 1px solid #005600;
+    color: white;
+}
+
+.rightBtn:disabled {
+    background-color: #6A8E5E;
+    border: 1px solid #6A8E5E;
+    cursor: default;
+}

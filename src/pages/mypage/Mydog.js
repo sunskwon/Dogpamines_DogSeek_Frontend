@@ -63,11 +63,6 @@ function Mydog() {
         const curationsDogResponse = await GetAPI(curationsDogAddress);
         const result = await curationsDogResponse.curationsDog;
 
-        // if (curationsDogResponse.curationsDog.length > 0) {
-        //     const curationCodes = curationsDogResponse.curationsDog.map(curationDog => curationDog.curationCode);
-        //     setCurationCode(curationCodes.join([','])); 
-        // }
-
         return result;
     };
 
@@ -93,6 +88,14 @@ function Mydog() {
             fetchCurationsDog().then(res => setCurationsDog(res));
         }
     }, [curationName]);
+
+    useEffect(() => {
+        if (modalBackground.state || modalOpen || modalOpen2) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }, [modalOpen, modalOpen2]);
 
     const onClick = (name, code) => {
         setCurationName(name);
@@ -163,11 +166,7 @@ function Mydog() {
 
             {/* Modal */}
             {modalOpen && modalCuration && (
-                <div className={styles.modalContainer} ref={modalBackground} onClick={e => {
-                    if (e.target === modalBackground.current) {
-                        closeModal();
-                    }
-                }}>
+                <div className={styles.modalContainer} ref={modalBackground}>
                     <div className={styles.modalContent}>
                         <div className={styles.modalTextContainer}>
                             <p className={styles.modalText1}>{`회원님 반려견 ${modalCuration.curationName}의 정보입니다.`}</p>
@@ -227,11 +226,7 @@ function Mydog() {
 
             {/* Modal2 */}
             {modalOpen2 && modalProd && (
-                <div className={styles.modalContainer} ref={modalBackground} onClick={e => {
-                    if (e.target === modalBackground.current) {
-                        closeModal2();
-                    }
-                }}>
+                <div className={styles.modalContainer} ref={modalBackground}>
                     <div className={styles.modalContent2} key={modalProd.prodCode}>
                         <div className={styles.modalTextContainer}>
                             {myCurationResult.length === 0 ? (

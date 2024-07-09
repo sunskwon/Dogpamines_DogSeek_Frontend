@@ -1,4 +1,4 @@
-import { Link, NavLink, useNavigate, useParams } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import styles from './Main.module.css'
 import { useState, useEffect } from "react";
 import { GetAPINotToken } from '../api/RestAPIs';
@@ -13,30 +13,14 @@ function Main(){
 
     const navigate = useNavigate();
 
-    const { prodCode } = useParams();
-
-    const [lastProds, setLastProds] = useState([]);
     const [most, setMost] = useState([]);
-
-    const fetchProds = async () => {
-        const prodsAddress = `/lastProds`
-        const prodsResponse =  await GetAPINotToken(prodsAddress);
-        setLastProds(prodsResponse.lastProds);
-    };
-
-    useEffect(() => {
-        fetchProds(prodCode);
-    },[prodCode]);
-
-    const handleProductClick = (prodCode) => {
-        navigate(`/productdetail/${prodCode}`);
-    };
+    const [modalOpen, setModalOpen] = useState(false);
 
     const mostProducts = async () => {
 
         const mostProductsAddress = "/products/mostProducts"
         const mostProductsResponse = await GetAPINotToken(mostProductsAddress);
-        setMost(mostProductsResponse.products);
+        setMost(mostProductsResponse.products.Popular)
     };
 
     useEffect(() => {
@@ -80,17 +64,47 @@ function Main(){
         }
     };
 
+    const curation = () => {
+        const token = window.localStorage.getItem("accessToken")
+        if(token != null) {
+            navigate("/curation")
+        } else {
+            setModalOpen(true);
+        }
+    }
+
+    if (modalOpen) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
+
 
     return(
         <>
+            {
+            modalOpen &&
+                <div className={styles.modalContainer}>
+                    <div className={styles.modalContent}>
+                        <div className={styles.allBox}>
+                            <div style={{marginTop:"80px"}}>
+                                <p style={{margin:"0", color:"#005600", fontSize:"16px", fontWeight:"600"}}>로그인이 필요한 서비스입니다</p>
+                                <p style={{margin:"0", color:"#005600", fontSize:"16px", fontWeight:"600"}}>로그인 페이지로 이동하시겠습니까?</p>
+                            </div>
+                            <div style={{display:"flex", width:"270px", gap:"30px", margin:"0 auto", marginTop:"60px"}}>
+                                <button className={styles.modalCancelButton} onClick={() => setModalOpen(false)}>취소</button>
+                                <button className={styles.modalCheckButton} onClick={() => navigate("login")}>이동</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
             <div className={styles.container}>
                 <div className={styles.title}>
                     <p className={styles.title1}>Help your dogs<br/>
                     Health</p>
-                    <Link to={'/curation'} className={styles.button1} >맞춤 사료 찾기</Link>
+                    <div className={styles.button1} onClick={curation}>맞춤 사료 찾기</div>
                     <img className={styles.img1} src='./images/main/maindog1.png'/>
-                </div>
-                <div>    
                 </div>
             </div>
             <div className={styles.container1}>
@@ -104,10 +118,10 @@ function Main(){
                         <Link to={'/dict'} className={styles.text1}>견종백과</Link>
                     </div>
                     <div style={{display:"flex", flexDirection:"column", textAlign:"center"}}>
-                        <NavLink to={'/curation'}>
+                        <div onClick={curation}>
                             <img className={styles.icon1} src='./images/main/Icon2.png' alt='맞춤 사료 찾기'/>
-                        </NavLink>
-                        <Link to={'/curation'} className={styles.text5}>맞춤사료찾기</Link>
+                        </div>
+                        <div onClick={curation} className={styles.text5}>맞춤사료찾기</div>
                     </div>
                     <div style={{display:"flex", flexDirection:"column", textAlign:"center"}}>
                         <NavLink to={'/board'}>
@@ -137,7 +151,9 @@ function Main(){
                     className="mySwiper"
                     style={{"--swiper-theme-color":"#63C54A"}}
                 >
-                {most.map(most => (
+                {most
+                .slice(0, 10)
+                .map(most => (
                     <SwiperSlide  key={most.prodCode}>
                         <div className={styles.productsBox2} onClick={() => onClick(most.prodCode, most.prodAge, most.prodRecom, most.prodCook, most.prodIngra, most.prodEffi)}>
                             <img src={most.prodImage} style={{width:"282px"}}/>
