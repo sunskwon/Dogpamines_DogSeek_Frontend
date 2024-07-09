@@ -1,4 +1,5 @@
 import styles from "./BoardWiting.module.css";
+import { PostAPI } from "../../api/RestAPIs";
 import { useNavigate } from 'react-router-dom';
 
 
