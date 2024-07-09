@@ -106,7 +106,7 @@
 }
 
 .grid4::-webkit-scrollbar-track{
-    background-color: #D4D4D4;
+    background-color: white;
     border-radius: 10px;
 
 }
