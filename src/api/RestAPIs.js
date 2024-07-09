@@ -485,5 +485,4 @@ export const callUpdateSleep = async(userId) => {
         const result = 'false';
         return result;
     }
-
 }

@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import styles from './Mypage.module.css';
 import { useState, useEffect, useRef } from "react";
-import { DeleteAPI, GetAPI, PostAPI, PutAPI } from '../../api/RestAPIs';
+import { DeleteAPI, GetAPI, PostAPI, PutAPI, RefreshAccessToken } from '../../api/RestAPIs';
 import { jwtDecode } from 'jwt-decode';
 
 
@@ -24,6 +24,7 @@ function Mypage(){
     const userNick = decodedToken.userNick;
     const userAuth = decodedToken.userAuth;
     
+    const [selectedUserId, setSelectedUserId] = useState('');
     const [users, setUsers] = useState([]);
     const [userInfo, setUserInfo] = useState({
         userCode: '',
@@ -66,7 +67,6 @@ function Mypage(){
     const [showRePwdTxt, setShowRePwdTxt] = useState(false);
     const [showRePwdError, setShowRePwdError] = useState(false);
 
-    
     const [modal, setModal] = useState({
         state: false,
         isCheck: false,
@@ -107,13 +107,28 @@ function Mypage(){
         }
     }
 
+    const verifyPassword = async (userCode, password) => {
+        try {
+            const address = `/mypage/verifyPassword`;
+            const response = await PostAPI(address, { userCode, password });
+            const result = await response.json();
+            return result.valid;
+        } catch (error) {
+            console.error("비밀번호 확인 오류:", error);
+            throw error;
+        }
+    };
+
     useEffect(() => {
         selectUserDetail().then(res =>setUsers(res));
     }, []);
 
     useEffect(() => {
-        setUserInfo({...userInfo, userCode: userCode, userNick:userInfo.userNick})
-    },[userInfo.userCode]);
+        setUserInfo(prevState => ({
+            ...prevState,
+            userCode: userCode
+        }));
+    }, [userCode]);
 
     useEffect(() => {
         if (userInfo.userNick && userNickRegex.test(userInfo.userNick)) {
@@ -148,7 +163,8 @@ function Mypage(){
         setIsModalOpen(true);
     }
 
-    const openModal2 = () => {
+    const openModal2 = (userId) => {
+        setSelectedUserId(userId);
         setIsModalOpen2(true);
     }
 
@@ -159,9 +175,11 @@ function Mypage(){
 
     const onNickChange = (e) => {
         setUserInfo({...userInfo, userNick: e.target.value});
-        setCheckNick({...checkNick, type: 'nick', info: e.target.value});
-        console.log(userInfo);
     };
+
+    const closeModal = () => {
+        setModal({ ...modal, state: false, text: '' });
+    }
 
     const handleConfirmNick = async () => {
         if(userNickRegex.test(userInfo.userNick)) {
@@ -170,7 +188,7 @@ function Mypage(){
                 console.log(result);
 
                 if(result === false) {
-                    alert("이미 사용 중인 닉네임입니다.");
+                    setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '이미 사용중인 닉네임입니다.' });
                     return;
                 }
                 const addressUpdate = `/mypage`;
@@ -179,28 +197,32 @@ function Mypage(){
                     userNick: userInfo.userNick
                 });
                 console.log(response);
-                alert("닉네임 변경 완료하였습니다.");
+                setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '닉네임 변경 완료!' });
+
+                const jwtToken = await RefreshAccessToken();
+                window.localStorage.setItem('accessToken', jwtToken);
                 setIsModalOpen(false);
+                return jwtToken;
             } catch (error) {
                 console.log(error);
             }
         } else {
-            alert("닉네임 형식에 맞게 작성해주세요.");
+            setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '닉네임 형식에 맞게 작성해주세요.' });
         }
     };
 
-    const onPwdChange1 = (e) => {
+    const onPwdChange1 = async (e) => {
         const enteredPassword = e.target.value;
-        try{
-            const result = selectUserDetail(users.userPass);
-
-            if(result === enteredPassword) {
-                setShowPwdError(false);
+        try {
+            const isValid = await verifyPassword(userCode, enteredPassword);
+            if (isValid) {
+                setShowPwdError(false); 
+            } else {
+                setShowPwdError(true);
             }
         } catch (error) {
-            console.log(error);
+            console.log("비밀번호 확인 오류:", error);
         }
-        
     };
 
     const onPwdChange = (e) => {
@@ -265,22 +287,31 @@ function Mypage(){
     }
 
     const onClickChange = async() => {
-        if (checkPass.password.length !== 0) {
-            if (checkPass.rePassword.length !== 0) {
-                if (showRePwdTxt) {
-                    const address = `/mypage/change/pwd`
-                    const response = await PutAPI(address,checkPass.password);
-                    const result = setUserInfo({...userInfo, response});
-                    console.log(result);
-                    if (result === 'true') {
-                        setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '비밀번호 변경 완료!' });
-                    } else {
-                        setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '비밀번호 변경 실패!' });
-                    }
-                } 
-            } 
-        } 
-    }
+        if (userPassRegex.test(checkPass.password) && checkPass.password === checkPass.rePassword) {
+            const address = `/mypage/change/pwd`;
+            const requestData = {
+                id: selectedUserId,  // 변경된 부분
+                pwd: checkPass.password
+            };
+            try {
+                console.log('Sending request to:', address);
+                console.log('Request data:', requestData);
+                const response = await PutAPI(address, requestData);
+                console.log('Response:', response);
+                if (response.ok) {
+                    setIsModalOpen2(false);
+                    setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '비밀번호 변경 완료!' });
+                } else {
+                    setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '비밀번호 변경 실패!' });
+                    return;
+                }
+            } catch (error) {
+                setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '비밀번호 변경 실패!' });
+            }
+        } else {
+            setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '비밀번호 변경 실패!' });
+        }
+    };
 
     const handleDelete = async () => {
 
@@ -299,13 +330,13 @@ function Mypage(){
         return result;
     };
 
-    const handleInputChange= (e) => {
-        const { name, value } = e.target;
-        setUserInfo({
-            ...userInfo,
-            [name]: value
-        });
-    };
+    useEffect(() => {
+        if (modalBackground.state || isModalOpen || isModalOpen2) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }, [isModalOpen, isModalOpen2]);
 
     return(
         <>
@@ -336,7 +367,7 @@ function Mypage(){
                         <p className={styles.text7}>{user.userId}</p>
                         <div  className={styles.user4}>
                             <input type='password' className={styles.inputBox1} name='userPass' value={user.userPass}></input>
-                            <button className={styles.btn2} onClick={() => openModal2()}>변경</button>
+                            <button className={styles.btn2} onClick={() => openModal2(user.userId)}>변경</button>
                         </div><br/>
                         <div className={styles.user3}>
                             <input type='text' className={styles.inputBox3} placeholder={user.userNick} name='userNick' value={userInfo.userNick} onChange={onNickChange}/>
@@ -359,11 +390,7 @@ function Mypage(){
         {/* Delete Modal */}
             {
                 isModalOpen && 
-                <div className={styles.modalContainer} ref={modalBackground} onClick={e => {
-                    if (e.target === modalBackground.current) {
-                        setIsModalOpen(false)
-                    }
-                }}>
+                <div className={styles.modalContainer} ref={modalBackground}>
                     <div className={styles.modalContent}>
                         <div className={styles.modalTextContainer}>
                             <div className={styles.modal_content}>
@@ -379,14 +406,10 @@ function Mypage(){
                 </div>
             }
 
-            {/* Pwd Change Modal */}
+        {/* Pwd Change Modal */}
             {
                 isModalOpen2 && 
-                <div className={styles.modalContainer} ref={modalBackground} onClick={e => {
-                    if (e.target === modalBackground.current) {
-                        setIsModalOpen2(false)
-                    }
-                }}>
+                <div className={styles.modalContainer} ref={modalBackground}>
                     <div className={styles.modalContent}>
                         <div className={styles.modalTextContainer1}>
                             <div className={styles.modal_content}>
@@ -437,6 +460,30 @@ function Mypage(){
                     </div>
                 </div>
             }
+            {modal.state && (
+                    <div className={styles.modalContainer}>
+                        <div className={styles.modalContent}>
+                            <div className={styles.iconContainer}>
+                                {modal.isCheck ? (
+                                    <img src='./images/auth/modal_check.png' alt='modal_check'></img>
+                                ) : (
+                                    <img src='./images/auth/exclamationmark_circle.png' alt='exclamation_circle'></img>
+                                )}
+                            </div>
+                            <div className={styles.modalTextContainer}>
+                                <p>{modal.text}</p>
+                            </div>
+                            {modal.isOneBtn ? (
+                                <button onClick={closeModal}>닫기</button>
+                            ) : (
+                                <div className={styles.btnContainer1}>
+                                    <button className={styles.leftBtn} onClick={onClickChange}>예</button>
+                                    <button className={styles.rightBtn} onClick={closeModal}>아니오</button>
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                )}
         </> 
     )
 }
