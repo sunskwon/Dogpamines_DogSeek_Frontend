@@ -1,4 +1,4 @@
-import { GetAPI, GetAPINotToken } from '../../api/RestAPIs';
+import { GetAPINotToken } from '../../api/RestAPIs';
 import styles from './DictDetail.module.css';
 import { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
@@ -31,21 +31,24 @@ function DictDetail() {
             selectOneDict(dogName).then(res => {
                 setDog(res);
                 setLoading(false); 
-            });
+            if(res && res.dogDisease) {
+                setDisease(renderDisease(res.dogDisease));
+            }
+        });
         }
     }, [dogName]);
 
-    useEffect(() => {
-        if(dog && dog.dogDisease){
-            const formatDisease = () => {
-                let disease = `${dog.dogDisease}`;
-                let lines = disease.split(',');
-                let numberedLine = lines.map((line, index) => `${index + 1}. ${line.trim()}`);
-                return numberedLine.join(`\n`);
-            };
-            setDisease(formatDisease());
+
+    const renderDisease = (disease) => {
+        if (disease) {
+            const line = disease.split(',');
+            let numberedLine = line.map((line, index) => `${index + 1}. ${line.trim()}`);
+            return numberedLine.join(`\n`);
         }
-    })
+        return '';
+    }
+
+
     
     if (loading) {
         return <div>Loading...</div>;

@@ -1,15 +1,15 @@
-*{
+* {
     font-family: 'Noto Sans Kr', 'Poppins';
 }
 
-.container1{
+.container1 {
     display: flex;
     width: 1180px;
     position: relative;
     margin: 18px auto;
 }
 
-.title{
+.title {
     flex-direction: column;
     height: 300px;
     display: flex;
@@ -18,7 +18,7 @@
     position: relative;
 }
 
-.titletext1{
+.titletext1 {
     width: 1180px;
     font-size: 35px;
     font-weight: bold;
@@ -28,7 +28,7 @@
     padding-left: 120px;
 }
 
-.titletext2{
+.titletext2 {
     font-size: 16px;
     color: #005600;
     margin-top: 1%;
@@ -36,7 +36,7 @@
     z-index: 1;
 }
 
-.img{
+.img {
     width: 35%;
     margin-left: 55%;
     position: absolute;
@@ -44,23 +44,40 @@
 
 }
 
-.form{
-    display: flex;
-    align-items: center;
-    margin-top: 120px;
-}
+.allSearch{
+    position: absolute;
+    height: 38px;
+    margin: 270px 0px 0px 111px;
 
-.search{
-    
-    width: 190px;
-    height: 35px;
-    margin-left: 120px;
-    
     background-color: #005600;
     border: none;
     border-radius: 10px;
-    
-    
+
+    color: white;
+    font-weight: bold;
+
+    cursor: pointer;
+    width: 50px;
+}
+
+.form {
+    display: flex;
+    align-items: center;
+    margin-top: 120px;
+    margin-left: 40px;
+}
+
+.search {
+
+    width: 190px;
+    height: 35px;
+    margin-left: 123px;
+
+    background-color: #005600;
+    border: none;
+    border-radius: 10px;
+
+
     font-size: 18px;
     color: white;
 
@@ -69,26 +86,47 @@
 
 }
 
-.searchButton{
-    
+.searchButton {
+
     cursor: pointer;
     width: 50px;
-    
+
     background-color: white;
     border: none;
 
-    > img {
-        width:25px;
+    >img {
+        width: 25px;
     }
 
 }
 
-.container2{
+.container2 {
     width: 1180px;
     margin: 0 auto;
 }
 
-.size{
+.errorContainer {
+    display: flex;
+    
+    width: 1180px;
+    margin: 0 auto;
+
+    flex-direction: column;
+    align-items: center;
+
+    >p {
+        font-size: 20px;
+    }
+    
+    >img {
+        margin-top: 60px;
+        width: 200px;
+        height: 200px;
+    }
+
+}
+
+.size {
     background-color: white;
     color: none;
     border: none;
@@ -103,31 +141,27 @@
     cursor: pointer;
 }
 
-.formContainer{
+.formContainer {
     visibility: hidden;
     position: absolute;
     opacity: 0;
 }
 
-.grid{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0px; 
-  padding: 16px; 
-  max-width: 1050px;
-  margin: auto;
-}
-
-.error{
-    font-size: 20px;
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px;
+    padding: 16px;
+    max-width: 1050px;
     margin: auto;
 }
+
 
 .modalContainer {
     margin: 15px auto;
     width: 230px;
     height: 230px;
-    
+
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -135,19 +169,20 @@
 
     font-size: 16px;
     color: black;
-    
+
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  }
+}
 
-  .dogImages{
-   width:auto; height: auto;
-   max-width: 200px;
-   max-height: 170px;
-  }
+.dogImages {
+    width: auto;
+    height: auto;
+    max-width: 200px;
+    max-height: 170px;
+}
 
-  .dogName{
+.dogName {
     font-size: 16.5px;
-  }
+}
