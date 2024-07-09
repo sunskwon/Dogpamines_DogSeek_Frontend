@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { GetAPINotToken } from "../../api/RestAPIs"
+import DictModal from "../../components/dict/DictModal"
 
 function Dict() {
 
@@ -14,6 +15,10 @@ function Dict() {
     const [isInMediumModalOpen, setInIsMediumModalOpen] = useState(true);
     const [isInLargeModalOpen, setInIsLargeModalOpen] = useState(true);
 
+    const [modalContent, setModalContent] = useState(["검색 내용을 입력하세요."]);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    
     const toggleInSmallModal = () => {
         setInIsSmallModalOpen(prevState => !prevState);
     };
@@ -23,37 +28,37 @@ function Dict() {
     const toggleInLargeModal = () => {
         setInIsLargeModalOpen(prevState => !prevState);
     };
-
+    
     const [dogs, setDogs] = useState([]);
-
+    
     const [search, setSearch] = useState({ dogName: '' });
-
+    
     const selectAllDict = async () => {
-
+        
         const address = '/dict';
-
+        
         const response = await GetAPINotToken(address);
-
+        
         const result = await response.dict;
-
+        
         return result;
     };
-
+    
     const searchDict = async () => {
-
+        
         const address = `/dict/search?dogName=${search.dogName}`;
 
         const response = await GetAPINotToken(address);
-
+        
         const result = await response.dict;
-
+        
         return result;
     };
-
+    
     useEffect(() => {
         selectAllDict().then(res => setDogs(res));
     }, []);
-
+    
     const valueChangeHandler = e => {
         const { name, value } = e.target;
         setSearch({
@@ -61,9 +66,14 @@ function Dict() {
             [name]: value
         });
     };
-
+    
     const searchSubmitHandler = async (e) => {
         e.preventDefault();
+        if (!search.dogName.trim()) {
+            setModalContent(["검색어를 입력해주세요."]);
+            setIsModalOpen(true);
+            return;
+        }
         const results = await searchDict();
         setIsSmallModalOpen(true);
         setIsMediumModalOpen(true);
@@ -74,13 +84,24 @@ function Dict() {
         console.log(search);
         setDogs(results);
     }
+    
+    const closeModal = () => {
+        setIsModalOpen(false);
+    };
 
-    const allSearchHandler = e => {
-        const { name, value } = e.target;
-        setSearch({
-            ...search,
-            [name]: value
-        });
+    const handleConfirm = () => {
+        console.log("확인 버튼 클릭!");
+        closeModal();
+    };
+
+    const allSearchHandler = async () => {
+        try{
+            const res = await selectAllDict();
+            setDogs(res);
+        } catch (error) {
+            console.error('견종전체 조회 에러', error)
+
+        }
     };
 
     const filterDogBySize = (size) => {
@@ -96,7 +117,7 @@ function Dict() {
                     <span className={styles.titletext2}>반려견 품종의 특징과 요구사항에 대한 전문적인 정보를 찾아보세요. <br />
                         스크롤 또는 검색 기능을 사용해 원하는 견종에 대한 정보를 찾을 수 있습니다. </span>
                     <img className={styles.img} src='https://lh3.google.com/u/0/d/1OYEelsFN-8xWWbi2SgMzZl3FN8fTx2mQ=w1920-h945-iv1' />
-                    <button className={styles.allSearch} onChange={allSearchHandler}>전체<br/>보기</button>
+                    <button className={styles.allSearch} onClick={allSearchHandler}>전체 견종</button>
                     <form className={styles.form} onSubmit={searchSubmitHandler}>
                         <input
                             className={styles.search}
@@ -112,6 +133,13 @@ function Dict() {
                     </form>
                 </div>
             </div>
+            
+            <DictModal
+                isModalOpen={isModalOpen}
+                setIsModalOpen={setIsModalOpen}
+                modalContent={modalContent}
+                onConfirm={handleConfirm}
+            />
 
             <div className={styles.errorContainer} >
                 {filterDogBySize('소형견').length === 0 && filterDogBySize('중형견').length === 0 && filterDogBySize('대형견').length === 0 &&
