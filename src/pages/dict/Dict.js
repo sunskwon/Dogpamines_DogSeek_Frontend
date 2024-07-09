@@ -15,7 +15,7 @@ function Dict() {
     const [isInMediumModalOpen, setInIsMediumModalOpen] = useState(true);
     const [isInLargeModalOpen, setInIsLargeModalOpen] = useState(true);
 
-    const [modalContent, setModalContent] = useState(["검색 내용을 입력하세요."]);
+    const [modalContent, setModalContent] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     
@@ -70,7 +70,7 @@ function Dict() {
     const searchSubmitHandler = async (e) => {
         e.preventDefault();
         if (!search.dogName.trim()) {
-            setModalContent(["검색어를 입력해주세요."]);
+            setModalContent(["검색 내용을 입력해주세요."]);
             setIsModalOpen(true);
             return;
         }
