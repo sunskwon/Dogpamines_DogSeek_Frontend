@@ -16,6 +16,8 @@ function Login() {
         text: '',
     });
 
+    const [sleepModal, setSleepModal] = useState(false);
+
     const navigate = useNavigate();
 
     const onEmailChange = (e) => setUser({ ...user, userId: e.target.value });
@@ -39,12 +41,13 @@ function Login() {
                 } else if (userAuth === 'USER') {
                     navigate('/');
                     window.location.reload();
-                } else if (userAuth === 'SLEEP') {
-                    setModal({ ...modal, state: true, text: '휴면회원입니다.' });
                 } else {
                     setModal({ ...modal, state: true, text: '올바르지 않은 접근입니다.' });
-                };
+                }
 
+            } else if (response === 'SLEEP') {
+                setModal({ ...modal, state: true, text: '회원님의 계정은 현재 휴면 상태 입니다.' });
+                setSleepModal(true);
             } else {
                 setModal({ ...modal, state: true, text: '일치하는 회원 정보가 없습니다.' });
             }
@@ -69,6 +72,14 @@ function Login() {
     const closeModal = () => {
         setModal({ ...modal, state: false, text: '' });
         window.location.reload();
+    }
+
+    const onClickSleep = () => {
+        navigate('/release/sleep', {
+            state: {
+                id: user.userId
+            }
+        });
     }
 
     return (
@@ -113,6 +124,19 @@ function Login() {
                                 <p>{modal.text}</p>
                             </div>
                             <button onClick={closeModal}>닫기</button>
+                        </div>
+                    </div>
+                )}
+                {sleepModal && (
+                    <div className={styles.modal}>
+                        <div className={styles.sleepModalContent}>
+                            <div className={styles.iconContainer}>
+                                <img src='./images/auth/auth_sleep.png' alt='auth_sleep'></img>
+                            </div>
+                            <div className={styles.modalTextContainer}>
+                                <p>회원님의 계정은 현재 휴면 상태 입니다.</p>
+                            </div>
+                            <button onClick={onClickSleep}>휴면 해제 하기</button>
                         </div>
                     </div>
                 )}

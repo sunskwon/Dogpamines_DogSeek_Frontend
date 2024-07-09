@@ -51,6 +51,7 @@ import AdminSelectUserByCode from "./pages/admin/user/AdminSelectUserByCode.js"
 
 import ChatApp from "./pages/common/chat/ChatApp.js";
 import NotFound from "./pages/common/NotFound.js";
+import ReleaseSleep from "./pages/auth/ReleaseSleep.js";
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
             <Route path="/signupcomplete" element={<SignUpComplete />} />
             <Route path="/findemail" element={<FindEmail />} />
             <Route path="/findpwd" element={<FindPwd />} />
+            <Route path="/release/sleep" element={<ReleaseSleep/>}/>
             <Route path="/curation" element={<Curation />} />
             <Route path="/curationsizeselect" element={<CurationSizeSelect />} />
             <Route path="/curationselectage" element={<CurationSelectAge />} />
