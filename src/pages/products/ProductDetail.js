@@ -25,6 +25,7 @@ function ProductDetail() {
     };
 
     useEffect(() => {
+        window.scrollTo(0,0);
         detailProduct();
     }, []);
 

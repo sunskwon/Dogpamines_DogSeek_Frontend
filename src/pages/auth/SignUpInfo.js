@@ -5,6 +5,7 @@ import { callRegisterAPI, checkAPI } from '../../api/RestAPIs';
 
 function SignUpInfo() {
 
+    window.scrollTo(0,0);
     const [user, setUser] = useState({
         userId: '',
         nick: '',

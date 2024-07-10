@@ -56,6 +56,7 @@ function Dict() {
     };
     
     useEffect(() => {
+        window.scrollTo(0, 0);
         selectAllDict().then(res => setDogs(res));
     }, []);
     

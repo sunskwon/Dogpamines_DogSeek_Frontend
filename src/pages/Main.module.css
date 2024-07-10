@@ -70,8 +70,8 @@
 
 .iconContainer{
     display: flex;
-    justify-content: space-evenly;
-    width: 700px;
+    justify-content: space-between;
+    width: 930px;
     margin: 0 auto;
     margin-bottom: 40px;
 }
@@ -80,6 +80,11 @@
     cursor: pointer;
     width: 70px;
     height: 70px;
+}
+
+.icon2{
+    cursor: pointer;
+    margin-top: 10px;
 }
 
 .text1{

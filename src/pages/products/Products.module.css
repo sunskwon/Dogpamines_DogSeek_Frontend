@@ -121,6 +121,7 @@ input::placeholder {
     border: 1px solid #D4D4D4;
     color: #999999;
     background-color: white;
+    cursor: pointer;
 }
 
 .modalCheckButton {
@@ -130,6 +131,7 @@ input::placeholder {
     border: 1px solid #005600;
     color: white;
     background-color: #005600;
+    cursor: pointer;
 }
 
 .selectBox {

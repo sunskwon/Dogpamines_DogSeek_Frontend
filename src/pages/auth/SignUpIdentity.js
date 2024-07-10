@@ -97,6 +97,7 @@ function SignUpIdentity() {
     };
 
     const handleNextPage = () => {
+        window.scrollTo(0,0);
         navigate('/signupinfo', {
             state: {
                 email: email
