@@ -1,72 +1,82 @@
 import { useState, useEffect } from "react";
+import { useLocation, useParams } from "react-router-dom";
 import { GetAPI } from "../../api/RestAPIs";
+import { useNavigate } from 'react-router-dom';
 import styles from "./BoardPost.module.css";
+import { jwtDecode } from 'jwt-decode';
 
-function Post() {
-  const [boards, setBoards] = useState([]);
-  const [postCode, setPostCode] = useState([]);
 
-  const fetchPost = async () => {
-    try {
-      const boardAddress = `/boards?postCode=${postCode}`;
+function PostDetail() {
+  const { code } = useParams();
+  const [postDetail, setPostDetail] = useState([]);
+//  const [post, setPost] = useState(null);
+//  const [load, setLoad] = useState('');
+
+    // 로그인토큰
+    const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
+    const userCode = decodedToken.userCode;
+    const userNick = decodedToken.userNick;
+    const userAuth = decodedToken.userAuth;
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const {postCode} = location.state
+
+
+  const fetchPostDetail = async () => {
+
+      const boardAddress = `/boards/${postCode}`;
       const response = await GetAPI(boardAddress);
-      const result = response.boards; // await 필요 없음
-
-      return result;
-    } catch (error) {
-      console.error("Failed to fetch posts:", error);
-      return [];
-    }
+      setPostDetail(response.boards)
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetchPost();
-      setBoards(res);
-    };
-    fetchData();
-  }, [postCode]);
+      fetchPostDetail()
+  }, [postCode]); 
 
   return (
     <div>
-      {boards.map((post, index) => (
-        <div className={styles.display_post}>
-          <div key={index}>
-            <p className={styles.post_num}>No.{post.postCode}</p>
-            <p className={styles.post_title}>{post.postTitle}</p>
-            <div className={styles.post_user_button}>
-              <div className={styles.post_user}>
-                <p className={styles.post_nick}>{post.userNick}</p>
-                <p className={styles.post_day}>{post.postDate}</p>
-              </div>
-              <div>
-                <button className={styles.button_modify}>수정</button>
-                <button className={styles.button_list}>목록</button>
-              </div>
+    <div className={styles.display_post}>
+        <div>
+          <p key={postDetail.postCode} className={styles.post_num}>No.{postDetail.postCode}</p>
+          <p className={styles.post_title}>{postDetail.postTitle}</p>
+          <div className={styles.post_user_button}>
+            <div className={styles.post_user}>
+              <p className={styles.post_nick}>{postDetail.userNick}</p>
+              <p className={styles.post_day}>{postDetail.postDate}</p>
             </div>
-          </div>
-          <hr color="D4D4D4" />
-
-          <div className={styles.hr_post}>
-            {post.postContext}
-          </div>
-          <hr color="D4D4D4" />
-
-          <div>
-            <div className={styles.button_siren}>
-              <button className={styles.button_delete}>삭제</button>
-              <div className={styles.siren_icon}>
-                <button className={styles.report_button}>
-                  <img src="/images/board/siren.svg" />
-                  <span>신고하기</span>
-                </button>
-              </div>
+            <div>
+              <button className={styles.button_modify} onClick={() => navigate("/boardupdate", {
+                state : { postCode : postCode }
+              })}>수정</button>
+              <button className={styles.button_list} onClick={() => navigate("/board")}>목록</button>
             </div>
           </div>
         </div>
-        ))}
+      
+      <hr color="D4D4D4" />
+            <div className={styles.hr_post}>
+            {postDetail.postContext}
+          </div>
+
+      
+      <hr color="D4D4D4" />
+
+      <div>
+        <div className={styles.button_siren}>
+          <button className={styles.button_delete}>삭제</button>
+          <div className={styles.siren_icon}>
+            <button className={styles.report_button}>
+              <img src="/images/board/siren.svg" />
+              <span>신고하기</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
   );
 }
 
-export default Post;
+export default PostDetail;
