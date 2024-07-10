@@ -54,9 +54,7 @@ function DictDetail() {
     if (loading) {
         return <div>Loading...</div>;
     }
-    if (!dog) {
-        return <div>Error: Dog not found</div>;
-    }
+   
 
     const renderPaw = (count) => {
         const paws = [];

@@ -153,3 +153,24 @@
     display: flex;
     gap: 10px;
 }
+
+.errorContainer {
+    display: flex;
+    
+    width: 1180px;
+    margin: 0 auto;
+
+    flex-direction: column;
+    align-items: center;
+
+    >p {
+        font-size: 20px;
+    }
+    
+    >img {
+        margin-top: 60px;
+        width: 200px;
+        height: 200px;
+    }
+
+}

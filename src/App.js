@@ -50,10 +50,12 @@ import AdminSelectUserByCode from "./pages/admin/user/AdminSelectUserByCode.js"
 import AnimalRegist from "./pages/animalRegist/AnimalRegist.js";
 import NotFound from "./pages/common/NotFound.js";
 import ReleaseSleep from "./pages/auth/ReleaseSleep.js";
+import ErrorBoundary from "./components/common/Errorboundary.js";
+import ErrorContext from "./components/common/ErrorContext.js";
 
 function App() {
   return (
-    <>
+      <ErrorBoundary>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Layout1 />}>
@@ -92,6 +94,7 @@ function App() {
 
             {/* NotFound는 모든 Route보다 아래에 있을 것 */}
             <Route path="/*" element={<NotFound />} />
+            <Route path="/*" element={<ErrorContext/>} />
           </Route>
           {/* </Routes> */}
 
@@ -118,7 +121,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </>
+      </ErrorBoundary>
   );
 }
 
