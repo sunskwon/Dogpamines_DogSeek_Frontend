@@ -1,8 +1,9 @@
 import Layout1 from "./layouts/Layout1.js"
 import Board from "./pages/board/Board.js";
 import BoardKakao from "./pages/board/BoardKakao.js";
-import BoardPost from "./pages/board/BoardPost.js";
-import BoardWiting from "./pages/board/BoardWiting.js"
+import PostDetail from "./pages/board/BoardPost.js";
+import BoardWriting from "./pages/board/BoardWriting.js"
+import BoardUpdate from "./pages/board/BoardUpdate.js"
 import Curation from "./pages/curation/Curation.js";
 import Company from "./pages/etc/Company.js";
 import Main from "./pages/Main";
@@ -82,8 +83,9 @@ function App() {
             <Route path="/animalinfo" element={<AnimalRegist />} />
             <Route path="/board" element={<Board />} />
             <Route path="/board/boardkakao" element={<BoardKakao />} />
-            <Route path="/board/boardpost" element={<BoardPost />} />
-            <Route path="/board/boardwiting" element={<BoardWiting />} />
+            <Route path="/postdetail" element={<PostDetail />} />
+            <Route path="/board/boardwriting" element={<BoardWriting />} />
+            <Route path="/boardupdate" element={<BoardUpdate />} />
             <Route path="/company" element={<Company />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/mypage" element={<Mypage />} />

@@ -11,7 +11,7 @@
     height: 500px;
 
 }
-.w_context_text {width: 98%; border: none; margin-top: 20px; margin-bottom: 20px;}
+.w_context_text {width: 98%; border: none; margin-top: 20px; margin-bottom: 20px; padding-left: 10px;}
 /* 버튼 */
 .button_interval
 {
@@ -21,7 +21,7 @@
     margin: 20px;
 }
 .button_cancel {background-color: white; width: 110px; height: 30px; border-color: #63C54A; border-radius: 10px; border-style: solid;}
-.button_witing {width: 110px; height: 30px; background-color: #005600; color: white; border-radius: 10px; margin-left: 20px;}
+.button_writing {width: 110px; height: 30px; background-color: #005600; color: white; border-radius: 10px; margin-left: 20px;}
 
 /* textarea 효과 */
 textarea {resize: none;}

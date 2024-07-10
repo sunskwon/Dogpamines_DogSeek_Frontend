@@ -5,6 +5,14 @@ import { GetAPI } from '../../api/RestAPIs';
 import { jwtDecode } from 'jwt-decode';
 
 function Board() {
+
+    
+    // 로그인토큰
+    const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
+    const userCode = decodedToken.userCode;
+    const userNick = decodedToken.userNick;
+    const userAuth = decodedToken.userAuth;
+    
     // 공지 토글 on
     const [isOneNoticeOpen, setIsOneNoticeOpen] = useState(false);
     const [isTwoNoticeOpen, setIsTwoNoticeOpen] = useState(false);
@@ -17,11 +25,6 @@ function Board() {
     
     const [loaded, setLoaded] = useState(false); // 데이터 로드 상태
 
-    // 로그인토큰
-    const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
-    const userCode = decodedToken.userCode;
-    const userNick = decodedToken.userNick;
-    const userAuth = decodedToken.userAuth;
 
     // 공지사항 토글
     const toggleOneModal = () => setIsOneNoticeOpen(prevState => !prevState);
@@ -31,14 +34,26 @@ function Board() {
     // navigate
     const navigate = useNavigate();
     
-    const onBoardClick = () => {
-        navigate("./BoardPost");
+    const onBoardClick = async (code) => {
+
+        try {
+            navigate(`/postdetail`, {
+                state: {
+                    postCode: code
+                }
+            });
+        } catch(error) {
+            console.error(error);
+            throw error;
+        }
+        //navigate("./boardpost");
+
     };
     const onPostWritingClick = () => {
-        navigate("./BoardWriting");
+        navigate("./boardwriting");
     };
     const onKakaoClick = () => {
-        navigate("./BoardKakao");
+        navigate("./boardkakao");
     };
 
     // GetAPI
@@ -55,7 +70,9 @@ function Board() {
                 const noticeData = res.filter(post => post.postCategory === '공지')
                     .sort((a, b) => new Date(b.postDate) - new Date(a.postDate))
                     .slice(0, 3); // 최신순으로 정렬 후 최대 3개 선택
-                const postData = res.filter(post => post.postCategory === '자유');
+                const postData = res.filter(post => post.postCategory === '자유')
+                .sort((a, b) => new Date(b.postDate) - new Date(a.postDate))
+                    .slice(0, 5); // 최신순으로 정렬 후 최대 3개 선택
                 setNotices(noticeData);
                 setPosts(postData);
                 setLoaded(true);
@@ -120,8 +137,8 @@ function Board() {
                 </div>
 
                 <div className={styles.boardboxlines}>
-                    {posts.slice(0, 5).map((post, index) => (
-                        <div className={styles.boardbox} key={index}>
+                    {posts.slice(0, 5).map(post => (
+                        <div className={styles.boardbox} key={post.postCode} onClick={() => onBoardClick(post.postCode)}>
                             <div className={styles.boardboxTitle}>
                                 <span className={styles.titletext}>{post.postTitle}</span>
                             </div>
@@ -132,7 +149,6 @@ function Board() {
                             </div>
                         </div>
                     ))}
-                    <button onClick={onBoardClick}>게시물</button>
                     <button onClick={onKakaoClick}>2안</button>
                 </div>
             </div>
