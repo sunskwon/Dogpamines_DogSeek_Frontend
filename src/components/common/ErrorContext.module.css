@@ -1,0 +1,32 @@
+*{
+    font-family: 'Noto Sans KR', 'Poppins';
+}
+
+.Container{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.errorTitle{
+    margin:auto;
+    font-size: 30px;
+}
+
+.buttonContainer{
+    display: flex;
+
+}
+
+.button {
+    width: 100px;
+    height: 50px;
+    border-radius: 10px;
+    border: 0;
+    background-color: rgba(99, 197, 74, 1);
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+    margin:0px 20px;
+}
