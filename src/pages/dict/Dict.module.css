@@ -47,7 +47,7 @@
 .allSearch{
     position: absolute;
     height: 38px;
-    margin: 270px 0px 0px 111px;
+    margin: 271px 0px 0px 111px;
 
     background-color: #005600;
     border: none;
@@ -58,6 +58,14 @@
 
     cursor: pointer;
     width: 50px;
+
+    line-height: 15px;
+}
+
+.allSearch:active {
+
+    box-shadow: inset -.3rem -.1rem 1.4rem  #63C54A, inset .3rem .4rem .8rem #63C54A; 
+
 }
 
 .form {
