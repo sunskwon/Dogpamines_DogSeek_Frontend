@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import ChatComponent from '../../components/chat/ChatComponent';
+import Chat from '../../../components/admin/chat/ChatTest';
 
 import { jwtDecode } from 'jwt-decode';
 
-function Chat() {
+function AdminChat() {
 
   const [userCode, setUserCode] = useState(0);
   const [userNick, setUserNick] = useState('');
@@ -31,7 +31,7 @@ function Chat() {
   return (
     <div>
       <h1>chat</h1>
-      <ChatComponent
+      <Chat
         userCode={userCode}
         userNick={userNick}
       />
@@ -39,4 +39,4 @@ function Chat() {
   );
 }
 
-export default Chat;
+export default AdminChat;

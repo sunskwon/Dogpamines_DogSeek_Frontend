@@ -98,7 +98,20 @@ function Navbar() {
             </div>
             <div
                 style={{
-                    height: "220px",
+                    display: "flex",
+                    marginBottom: "30px",
+                }}
+                onClick={() => {
+                    navigate("/admin/chatlist");
+                }}
+            >
+                <img src="/images/admin/Chat.png" alt="Chat icon" />
+                <span>1:1 문의</span>
+            </div>
+            
+            <div
+                style={{
+                    height: "160px",
                     cursor: "default",
                 }}
             >
