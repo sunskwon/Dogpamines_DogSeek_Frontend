@@ -1,34 +1,21 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styles from './Board.module.css';
+import { useState, useEffect } from 'react';
+import styles from "./Board.module.css";
 import { useNavigate } from 'react-router-dom';
-import { GetAPI, PostAPI } from '../../api/RestAPIs';
+import { GetAPI } from '../../api/RestAPIs';
 import { jwtDecode } from 'jwt-decode';
 
-import { PutAPI } from '../../api/RestAPIs';
-import { DeleteAPI } from '../../api/RestAPIs';
-
-
 function Board() {
-    const date = new Date();
-    const today = `${date.getFullYear()}-${date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : (date.getMonth() + 1)}-${date.getDate()}`;
-    const currentTime = `${date.getHours()}:${date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()}`;
-
-    
-
-    const [isOneNoticeOpen, setIsOneNoticeOpen] = useState(false); 
+    // 공지 토글 on
+    const [isOneNoticeOpen, setIsOneNoticeOpen] = useState(false);
     const [isTwoNoticeOpen, setIsTwoNoticeOpen] = useState(false);
     const [isThreeNoticeOpen, setIsThreeNoticeOpen] = useState(false);
+
+    // 공지 데이터
     const [notices, setNotices] = useState([]);
+    // 자유 데이터
     const [posts, setPosts] = useState([]);
-    const [newPost, setNewPost] = useState('');
-    const [loaded, setLoaded] = useState(false); 
-    const [nickInfo, setNickInfo] = useState({
-        userCode: '',
-        userNick: ''
-    });
-
-
-    const messagesEndRef = useRef(null);
+    
+    const [loaded, setLoaded] = useState(false); // 데이터 로드 상태
 
     // 로그인토큰
     const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
@@ -36,15 +23,25 @@ function Board() {
     const userNick = decodedToken.userNick;
     const userAuth = decodedToken.userAuth;
 
-    // 공지사항 모달
+    // 공지사항 토글
     const toggleOneModal = () => setIsOneNoticeOpen(prevState => !prevState);
     const toggleTwoModal = () => setIsTwoNoticeOpen(prevState => !prevState);
     const toggleThreeModal = () => setIsThreeNoticeOpen(prevState => !prevState);
 
+    // navigate
     const navigate = useNavigate();
-   // const onPostWritingClick = () => navigate("./BoardWriting");
+    
+    const onBoardClick = () => {
+        navigate("./BoardPost");
+    };
+    const onPostWritingClick = () => {
+        navigate("./BoardWriting");
+    };
+    const onKakaoClick = () => {
+        navigate("./BoardKakao");
+    };
 
-   // GET API
+    // GetAPI
     const call = async () => {
         const address = '/boards';
         const response = await GetAPI(address);
@@ -52,165 +49,93 @@ function Board() {
         return result;
     };
 
-    // POST API
-    const inhandler = async () => {
-        const address = '/boards';
-        const newPostData = {
-            postContext: newPost,
-            postCategory: "자유",
-            postTime: currentTime,
-            postStatus: 'Y',
-            userCode: userCode, // 유저 코드 설정
-            userNick: userNick // 유저 닉네임 설정
-        };
-        try{
-            const response = await PostAPI(address, newPostData); // post 요청 보냄
-            if(response) {
-            setPosts([...posts, newPostData]); // 성공 시 클라이언트 측 상태 업로드
-            setNewPost(''); // 입력필드 초기화
-            setTimeout(() => scrollToBottom(), 100); // 스크롤 맨 아래 이동
+    useEffect(() => {
+        if (!loaded) {
+            call().then(res => {
+                const noticeData = res.filter(post => post.postCategory === '공지')
+                    .sort((a, b) => new Date(b.postDate) - new Date(a.postDate))
+                    .slice(0, 3); // 최신순으로 정렬 후 최대 3개 선택
+                const postData = res.filter(post => post.postCategory === '자유');
+                setNotices(noticeData);
+                setPosts(postData);
+                setLoaded(true);
+            }).catch(error => {
+                console.error('Error fetching data:', error);
+                setNotices([]);
+                setPosts([]);
+            });
         }
-    } catch (error) {
-        console.error('Error posting new data', error);
-    }
-}
-
-    // PUT API
-
-
-// alert는 모달로 변경
-const handleSubmit = async () => {
-    if (newPost.trim() === '') {
-        alert('댓글을 입력해주세요.');
-        return;
-    }
-    await inhandler();
-};
-
-const activeEnterKey = (e) => {
-    if (e.key === "Enter") {
-        e.preventDefault();
-        if (newPost.trim() === '') {
-            alert('댓글을 입력해주세요.');
-            return;
-        }
-        handleSubmit();
-    }
-};
-
-useEffect(() => {
-    setNickInfo({...nickInfo, userCode: userCode, userNick:nickInfo.userNick})
-},[nickInfo.userCode]);
-
-useEffect(() => {
-    if (!loaded) {
-        call().then(res => {
-            const noticeData = res.filter(post => post.postCategory === '공지')
-                .sort((a, b) => new Date(b.postDate) - new Date(a.postDate))
-                .slice(0, 3); // 최신순으로 정렬 후 최대 3개 선택
-            const postData = res.filter(post => post.postCategory === '자유');
-            setNotices(noticeData);
-            setPosts(postData);
-            setLoaded(true);
-            scrollToBottom();
-        }).catch(error => {
-            console.error('Error fetching data:', error);
-            setNotices([]);
-            setPosts([]);
-        });
-    }
-}, [loaded]);
-
-    const scrollToBottom = () => {
-        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-    }
+    }, [loaded]);
 
     return (
         <div className={styles.board_container}>
-            <div className={styles.board_dogImg}>
-                <img src={"/images/board/dogsa.png"} alt="Dog" />
+        <div className={styles.board_dogImg}>
+            <img src={"/images/board/dogsa.png"} alt="Dog" />
+        </div>
+        <div className={styles.notice_all}>
+            <div>
+                <p className={styles.noticeTitle}>공지사항</p>
             </div>
-            <div className={styles.notice_all}>
-                <div>
-                    <p className={styles.noticeTitle}>공지사항</p>
-                </div>
-            </div>
+        </div>
 
-            <div className={styles.toggle}>
-                {notices.map((notices, index) => (
-                    <div key={index}>
-                        <hr color="D4D4D4"/>
-                        <div>
-                            <button
-                            className={styles.notice_toggle}
-                            onClick={() => {
-                                if (index === 0) toggleOneModal();
-                                if (index === 1) toggleTwoModal();
-                                if (index === 2) toggleThreeModal();
-                            }}
-                        >
-                            {index === 0 && (isOneNoticeOpen ? '-' : '+')}
-                            {index === 1 && (isTwoNoticeOpen ? '-' : '+')}
-                            {index === 2 && (isThreeNoticeOpen ? '-' : '+')}
-                            <span className={styles.notice_head}>{notices.postTitle}</span>
-                        </button>
+        <div className={styles.toggle}>
+            {notices.map((notices, index) => (
+                <div key={index}>
+                    <hr color="D4D4D4"/>
+                    <div>
+                        <button
+                        className={styles.notice_toggle}
+                        onClick={() => {
+                            if (index === 0) toggleOneModal();
+                            if (index === 1) toggleTwoModal();
+                            if (index === 2) toggleThreeModal();
+                        }}>
+                        {index === 0 && (isOneNoticeOpen ? '-' : '+')}
+                        {index === 1 && (isTwoNoticeOpen ? '-' : '+')}
+                        {index === 2 && (isThreeNoticeOpen ? '-' : '+')}
+                        <span className={styles.notice_head}>{notices.postTitle}</span>
+                    </button>
+                </div>
+                {index === 0 && isOneNoticeOpen && (
+                    <div className={styles.notice_content}>{notices.postContext}</div>
+                )}
+                {index === 1 && isTwoNoticeOpen && (
+                <div className={styles.notice_content}>{notices.postContext}</div>
+                )}
+                {index === 2 && isThreeNoticeOpen && (
+                <div className={styles.notice_content}>{notices.postContext}</div>
+                )}
+            </div>
+            ))}
+        <hr color="D4D4D4"/>
+        </div>
+
+                <div className={styles.board_title}>
+                    <p>게시판</p>
+                    <div className={styles.search_box}>
+                        <input type="search" className={styles.search_input} name="keyword" placeholder="검색어를 입력하세요" />
+                        <button className={styles.button_writing} onClick={onPostWritingClick}>글쓰기</button>
+                        <img className={styles.search_icon} src='/images/board/Search.svg' alt="Search" />
                     </div>
-                    {index === 0 && isOneNoticeOpen && (
-                        <div className={styles.notice_content}>{notices.postContext}</div>
-                    )}
-                    {index === 1 && isTwoNoticeOpen && (
-                    <div className={styles.notice_content}>{notices.postContext}</div>
-                    )}
-                    {index === 2 && isThreeNoticeOpen && (
-                    <div className={styles.notice_content}>{notices.postContext}</div>
-                    )}
                 </div>
-                ))}
-            <hr color="D4D4D4"/>
-            </div>
 
-
-
-
-            <div className={styles.board_title}>
-                <p>댕사이</p>
-                <div className={styles.search_box}>
-                </div>
-            </div>
-        
-            <div className={styles.container}>
-                <div className={styles.chat_wrap}>
-                    {posts.map((post, index) => (
-                        <div key={index} className={`${styles.chat_message} ${post.userNick === userNick ? styles.my_message : styles.other_message}`}>
-                            <span className={styles.talk_nick}>{post.userNick}</span>
-                            <div className={styles.chat}>
-                                <div className={styles.textbox}>
-                                    {post.postContext}
-                                </div>
-                                <span className={styles.talk_date}>{post.postDate} {post.postTime}</span>
+                <div className={styles.boardboxlines}>
+                    {posts.slice(0, 5).map((post, index) => (
+                        <div className={styles.boardbox} key={index}>
+                            <div className={styles.boardboxTitle}>
+                                <span className={styles.titletext}>{post.postTitle}</span>
+                            </div>
+                            <p className={styles.boxTitle}>{post.postContext}</p>
+                            <div className={styles.nick_interval}>
+                                <span className={styles.nick}>{post.userNick}</span>
+                                <span className={styles.post_date}>{post.postDate}</span>
                             </div>
                         </div>
                     ))}
-                    <div ref={messagesEndRef} />
+                    <button onClick={onBoardClick}>게시물</button>
+                    <button onClick={onKakaoClick}>2안</button>
                 </div>
             </div>
-
-            <div className={styles.comment_wrap}>
-                <input 
-                    type="text"
-                    className={styles.comment_box} 
-                    maxLength='100' 
-                    placeholder='댓글을 입력해주세요 최대 100자까지 허용..'
-                    value={newPost}
-                    onChange={(e) => setNewPost(e.target.value)}
-                    onKeyDown={activeEnterKey}
-                />
-                <button className={styles.comment_button}
-                        onClick={handleSubmit}
-                        disabled={newPost.trim() === ''}
-                        >등록</button>
-            </div>
-        </div>
     );
 }
 
