@@ -5,6 +5,7 @@ import { DeleteAPI, GetAPI, PostAPI, PutAPI, RefreshAccessToken } from '../../ap
 import { jwtDecode } from 'jwt-decode';
 
 
+
 function Mypage(){
 
     const navigate = useNavigate();
@@ -120,8 +121,8 @@ function Mypage(){
     };
 
     useEffect(() => {
-        selectUserDetail().then(res =>setUsers(res));
-    }, []);
+        selectUserDetail().then(res => setUsers(res));
+    },[]);
 
     useEffect(() => {
         setUserInfo(prevState => ({
@@ -317,16 +318,26 @@ function Mypage(){
 
         const address = `/mypage/${userCode}`;
         const response = await DeleteAPI(address, userCode);
-
-        if(response.ok) {
-            alert("회원 탈퇴가 완료되었습니다.");
-            window.localStorage.removeItem('accessToken');
-            setIsLoggedIn(false);
-            navigate("/");
-            window.location.reload();
+        
+        try{
+            
+            if(response.ok) {
+                setIsModalOpen(false);
+                setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '회원 탈퇴가 완료되었습니다.' });
+                setTimeout(() => {
+                    window.localStorage.removeItem('accessToken');
+                    setIsLoggedIn(false);
+                    navigate("/");
+                    window.location.reload();
+                }, 3000); 
+            } else{
+                setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '회원 탈퇴가 실패하였습니다.' });
+            } 
+        } catch(error) {
+            setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '회원 탈퇴가 실패하였습니다.' });
         }
+        
         const result = await response.users;
-
         return result;
     };
 
@@ -393,7 +404,7 @@ function Mypage(){
                 <div className={styles.modalContainer} ref={modalBackground}>
                     <div className={styles.modalContent}>
                         <div className={styles.modalTextContainer}>
-                            <div className={styles.modal_content}>
+                            <div className={styles.modalTextContainer}>
                                 <p>DogSeek을</p>
                                 <p>탈퇴하시겠습니까?</p>
                             </div>
@@ -462,7 +473,7 @@ function Mypage(){
             }
             {modal.state && (
                     <div className={styles.modalContainer}>
-                        <div className={styles.modalContent}>
+                        <div className={styles.modalContent1}>
                             <div className={styles.iconContainer}>
                                 {modal.isCheck ? (
                                     <img src='./images/auth/modal_check.png' alt='modal_check'></img>
