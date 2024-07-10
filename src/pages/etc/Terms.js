@@ -1,6 +1,14 @@
 import styles from './Terms.module.css';
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 function Terms(){
+
+    const location = useLocation();
+
+    useEffect(() => {
+        window.scrollTo(0,0);
+    }, []);
 
     return(
         <div className={styles.container}>

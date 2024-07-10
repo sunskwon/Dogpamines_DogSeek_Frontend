@@ -27,6 +27,7 @@ function DictDetail() {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (dogName) {
             selectOneDict(dogName).then(res => {
                 setDog(res);

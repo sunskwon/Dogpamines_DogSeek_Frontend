@@ -24,7 +24,7 @@ function Login() {
     const onPwdChange = (e) => setUser({ ...user, userPass: e.target.value });
 
     const onClickLogin = async () => {
-
+        window.scrollTo(0,0);
         if (user.userId.length !== 0 && user.userPass.length !== 0) {
 
             const response = await callLoginAPI({ user });

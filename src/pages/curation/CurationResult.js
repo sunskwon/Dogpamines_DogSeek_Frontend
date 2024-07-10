@@ -62,6 +62,7 @@ function CurationResult() {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         fetchData();
     }, [age, allergy, breed, cook, disease, gender, ingra, name, neut, size, toDate, userCode, weight]);
 

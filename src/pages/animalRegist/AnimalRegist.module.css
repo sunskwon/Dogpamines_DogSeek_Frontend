@@ -5,7 +5,8 @@
 .allContainer{
     position: relative;
     width: 1180px;
-    margin: auto;
+    height: 720px;
+    margin: 0 auto;
 }
 
 .titleContainer{

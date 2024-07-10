@@ -1,12 +1,12 @@
 import { Link, NavLink, useNavigate } from 'react-router-dom';
 import styles from './Main.module.css'
-import { useState, useEffect } from "react";
-import { GetAPINotToken } from '../api/RestAPIs';
+import { useState} from "react";
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation'
 import 'swiper/css/autoplay';
 import MostProducts from '../components/products/MostProducts';
+import TopBtn from '../components/common/Topbtn';
 
 function Main(){
 
@@ -81,9 +81,21 @@ function Main(){
                     </div>
                     <div style={{display:"flex", flexDirection:"column", textAlign:"center"}}>
                         <NavLink to={'/animalinfo'}>
-                            <img className={styles.icon1} src='./images/main/vector.png' alt='반려견 등록 확인'/>
+                            <img className={styles.icon2} src='./images/main/vector.png' alt='반려견 등록 확인'/>
                         </NavLink>
                         <Link to={'/animalinfo'} className={styles.text6}>반려견 등록 확인</Link>
+                    </div>
+                    <div style={{display:"flex", flexDirection:"column", textAlign:"center"}}>
+                        <NavLink to={'/animalinfo'}>
+                            <img className={styles.icon1} src='./images/main/Chat.png' alt='유저 채팅'/>
+                        </NavLink>
+                        <Link to={'/animalinfo'} className={styles.text1}>유저 채팅</Link>
+                    </div>
+                    <div style={{display:"flex", flexDirection:"column", textAlign:"center"}}>
+                        <NavLink to={'/animalinfo'}>
+                            <img className={styles.icon1} src='./images/main/Consultation.png' alt='1대1상담'/>
+                        </NavLink>
+                        <Link to={'/animalinfo'} className={styles.text1}>실시간 1:1 상담</Link>
                     </div>
                 </div>
             </div>
@@ -129,6 +141,7 @@ function Main(){
                         <Link to={'/company'} className={styles.button4}>회사 소개</Link>
                     </div>
                 </div>
+                <TopBtn></TopBtn>
             </div>
         </>
     )

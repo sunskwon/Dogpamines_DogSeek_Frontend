@@ -151,16 +151,24 @@ function Mydog() {
                         <span className={styles.span1}>맞춤사료</span>
                     </div>
                     <hr className={styles.line4} />
-                    {curationsDog.map(curationDog => (
-                        <div className={styles.resultBox} key={curationDog.curationCode}>
-                            <span className={styles.span2}>{curationDog.curationName}</span>
-                            <span className={styles.span3}>{curationDog.curationDate}</span>
-                            <div className={styles.btnWrapper}>
-                                <button type='button' className={styles.btn2} onClick={() => openModal(curationDog, curationDog.curationCode)}>상세보기</button>
+                    {curationsDog.length === 0 ? (
+                        <>
+                            <div className={styles.emptyMessage}>
+                                <p>현재 등록된 반려견이 없습니다.</p>
                             </div>
-                                <button className={styles.btn1} onClick={() => openModal2(curationDog)}>맞춤사료</button>
-                        </div>
-                    ))}
+                        </>
+                    ) : (
+                            curationsDog.map(curationDog => (
+                            <div className={styles.resultBox} key={curationDog.curationCode}>
+                                <span className={styles.span2}>{curationDog.curationName}</span>
+                                <span className={styles.span3}>{curationDog.curationDate}</span>
+                                <div className={styles.btnWrapper}>
+                                    <button type='button' className={styles.btn2} onClick={() => openModal(curationDog, curationDog.curationCode)}>상세보기</button>
+                                </div>
+                                    <button className={styles.btn1} onClick={() => openModal2(curationDog)}>맞춤사료</button>
+                            </div>
+                        )) 
+                    )}
                 </div>
             </div>
 

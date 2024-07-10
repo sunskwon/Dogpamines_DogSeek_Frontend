@@ -6,6 +6,7 @@ import { jwtDecode } from 'jwt-decode';
 
 
 
+
 function Mypage(){
 
     const navigate = useNavigate();
@@ -154,10 +155,10 @@ function Mypage(){
             checkNickAvailability();
         } else {
             setNickAvailability({
-                available: true,
-                message: '사용 가능한 닉네임입니다.'
+                available: false,
+                message: '닉네임 형식에 맞게 작성해주세요.'
             });
-        }
+        } 
     }, [userInfo.userNick]);
 
     const openModal = () => {
