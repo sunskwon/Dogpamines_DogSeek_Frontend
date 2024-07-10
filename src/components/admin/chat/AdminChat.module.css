@@ -1,0 +1,246 @@
+.acceptButton {
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+    border: 0;
+    margin: 5px;
+    background-color: rgba(0, 86, 0, 1);
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+    cursor: pointer;
+}
+
+.cancelButton {
+    width: 80px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 86, 0, 1);
+    margin: 5px;
+    background-color: white;
+    font-weight: bold;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    cursor: pointer;
+}
+
+.detailBox {
+    padding-top: 19px;
+    display: flex;
+    justify-content: center;
+}
+
+.detailBox p {
+    font-weight: bold;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    margin: 0;
+    margin-bottom: 4px;
+}
+
+.detailBox span {
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    margin: 0;
+}
+
+.detailBox input {
+    width: 120px;
+    height: 30px;
+    margin-right: 0;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+}
+
+.detailBox select {
+    width: 130px;
+    height: 35px;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+}
+
+.detailBoxImage {
+    width: 170px;
+    height: 225px;
+    float: left;
+}
+
+.detailBoxImage img {
+    width: 120px;
+    height: 120px;
+    padding-top: 30px;
+}
+
+.imageInfo {
+    width: 120px;
+    height: 120px;
+    box-sizing: border-box;
+    background: rgba(0, 0, 0, 0.5);
+    position: relative;
+    left: 0;
+    bottom: 125px;
+    padding: 15px;
+    padding-top: 25px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.35s ease-in-out;
+    cursor: pointer;
+}
+
+.imageInfo span {
+    font-size: 14px;
+    color: white;
+}
+
+.imageInfo:hover {
+    opacity: 1;
+}
+
+.detailBoxShort {
+    width: 170px;
+    height: 75px;
+    float: left;
+}
+
+.detailBoxMid {
+    width: 340px;
+    height: 75px;
+    float: left;
+}
+
+.detailBoxFull {
+    width: 680px;
+    height: 75px;
+    clear: both;
+}
+
+.spanBox {
+    height: 30px;
+    padding-top: 5px;
+    padding-left: 10px;
+    margin-bottom: 15px;
+}
+
+.spanBox a {
+    font-size: 14px;
+    text-decoration: underline;
+    color: rgba(112, 178, 222, 1);
+}
+
+.gradeBox {
+    padding-top: 7px;
+    padding-left: 10px;
+}
+
+.gradeBox img {
+    margin: 1px;
+    cursor: pointer;
+}
+
+.gradeOutputBox {
+    padding-top: 7px;
+    padding-left: 10px;
+}
+
+.gradeOutputBox img {
+    margin: 1px;
+}
+
+.listBox {
+    width: 100%;
+    float: left;
+}
+
+.listBox span {
+    border-radius: 10px;
+    background-color: rgba(99, 197, 74, 1);
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+    padding: 5px;
+    margin: 2px;
+}
+
+.scrollBox {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* .scrollBox:hover {
+    width: 680px;
+    overflow: unset;
+    background-color: white;
+    position: fixed;
+    transform: translate(-33%, -50%);
+    top: 63%;
+    left: 50%;
+    display: flex;
+    justify-content: center;
+} */
+
+.scrollBox::-webkit-scrollbar {
+    width: 10px;
+    top: 30px;
+}
+
+.scrollBox::-webkit-scrollbar-thumb {
+    height: 20%;
+    background: rgba(99, 197, 74, 1);
+    border-radius: 10px;
+}
+
+.scrollBox::-webkit-scrollbar-track {
+    background: rgba(212, 212, 212, 1);
+    border-radius: 10px;
+}
+
+.productListTable {
+    font-size: 14px;
+    color: rgba(153, 153, 153, 1);
+    display: flex;
+    /* justify-content: center; */
+    text-align: center;
+    margin: 20px;
+}
+
+.productListTable th {
+    position: sticky;
+    top: -5px;
+    background-color: white;
+    table-layout: fixed;
+    height: 32px;
+}
+
+.ellipsisBox {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.ellipsisBox a {
+    font-size: 14px;
+    text-decoration: underline;
+    color: rgba(112, 178, 222, 1);
+}
+
+.errorBox {
+    width: 560px;
+    height: 560px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+}
+
+.errorBox p {
+    font-weight: bold;
+    font-size: 24px;
+    color: rgba(153, 153, 153, 1);
+}

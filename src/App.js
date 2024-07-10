@@ -31,6 +31,10 @@ import CurationSelectDisease from "./pages/curation/CurationSelectDisease.js";
 import CurationSelectIngra from "./pages/curation/CurationSelectIngra.js";
 import CurationSelectCook from "./pages/curation/CurationSelectCook.js";
 import CurationResult from "./pages/curation/CurationResult.js";
+import AnimalRegist from "./pages/animalRegist/AnimalRegist.js";
+
+import Chat from "./pages/chat/Chat.js";
+import UserPrivateChat from "./pages/chat/UserPrivateChat.js";
 
 import Adminlayout from "./layouts/AdminLayout.js";
 import AdminDashBoard from "./pages/admin/AdminDashBoard.js";
@@ -48,11 +52,15 @@ import AdminSelectBoardByCode from "./pages/admin/board/AdminSelectBoardByCode.j
 import AdminUpdateBoard from "./pages/admin/board/AdminUpdateBoard.js";
 import AdminSelectAllUsers from "./pages/admin/user/AdminSelectAllUsers.js";
 import AdminSelectUserByCode from "./pages/admin/user/AdminSelectUserByCode.js"
-import AnimalRegist from "./pages/animalRegist/AnimalRegist.js";
+import AdminChatList from "./pages/admin/chat/AdminChatList.js";
+import AdminChat from "./pages/admin/chat/AdminChat.js";
+
 import NotFound from "./pages/common/NotFound.js";
 import ReleaseSleep from "./pages/auth/ReleaseSleep.js";
 import ErrorBoundary from "./components/common/Errorboundary.js";
 import ErrorContext from "./components/common/ErrorContext.js";
+
+import AdminChatTest from "./pages/admin/chat/AdminChatTest.js";
 
 function App() {
   return (
@@ -94,6 +102,9 @@ function App() {
             <Route path="/mydog" element={<Mydog />} />
             <Route path="/privacypolicy" element={<PrivacyPolicy />} />
 
+            <Route path="/chat" element={<Chat />} />
+            <Route path="/userchat" element={<UserPrivateChat />} />
+
             {/* NotFound는 모든 Route보다 아래에 있을 것 */}
             <Route path="/*" element={<NotFound />} />
             <Route path="/*" element={<ErrorContext/>} />
@@ -119,7 +130,9 @@ function App() {
             <Route path="/admin/updateboard" element={<AdminUpdateBoard />} />
             <Route path="/admin/users" element={<AdminSelectAllUsers />} />
             <Route path="/admin/userdetail" element={<AdminSelectUserByCode />} />
-
+            <Route path="/admin/chatlist" element={<AdminChatList />} />
+            <Route path="/admin/chat" element={<AdminChat />} />
+            <Route path="/admin/chattest" element={<AdminChatTest />} />
           </Route>
         </Routes>
       </BrowserRouter>

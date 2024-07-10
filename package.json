@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@stomp/stompjs": "^7.0.0",
     "axios": "^1.7.2",
     "chart.js": "^4.4.3",
     "create-react-app": "^5.0.1",
@@ -12,6 +13,7 @@
     "react-paginate": "^8.2.0",
     "react-router-dom": "^6.24.0",
     "react-scripts": "^5.0.1",
+    "sockjs-client": "^1.6.1",
     "swiper": "^11.1.4"
   },
   "scripts": {
