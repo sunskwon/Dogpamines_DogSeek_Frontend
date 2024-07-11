@@ -55,7 +55,6 @@ export function GetAPINotToken(address) {
 
     const baseUrl = process.env.REACT_APP_SPRING_SERVER;
     const url = `${baseUrl}${address}`;
-    console.log(url);
 
     return (
         fetch(url, {

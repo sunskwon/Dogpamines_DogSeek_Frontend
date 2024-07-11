@@ -1,27 +1,25 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { GetAPI, PostAPI } from "../../../api/RestAPIs";
+import { GetAPI } from "../../api/RestAPIs";
 
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
 
-import Loading from '../adminCommon/Loading';
+import Loading from '../admin/adminCommon/Loading';
 
 import ChatMessage from './ChatMessage';
 
-import styles from "./AdminChat.module.css";
+import styles from "./UserChat.module.css";
 
-const Chat = ({ code, nick, connect }) => {
+const PublicChat = ({ code, nick }) => {
 
     const [userCode, setUserCode] = useState();
     const [userNick, setUserNick] = useState();
-    const [connectCode, setConnectCode] = useState();
 
     const [stompClient, setStompClient] = useState(null);
     const [messages, setMessages] = useState([]);
     const [inputMessage, setInputMessage] = useState("");
 
-    const [error, setError] = useState(null);
     const [boolLoading, setBoolLoading] = useState(false);
 
     const messageEnd = useRef();
@@ -35,9 +33,9 @@ const Chat = ({ code, nick, connect }) => {
 
     const call = async () => {
 
-        const address = `/chat/prev?roomId=/topic/room/${connectCode}`;
+        const address = '/chat/prev?roomId=/topic/public';
 
-        setBoolLoading(true);
+        setBoolLoading(true)
 
         try {
 
@@ -45,17 +43,11 @@ const Chat = ({ code, nick, connect }) => {
 
             const response = await GetAPI(address);
 
-            if (response.error) {
-
-                setError(error);
-            }
-
             const result = await response.prevs;
 
             return result;
         } catch (error) {
 
-            setError(error);
         } finally {
 
             setBoolLoading(false);
@@ -66,8 +58,7 @@ const Chat = ({ code, nick, connect }) => {
 
         setUserCode(code);
         setUserNick(nick);
-        setConnectCode(connect.userCode);
-    }, [code, nick, connect]);
+    }, [code, nick]);
 
     useEffect(() => {
 
@@ -79,7 +70,7 @@ const Chat = ({ code, nick, connect }) => {
             reconnectDelay: 5000,
             onConnect: (frame) => {
                 console.log('Connected: ' + frame);
-                client.subscribe(`/topic/room/${connectCode}`, message => {
+                client.subscribe('/topic/public', message => {
                     const newMessage = JSON.parse(message.body);
                     setMessages(prevMessages => [...prevMessages, newMessage]);
                 });
@@ -93,23 +84,10 @@ const Chat = ({ code, nick, connect }) => {
         client.activate();
         setStompClient(client);
 
-        return async () => {
+        return () => {
             client.deactivate();
-
-            const leaveMessage = {
-                roomId: `/topic/room/${connectCode}`,
-                userCode: userCode,
-                userNick: userNick,
-                type: 'LEAVE',
-                message: `운영자 ${userNick}님이 떠났습니다`,
-                date: new Date().toLocaleString()
-            };
-
-            const address = '/chat/adminleave';
-
-            await PostAPI(address, leaveMessage);
         };
-    }, [userCode, userNick, connectCode]);
+    }, [userCode, userNick]);
 
     useEffect(() => {
         if (messageEnd.current) {
@@ -117,19 +95,18 @@ const Chat = ({ code, nick, connect }) => {
         }
     }, [messages]);
 
-    const sendMessage = async (type, content) => {
+    const sendMessage = (type, content) => {
         if (stompClient && stompClient.connected) {
             const chatMessage = {
-                roomId: `/topic/room/${connectCode}`,
+                roomId: '/topic/public',
                 userCode: userCode,
                 userNick: userNick,
                 type: type,
                 message: content,
                 date: new Date().toLocaleString()
             };
-
             stompClient.publish({
-                destination: `/app/chat.sendMessage/room/${connectCode}`,
+                destination: '/app/chat.sendMessage',
                 body: JSON.stringify(chatMessage),
             });
         }
@@ -170,19 +147,9 @@ const Chat = ({ code, nick, connect }) => {
             </>
         ) : (
             <>
-                <div className={styles.errorBox}>
-                    <div>
-                        <img
-                            src="/images/admin/NoNetwork.png"
-                            alt="인터넷 연결 안됨 아이콘"
-                        />
-                        <p>채팅 서버에 접속하지 못했습니다</p>
-                        <p>다시 시도해주세요</p>
-                    </div>
-                </div>
             </>
         )
     );
 };
 
-export default Chat;
+export default PublicChat;
