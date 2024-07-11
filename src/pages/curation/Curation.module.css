@@ -30,7 +30,7 @@
 .textBox {
     display: flex;
     flex-direction: column;
-    gap: 70px;
+    gap: 64px;
     width: 100px;
     margin-top: 40px;
 }
@@ -57,7 +57,7 @@
 .inputBox{
     display: flex;
     flex-direction: column;
-    gap: 60px;
+    gap: 64px;
     margin-top: 42px;
 }
 

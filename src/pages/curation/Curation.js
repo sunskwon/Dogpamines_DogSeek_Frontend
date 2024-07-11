@@ -47,7 +47,7 @@ function Curation(){
                     </div>
                     <hr className={styles.hr}></hr>
                     <div className={styles.inputBox}>
-                        <input className={styles.inputSize} type='text' placeholder='강아지 이름을 입력해주세요' name='name' onChange={onNameChange}></input>
+                        <input className={styles.inputSize} type='text' placeholder='강아지 이름을 입력해주세요' name='name' onChange={onNameChange} maxLength={32}></input>
                         <select className={styles.inputSize} name='gender' onChange={onGenderChange}>
                             <option>선택</option>
                             <option>남</option>
@@ -60,7 +60,7 @@ function Curation(){
                             <option>푸들</option>
                             <option>비글</option>
                         </select>
-                        <input className={styles.inputSize} type='text' placeholder='강아지 몸무게를 입력해주세요 ex) 4.4kg' name='weight' onChange={onWeightChange}></input>
+                        <input className={styles.inputSize} type='text' placeholder='강아지 몸무게를 입력해주세요 ex) 4.4kg' name='weight' onChange={onWeightChange} maxLength={32}></input>
                     </div>
                 </div>
                 <button type="submit" className={isButtonEnabled ? styles.nextButtonActive : styles.nextButton} disabled={!isButtonEnabled} onClick={onClick}>다음</button>

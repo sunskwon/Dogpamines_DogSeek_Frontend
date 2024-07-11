@@ -104,7 +104,7 @@ function ProductDetail() {
             })
             .then((res) => setNDate(res.data.items))
             .catch((e) => {
-                console.log('응 안돼', e)
+                console.log('Api Not Found', e)
             });
     };
 
@@ -129,11 +129,11 @@ function ProductDetail() {
                     <p className={styles.manufacText}>{product.prodManufac}</p>
                     <p className={styles.priceText}>￦{formatPrice(product.prodPrice)}</p>
                     <div className={styles.prodTextBox}>
-                        <p style={{ fontWeight: "bold", fontSize: "20px", margin: "0" }}>평점</p>
+                        <p style={{ fontWeight: "bold", fontSize: "16px", margin: "0" }}>평점</p>
                         <img style={{ width: "79px", height: "15px", marginTop: "8px", marginLeft: "10px" }} src={getStarImage(product.prodGrade)} alt={`${product.prodGrade} stars`} />
                     </div>
                     <div className={styles.prodTextBox}>
-                        <p style={{ fontWeight: "bold", fontSize: "20px", margin: "0" }}>용량</p>
+                        <p style={{ fontWeight: "bold", fontSize: "16px", margin: "0" }}>용량</p>
                         {volume.map((volume) => (
                             <div key={volume.prodCode} className={styles.volumeBox}>
                                 <div className={`${styles.volumeButton} ${volume.prodName === product.prodName ? styles.volumeButtonActive : ''}`} onClick={() => setProduct(volume)}>{volume.prodVolume}kg</div>
@@ -141,33 +141,33 @@ function ProductDetail() {
                         ))}
                     </div>
                     <div className={styles.prodTextBox}>
-                        <p style={{ fontWeight: "bold", fontSize: "20px", margin: "0", width: "90px" }}>제품기능</p>
-                        <p className={styles.prodText}>{product.prodEffi}</p>
+                        <p style={{ fontWeight: "bold", fontSize: "16px", margin: "0", width: "63px" }}>제품기능</p>
+                        <p className={styles.prodText} style={{fontWeight:"500"}}>{product.prodEffi}</p>
                     </div>
                     <div className={styles.prodTextBox}>
-                        <p style={{ fontWeight: "bold", fontSize: "20px", margin: "0", width: "90px" }}>추천견종</p>
-                        <p className={styles.prodText}>{product.prodRecom}</p>
+                        <p style={{ fontWeight: "bold", fontSize: "16px", margin: "0", width: "63px" }}>추천견종</p>
+                        <p className={styles.prodText} style={{fontWeight:"500"}}>{product.prodRecom}</p>
                     </div>
                     <div className={styles.prodTextBox}>
-                        <p style={{ fontWeight: "bold", fontSize: "20px", margin: "0", width: "90px" }}>조리방식</p>
-                        <p className={styles.prodText}>{product.prodCook}</p>
+                        <p style={{ fontWeight: "bold", fontSize: "16px", margin: "0", width: "63px" }}>조리방식</p>
+                        <p className={styles.prodText} style={{fontWeight:"500"}}>{product.prodCook}</p>
                     </div>
                     <div className={styles.prodTextBox}>
-                        <p style={{ fontWeight: "bold", fontSize: "20px", margin: "0", width: "90px" }}>입자크기</p>
-                        <p className={styles.prodText}>{product.prodSize}mm</p>
+                        <p style={{ fontWeight: "bold", fontSize: "16px", margin: "0", width: "63px" }}>입자크기</p>
+                        <p className={styles.prodText} style={{fontWeight:"500"}}>{product.prodSize}mm</p>
                     </div>
                     <div className={styles.prodTextBox}>
-                        <p style={{ fontWeight: "bold", fontSize: "20px", margin: "0" }}>재료</p>
-                        <p className={styles.prodText}>{product.prodIngra}</p>
+                        <p style={{ fontWeight: "bold", fontSize: "16px", margin: "0" }}>재료</p>
+                        <p className={styles.prodText} style={{fontWeight:"500"}}>{product.prodIngra}</p>
                     </div>
                     <hr className={styles.hr} />
                     <div className={styles.addressBox} onClick={toggle} >
-                        <p style={{ fontWeight: "bold", fontSize: "20px", margin: "0", color: "#999999" }}>사이트 주소</p>
+                        <p style={{ fontWeight: "500", fontSize: "16px", margin: "0", color: "#999999" }}>사이트 주소</p>
                         <div style={{ width: "12px", height: "20px" }}>
                             {toggleState ?
-                                <img src="/images/product/vector.png" style={{ width: "25px", height: "15px", transform: "rotate(180deg)", marginLeft: "275px" }} alt="toggle arrow" />
+                                <img src="/images/product/vector.png" style={{ width: "25px", height: "11px", transform: "rotate(180deg)", marginLeft: "275px" }} alt="toggle arrow" />
                                 :
-                                <img src="/images/product/vector.png" style={{ width: "25px", height: "15px", marginLeft: "275px" }} alt="toggle arrow" />}
+                                <img src="/images/product/vector.png" style={{ width: "25px", height: "11px", marginLeft: "275px" }} alt="toggle arrow" />}
                         </div>
                     </div>
                     {toggleState && (
@@ -214,7 +214,7 @@ function ProductDetail() {
                                 <img src={similarProd.prodImage} style={{ width: "100%" }} alt={similarProd.prodName} />
                                 <div className={styles.prodTextBox}>
                                     <p style={{ fontWeight: "bold", fontSize: "16px", margin: "0" }}>제품명</p>
-                                    <p style={{ fontWeight: "bold", fontSize: "16px", color: "#999999", width: "234px", margin: "0", marginLeft: "10px", height: "50px" }}>{similarProd.prodName}</p>
+                                    <p style={{ fontWeight: "500", fontSize: "16px", color: "#999999", width: "234px", margin: "0", marginLeft: "10px", height: "50px" }}>{similarProd.prodName}</p>
                                 </div>
                                 <div className={styles.prodTextBox}>
                                     <p style={{ fontWeight: "bold", fontSize: "16px", margin: "0" }}>평점</p>

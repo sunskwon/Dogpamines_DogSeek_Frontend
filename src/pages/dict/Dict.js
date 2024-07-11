@@ -18,7 +18,7 @@ function Dict() {
     const [modalContent, setModalContent] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    
+
     const toggleInSmallModal = () => {
         setInIsSmallModalOpen(prevState => !prevState);
     };
@@ -28,38 +28,38 @@ function Dict() {
     const toggleInLargeModal = () => {
         setInIsLargeModalOpen(prevState => !prevState);
     };
-    
+
     const [dogs, setDogs] = useState([]);
-    
+
     const [search, setSearch] = useState({ dogName: '' });
-    
+
     const selectAllDict = async () => {
-        
+
         const address = '/dict';
-        
+
         const response = await GetAPINotToken(address);
-        
+
         const result = await response.dict;
-        
+
         return result;
     };
-    
+
     const searchDict = async () => {
-        
+
         const address = `/dict/search?dogName=${search.dogName}`;
 
         const response = await GetAPINotToken(address);
-        
+
         const result = await response.dict;
-        
+
         return result;
     };
-    
+
     useEffect(() => {
         window.scrollTo(0, 0);
         selectAllDict().then(res => setDogs(res));
     }, []);
-    
+
     const valueChangeHandler = e => {
         const { name, value } = e.target;
         setSearch({
@@ -67,7 +67,7 @@ function Dict() {
             [name]: value
         });
     };
-    
+
     const searchSubmitHandler = async (e) => {
         e.preventDefault();
         if (!search.dogName.trim()) {
@@ -85,7 +85,7 @@ function Dict() {
         console.log(search);
         setDogs(results);
     }
-    
+
     const closeModal = () => {
         setIsModalOpen(false);
     };
@@ -96,7 +96,7 @@ function Dict() {
     };
 
     const allSearchHandler = async () => {
-        try{
+        try {
             const res = await selectAllDict();
             setDogs(res);
         } catch (error) {
@@ -118,7 +118,7 @@ function Dict() {
                     <span className={styles.titletext2}>반려견 품종의 특징과 요구사항에 대한 전문적인 정보를 찾아보세요. <br />
                         스크롤 또는 검색 기능을 사용해 원하는 견종에 대한 정보를 찾을 수 있습니다. </span>
                     <img className={styles.img} src='https://lh3.google.com/u/0/d/1OYEelsFN-8xWWbi2SgMzZl3FN8fTx2mQ=w1920-h945-iv1' />
-                    <button className={styles.allSearch} onClick={allSearchHandler}>전체 견종</button>
+                    <div style={{display:"flex"}}>
                     <form className={styles.form} onSubmit={searchSubmitHandler}>
                         <input
                             className={styles.search}
@@ -132,9 +132,11 @@ function Dict() {
                             <img value={search.dogName} src='/images/dict/Search.png' />
                         </button>
                     </form>
+                    <button className={styles.allSearch} onClick={allSearchHandler}>전체</button>
+                    </div>
                 </div>
             </div>
-            
+
             <DictModal
                 isModalOpen={isModalOpen}
                 setIsModalOpen={setIsModalOpen}
@@ -145,7 +147,7 @@ function Dict() {
             <div className={styles.errorContainer} >
                 {filterDogBySize('소형견').length === 0 && filterDogBySize('중형견').length === 0 && filterDogBySize('대형견').length === 0 &&
                     <>
-                        <img src='/images/animal/cuteDog.png' alt='error'/>
+                        <img src='/images/animal/cuteDog.png' alt='error' />
                         <p>해당 내용이 포함된 견종이 없습니다.</p>
                     </>
                 }
