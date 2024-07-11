@@ -4,32 +4,37 @@ import { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { callLogoutAPI } from '../../api/RestAPIs';
 
-function Header1(){
+function Header1() {
 
     const navigate = useNavigate();
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userAuth, setUserAuth] = useState(null);
 
-    const handleLogout= async() => {
-        const result = await callLogoutAPI();
-
-        if (result === 'true') {
-            window.localStorage.removeItem('accessToken');
-            window.localStorage.removeItem('refreshToken');
-            window.localStorage.removeItem('userCode');
-            window.localStorage.removeItem('userNick');
-            window.localStorage.removeItem('userAuth');
-            setIsLoggedIn(false);
-            setUserAuth(null);
-            alert("로그아웃 되었습니다.");
-            navigate("/");
-        } else {
-            alert('로그아웃 실패');
+    const clearLocalStorageAndLogout = () => {
+        const keys = ['accessToken', 'refreshToken'];
+        keys.forEach(key => window.localStorage.removeItem(key));
+        setIsLoggedIn(false);
+        setUserAuth(null);
+        alert("로그아웃 되었습니다.");
+        navigate("/");
+    };
+    
+    const handleLogout = async () => {
+        try {
+            const result = await callLogoutAPI();
+            if (result === 'true') {
+                clearLocalStorageAndLogout();
+            } else {
+                alert('로그아웃 실패');
+            }
+        } catch (error) {
+            clearLocalStorageAndLogout();
         }
     };
+    
 
-    const handleMypage= () => {
+    const handleMypage = () => {
         setIsLoggedIn(true);
         navigate("/mypage")
     }
@@ -61,7 +66,7 @@ function Header1(){
         }
     }, []);
 
-    return(
+    return (
         <header>
             <div className={styles.all}>
                 <div className={styles.container}>
@@ -78,16 +83,16 @@ function Header1(){
                         <a aria-label="로그인 또는 로그아웃" className={styles.rightText} onClick={isLoggedIn ? handleLogout : () => navigate("/login")}>{isLoggedIn ? "Logout" : "Login"}</a>
                         {userAuth === "ADMIN" ? (
                             <a aria-label='회원가입 또는 AdminPage' className={styles.rightText} onClick={() => navigate("/admin")}>AdminPage</a>
-                        ) : (userAuth === "USER" && isLoggedIn ? 
+                        ) : (userAuth === "USER" && isLoggedIn ?
                             (
-                                    <a aria-label='마이페이지' className={styles.rightText} onClick={handleMypage}>MyPage</a>
-                                ) : ( 
-                                    <a aria-label='회원가입 또는 마이페이지' className={styles.rightText} onClick={() => navigate("/signup")}>SignUp</a>
-                                )
+                                <a aria-label='마이페이지' className={styles.rightText} onClick={handleMypage}>MyPage</a>
+                            ) : (
+                                <a aria-label='회원가입 또는 마이페이지' className={styles.rightText} onClick={() => navigate("/signup")}>SignUp</a>
+                            )
                         )}
                     </div>
                 </div>
-            </div>  
+            </div>
         </header>
     )
 }

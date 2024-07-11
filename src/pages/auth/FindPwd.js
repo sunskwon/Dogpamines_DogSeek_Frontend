@@ -42,6 +42,7 @@ function FindPwd() {
         state: false,
         isCheck: false,
         isOneBtn: true,
+        type: false,
         text: '',
     });
 
@@ -159,8 +160,7 @@ function FindPwd() {
                     const result = await callChangePwd(checkId.info, userPwd.password);
 
                     if (result === 'true') {
-                        setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '비밀번호 변경 완료!' });
-                        navigate("/login");
+                        setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, type: true, text: '비밀번호 변경 완료!' });
                     } else {
                         setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '비밀번호 변경 실패!' });
                     }
@@ -176,7 +176,7 @@ function FindPwd() {
     }
 
     const onClickCancel = () => {
-        navigate('/');
+        setModal({ ...modal, state: true, isCheck: false, isOneBtn: false, text: '비밀번호 변경을 취소하시겠습니까?' });
     }
 
     const onClickMoveFindId = () => {
@@ -184,7 +184,10 @@ function FindPwd() {
     }
 
     const closeModal = () => {
-        setModal({ ...modal, state: false, text: '' });
+        setModal({ ...modal, state: false, type: false, text: '' });
+        if (modal.type) {
+            navigate('/login');
+        }
     }
 
     const confirmCancel = () => {

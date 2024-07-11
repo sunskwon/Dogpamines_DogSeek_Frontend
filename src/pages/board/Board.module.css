@@ -7,7 +7,7 @@
 .notice_all {display: flex; width: 1180px; padding-top: 20px; position: relative; margin: 18px auto;}
 .noticeTitle {font-size: 22px; padding-left: 20px;}
 .notice_head {font-weight: bold; font-size: 16px; color: #000000;}
-.notice_toggle {font-size: 18px; background-color: #ffffff; border: none; height: 42px; color: #999999;}
+.notice_toggle {font-size: 18px; background-color: #ffffff; border: none; height: 42px; color: #999999; cursor: pointer;}
 .notice_content {margin-left: 20px; font-size: 14px; color: #000000;}
 
 /* 공지 토글*/
@@ -17,12 +17,21 @@
 .board_title {display: flex; align-items: baseline; justify-content: space-between; width: 1180px; position: relative; margin: 0px auto; padding-top: 32px; padding-left: 20px; font-size: 22px;}
 
 /* 글쓰기 */
-.button_writing {width: 110px; height: 32px; background-color: #005600; font-size: 14px; border-radius: 10px; border: none; margin-right: 20px; color: #ffffff;}
+.button_writing {width: 110px; height: 32px; background-color: #005600; font-size: 14px; border-radius: 10px; border: none; margin-right: 20px; color: #ffffff; cursor: pointer;}
 
 /* search */
 .search_box {display: flex; justify-content: center; align-items: center;}
 .search_input {width: 240px; height: 32px; border-radius: 10px; border: 1px solid #005600; margin-right: 30px;padding-left: 8px;}
-.search_icon {position: absolute; right: 172px;}
+.searchIcon {
+    position: absolute;
+    right: 23px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+.search_icon {position: absolute; right: 172px; cursor: pointer;}
     
 /* 게시판 정렬 */
 .boardboxlines
@@ -46,6 +55,7 @@
     height: 140px;
     border-radius: 10px;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    cursor: pointer;
 }
 .boardboxTitle
 {

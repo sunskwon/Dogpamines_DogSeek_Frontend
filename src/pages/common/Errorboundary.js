@@ -17,10 +17,12 @@ class ErrorBoundary extends Component {
 
   render() {
     if (this.state.hasError) {
-      return <ErrorContext resetErrorBoundary={() => this.setState({hasError: false})}/>;
+      return (
+        <ErrorContext/>
+      );
     }
 
-    return this.props.children; 
+    return this.props.children;
   }
 }
 
