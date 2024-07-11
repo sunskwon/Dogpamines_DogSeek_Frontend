@@ -144,7 +144,7 @@ function Products () {
         <div style={{width:"1180px", margin:"0 auto"}}>
             <div className={styles.box}>
                 <div style={{position:"relative", display:"inline-block"}}>
-                    <input type="text" className={styles.searchBox} placeholder="키워드를 입력해주세요" name='value' onChange={searchText} onKeyPress={onSubmitSearch}/>
+                    <input type="text" className={styles.searchBox} placeholder="키워드를 입력해주세요" name='value' onChange={searchText} onKeyPress={onSubmitSearch} maxLength={26}/>
                     <div className={styles.filterIcon} onClick={handleFilterClick} alt="Filter Icon" />
                     <div className={styles.searchIcon} onClick={handleSearchClick} alt="Search Icon" />
                 </div>
