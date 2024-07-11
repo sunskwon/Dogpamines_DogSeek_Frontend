@@ -48,7 +48,7 @@
 }
 
 .message {
-    width: 40%;
+    width: 30%;
     margin: 10px;
 }
 
@@ -59,7 +59,7 @@
 }
 
 .myBubble {
-    width: 90%;
+    width: 80%;
     height: fit-content;
     border-radius: 1.5em 1.5em 0 1.5em;
     background-color: rgba(99, 197, 74, 1);
@@ -67,7 +67,7 @@
 }
 
 .otherBubble {
-    width: 100%;
+    width: 95%;
     height: fit-content;
     border-radius: 1.5em 1.5em 1.5em 0;
     border: 1px solid rgba(99, 197, 74, 1);
@@ -77,6 +77,10 @@
 
 .bubbleContent {
     margin-bottom: 10px;
+}
+
+.bubbleContent p {
+    word-wrap: break-word;
 }
 
 .bubbleDate {

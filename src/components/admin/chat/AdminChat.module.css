@@ -118,6 +118,10 @@
     margin-bottom: 10px;
 }
 
+.bubbleContent p {
+    word-wrap: break-word;
+}
+
 .bubbleDate {
     display: flex;
     justify-content: end;

@@ -12,36 +12,31 @@
     /* display: flex; */
     /* justify-content: center; */
     /* align-items: start; */
-    text-align: center;
     margin-top: -50px;
 }
 
 .innerContainer h1 {
+    text-align: center;
     color: rgba(99, 197, 74, 1);
 }
 
-.wrapBox {
-    width: 100%;
+.background {
     display: flex;
     justify-content: center;
-    align-items: center;
-    background-color: aliceblue;
+    padding-top: 50px;
 }
 
-.background {
-    position: relative; left: 24.6%;
-}
-
-.background img{
-    width: 600px;
+.background img {
+    width: 500px;
     opacity: 0.5;
 }
 
 .chatContainer {
-    position: relative; right: 26.1%;
-    width: 600px;
+    position: relative;
+    left: 16%;
+    top: -80%;
+    width: 800px;
     height: 450px;
     margin: 0;
     padding: auto;
 }
-

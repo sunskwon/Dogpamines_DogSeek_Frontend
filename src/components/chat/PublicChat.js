@@ -147,6 +147,16 @@ const PublicChat = ({ code, nick }) => {
             </>
         ) : (
             <>
+                <div className={styles.errorBox}>
+                    <div>
+                        <img
+                            src="/images/admin/NoNetwork.png"
+                            alt="인터넷 연결 안됨 아이콘"
+                        />
+                        <p>채팅 서버에 접속하지 못했습니다</p>
+                        <p>다시 시도해주세요</p>
+                    </div>
+                </div>
             </>
         )
     );
