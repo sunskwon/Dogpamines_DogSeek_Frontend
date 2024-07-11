@@ -63,7 +63,7 @@ function Writing() {
           className={styles.w_title_box}
           type="text"
           maxLength="20"
-          placeholder="제발...제목을 입력해주세요..제발!!"
+          placeholder="20자 이내에서 제목을 입력해주세요"
           value={newTitle}
           onChange={(e) => setNewTitle(e.target.value)}
         />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PutAPI } from "../../api/RestAPIs";
+import { GetAPI, PutAPI } from "../../api/RestAPIs";
 import styles from "./BoardUpdate.module.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
@@ -15,6 +15,7 @@ function BoardUpdate() {
 
   const [updatePost, setUpdatePost] = useState("");
   const [updateTitle, setUpdateTitle] = useState("");
+  const [postDetail, setPostDetail] = useState([]);
 
   const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
   const userCode = decodedToken.userCode;
@@ -32,13 +33,26 @@ function BoardUpdate() {
       },
     });
   };
+  const fetchPostDetail = async () => {
+
+    const boardAddress = `/boards/${postCode}`;
+    const response = await GetAPI(boardAddress);
+    setPostDetail(response.boards)
+};
+
+useEffect(() => {
+    fetchPostDetail()
+}, [postCode]); 
 
   const inhandler = async () => {
     const address = "/boards";
+    console.log('postTitle', postDetail.postTitle);
+
+    console.log('제목 수정 확인', updateTitle);
     const newPostData = {
       postCode: postCode,
-      postTitle: updateTitle,
-      postContext: updatePost,
+      postTitle: postDetail.postTitle,
+      postContext: postDetail.postContext,
       postCategory: "자유",
       postTime: `${today} ${currentTime}`, // 날짜와 시간을 합쳐서 전송
       postStatus: "Y",
@@ -72,10 +86,9 @@ function BoardUpdate() {
           className={styles.w_title_box}
           type="text"
           maxLength="20"
-          placeholder="제발...제목을 입력해주세요..제발!!"
-          value={updateTitle}
-          onChange={(e) => setUpdateTitle(e.target.value)}
-        />
+          value={postDetail.postTitle}
+          onChange={(e) => setPostDetail({...postDetail, postTitle: e.target.value})}
+        ></input>
       </div>
       <hr color="D4D4D4" />
       <div className={styles.w_context}>
@@ -86,8 +99,8 @@ function BoardUpdate() {
           className={styles.w_context_text}
           type="text"
           placeholder="500자 이내에서 내용을 입력해주세요"
-          value={updatePost}
-          onChange={(e) => setUpdatePost(e.target.value)}
+          value={postDetail.postContext}
+          onChange={(e) => setPostDetail({...postDetail, postContext: e.target.value})}
         />
       </div>
       <hr color="D4D4D4" />
