@@ -57,10 +57,10 @@ import AdminChat from "./pages/admin/chat/AdminChat.js";
 
 import NotFound from "./pages/common/NotFound.js";
 import ReleaseSleep from "./pages/auth/ReleaseSleep.js";
-import ErrorBoundary from "./components/common/Errorboundary.js";
-import ErrorContext from "./components/common/ErrorContext.js";
+import ErrorBoundary from "./pages/common/Errorboundary.js";
 
 import AdminChatTest from "./pages/admin/chat/AdminChatTest.js";
+import ErrorContext from "./pages/common/ErrorContext.js";
 
 function App() {
   return (
@@ -106,9 +106,8 @@ function App() {
             <Route path="/userchat" element={<UserPrivateChat />} />
 
             {/* NotFound는 모든 Route보다 아래에 있을 것 */}
-            <Route path="/*" element={<NotFound />} />
-            <Route path="/*" element={<ErrorContext/>} />
           </Route>
+            <Route path="/*" element={<NotFound />} />
           {/* </Routes> */}
 
           {/* 관리자 */}

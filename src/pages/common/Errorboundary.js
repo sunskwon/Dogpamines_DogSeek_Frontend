@@ -15,12 +15,20 @@ class ErrorBoundary extends Component {
     console.error("Uncaught error:", error, errorInfo);
   }
 
+  handleResetErrorBoundary = () => {
+    this.setState({ hasError: false });
+  };
+
   render() {
     if (this.state.hasError) {
-      return <ErrorContext resetErrorBoundary={() => this.setState({hasError: false})}/>;
+      return (
+        <ErrorContext
+          resetErrorBoundary={this.handleResetErrorBoundary}
+        />
+      );
     }
 
-    return this.props.children; 
+    return this.props.children;
   }
 }
 
