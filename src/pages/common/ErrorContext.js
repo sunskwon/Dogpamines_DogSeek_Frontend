@@ -37,7 +37,7 @@ function ErrorContext() {
             />
             <div>
               <h1>에러가 발생하였습니다.</h1>
-              <p>재시도 해보신 후 같은 문제가 반복된다면</p>
+              <p>재시도 후 같은 문제가 반복된다면</p>
               <div className={styles.wrapBox}>
                 <p
                   className={styles.emailAddress}
