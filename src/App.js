@@ -33,7 +33,7 @@ import CurationSelectCook from "./pages/curation/CurationSelectCook.js";
 import CurationResult from "./pages/curation/CurationResult.js";
 import AnimalRegist from "./pages/animalRegist/AnimalRegist.js";
 
-import Chat from "./pages/chat/Chat.js";
+import UserPublicChat from "./pages/chat/UserPublicChat.js";
 import UserPrivateChat from "./pages/chat/UserPrivateChat.js";
 
 import Adminlayout from "./layouts/AdminLayout.js";
@@ -58,8 +58,6 @@ import AdminChat from "./pages/admin/chat/AdminChat.js";
 import NotFound from "./pages/common/NotFound.js";
 import ReleaseSleep from "./pages/auth/ReleaseSleep.js";
 import ErrorBoundary from "./pages/common/Errorboundary.js";
-
-import AdminChatTest from "./pages/admin/chat/AdminChatTest.js";
 
 function App() {
   return (
@@ -101,8 +99,8 @@ function App() {
             <Route path="/mydog" element={<Mydog />} />
             <Route path="/privacypolicy" element={<PrivacyPolicy />} />
 
-            <Route path="/chat" element={<Chat />} />
-            <Route path="/userchat" element={<UserPrivateChat />} />
+            <Route path="/publicchat" element={<UserPublicChat />} />
+            <Route path="/privatechat" element={<UserPrivateChat />} />
 
             {/* NotFound는 모든 Route보다 아래에 있을 것 */}
           </Route>
@@ -130,7 +128,6 @@ function App() {
             <Route path="/admin/userdetail" element={<AdminSelectUserByCode />} />
             <Route path="/admin/chatlist" element={<AdminChatList />} />
             <Route path="/admin/chat" element={<AdminChat />} />
-            <Route path="/admin/chattest" element={<AdminChatTest />} />
           </Route>
         </Routes>
       </BrowserRouter>

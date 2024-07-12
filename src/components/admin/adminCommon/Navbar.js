@@ -29,9 +29,9 @@ function Navbar() {
             window.localStorage.removeItem("refreshToken");
 
             cookie.remove('Identifier', {path : '/'}, 1000);
+            
+            navigate('/');
         }
-
-        navigate('/');
     };
 
     return (
