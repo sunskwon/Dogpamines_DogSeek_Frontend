@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { callLogoutAPI } from '../../api/RestAPIs';
+import cookie from "react-cookies";
 
 function Header1() {
 
@@ -16,10 +17,11 @@ function Header1() {
         keys.forEach(key => window.localStorage.removeItem(key));
         setIsLoggedIn(false);
         setUserAuth(null);
+        cookie.remove('Identifier', { path: '/' }, 1000);
         alert("로그아웃 되었습니다.");
         navigate("/");
     };
-    
+
     const handleLogout = async () => {
         try {
             const result = await callLogoutAPI();
@@ -32,7 +34,7 @@ function Header1() {
             clearLocalStorageAndLogout();
         }
     };
-    
+
 
     const handleMypage = () => {
         setIsLoggedIn(true);
@@ -77,7 +79,9 @@ function Header1() {
                         <Link to={"/products"} className={styles.leftText}>Search</Link>
                     </div>
                     <div className={styles.mainBox}>
-                        <a href="/" className={styles.mainText}>DogSeek</a>
+                        <div onClick={() => navigate('/')}>
+                            <p className={styles.mainText}>DogSeek</p>
+                        </div>
                     </div>
                     <div className={styles.containerBox2}>
                         <a aria-label="로그인 또는 로그아웃" className={styles.rightText} onClick={isLoggedIn ? handleLogout : () => navigate("/login")}>{isLoggedIn ? "Logout" : "Login"}</a>

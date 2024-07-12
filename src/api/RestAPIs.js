@@ -410,27 +410,31 @@ export async function RefreshAccessToken() {
     const refreshToken = window.localStorage.getItem('refreshToken');
     const accessToken = window.localStorage.getItem('accessToken');
 
-    const response = await fetch(requestURL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': '*/*',
-            'Access-Cross-Allow-Origin': '*',
-            "Authorization": accessToken,
-            'Refresh-Token': refreshToken
+    try {
+        const response = await fetch(requestURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+                'Access-Cross-Allow-Origin': '*',
+                "Authorization": accessToken,
+                'Refresh-Token': refreshToken
+            }
+        });
+        if (!response.ok) {
+            throw new Error('Failed to refresh access token');
         }
-    });
-    if (!response.ok) {
-        throw new Error('Failed to refresh access token');
-    }
-    const jwtToken = response.headers.get("Authorization");
+        const jwtToken = response.headers.get("Authorization");
 
-    if (response.status === 200 && jwtToken) {
-        // 새로 발급된 Access Token을 localStorage에 저장
-        window.localStorage.setItem('accessToken', jwtToken);
-        return jwtToken;
-    } else {
-        return null;
+        if (response.status === 200 && jwtToken) {
+            // 새로 발급된 Access Token을 localStorage에 저장
+            window.localStorage.setItem('accessToken', jwtToken);
+            return jwtToken;
+        } else {
+            return null;
+        }
+    } catch (error) {
+        console.log(error);
     }
 }
 
@@ -459,7 +463,7 @@ export async function GetValidAccessToken() {
 }
 
 // 휴면해제
-export const callUpdateSleep = async(userId) => {
+export const callUpdateSleep = async (userId) => {
 
     const baseUrl = process.env.REACT_APP_SPRING_SERVER;
     const requestURL = `${baseUrl}/user/release/sleep`;

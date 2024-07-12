@@ -90,12 +90,6 @@ function Main() {
                         </NavLink>
                         <Link to={'/publicchat'} className={styles.text1}>유저 채팅</Link>
                     </div>
-                    <div style={{ display: "flex", flexDirection: "column", textAlign: "center" }}>
-                        <NavLink to={'/animalinfo'}>
-                            <img className={styles.icon1} src='./images/main/Consultation.png' alt='1대1상담' />
-                        </NavLink>
-                        <Link to={'/animalinfo'} className={styles.text1}>실시간 1:1 상담</Link>
-                    </div>
                 </div>
             </div>
             <div className={styles.container2}>
@@ -140,7 +134,7 @@ function Main() {
                         <Link to={'/company'} className={styles.button4}>회사 소개</Link>
                     </div>
                 </div>
-                <TopBtn></TopBtn>
+                {/* <TopBtn></TopBtn> */}
             </div>
         </>
     )

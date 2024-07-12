@@ -1,0 +1,36 @@
+.scroll__container {
+  margin-top: 20px;
+}
+
+.scroll__container img {
+  width: 32px;
+  height: 32xp;
+}
+
+.wrapBox {
+  display: flex;
+}
+
+.buttons {
+  display: none;
+}
+
+.scroll__container:hover .buttons {
+  display: inline-flex;
+}
+
+.button__container {
+  width: 48px;
+  height: 48px;
+  border-radius: 78px;
+  background-color: white;
+  border: 2.5px solid rgba(99, 197, 74, 1);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 5px 3px rgba(0, 0, 0, 0.2);
+  margin-top: -10px;
+  margin-right: 14px;
+  cursor: pointer;
+}
