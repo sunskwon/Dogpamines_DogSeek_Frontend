@@ -23,7 +23,7 @@
 .background {
     display: flex;
     justify-content: center;
-    padding-top: 50px;
+    padding-top: 100px;
 }
 
 .background img {
@@ -34,7 +34,7 @@
 .chatContainer {
     position: relative;
     left: 16%;
-    top: -80%;
+    top: -75%;
     width: 800px;
     height: 450px;
     margin: 0;

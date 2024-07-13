@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { GetAPI } from "../../api/RestAPIs";
+import { GetAPI, PostAPI } from "../../api/RestAPIs";
 
 import SockJS from 'sockjs-client';
 import { Client } from '@stomp/stompjs';
@@ -45,7 +45,18 @@ const PublicChat = ({ code, nick }) => {
 
             const result = await response.prevs;
 
-            return result;
+            const infoMessage = {
+                roomId: '/topic/public',
+                userCode: userCode,
+                userNick: userNick,
+                type: 'JOIN',
+                message: `환영합니다!\n채팅 내용은 저장되지 않으니 유의해주세요\n채팅 매너를 지켜주세요`,
+                date: new Date().toLocaleString()
+            };
+
+            let tempMessages = [...result, infoMessage];
+
+            return tempMessages;
         } catch (error) {
 
         } finally {
@@ -84,7 +95,34 @@ const PublicChat = ({ code, nick }) => {
         client.activate();
         setStompClient(client);
 
+        const address = '/chat/comeandgo';
+
+        const welcomeMessage = {
+            roomId: '/topic/public',
+            userCode: userCode,
+            userNick: userNick,
+            type: 'JOIN',
+            message: `${userNick}님이 접속했습니다`,
+            date: new Date().toLocaleString()
+        };
+
+        PostAPI(address, welcomeMessage);
+
         return () => {
+
+            const address = '/chat/comeandgo';
+
+            const leaveMessage = {
+                roomId: '/topic/public',
+                userCode: userCode,
+                userNick: userNick,
+                type: 'LEAVE',
+                message: `${userNick}님이 떠났습니다`,
+                date: new Date().toLocaleString()
+            };
+
+            PostAPI(address, leaveMessage);
+
             client.deactivate();
         };
     }, [userCode, userNick]);

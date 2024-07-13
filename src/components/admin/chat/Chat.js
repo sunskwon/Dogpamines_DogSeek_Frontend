@@ -93,6 +93,19 @@ const Chat = ({ code, nick, connect }) => {
         client.activate();
         setStompClient(client);
 
+        const address = '/chat/comeandgo';
+
+        const welcomeMessage = {
+            roomId: `/topic/room/${connectCode}`,
+            userCode: userCode,
+            userNick: userNick,
+            type: 'JOIN',
+            message: `${userNick}님이 접속했습니다`,
+            date: new Date().toLocaleString()
+        };
+
+        PostAPI(address, welcomeMessage);
+
         return async () => {
             client.deactivate();
 
@@ -101,7 +114,7 @@ const Chat = ({ code, nick, connect }) => {
                 userCode: userCode,
                 userNick: userNick,
                 type: 'LEAVE',
-                message: `운영자 ${userNick}님이 떠났습니다`,
+                message: `${userNick}님이 떠났습니다`,
                 date: new Date().toLocaleString()
             };
 

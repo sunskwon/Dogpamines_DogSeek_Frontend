@@ -1,0 +1,14 @@
+.floatingBox {
+    position: fixed;
+    right: 10%;
+    bottom: 7%;
+    z-index: 1;
+}
+
+.wrapBox {
+}
+
+.wrapContent {
+    display: flex;
+    justify-content: end;
+}

@@ -35,9 +35,9 @@ function UserPublicChat() {
     <>
       <div className={styles.outerContainer}>
         <div className={styles.innerContainer}>
-          <h1>댕 사료 뜯어 먹는 소리</h1>
+          <h1>댕댕이 사료 뜯어 먹는 소리</h1>
           <div className={styles.background}>
-            <img src="/images/common/ChatBackground.png" />
+            <img src="/images/common/ChatBack.gif" />
           </div>
           <div className={styles.chatContainer}>
             <PublicChat

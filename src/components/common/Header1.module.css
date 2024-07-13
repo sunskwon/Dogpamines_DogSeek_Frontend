@@ -8,9 +8,11 @@ header{
  border-radius: 10px;
 }
 
-a{
+.mainText{
     color: white;
     text-decoration: none;
+    margin: 0;
+    cursor: pointer;
 }
 
 .all{

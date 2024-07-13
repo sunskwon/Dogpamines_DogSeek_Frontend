@@ -4,7 +4,13 @@ import styles from "./UserChat.module.css";
 
 const ChatMessage = ({ user, message }) => {
 
-  return user == message.userCode ? (
+  return message.type !== 'CHAT' ? (
+    <>
+      <div className={styles.infoMessage}>
+        <p>{message.message}</p>
+      </div>
+    </>
+  ) : (user == message.userCode ? (
     <>
       <div className={styles.myMessage}>
         <div className={styles.message}>
@@ -35,7 +41,8 @@ const ChatMessage = ({ user, message }) => {
         </div>
       </div>
     </>
-  );
+  )
+  )
 };
 
 export default ChatMessage;
