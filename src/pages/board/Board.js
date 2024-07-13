@@ -6,28 +6,36 @@ import { jwtDecode } from 'jwt-decode';
 import Paginations from "react-js-pagination";
 
 function Board() {
+    // 로그인토큰
     const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
     const userCode = decodedToken.userCode;
     const userNick = decodedToken.userNick;
     const userAuth = decodedToken.userAuth;
 
+    // 공지 토글 on
     const [isOneNoticeOpen, setIsOneNoticeOpen] = useState(false);
     const [isTwoNoticeOpen, setIsTwoNoticeOpen] = useState(false);
     const [isThreeNoticeOpen, setIsThreeNoticeOpen] = useState(false);
 
+    // 공지 및 검색 데이터
     const [notices, setNotices] = useState([]);
     const [noticePage, setNoticePage] = useState(1);
 
+    // 자유 및 검색 데이터
     const [posts, setPosts] = useState([]);
+    const [filteredPosts, setFilteredPosts] = useState([]);
     const [postPage, setPostPage] = useState(1);
-    const [loaded, setLoaded] = useState(false);
+    const [loaded, setLoaded] = useState(false); // 데이터 로드 상태
 
+    // 검색
     const [search, setSearch] = useState('');
 
+    // 공지사항 토글
     const toggleOneModal = () => setIsOneNoticeOpen(prevState => !prevState);
     const toggleTwoModal = () => setIsTwoNoticeOpen(prevState => !prevState);
     const toggleThreeModal = () => setIsThreeNoticeOpen(prevState => !prevState);
 
+    // navigate
     const navigate = useNavigate();
 
     const onBoardClick = async (code) => {
@@ -53,54 +61,24 @@ function Board() {
         navigate("./boardkakao");
     };
 
-    const fetchBoards = async () => {
-        try {
-            const address = `/boards`;
-            const response = await GetAPI(address);
-            const result = response.boards;
-            return result;
-        } catch (error) {
-            console.error('Error fetching boards:', error);
-            throw error;
-        }
+    // GetAPI
+    const call = async () => {
+        const address = '/boards';
+        const response = await GetAPI(address);
+        const result = await response.boards;
+        return result;
     };
-
-    const searchFreeBoards = async () => {
-        try {
-            const searchAddress = `/boards/search?type=${search}`;
-            const response = await GetAPI(searchAddress);
-            const searchResults = response.boards;
-            setPosts(searchResults);
-        } catch (error) {
-            console.error('Error searching free boards:', error);
-            setPosts([]);
-        }
-    };
-
-    const onClickPostSearch = () => {
-        searchFreeBoards();
-    };
-
-    const onSubmitPostSearch = (e) => {
-        if (e.key === "Enter") {
-            searchFreeBoards();
-        }
-    };
-
-    const searchPostText = (e) => setSearch(e.target.value);
-
-    const ITEMS_PER_PAGE = 3;
-    const ITEMS_PER_PAGE2 = 4;
 
     useEffect(() => {
         if (!loaded) {
-            fetchBoards().then(res => {
+            call().then(res => {
                 const noticeData = res.filter(post => post.postCategory === '공지')
                     .sort((a, b) => new Date(b.postDate) - new Date(a.postDate));
-                const freePostData = res.filter(post => post.postCategory === '자유')
+                const postData = res.filter(post => post.postCategory === '자유')
                     .sort((a, b) => new Date(b.postDate) - new Date(a.postDate));
                 setNotices(noticeData);
-                setPosts(freePostData);
+                setPosts(postData);
+                setFilteredPosts(postData); // 초기에 전체 데이터를 filteredPosts에 저장
                 setLoaded(true);
             }).catch(error => {
                 console.error('Error fetching data:', error);
@@ -109,6 +87,25 @@ function Board() {
             });
         }
     }, [loaded]);
+
+    const searchPosts = () => {
+        const filtered = posts.filter(post => post.postTitle.includes(search));
+        setFilteredPosts(filtered);
+    };
+
+    const handleSearchInputChange = (e) => {
+        setSearch(e.target.value);
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            searchPosts();
+        }
+    };
+
+    // 한페이지에 몇개의 게시물
+    const ITEMS_PER_PAGE = 3;
+    const ITEMS_PER_PAGE2 = 5;
 
     return (
         <div className={styles.board_container}>
@@ -122,9 +119,9 @@ function Board() {
             </div>
 
             <div className={styles.toggle}>
-                {notices.length > 0 && notices.slice((noticePage - 1) * ITEMS_PER_PAGE, noticePage * ITEMS_PER_PAGE).map((notice, index) => (
+                {notices.slice((noticePage - 1) * ITEMS_PER_PAGE, noticePage * ITEMS_PER_PAGE).map((notice, index) => (
                     <div key={index}>
-                        <hr color="D4D4D4" />
+                        <hr color="D4D4D4"/>
                         <div>
                             <button
                                 className={styles.notice_toggle}
@@ -150,7 +147,8 @@ function Board() {
                         )}
                     </div>
                 ))}
-                <hr color="D4D4D4" />
+                <hr color="D4D4D4"/>
+                {/* 공지사항 페이징 */}
                 <Paginations
                     activePage={noticePage}
                     itemsCountPerPage={ITEMS_PER_PAGE}
@@ -165,24 +163,23 @@ function Board() {
             <div className={styles.board_title}>
                 <p>게시판</p>
                 <div className={styles.search_box}>
-                    <div>
-                        <input type="text" className={styles.search_input} name="search" onChange={searchPostText} onKeyPress={onSubmitPostSearch} placeholder="검색어를 입력하세요" />
-                    </div>
+                    <input
+                        type="text"
+                        className={styles.search_input}
+                        name="search"
+                        value={search}
+                        onChange={handleSearchInputChange}
+                        onKeyPress={handleKeyPress}
+                        placeholder="검색어를 입력하세요"
+                    />
                     <button className={styles.button_writing} onClick={onPostWritingClick}>글쓰기</button>
-                    <img onClick={onClickPostSearch} className={styles.search_icon} src='/images/board/Search.svg' alt="Search Icon" />
+                    <img onClick={searchPosts} className={styles.search_icon} src='/images/board/Search.svg' alt="Search Icon" />
                 </div>
             </div>
 
             <div className={styles.boardboxlines}>
-                {posts.length === 0 ? (
-                    <div style={{display:"flex", flexDirection:"column", gap:"20px", margin:"0 auto", marginTop:"150px", marginBottom:"50px"}}>
-                    <img src="/images/product/EmptyDogBowl.png" style={{width:"100px", margin:"0 auto"}}/>
-                    <p style={{margin:"0", textAlign:"center", fontWeight:"bold"}}>적합한 게시물 존재하지 않습니다!</p>
-                    <p style={{margin:"0", textAlign:"center", fontWeight:"bold"}}>다시 시도해주세요!</p>
-                </div>
-                ) : (
-                    posts.slice((postPage - 1) * ITEMS_PER_PAGE2, postPage * ITEMS_PER_PAGE2).map(post => (
-                        <div className={styles.boardbox} key={post.postCode} onClick={() => onBoardClick(post.postCode)}>
+                {filteredPosts.slice((postPage - 1) * ITEMS_PER_PAGE2, postPage * ITEMS_PER_PAGE2).map(post => (
+                    <div className={styles.boardbox} key={post.postCode} onClick={() => onBoardClick(post.postCode)}>
                         <div className={styles.boardboxTitle}>
                             <span className={styles.titletext}>{post.postTitle}</span>
                         </div>
@@ -192,14 +189,14 @@ function Board() {
                             <span className={styles.post_date}>{post.postDate}</span>
                         </div>
                     </div>
-                )))}
-            
+                ))}
             </div>
 
+            {/* 게시물 페이징 */}
             <Paginations
                 activePage={postPage}
                 itemsCountPerPage={ITEMS_PER_PAGE2}
-                totalItemsCount={posts.length}
+                totalItemsCount={filteredPosts.length}
                 pageRangeDisplayed={5}
                 prevPageText={"‹"}
                 nextPageText={"›"}
@@ -210,3 +207,4 @@ function Board() {
 }
 
 export default Board;
+
