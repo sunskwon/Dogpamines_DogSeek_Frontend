@@ -16,6 +16,13 @@ function BoardUpdate() {
   const [updatePost, setUpdatePost] = useState("");
   const [updateTitle, setUpdateTitle] = useState("");
   const [postDetail, setPostDetail] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modal, setModal] = useState({
+    state: false,
+    isCheck: false,
+    isOneBtn: true,
+    text: '',
+  });
 
   const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
   const userCode = decodedToken.userCode;
@@ -33,22 +40,35 @@ function BoardUpdate() {
       },
     });
   };
-  const fetchPostDetail = async () => {
 
+  const fetchPostDetail = async () => {
     const boardAddress = `/boards/${postCode}`;
     const response = await GetAPI(boardAddress);
     setPostDetail(response.boards)
-};
+  };
 
-useEffect(() => {
+  useEffect(() => {
     fetchPostDetail()
-}, [postCode]); 
+  }, [postCode]);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const showModal = (text, isCheck) => {
+    setModal({
+      state: true,
+      isCheck: isCheck,
+      isOneBtn: true,
+      text: text,
+    });
+    setIsModalOpen(true);
+  };
 
   const inhandler = async () => {
     const address = "/boards";
     console.log('postTitle', postDetail.postTitle);
 
-    console.log('제목 수정 확인', updateTitle);
     const newPostData = {
       postCode: postCode,
       postTitle: postDetail.postTitle,
@@ -63,20 +83,20 @@ useEffect(() => {
     try {
       const response = await PutAPI(address, newPostData);
       if (response) {
-        navigate("/postdetail", {
-          state: {
-            postCode: postCode,
-          },
-        }); // 게시물 등록 후 목록으로 이동하거나 화면을 갱신할 수 있음
+        showModal('게시물이 수정되었습니다.', true);
+        setTimeout(() => {
+          navigate("/postdetail", {
+            state: {
+              postCode: postCode,
+            },
+          });
+        }, 1000); // 게시물 수정 후 3초 뒤에 이동
       }
     } catch (error) {
       console.error("Error posting new data", error);
+      showModal('게시물 수정에 실패하였습니다.', false);
     }
   };
-  
-
-
-
 
   return (
     <div className={styles.w_all_display}>
@@ -87,8 +107,8 @@ useEffect(() => {
           type="text"
           maxLength="20"
           value={postDetail.postTitle}
-          onChange={(e) => setPostDetail({...postDetail, postTitle: e.target.value})}
-        ></input>
+          onChange={(e) => setPostDetail({ ...postDetail, postTitle: e.target.value })}
+        />
       </div>
       <hr color="D4D4D4" />
       <div className={styles.w_context}>
@@ -100,7 +120,7 @@ useEffect(() => {
           type="text"
           placeholder="500자 이내에서 내용을 입력해주세요"
           value={postDetail.postContext}
-          onChange={(e) => setPostDetail({...postDetail, postContext: e.target.value})}
+          onChange={(e) => setPostDetail({ ...postDetail, postContext: e.target.value })}
         />
       </div>
       <hr color="D4D4D4" />
@@ -112,6 +132,25 @@ useEffect(() => {
           등록
         </button>
       </div>
+      {isModalOpen && (
+        <div className={styles.modalContainer}>
+          <div className={styles.modalContent1}>
+            <div className={styles.iconContainer}>
+              {modal.isCheck ? (
+                <img src='./images/auth/modal_check.png' alt='modal_check' />
+              ) : (
+                <img src='./images/auth/exclamationmark_circle.png' alt='exclamation_circle' />
+              )}
+            </div>
+            <div className={styles.modalTextContainer}>
+              <p>{modal.text}</p>
+            </div>
+            {modal.isOneBtn && (
+              <button onClick={closeModal}>닫기</button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
