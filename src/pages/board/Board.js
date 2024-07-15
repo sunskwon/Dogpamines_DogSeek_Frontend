@@ -193,7 +193,7 @@ function Board() {
                         placeholder="검색어를 입력하세요"
                     />
                     <button className={styles.button_writing} onClick={onPostWritingClick}>글쓰기</button>
-                    <img onClick={searchPosts} className={styles.search_icon} src='/images/board/Search.svg' alt="Search Icon" />
+                    <img onClick={searchPosts} className={styles.search_icon} src='/images/product/Search.png' alt="Search Icon" />
                 </div>
             </div>
 
