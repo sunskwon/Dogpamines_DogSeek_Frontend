@@ -21,9 +21,9 @@ function AlertModal({ message, modalOpen, setModalOpen, modalBackground }) {
                     >
                         <div className={styles.detailBox}>
                             <div className={styles.inputBox}>
-                                <div>
+                                <div style={{ paddingTop: "40px", }}>
                                     <p>{message}</p>
-                                    <div style={{ paddingTop: "70px", }}>
+                                    <div style={{ paddingTop: "50px", }}>
                                         <button
                                             className={styles.cancelButton}
                                             onClick={() => {

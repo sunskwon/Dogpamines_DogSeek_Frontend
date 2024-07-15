@@ -48,6 +48,12 @@ function BoardModal({ boardModalOpen, setBoardModalOpen, modalBackground, board 
                                     </div>
                                 </div>
                                 <div style={{ clear: "both", }}>
+                                    <div className={styles.detailBoxMid}>
+                                        <p>제목</p>
+                                        <div className={styles.spanBox}>
+                                            <span>{board?.postTitle}</span>
+                                        </div>
+                                    </div>
                                     <div className={styles.detailBoxShort}>
                                         <p>신고</p>
                                         <div
