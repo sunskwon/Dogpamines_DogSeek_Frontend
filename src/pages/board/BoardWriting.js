@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styles from "./BoardWriting.module.css";
 import { PostAPI } from "../../api/RestAPIs";
 import { useNavigate } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 
 function Writing() {
   const date = new Date();
@@ -15,6 +15,13 @@ function Writing() {
 
   const [newPost, setNewPost] = useState("");
   const [newTitle, setNewTitle] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modal, setModal] = useState({
+    state: false,
+    isCheck: false,
+    isOneBtn: true,
+    text: '',
+  });
 
   const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
   const userCode = decodedToken.userCode;
@@ -24,6 +31,20 @@ function Writing() {
 
   const onClickHome = () => {
     navigate("/board");
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const showModal = (text, isCheck) => {
+    setModal({
+      state: true,
+      isCheck: isCheck,
+      isOneBtn: true,
+      text: text,
+    });
+    setIsModalOpen(true);
   };
 
   const inhandler = async () => {
@@ -48,10 +69,14 @@ function Writing() {
       if (response) {
         setNewPost(""); // 입력 필드 초기화
         setNewTitle(""); // 입력 필드 초기화
-        navigate("/board"); // 게시물 등록 후 목록으로 이동하거나 화면을 갱신할 수 있음
+        showModal('게시물이 등록되었습니다.', true);
+        setTimeout(() => {
+          navigate("/board"); // 게시물 등록 후 목록으로 이동
+        }, 1000);
       }
     } catch (error) {
       console.error("Error posting new data", error);
+      showModal('게시물 등록에 실패하였습니다.', false);
     }
   };
 
@@ -90,6 +115,25 @@ function Writing() {
           등록
         </button>
       </div>
+      {isModalOpen && (
+        <div className={styles.modalContainer}>
+          <div className={styles.modalContent1}>
+            <div className={styles.iconContainer}>
+              {modal.isCheck ? (
+                <img src='/images/auth/modal_check.png' alt='modal_check' />
+              ) : (
+                <img src='/images/auth/exclamationmark_circle.png' alt='exclamation_circle' />
+              )}
+            </div>
+            <div className={styles.modalTextContainer}>
+              <p>{modal.text}</p>
+            </div>
+            {modal.isOneBtn && (
+              <button onClick={closeModal}>닫기</button>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
