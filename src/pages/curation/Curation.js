@@ -1,7 +1,7 @@
 import styles from './Curation.module.css'
-import Loding from '../../components/common/Loding';
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
+import { GetAPINotToken } from "../../api/RestAPIs"
 
 function Curation(){
 
@@ -9,6 +9,21 @@ function Curation(){
     const [gender, setGender] = useState("");
     const [breed, setBreed] = useState("");
     const [weight, setWeight] = useState("");
+    const [dogs, setDogs] = useState([]);
+
+    
+    const selectAllDict = async () => {
+        
+        const address = '/dict';
+        
+        const response = await GetAPINotToken(address);
+        
+        setDogs(response.dict);
+    };
+
+    useEffect(() => {
+        selectAllDict()
+    }, []);
 
     const navigate = useNavigate();
     
@@ -55,10 +70,10 @@ function Curation(){
                         </select>
                         <select className={styles.inputSize} name='breed' onChange={onBreedChange}>
                             <option>선택</option>
-                            <option>말티즈</option>
-                            <option>치와와</option>
-                            <option>푸들</option>
-                            <option>비글</option>
+                            {dogs
+                            .map(dogs => (
+                            <option>{dogs.dogName}</option>
+                            ))}
                         </select>
                         <input className={styles.inputSize} type='text' placeholder='강아지 몸무게를 입력해주세요 ex) 4.4kg' name='weight' onChange={onWeightChange} maxLength={32}></input>
                     </div>
