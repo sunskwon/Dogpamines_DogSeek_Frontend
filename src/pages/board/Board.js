@@ -1,16 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styles from "./Board.module.css";
 import { useNavigate } from 'react-router-dom';
-import { GetAPI } from '../../api/RestAPIs';
-import { jwtDecode } from 'jwt-decode';
+import { GetAPINotToken } from '../../api/RestAPIs';
 import Paginations from "react-js-pagination";
 
 function Board() {
-    // 로그인토큰
-    const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
-    const userCode = decodedToken.userCode;
-    const userNick = decodedToken.userNick;
-    const userAuth = decodedToken.userAuth;
 
     // 공지 토글 on
     const [isOneNoticeOpen, setIsOneNoticeOpen] = useState(false);
@@ -38,33 +32,42 @@ function Board() {
     // navigate
     const navigate = useNavigate();
 
+    const [modalOpen, setModalOpen] = useState(false);
+
     const onBoardClick = async (code) => {
         try {
-            navigate(`/postdetail`, {
-                state: {
-                    postCode: code
-                }
-            });
-            window.scrollTo(0, 0);
+            const token = window.localStorage.getItem("accessToken")
+            if (token != null) {
+                navigate(`/postdetail`, {
+                    state: {
+                        postCode: code
+                    }
+                });
+                window.scrollTo(0, 0);
+            } else {
+                setModalOpen(true);
+            }
         } catch (error) {
             console.error(error);
             throw error;
         }
     };
 
+    if (modalOpen) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = 'auto';
+    }
+
     const onPostWritingClick = () => {
         navigate("./boardwriting");
         window.scrollTo(0, 0);
     };
 
-    const onKakaoClick = () => {
-        navigate("./boardkakao");
-    };
-
     // GetAPI
     const call = async () => {
         const address = '/boards';
-        const response = await GetAPI(address);
+        const response = await GetAPINotToken(address);
         const result = await response.boards;
         return result;
     };
@@ -119,9 +122,26 @@ function Board() {
             </div>
 
             <div className={styles.toggle}>
+                {
+                    modalOpen &&
+                    <div className={styles.modalContainer}>
+                        <div className={styles.modalContent}>
+                            <div className={styles.allBox}>
+                                <div style={{ marginTop: "80px" }}>
+                                    <p style={{ margin: "0", color: "#005600", fontSize: "16px", fontWeight: "600" }}>로그인이 필요한 서비스입니다</p>
+                                    <p style={{ margin: "0", color: "#005600", fontSize: "16px", fontWeight: "600" }}>로그인 페이지로 이동하시겠습니까?</p>
+                                </div>
+                                <div style={{ display: "flex", width: "270px", gap: "30px", margin: "0 auto", marginTop: "60px" }}>
+                                    <button className={styles.modalCancelButton} onClick={() => setModalOpen(false)}>취소</button>
+                                    <button className={styles.modalCheckButton} onClick={() => navigate("/login")}>이동</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
                 {notices.slice((noticePage - 1) * ITEMS_PER_PAGE, noticePage * ITEMS_PER_PAGE).map((notice, index) => (
                     <div key={index}>
-                        <hr color="D4D4D4"/>
+                        <hr color="D4D4D4" />
                         <div>
                             <button
                                 className={styles.notice_toggle}
@@ -147,7 +167,7 @@ function Board() {
                         )}
                     </div>
                 ))}
-                <hr color="D4D4D4"/>
+                <hr color="D4D4D4" />
                 {/* 공지사항 페이징 */}
                 <Paginations
                     activePage={noticePage}
@@ -173,7 +193,7 @@ function Board() {
                         placeholder="검색어를 입력하세요"
                     />
                     <button className={styles.button_writing} onClick={onPostWritingClick}>글쓰기</button>
-                    <img onClick={searchPosts} className={styles.search_icon} src='/images/board/Search.svg' alt="Search Icon" />
+                    <img onClick={searchPosts} className={styles.search_icon} src='/images/product/Search.png' alt="Search Icon" />
                 </div>
             </div>
 
