@@ -121,7 +121,7 @@ function AdminSelectAllBoards() {
                                 className={styles.submitButton}
                                 style={{ marginRight: "15px", }}
                                 onClick={() => {
-                                    navigate("/admin/insertboard");
+                                    navigate("/admin/newboard");
                                 }}
                             >
                                 새 공지 등록

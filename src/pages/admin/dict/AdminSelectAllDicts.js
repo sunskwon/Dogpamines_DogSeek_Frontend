@@ -95,7 +95,7 @@ function AdminSelectAllDicts() {
                                 className={styles.submitButton}
                                 style={{ marginRight: "15px", }}
                                 onClick={() => {
-                                    navigate("/admin/insertdict");
+                                    navigate("/admin/newdict");
                                 }}
                             >
                                 새 견종 등록

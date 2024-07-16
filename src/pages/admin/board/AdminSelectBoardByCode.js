@@ -32,7 +32,7 @@ function AdminSelectBoardByCode() {
                                 className={styles.submitButton}
                                 style={{ marginRight: "10px", }}
                                 onClick={() => {
-                                    navigate("/admin/updateboard", {
+                                    navigate("/admin/modifyboard", {
                                         state: { Location: state.Location }
                                     });
                                 }}
