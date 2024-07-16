@@ -35,7 +35,8 @@ function UserPublicChat() {
     <>
       <div className={styles.outerContainer}>
         <div className={styles.innerContainer}>
-          <h1>댕댕이 사료 뜯어 먹는 소리</h1>
+          <h1>자유 채팅방</h1>
+          {/* <p style={{textAlign:'center', color:'green'}}>댕댕이 사료 뜯어먹는 소리</p> */}
           <div className={styles.background}>
             <img src="/images/common/ChatBack.gif" />
           </div>

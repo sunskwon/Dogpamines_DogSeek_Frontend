@@ -71,13 +71,13 @@ function Hamberger() {
                             </div>
                             <div
                                 className={styles.button__container}
-                                onClick={() => navigate('/animalinfo')}
+                                onClick={() => navigate('/animal-info')}
                             >
                                 <img src='./images/common/Search.png'></img>
                             </div>
                             <div
                                 className={styles.button__container}
-                                onClick={() => navigate('/publicchat')}
+                                onClick={() => navigate('/public-chat')}
                             >
                                 <img src='./images/common/Chat.png'></img>
                             </div>

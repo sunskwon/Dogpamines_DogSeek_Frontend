@@ -6,7 +6,6 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation'
 import 'swiper/css/autoplay';
 import MostProducts from '../components/products/MostProducts';
-import TopBtn from '../components/common/Topbtn';
 
 function Main() {
 
@@ -79,16 +78,16 @@ function Main() {
                         <Link to={'/board'} className={styles.text6}>게시판</Link>
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", textAlign: "center" }}>
-                        <NavLink to={'/animalinfo'}>
+                        <NavLink to={'/animal-info'}>
                             <img className={styles.icon2} src='./images/main/vector.png' alt='반려견 등록 확인' />
                         </NavLink>
-                        <Link to={'/animalinfo'} className={styles.text6}>반려견 등록 확인</Link>
+                        <Link to={'/animal-info'} className={styles.text6}>반려견 등록 확인</Link>
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", textAlign: "center" }}>
-                        <NavLink to={'/publicchat'}>
+                        <NavLink to={'/public-chat'}>
                             <img className={styles.icon1} src='./images/main/Chat.png' alt='유저 채팅' />
                         </NavLink>
-                        <Link to={'/publicchat'} className={styles.text1}>유저 채팅</Link>
+                        <Link to={'/public-chat'} className={styles.text1}>유저 채팅</Link>
                     </div>
                 </div>
             </div>

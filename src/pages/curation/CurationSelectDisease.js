@@ -14,7 +14,7 @@ function CurationSelectDisease() {
 
     const onClick= () => {
         setDisease(disease)
-        navigate("/curationselectingra", {
+        navigate("/curation-ingra", {
             state: { 
                 name: name,
                 gender: gender,

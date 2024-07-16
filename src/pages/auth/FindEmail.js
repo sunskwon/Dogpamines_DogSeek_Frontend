@@ -97,7 +97,7 @@ function FindEmail() {
 
 
     const onClickMoveFindPwd = () => {
-        navigate('/findpwd');
+        navigate('/find-pwd');
     }
 
     const closeModal = () => {

@@ -14,7 +14,7 @@ function Footer(){
                         <Link to={'/terms'} className={styles.rightText}>
                         이용약관
                         </Link>
-                        <Link to={'/privacypolicy'} className={styles.rightText}>
+                        <Link to={'/privacy-policy'} className={styles.rightText}>
                         개인정보처리방침
                         </Link>
                     </div>

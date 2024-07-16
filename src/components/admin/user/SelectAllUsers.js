@@ -127,7 +127,7 @@ function SelectAllUsers({ search, bool, setModalOpen, setUser }) {
                                     {user?.userNick}
                                 </td>
                                 <td style={{ width: "120px", }}>
-                                    {user?.userAuth === 'ADMIN' ? '관리자' : (user.userAuth === 'USER' ? '회원' : '휴면회원')}
+                                    {user?.userAuth === 'ADMIN' ? '관리자' : (user.userAuth === 'USER' ? '회원' : (user.userAuth === 'SLEEP'? '휴면회원' : '탈퇴회원'))}
                                 </td>
                                 <td style={{ width: "120px", }}>
                                     {user?.userSignup}

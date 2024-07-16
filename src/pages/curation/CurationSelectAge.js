@@ -14,7 +14,7 @@ function CurationSelectAge() {
 
     const onClick= (age) => {
         setAge(age);
-        navigate("/curationselectneut", {
+        navigate("/curation-neut", {
             state: { 
                 name: name,
                 gender: gender,

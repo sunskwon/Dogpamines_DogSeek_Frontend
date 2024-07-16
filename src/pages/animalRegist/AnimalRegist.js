@@ -142,7 +142,7 @@ function AnimalRegist() {
             {loading && <p>loading...</p>}
 
             {error ? (
-                <>
+                <div className={styles.modal}>
                     <div className={styles.modalTitle}>
                         <img className={styles.img} src='/images/dict/DogPaw(green).png' alt='greenPaw'></img><span>등록 동물 정보</span>
                     </div>
@@ -150,10 +150,10 @@ function AnimalRegist() {
                         <img src='/images/animal/cuteDog.png' alt='error' />
                         <span>{error}</span>
                     </div>
-                </>
+                </div>
             ) : (
                 animalData && (
-                    <>
+                    <div className={styles.modal}>
                         <div className={styles.modalTitle}>
                             <img className={styles.img} src='/images/dict/DogPaw(green).png' alt='greenPaw'></img><span>등록 동물 정보</span>
                         </div>
@@ -173,7 +173,7 @@ function AnimalRegist() {
                                 </tr>
                             </tbody>
                         </table>
-                    </>
+                    </div>
                 )
             )}
         </div>

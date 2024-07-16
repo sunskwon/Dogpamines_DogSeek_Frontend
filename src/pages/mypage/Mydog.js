@@ -59,7 +59,7 @@ function Mydog() {
     };
 
     const fetchCurationsDog = async () => {
-        const curationsDogAddress = `/curationsDog?userCode=${userCode}&curationName=${curationName}`;
+        const curationsDogAddress = `/mydog/curation?userCode=${userCode}&curationName=${curationName}`;
         const curationsDogResponse = await GetAPI(curationsDogAddress);
         const result = await curationsDogResponse.curationsDog;
 
@@ -67,7 +67,7 @@ function Mydog() {
     };
 
     const fetchMyCurationResult = async (code) => {
-        const myCurationResultAddress = `/mycurationresult?curationCode=${code}`;
+        const myCurationResultAddress = `/mydog/curation-result?curationCode=${code}`;
         const mycurationresultResponse = await GetAPI(myCurationResultAddress);
         const result = await mycurationresultResponse.mycurationresult;
 
@@ -105,7 +105,7 @@ function Mydog() {
     const handleDetail = (prodCode,  age, size, cook, prodIngra, prodEffi) =>{
         const ingra = prodIngra.split(",")[0];
         const disease = prodEffi.split(",")[0];
-        navigate("/productdetail", {
+        navigate("/product", {
             state: {
                 prodCode: prodCode,
                 age: age,
@@ -128,8 +128,8 @@ function Mydog() {
                 <div className={styles.container1}>
                     <div className={styles.title}>
                         <span className={styles.text1}>가입정보</span>
-                        <Link to={'/mypage'} className={styles.text2}>My Page</Link>
-                        <Link to={'/mydog'} className={styles.text3}>My Dog</Link>
+                        <Link to={'/my-page'} className={styles.text2}>My Page</Link>
+                        <Link to={'/my-dog'} className={styles.text3}>My Dog</Link>
                     </div>
                 </div>
                 <div className={styles.container2}>

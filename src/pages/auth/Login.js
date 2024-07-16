@@ -66,7 +66,7 @@ function Login() {
     }
 
     const onClickFind = () => {
-        navigate('/findemail');
+        navigate('/find-email');
     }
 
     const closeModal = () => {

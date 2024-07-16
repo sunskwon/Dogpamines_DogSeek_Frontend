@@ -12,7 +12,7 @@ const MostProducts = () => {
     
     const mostProducts = async () => {
 
-        const mostProductsAddress = "/products/mostProducts"
+        const mostProductsAddress = "/products/most-products"
         const mostProductsResponse = await GetAPINotToken(mostProductsAddress);
         setMost(mostProductsResponse.products.Popular)
     };
@@ -45,7 +45,7 @@ const MostProducts = () => {
     const onClick = (prodCode, age, size, cook, prodIngra, prodEffi) => {
         const ingra = prodIngra.split(",")[0];
         const disease = prodEffi.split(",")[0];
-        navigate ("/productdetail", {
+        navigate ("/product", {
             state: {
                 prodCode: prodCode,
                 age: age,

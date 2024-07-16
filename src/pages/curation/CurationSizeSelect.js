@@ -15,7 +15,7 @@ function CurationSizeSelect() {
 
     const onClick= (size) => {
         setSize(size);
-        navigate("/curationselectage", {
+        navigate("/curation-age", {
             state: { 
                 name: name,
                 gender: gender,
