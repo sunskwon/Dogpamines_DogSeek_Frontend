@@ -6,6 +6,9 @@ import Paginations from "react-js-pagination";
 
 function Board() {
 
+    window.scrollTo(0, 0);
+
+
     // 공지 토글 on
     const [isOneNoticeOpen, setIsOneNoticeOpen] = useState(false);
     const [isTwoNoticeOpen, setIsTwoNoticeOpen] = useState(false);
@@ -117,7 +120,7 @@ function Board() {
             </div>
             <div className={styles.notice_all}>
                 <div>
-                    <p className={styles.noticeTitle}>공지사항</p>
+                    <p className={styles.noticeTitle}>Notices</p>
                 </div>
             </div>
 
@@ -181,7 +184,7 @@ function Board() {
             </div>
 
             <div className={styles.board_title}>
-                <p>게시판</p>
+                <p>Posts</p>
                 <div className={styles.search_box}>
                     <input
                         type="text"
