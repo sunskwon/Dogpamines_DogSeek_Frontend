@@ -50,7 +50,7 @@ function SignUp() {
     const handleNextPage = () => {
         if (isTerm1Checked && isTerm2Checked) {
             window.scrollTo(0,0);
-            navigate('/signupidentity'); // 다음 페이지 경로로 이동
+            navigate('/signup-identity'); // 다음 페이지 경로로 이동
         } else {
             setModal({ ...modal, state: true, isOneBtn: true, text: '필수 약관에 모두 동의해 주세요.' });
         }

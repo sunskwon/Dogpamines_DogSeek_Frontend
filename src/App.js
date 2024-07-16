@@ -1,13 +1,12 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout1 from "./layouts/Layout1.js"
 import Board from "./pages/board/Board.js";
-import BoardKakao from "./pages/board/BoardKakao.js";
 import PostDetail from "./pages/board/BoardPost.js";
 import BoardWriting from "./pages/board/BoardWriting.js"
 import BoardUpdate from "./pages/board/BoardUpdate.js"
 import Curation from "./pages/curation/Curation.js";
 import Company from "./pages/etc/Company.js";
 import Main from "./pages/Main";
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Products from "./pages/products/Products.js";
 import ProductDetail from "./pages/products/ProductDetail.js";
 import Mypage from "./pages/mypage/Mypage.js";
@@ -68,39 +67,38 @@ function App() {
             <Route index element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/signupidentity" element={<SignUpIdentity />} />
-            <Route path="/signupinfo" element={<SignUpInfo />} />
-            <Route path="/signupcomplete" element={<SignUpComplete />} />
-            <Route path="/findemail" element={<FindEmail />} />
-            <Route path="/findpwd" element={<FindPwd />} />
+            <Route path="/signup-identity" element={<SignUpIdentity />} />
+            <Route path="/signup-info" element={<SignUpInfo />} />
+            <Route path="/signup-complete" element={<SignUpComplete />} />
+            <Route path="/find-email" element={<FindEmail />} />
+            <Route path="/find-pwd" element={<FindPwd />} />
             <Route path="/release/sleep" element={<ReleaseSleep/>}/>
             <Route path="/curation" element={<Curation />} />
-            <Route path="/curationsizeselect" element={<CurationSizeSelect />} />
-            <Route path="/curationselectage" element={<CurationSelectAge />} />
-            <Route path="/curationselectneut" element={<CurationSelectNeut />} />
-            <Route path="/curationselectallergy" element={<CurationSelectAllergy />} />
-            <Route path="/curationselectdisease" element={<CurationSelectDisease />} />
-            <Route path="/curationselectingra" element={<CurationSelectIngra />} />
-            <Route path="/curationselectcook" element={<CurationSelectCook />} />
-            <Route path="/curationresult" element={<CurationResult />} />
+            <Route path="/curation-size" element={<CurationSizeSelect />} />
+            <Route path="/curation-age" element={<CurationSelectAge />} />
+            <Route path="/curation-neut" element={<CurationSelectNeut />} />
+            <Route path="/curation-allergy" element={<CurationSelectAllergy />} />
+            <Route path="/curation-disease" element={<CurationSelectDisease />} />
+            <Route path="/curation-ingra" element={<CurationSelectIngra />} />
+            <Route path="/curation-cook" element={<CurationSelectCook />} />
+            <Route path="/curation-result" element={<CurationResult />} />
             <Route path="/products" element={<Products />} />
-            <Route path="/productdetail" element={<ProductDetail />} />
+            <Route path="/product" element={<ProductDetail />} />
             <Route path="/dict" element={<Dict />} />
             <Route path="/dict/:dogName" element={<DictDetail />} />
-            <Route path="/animalinfo" element={<AnimalRegist />} />
+            <Route path="/animal-info" element={<AnimalRegist />} />
             <Route path="/board" element={<Board />} />
-            <Route path="/board/boardkakao" element={<BoardKakao />} />
-            <Route path="/postdetail" element={<PostDetail />} />
-            <Route path="/board/boardwriting" element={<BoardWriting />} />
-            <Route path="/boardupdate" element={<BoardUpdate />} />
+            <Route path="/post/:code" element={<PostDetail />} />
+            <Route path="/board/add" element={<BoardWriting />} />
+            <Route path="/board/edit" element={<BoardUpdate />} />
             <Route path="/company" element={<Company />} />
             <Route path="/terms" element={<Terms />} />
-            <Route path="/mypage" element={<Mypage />} />
-            <Route path="/mydog" element={<Mydog />} />
-            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+            <Route path="/my-page" element={<Mypage />} />
+            <Route path="/my-dog" element={<Mydog />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
-            <Route path="/publicchat" element={<UserPublicChat />} />
-            <Route path="/privatechat" element={<UserPrivateChat />} />
+            <Route path="/public-chat" element={<UserPublicChat />} />
+            <Route path="/private-chat" element={<UserPrivateChat />} />
 
             {/* NotFound는 모든 Route보다 아래에 있을 것 */}
           </Route>

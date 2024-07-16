@@ -14,7 +14,7 @@ function CurationSelectNeut() {
 
     const onClick= (neut) => {
         setNeut(neut)
-        navigate("/curationselectallergy", {
+        navigate("/curation-allergy", {
             state: { 
                 name: name,
                 gender: gender,

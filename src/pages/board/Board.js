@@ -38,7 +38,7 @@ function Board() {
         try {
             const token = window.localStorage.getItem("accessToken")
             if (token != null) {
-                navigate(`/postdetail`, {
+                navigate(`/post/${code}`, {
                     state: {
                         postCode: code
                     }

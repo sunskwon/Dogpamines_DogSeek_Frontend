@@ -52,7 +52,7 @@ function CurationResult() {
             setProducts(curationProductsResponse.curationProducts);
             
 
-            const selectCuraionAddress = `/curationSelect?curationAge=${age}&curationIngra=${ingra}&curationDisease=${disease}&curationAllergy=${allergy}&curationBreed=${breed}&curationGender=${gender}&curationNeut=${neut}&curationWeight=${weight}&curationName=${name}&curationDate=${toDate}&curationSize=${size}&curationCook=${cook}&userCode=${userCode}`;
+            const selectCuraionAddress = `/curation/search?curationAge=${age}&curationIngra=${ingra}&curationDisease=${disease}&curationAllergy=${allergy}&curationBreed=${breed}&curationGender=${gender}&curationNeut=${neut}&curationWeight=${weight}&curationName=${name}&curationDate=${toDate}&curationSize=${size}&curationCook=${cook}&userCode=${userCode}`;
             const selectCurationResponse = await GetAPI(selectCuraionAddress);
             setSelectCuration(selectCurationResponse.curationSelect);
             
@@ -76,7 +76,7 @@ function CurationResult() {
                 prodCode: prodCode
             };
 
-            const address = `/curationProducts`;
+            const address = `/curation/products`;
             await PostAPI(address, data);
     };
 
@@ -128,7 +128,7 @@ function CurationResult() {
     }
 
     const onClick = (prodCode) => {
-        navigate ("/productdetail", {
+        navigate ("/product", {
                 state: {
                     prodCode: prodCode,
                     age: age,

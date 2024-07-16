@@ -98,7 +98,7 @@ function SignUpIdentity() {
 
     const handleNextPage = () => {
         window.scrollTo(0,0);
-        navigate('/signupinfo', {
+        navigate('/signup-info', {
             state: {
                 email: email
             }

@@ -14,7 +14,7 @@ function CurationSelectIngra() {
 
     const onClick = (ingra) => {
         setIngra(ingra)
-        navigate("/curationselectcook", {
+        navigate("/curation-cook", {
             state: {
                 name: name,
                 gender: gender,
@@ -106,7 +106,7 @@ function CurationSelectIngra() {
                         <div className={styles.selectBox}>
                             <img src='./images/curation/powder.png' style={{ width: "80%" }}></img>
                         </div>
-                        <p className={styles.text}>등애등에분말</p>
+                        <p className={styles.text}>동애등에분말</p>
                     </div>
                     <div className={styles.textAndBox} name='ingra' onClick={() => onClick('밀웜')}>
                         <div className={styles.selectBox}>

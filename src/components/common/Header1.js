@@ -38,7 +38,7 @@ function Header1() {
 
     const handleMypage = () => {
         setIsLoggedIn(true);
-        navigate("/mypage")
+        navigate("/my-page")
     }
 
     const login = (token) => {

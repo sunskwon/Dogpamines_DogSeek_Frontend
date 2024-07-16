@@ -180,7 +180,7 @@ function FindPwd() {
     }
 
     const onClickMoveFindId = () => {
-        navigate('/findemail');
+        navigate('/find-email');
     }
 
     const closeModal = () => {

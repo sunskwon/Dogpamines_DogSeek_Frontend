@@ -14,7 +14,7 @@ function CurationSelectCook() {
 
     const onClick= (cook) => {
         setCook(cook)
-        navigate("/curationresult", {
+        navigate("/curation-result", {
             state: { 
                 name: name,
                 gender: gender,

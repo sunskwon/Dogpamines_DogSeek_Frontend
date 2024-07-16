@@ -143,7 +143,7 @@ function SignUpInfo() {
                 const signupResult = await callRegisterAPI({ user });
 
                 if (signupResult) {
-                    navigate('/signupcomplete');
+                    navigate('/signup-complete');
                 } else {
                     setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '회원가입에 실패했습니다.' });
                 }

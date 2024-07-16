@@ -32,7 +32,7 @@ function Curation(){
         setGender(gender);
         setBreed(breed);
         setWeight(weight);
-        navigate("/curationsizeselect", { 
+        navigate("/curation-size", { 
             state: { 
                 name: name,
                 gender: gender,

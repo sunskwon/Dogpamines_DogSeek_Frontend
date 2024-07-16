@@ -111,7 +111,7 @@ function Mypage(){
 
     const verifyPassword = async (userCode, password) => {
         try {
-            const address = `/mypage/verifyPassword`;
+            const address = `/mypage/verify-password`;
             const response = await PostAPI(address, { userCode, password });
             const result = await response.json();
             return result.valid;
@@ -356,8 +356,8 @@ function Mypage(){
             <div className={styles.container1}>
                 <div className={styles.title}>
                     <span className={styles.text1}>가입정보</span>
-                    <Link to={'/mypage'} className={styles.text2}>My Page</Link>
-                    <Link to={'/mydog'} className={styles.text3}>My Dog</Link>
+                    <Link to={'/my-page'} className={styles.text2}>My Page</Link>
+                    <Link to={'/my-dog'} className={styles.text3}>My Dog</Link>
                 </div>
             </div>
             <div className={styles.container2}>

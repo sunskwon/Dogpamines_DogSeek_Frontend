@@ -127,7 +127,7 @@ function SelectAllDicts({ search, bool, setModalOpen, setDict }) {
                                         className={styles.acceptButton}
                                         onClick={() => {
                                             navigate("/admin/dictdetail", {
-                                                state: { Location: `/dict/get/${dict.dogCode}` }
+                                                state: { Location: `/admin/dict/${dict.dogCode}` }
                                             });
                                         }}
                                     >

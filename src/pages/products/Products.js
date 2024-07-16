@@ -70,7 +70,7 @@ function Products () {
     const onClick = (prodCode, age, size, cook, prodIngra, prodEffi) => {
         const ingra = prodIngra.split(",")[0];
         const disease = prodEffi.split(",")[0];
-        navigate ("/productdetail", {
+        navigate ("/product", {
             state: {
                 prodCode: prodCode,
                 age: age,

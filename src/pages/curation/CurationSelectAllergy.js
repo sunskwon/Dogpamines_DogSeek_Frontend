@@ -14,7 +14,7 @@ function CurationSelectAllergy() {
 
     const onClick= () => {
         setAllergy(allergy)
-        navigate("/curationselectdisease", {
+        navigate("/curation-disease", {
             state: { 
                 name: name,
                 gender: gender,
