@@ -122,10 +122,10 @@ function SelectAllBoards({ search, boardBool, setModalOpen, setBoardModalOpen, s
                         <tr>
                             <th style={{ width: "80px", }}>게시물 No.</th>
                             <th style={{ width: "150px", }}>작성자</th>
-                            <th style={{ width: "150px", }}></th>
+                            <th style={{ width: "150px", }}>제목</th>
+                            <th></th>
                             <th style={{ width: "150px", }}>작성일</th>
                             <th style={{ width: "80px", }}>게시여부</th>
-                            <th style={{ width: "80px", }}>신고 횟수</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -141,6 +141,11 @@ function SelectAllBoards({ search, boardBool, setModalOpen, setBoardModalOpen, s
                                 </td>
                                 <td>
                                     {board.userNick}
+                                </td>
+                                <td>
+                                    <div className={styles.ellipsisBox}>
+                                        {board.postTitle}
+                                    </div>
                                 </td>
                                 <td>
                                     <button
@@ -161,9 +166,6 @@ function SelectAllBoards({ search, boardBool, setModalOpen, setBoardModalOpen, s
                                     {board.postStatus === 'Y' ? '게시중' : '게시 중단'}
                                 </td>
                                 <td>
-                                    {board.countReport ? board.countReport : 0}
-                                </td>
-                                <td>
                                     <button
                                         className={
                                             board?.postStatus === 'Y' && board?.countReport > 0 ?
@@ -181,7 +183,7 @@ function SelectAllBoards({ search, boardBool, setModalOpen, setBoardModalOpen, s
                                             }
                                         }}
                                     >
-                                        신고 확인
+                                        신고: {board.countReport ? board.countReport : 0}
                                     </button>
                                 </td>
                                 <td>
