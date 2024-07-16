@@ -32,7 +32,7 @@ function AdminSelectDictByCode() {
                                 className={styles.submitButton}
                                 style={{ marginRight: "10px", }}
                                 onClick={() => {
-                                    navigate("/admin/updatedict", {
+                                    navigate("/admin/modifydict", {
                                         state: { Location: state.Location }
                                     });
                                 }}

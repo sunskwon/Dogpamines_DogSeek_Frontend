@@ -91,7 +91,7 @@ function AdminSelectAllProducts() {
                                 className={styles.submitButton}
                                 style={{ marginRight: "15px", }}
                                 onClick={() => {
-                                    navigate("/admin/insertproduct");
+                                    navigate("/admin/newproduct");
                                 }}
                             >
                                 새 상품 등록

@@ -113,17 +113,17 @@ function App() {
             <Route index element={<AdminDashBoard />} />
             <Route path="/admin/dashboard" element={<AdminDashBoard />} />
             <Route path="/admin/products" element={<AdminSelectAllProducts />} />
-            <Route path="/admin/insertproduct" element={<AdminInsertProduct />} />
+            <Route path="/admin/newproduct" element={<AdminInsertProduct />} />
             <Route path="/admin/productdetail" element={<AdminSelectProductByCode />} />
-            <Route path="/admin/updateproduct" element={<AdminUpdateProduct />} />
+            <Route path="/admin/modifyproduct" element={<AdminUpdateProduct />} />
             <Route path="/admin/dicts" element={<AdminSelectAllDicts />} />
-            <Route path="/admin/insertdict" element={<AdminInsertDict />} />
+            <Route path="/admin/newdict" element={<AdminInsertDict />} />
             <Route path="/admin/dictdetail" element={<AdminSelectDictByCode />} />
-            <Route path="/admin/updatedict" element={<AdminUpdateDict />} />
+            <Route path="/admin/modifydict" element={<AdminUpdateDict />} />
             <Route path="/admin/boards" element={<AdminSelectAllBoards />} />
-            <Route path="/admin/insertboard" element={<AdminInsertBoard />} />
+            <Route path="/admin/newboard" element={<AdminInsertBoard />} />
             <Route path="/admin/boarddetail" element={<AdminSelectBoardByCode />} />
-            <Route path="/admin/updateboard" element={<AdminUpdateBoard />} />
+            <Route path="/admin/modifyboard" element={<AdminUpdateBoard />} />
             <Route path="/admin/users" element={<AdminSelectAllUsers />} />
             <Route path="/admin/userdetail" element={<AdminSelectUserByCode />} />
             <Route path="/admin/chatlist" element={<AdminChatList />} />

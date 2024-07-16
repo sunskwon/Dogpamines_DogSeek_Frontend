@@ -32,7 +32,7 @@ function AdminSelectProductByCode() {
                                 className={styles.submitButton}
                                 style={{ marginRight: "15px", }}
                                 onClick={() => {
-                                    navigate("/admin/updateproduct", {
+                                    navigate("/admin/modifyproduct", {
                                         state: { Location: state.Location }
                                     });
                                 }}
