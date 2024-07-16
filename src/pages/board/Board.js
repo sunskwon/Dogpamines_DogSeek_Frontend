@@ -6,9 +6,6 @@ import Paginations from "react-js-pagination";
 
 function Board() {
 
-    window.scrollTo(0, 0);
-
-
     // 공지 토글 on
     const [isOneNoticeOpen, setIsOneNoticeOpen] = useState(false);
     const [isTwoNoticeOpen, setIsTwoNoticeOpen] = useState(false);
@@ -76,6 +73,7 @@ function Board() {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         if (!loaded) {
             call().then(res => {
                 const noticeData = res.filter(post => post.postCategory === '공지')

@@ -9,6 +9,8 @@ import MostProducts from '../components/products/MostProducts';
 
 function Main() {
 
+    window.scrollTo(0,0);
+
     const navigate = useNavigate();
 
     const [modalOpen, setModalOpen] = useState(false);
@@ -61,31 +63,31 @@ function Main() {
                 <div className={styles.iconContainer}>
                     <div style={{ display: "flex", flexDirection: "column", textAlign: "center" }}>
                         <NavLink to={'/dict'}>
-                            <img className={styles.icon1} src='./images/main/Icon1.png' alt='견종백과' />
+                            <img className={styles.icon1} src='./images/common/Dog.png' alt='견종백과' />
                         </NavLink>
                         <Link to={'/dict'} className={styles.text1}>견종백과</Link>
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", textAlign: "center" }}>
                         <div onClick={curation}>
-                            <img className={styles.icon1} src='./images/main/Icon2.png' alt='맞춤 사료 찾기' />
+                            <img className={styles.icon1} src='./images/common/DogBowl.png' alt='맞춤 사료 찾기' />
                         </div>
                         <div onClick={curation} className={styles.text5}>맞춤사료찾기</div>
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", textAlign: "center" }}>
                         <NavLink to={'/board'}>
-                            <img className={styles.icon1} src='./images/main/Icon3.png' alt='게시판' />
+                            <img className={styles.icon1} src='./images/common/Notepad.png' alt='게시판' />
                         </NavLink>
                         <Link to={'/board'} className={styles.text6}>게시판</Link>
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", textAlign: "center" }}>
                         <NavLink to={'/animal-info'}>
-                            <img className={styles.icon2} src='./images/main/vector.png' alt='반려견 등록 확인' />
+                            <img className={styles.icon1} src='./images/common/Search.png' alt='반려견 등록 확인' />
                         </NavLink>
                         <Link to={'/animal-info'} className={styles.text6}>반려견 등록 확인</Link>
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", textAlign: "center" }}>
                         <NavLink to={'/public-chat'}>
-                            <img className={styles.icon1} src='./images/main/Chat.png' alt='유저 채팅' />
+                            <img className={styles.icon1} src='./images/common/Chat.png' alt='유저 채팅' />
                         </NavLink>
                         <Link to={'/public-chat'} className={styles.text1}>유저 채팅</Link>
                     </div>

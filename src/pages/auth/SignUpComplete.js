@@ -2,6 +2,7 @@ import styles from './SignUpComplete.module.css';
 import { useNavigate} from 'react-router-dom';
 
 function SignUpComplete(){
+    window.scrollTo(0,0);
     
     const navigate = useNavigate();
 

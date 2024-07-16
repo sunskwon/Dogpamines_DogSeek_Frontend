@@ -385,7 +385,7 @@ function Products () {
                 activePage={page}
                 itemsCountPerPage={15}
                 totalItemsCount={product.length}
-                pageRangeDisplayed={product.length % 2}
+                pageRangeDisplayed={5}
                 prevPageText={"‹"}
                 nextPageText={"›"}
                 onChange={handlePageChange} 

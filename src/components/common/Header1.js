@@ -17,9 +17,9 @@ function Header1() {
         keys.forEach(key => window.localStorage.removeItem(key));
         setIsLoggedIn(false);
         setUserAuth(null);
-        cookie.remove('Identifier', { path: '/' }, 1000);
-        alert("로그아웃 되었습니다.");
+        cookie.remove('Identifier', { path: '/' }, 3000);
         navigate("/");
+        window.location.reload();
     };
 
     const handleLogout = async () => {

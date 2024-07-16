@@ -48,8 +48,8 @@ function SignUp() {
     };
 
     const handleNextPage = () => {
+        window.scrollTo(0,0);
         if (isTerm1Checked && isTerm2Checked) {
-            window.scrollTo(0,0);
             navigate('/signup-identity'); // 다음 페이지 경로로 이동
         } else {
             setModal({ ...modal, state: true, isOneBtn: true, text: '필수 약관에 모두 동의해 주세요.' });
@@ -67,6 +67,7 @@ function SignUp() {
     const confirmCancel = () => {
         // 회원가입 취소 로직 추가
         navigate('/'); // 메인 페이지로 이동
+        window.scrollTo(0,0);
     };
 
     const onClickTerm1 = () => {
