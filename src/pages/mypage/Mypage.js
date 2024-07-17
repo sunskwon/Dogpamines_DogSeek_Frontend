@@ -378,7 +378,7 @@ function Mypage(){
                     <div className={styles.user2} key={user.userCode}>
                         <p className={styles.text7}>{user.userId}</p>
                         <div  className={styles.user4}>
-                            <input type='password' className={styles.inputBox1} name='userPass' value={user.userPass}></input>
+                            <input type='password' className={styles.inputBox1} name='userPass' placeholder='**********'></input>
                             <button className={styles.btn2} onClick={() => openModal2(user.userId)}>변경</button>
                         </div><br/>
                         <div className={styles.user3}>

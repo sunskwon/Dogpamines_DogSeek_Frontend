@@ -7,7 +7,6 @@
     width: 1180px;
     height: 720px;
     margin: 0 auto;
-    padding-bottom: 70px;
     /* min-height: calc(100vh - 238px); */
 }
 
@@ -17,7 +16,6 @@
     display: flex;
     width: 1180px;
     margin: 0 auto;
-    margin-top: 60px;
     align-items: center;
 }
 
@@ -27,7 +25,7 @@
     font-weight: bold;
     color: #005600;
     display: flex;
-    margin-top: 81px;
+    margin-top: 50px;
     padding:0 auto;
     
 }
@@ -55,8 +53,7 @@
     display: flex;
     width: 1180px;
     justify-content: center;
-    
-    margin: 81px auto 0px;
+    margin: 20px auto 0px;
 }
 
 .searchContainer2{
@@ -64,7 +61,6 @@
     display: flex;
     width: 1180px;
     justify-content: center;
-    
     margin: 3px auto 0px;
 }
 
@@ -75,12 +71,8 @@
     height: 30px;
     border-radius: 10px;
     margin-bottom: 10px;
-
     font-size: 12.5px;
-
     border-color: #D4D4D4;
-    
-
 }
 
 .regiBox{
@@ -92,25 +84,19 @@
     height: 30px;
     border-radius: 10px;
     margin-bottom: 10px;
-
     font-size: 12.5px;
-
-    border: 1px solid #D4D4D4;
-    
+    border: 1px solid #D4D4D4; 
 }
 
 .inputBox{
-
     border-width: 0.1px;
     border-radius: 10px;
     border-color: #D4D4D4;
     box-shadow: none;
     outline: none;
-
     margin-left: 20px;
     width: 350px;
     height: 27px;
-
     padding-left: 25px;
     
 }
@@ -120,16 +106,14 @@
 }
 
 .buttonContainer{
-
     display: flex;
     width: 1180px;
+    height: 70px;
     justify-content: center;
-    
     margin: 3px auto 0px;
 }
 
 .button{
-
     width: 100px;
     height: 25px;
     display: flex;
@@ -138,25 +122,20 @@
     color: white;
     align-items: center;
     justify-content: center;
-
     border-radius: 10px;
     border:none;
     outline: none;
-    
     cursor: pointer;
-
     font-size: 12px;
 }
 
 .button:hover{
-
     background-color:#63C54A;
 }
 
 .modalTitle{
     display: flex;
     align-items: center;
-    
     font-weight: bold;
     margin-left: 10%;
     margin-bottom: 30px;
@@ -167,19 +146,15 @@
     border-top: 2px solid black;
     border-bottom: 2px solid black;
     margin: 0px auto;
-
     font-size: 15px;
-
 }
 
 .table th {
-
     border-bottom: 1px solid #999999;
     border-right: 1px solid #999999;
     border-left: 1px solid #999999;
     width: 150px;
-    height: 45px;
-    
+    height: 45px; 
 }
 
 .table td {
@@ -188,29 +163,24 @@
     border-left: 1px solid #999999;
     padding-left: 20px;
     width: 250px;
-    
 }
 
 .img{
-
     height: 20px;
 }
 
 .errorContainer{
-
     display: flex;
     justify-content: center;
     margin:0 auto;
     flex-direction: column;
     width: 330px;
     height: 200px;
-    
     > img {
         width: 52%;
         height: 92%;
         margin: 0 auto 20px;
     }
-
     > span {
         text-align: center;
         margin:0px;

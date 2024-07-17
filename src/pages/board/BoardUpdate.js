@@ -34,7 +34,7 @@ function BoardUpdate() {
   const { postCode } = location.state;
 
   const onClickHome = () => {
-    navigate("/board/edit", {
+    navigate("/postdetail", {
       state: {
         postCode: postCode,
       },
@@ -84,8 +84,8 @@ function BoardUpdate() {
       const response = await PutAPI(address, newPostData);
       if (response) {
         showModal('게시물이 수정되었습니다.', true);
-        setTimeout((code) => {
-          navigate(`/post/${code}`, {
+        setTimeout(() => {
+          navigate(`/post/${postCode}`, {
             state: {
               postCode: postCode,
             },
