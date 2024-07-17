@@ -123,18 +123,34 @@
 
 .modalContent {
     width: 800px;
-    height: 900px;
+    height: 800px;
     background-color: white;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    overflow-y: scroll;
+    padding-left: 70px;
+}
+
+.modalContent::-webkit-scrollbar {
+    width: 10px; 
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+    background: #63C54A; /* 스크롤바 색상 */
+    border-radius: 10px; /* 스크롤바 둥근 테두리 */
+}
+
+.modalContent::-webkit-scrollbar-track {
+    background: #D4D4D4;  /*스크롤바 뒷 배경 색상*/
+    border-radius: 10px;
 }
 
 .comparisonBox {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    width: 45%;
+    width: 40%;
     margin-left: 60px;
     margin-top: 40px;
     position: relative;
@@ -213,14 +229,12 @@
 }
 
 .cancelButton {
-    position: absolute;
     width: 150px;
     height: 47px;
     border-radius: 10px;
     border: 1px solid #005600;
     color: white;
     background-color: #005600;
+    margin-top: 30px;
     margin-left: 325px;
-    margin-top: 800px;
-
 }

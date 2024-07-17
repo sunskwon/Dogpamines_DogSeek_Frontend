@@ -34,7 +34,7 @@ function BoardUpdate() {
   const { postCode } = location.state;
 
   const onClickHome = () => {
-    navigate("/postdetail", {
+    navigate("/board/edit", {
       state: {
         postCode: postCode,
       },
@@ -84,8 +84,8 @@ function BoardUpdate() {
       const response = await PutAPI(address, newPostData);
       if (response) {
         showModal('게시물이 수정되었습니다.', true);
-        setTimeout(() => {
-          navigate("/postdetail", {
+        setTimeout((code) => {
+          navigate(`/post/${code}`, {
             state: {
               postCode: postCode,
             },
@@ -137,9 +137,9 @@ function BoardUpdate() {
           <div className={styles.modalContent1}>
             <div className={styles.iconContainer}>
               {modal.isCheck ? (
-                <img src='./images/auth/modal_check.png' alt='modal_check' />
+                <img src='../images/auth/modal_check.png' alt='modal_check' />
               ) : (
-                <img src='./images/auth/exclamationmark_circle.png' alt='exclamation_circle' />
+                <img src='../images/auth/exclamationmark_circle.png' alt='exclamation_circle' />
               )}
             </div>
             <div className={styles.modalTextContainer}>

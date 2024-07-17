@@ -60,7 +60,7 @@ function Board() {
     }
 
     const onPostWritingClick = () => {
-        navigate("./boardwriting");
+        navigate("/board/add");
         window.scrollTo(0, 0);
     };
 

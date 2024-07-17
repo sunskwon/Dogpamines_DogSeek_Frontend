@@ -196,6 +196,8 @@
     border: none;
     color: white;
     border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px
 }
 .btnContainer2{
     display: flex;
