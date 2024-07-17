@@ -125,7 +125,7 @@ function SelectUserByCode({ Location, user, setUser, bool }) {
                                     <p>권한</p>
                                     <div className={styles.spanBox}>
                                         <span>
-                                            {user?.userAuth === 'ADMIN' ? '관리자' : (user?.userAuth === 'USER' ? '회원' : '휴면회원')}
+                                            {user?.userAuth === 'ADMIN' ? '관리자' : user?.userAuth === 'USER' ? '회원' : user?.userAuth === 'SLEEP' ? '휴면회원' : user?.userAuth === 'LEAVE' ? '탈퇴회원' : '알 수 없음'}
                                         </span>
                                     </div>
                                 </div>

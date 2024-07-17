@@ -77,14 +77,9 @@
 }
 
 .icon1{
+    margin-top: 15px;
     cursor: pointer;
     width: 70px;
-    height: 70px;
-}
-
-.icon2{
-    cursor: pointer;
-    margin-top: 10px;
 }
 
 .text1{
