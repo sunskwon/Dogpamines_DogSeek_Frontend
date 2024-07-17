@@ -139,7 +139,7 @@ function PostDetail() {
             <div>
               {isLoggedIn && userCode === postDetail.userCode && (
                 <>
-                  <button className={styles.button_modify} onClick={() => navigate("/boardupdate", {
+                  <button className={styles.button_modify} onClick={() => navigate("/board/edit", {
                     state: { postCode: postCode }
                   })}>수정</button>
                   <button className={styles.button_list} onClick={() => navigate("/board")}>목록</button>
@@ -222,9 +222,9 @@ function PostDetail() {
             <div className={styles.modalContent1}>
               <div className={styles.iconContainer}>
                 {modal.isCheck ? (
-                  <img src='./images/auth/modal_check.png' alt='modal_check' />
+                  <img src='../images/auth/modal_check.png' alt='modal_check' />
                 ) : (
-                  <img src='./images/auth/exclamationmark_circle.png' alt='exclamation_circle' />
+                  <img src='../images/auth/exclamationmark_circle.png' alt='exclamation_circle' />
                 )}
               </div>
               <div className={styles.modalTextContainer}>

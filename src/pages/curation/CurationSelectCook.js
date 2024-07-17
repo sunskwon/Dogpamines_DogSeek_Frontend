@@ -45,25 +45,25 @@ function CurationSelectCook() {
                 <div className={styles.contentBox}>
                     <div className={styles.textAndBox} name='cook' onClick={() => onClick('건식')}>
                         <div className={styles.selectBox}>
-                                <img></img>
+                                <img src='./images/curation/basic.png' style={{ width: "80%" }}></img>
                         </div>
                         <p className={styles.text}>건식</p>
                     </div>
                     <div className={styles.textAndBox} name='cook' onClick={() => onClick('습식')}>
                         <div className={styles.selectBox}>
-                                <img></img>
+                                <img src='./images/curation/wet.png' style={{ width: "80%" }}></img>
                         </div>
                         <p className={styles.text}>습식</p>
                     </div>
                     <div className={styles.textAndBox} name='cook' onClick={() => onClick('화식')}>
                         <div className={styles.selectBox}>
-                                <img></img>
+                                <img src='./images/curation/fire.png' style={{ width: "80%" }}></img>
                         </div>
                     <p className={styles.text}>화식</p>
                     </div>
                     <div className={styles.textAndBox} name='cook' onClick={() => onClick('소프트')}>
                         <div className={styles.selectBox}>
-                                <img></img>
+                                <img src='./images/curation/soft.png' style={{ width: "80%" }}></img>
                         </div>
                     <p className={styles.text}>소프트</p>
                     </div>

@@ -3,7 +3,7 @@ function GradeInput({ target, form, setForm }) {
     return (
         <div>
             <img
-                src={form[target] > 0 ? "/images/admin/StarOn.png" : "/images/admin/starOff.png"}
+                src={form[target] > 0 ? "/images/admin/StarOn.png" : "/images/admin/StarOff.png"}
                 alt={form[target] > 0 ? "•" : " "}
                 onClick={() => {
                     setForm({
@@ -13,7 +13,7 @@ function GradeInput({ target, form, setForm }) {
                 }}
             />
             <img
-                src={form[target] > 1 ? "/images/admin/StarOn.png" : "/images/admin/starOff.png"}
+                src={form[target] > 1 ? "/images/admin/StarOn.png" : "/images/admin/StarOff.png"}
                 alt={form[target] > 1 ? "•" : " "}
                 onClick={() => {
                     setForm({
@@ -23,7 +23,7 @@ function GradeInput({ target, form, setForm }) {
                 }}
             />
             <img
-                src={form[target] > 2 ? "/images/admin/StarOn.png" : "/images/admin/starOff.png"}
+                src={form[target] > 2 ? "/images/admin/StarOn.png" : "/images/admin/StarOff.png"}
                 alt={form[target] > 2 ? "•" : " "}
                 onClick={() => {
                     setForm({
@@ -33,7 +33,7 @@ function GradeInput({ target, form, setForm }) {
                 }}
             />
             <img
-                src={form[target] > 3 ? "/images/admin/StarOn.png" : "/images/admin/starOff.png"}
+                src={form[target] > 3 ? "/images/admin/StarOn.png" : "/images/admin/StarOff.png"}
                 alt={form[target] > 3 ? "•" : " "}
                 onClick={() => {
                     setForm({
@@ -43,7 +43,7 @@ function GradeInput({ target, form, setForm }) {
                 }}
             />
             <img
-                src={form[target] > 4 ? "/images/admin/StarOn.png" : "/images/admin/starOff.png"}
+                src={form[target] > 4 ? "/images/admin/StarOn.png" : "/images/admin/StarOff.png"}
                 alt={form[target] > 4 ? "•" : " "}
                 onClick={() => {
                     setForm({

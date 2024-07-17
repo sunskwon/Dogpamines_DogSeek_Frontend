@@ -277,8 +277,8 @@ function ProductDetail() {
                                                             </div>
                                                         </div>
                                                     ))}
-                                                    <button className={styles.cancelButton} onClick={() => setModalOpen(false)}>닫기</button>
                                             </div>
+                                                    <button className={styles.cancelButton} onClick={() => setModalOpen(false)}>닫기</button>
                                         </div>
                                     </div>
                                 )}
