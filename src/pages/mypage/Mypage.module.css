@@ -105,6 +105,10 @@
     border-radius: 5px;
 }
 
+.inputBox1::placeholder {
+    font-size: 14px;
+}
+
 .inputBox2{
     display: block;
     font-size: 14px;

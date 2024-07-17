@@ -139,7 +139,7 @@ function AnimalRegist() {
                 </div>
             </form>
 
-            {loading && <p>loading...</p>}
+            {/* {loading && <p style={{alignItems:'center'}}>loading...</p>} */}
 
             {error ? (
                 <div className={styles.modal}>
