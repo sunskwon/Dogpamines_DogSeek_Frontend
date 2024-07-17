@@ -39,9 +39,7 @@ function Adminlayout() {
     ) :
         (
             <>
-                <Header1 />
                 <NotFound />
-                <Footer />
             </>
         );
 }
