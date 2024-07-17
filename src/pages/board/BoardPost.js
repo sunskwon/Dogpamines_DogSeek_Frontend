@@ -142,9 +142,9 @@ function PostDetail() {
                   <button className={styles.button_modify} onClick={() => navigate("/board/edit", {
                     state: { postCode: postCode }
                   })}>수정</button>
-                  <button className={styles.button_list} onClick={() => navigate("/board")}>목록</button>
                 </>
               )}
+              <button className={styles.button_list} onClick={() => navigate("/board")}>목록</button>
             </div>
           </div>
         </div>
