@@ -134,7 +134,7 @@ function SignUpIdentity() {
                 <div className={styles.inputBoxes}>
                     <div className={styles.emailBox}>
                         <label>이메일</label>
-                        <input name='email' onChange={onEmailChange} type='email'></input>
+                        <input name='email' onChange={onEmailChange} type='email' placeholder='이메일을 입력해주세요.'></input>
                         {showSend && (
                             <button type='submit' onClick={onClickConfirm}>전송</button>
                         )}
@@ -144,7 +144,7 @@ function SignUpIdentity() {
                     </div>
                     <div className={styles.numberBox}>
                         <label>인증번호</label>
-                        <input type='text' onChange={onAuthNumChange}></input>
+                        <input type='text' onChange={onAuthNumChange} placeholder='전송 받은 6자리 인증번호를 입력해주세요.'></input>
                         <button type='submit' onClick={onClickEmailVerify}>확인</button>
                     </div>
                 </div>
