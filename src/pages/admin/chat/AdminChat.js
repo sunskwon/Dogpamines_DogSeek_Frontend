@@ -51,7 +51,7 @@ function AdminChat() {
               </button>
             </div>
           </div>
-          <div style={{ clear: "both", }}>
+          <div style={{ clear: "both", paddingTop: "20px", }}>
             <FetchErrorBoundary height="560px">
               <Chat
                 code={userCode}

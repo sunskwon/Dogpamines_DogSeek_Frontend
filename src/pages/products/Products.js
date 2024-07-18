@@ -310,12 +310,6 @@ function Products () {
                                         >
                                             눈물자국
                                         </button>
-                                        <button
-                                            className={`${styles.modalButton} ${filterEffi === '저알러지' ? styles.modalButtonClick : ''}`}
-                                            onClick={() => toggleValue(filterEffi, '저알러지', setFilterEffi)}
-                                        >
-                                            저알러지
-                                        </button>
                                     </div>
                                 </>
                                 <>

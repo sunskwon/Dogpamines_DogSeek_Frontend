@@ -30,7 +30,7 @@ function TopBtn() {
 
     return showButton && (
         <div className={styles.scroll__container}>
-            <img id={styles.top} onClick={scrollToTop} src='./images/main/topbtn5.png'></img>
+            <img id={styles.top} onClick={scrollToTop} src='/images/main/topbtn5.png'></img>
         </div>
 
     )

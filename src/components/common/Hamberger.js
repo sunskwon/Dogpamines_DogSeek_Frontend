@@ -55,36 +55,36 @@ function Hamberger() {
                                 className={styles.button__container}
                                 onClick={() => navigate('/dict')}
                             >
-                                <img src='./images/common/Dog.png'></img>
+                                <img src='/images/common/Dog.png'></img>
                             </div>
                             <div
                                 className={styles.button__container}
                                 onClick={curation}
                             >
-                                <img src='./images/common/DogBowl.png'></img>
+                                <img src='/images/common/DogBowl.png'></img>
                             </div>
                             <div
                                 className={styles.button__container}
                                 onClick={() => navigate('/board')}
                             >
-                                <img src='./images/common/Notepad.png'></img>
+                                <img src='/images/common/Notepad.png'></img>
                             </div>
                             <div
                                 className={styles.button__container}
                                 onClick={() => navigate('/animal-info')}
                             >
-                                <img src='./images/common/Search.png'></img>
+                                <img src='/images/common/Search.png'></img>
                             </div>
                             <div
                                 className={styles.button__container}
                                 onClick={() => navigate('/public-chat')}
                             >
-                                <img src='./images/common/Chat.png'></img>
+                                <img src='/images/common/Chat.png'></img>
                             </div>
                         </div>
                         <div className={styles.button}>
                             <div className={styles.button__container}>
-                                <img src='./images/common/BulletedList.png' />
+                                <img src='/images/common/BulletedList.png' />
                             </div>
                         </div>
                     </div>

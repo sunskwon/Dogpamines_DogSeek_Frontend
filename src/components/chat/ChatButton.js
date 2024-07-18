@@ -71,7 +71,7 @@ function ChatButton() {
                     className={styles.button__container}
                     onClick={() => { setModalOpen(true) }}
                 >
-                    <img src='./images/main/Consultation.png' />
+                    <img src='/images/main/Consultation.png' />
                 </div>
             </div>
         ) : (
