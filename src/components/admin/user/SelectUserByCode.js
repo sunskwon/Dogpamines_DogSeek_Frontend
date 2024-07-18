@@ -91,7 +91,7 @@ function SelectUserByCode({ Location, user, setUser, bool }) {
                 setBoolLoading(false);
             }
         });
-    }, []);
+    }, [bool]);
 
     if (error) {
         throw error;
