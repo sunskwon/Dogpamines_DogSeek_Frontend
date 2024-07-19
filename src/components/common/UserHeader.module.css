@@ -1,0 +1,59 @@
+.headerContainer {
+    width: 1180px;
+    height: 45px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background-color: #005600;
+    margin: auto;
+    margin-top: 40px;
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.mainContainer {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+}
+
+.innerContainer {
+    width: 170px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-size: 14px;
+    color: white;
+}
+
+.containerText {
+    margin: auto 10px;
+}
+
+.mainText {
+    color: white;
+    text-decoration: none;
+    margin: 0;
+    cursor: pointer;
+}
+
+.leftText,
+.rightText {
+    font-size: 14px;
+}
+
+.leftText {
+    /* margin-left: 22px; */
+}
+
+.rightText {
+    margin-right: 22px;
+    cursor: pointer;
+}
+
+.mainText {
+    font-size: 16px;
+    font-weight: bold;
+}

@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode";
 import Header from "../components/admin/adminCommon/Header";
 import Navbar from "../components/admin/adminCommon/Navbar";
 
-import Header1 from "../components/common/Header1";
+import Header1 from "../components/common/UserHeader";
 import NotFound from "../pages/common/NotFound";
 import Footer from "../components/common/Footer";
 

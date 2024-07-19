@@ -1,16 +1,19 @@
+import { Outlet } from "react-router-dom";
+
+import UserHeader from "../components/common/UserHeader";
 import Footer from "../components/common/Footer";
-import Header1 from "../components/common/Header1";
 import ChatButton from "../components/chat/ChatButton";
 import TopBtn from "../components/common/Topbtn";
 import Hamberger from "../components/common/Hamberger";
-import { Outlet } from "react-router-dom";
 
-import styles from "./Layout1.module.css";
+import styles from "./UserLayout.module.css";
 
-function Layout1() {
+function UserLayout() {
     return (
         <>
-            <Header1 />
+            <header>
+                <UserHeader />
+            </header>
             <Outlet />
             <div className={styles.floatingBox}>
                 <div className={styles.wrapBox}>
@@ -30,4 +33,4 @@ function Layout1() {
     )
 }
 
-export default Layout1;
+export default UserLayout;

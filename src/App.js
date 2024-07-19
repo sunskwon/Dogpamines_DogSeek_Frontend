@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Layout1 from "./layouts/Layout1.js"
+
+import UserLayout from "./layouts/UserLayout.js"
 import Board from "./pages/board/Board.js";
 import PostDetail from "./pages/board/BoardPost.js";
 import BoardWriting from "./pages/board/BoardWriting.js"
@@ -63,7 +64,7 @@ function App() {
       <ErrorBoundary>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout1 />}>
+          <Route path="/" element={<UserLayout />}>
             <Route index element={<Main />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
