@@ -1,5 +1,39 @@
 import cookie from "react-cookies";
 
+export function GetAPIwoToken(address) {
+
+    const baseUrl = process.env.REACT_APP_SPRING_SERVER;
+    const url = `${baseUrl}${address}`
+
+    return (
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+                'Access-Cross-Allow-Origin': '*',
+            },
+        }).then(res => res.json())
+    );
+}
+
+export function GetAPINotToken(address) {
+
+    const baseUrl = process.env.REACT_APP_SPRING_SERVER;
+    const url = `${baseUrl}${address}`;
+
+    return (
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+                'Access-Cross-Allow-Origin': '*',
+            },
+        }).then(res => res.json())
+    );
+};
+
 export async function GetAPI(address) {
 
     const baseUrl = process.env.REACT_APP_SPRING_SERVER;
@@ -50,23 +84,6 @@ export async function GetAPIWCookie(address) {
 
     return result;
 }
-
-export function GetAPINotToken(address) {
-
-    const baseUrl = process.env.REACT_APP_SPRING_SERVER;
-    const url = `${baseUrl}${address}`;
-
-    return (
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': '*/*',
-                'Access-Cross-Allow-Origin': '*',
-            },
-        }).then(res => res.json())
-    );
-};
 
 export async function PostAPI(address, Object) {
 

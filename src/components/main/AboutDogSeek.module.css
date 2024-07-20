@@ -1,0 +1,36 @@
+.container {
+    width: 1100px;
+    margin: 0 auto;
+    padding: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.container span {
+    font-weight: bold;
+    font-size: 20px;
+    margin: 0;
+}
+
+.container p {
+    font-size: 20px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    color: #999999;
+}
+
+.button {
+    width: 140px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #63C54A;
+    box-sizing: border-box;
+    background-color: white;
+    font-weight: bold;
+    font-size: 16px;
+    color: #63C54A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

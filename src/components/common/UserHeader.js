@@ -15,9 +15,13 @@ function UserHeader() {
     const navigate = useNavigate();
 
     useEffect(() => {
+
         const token = window.localStorage.getItem("accessToken");
+
         if (token && typeof token === 'string') {
+
             try {
+
                 const decodedToken = jwtDecode(token);
                 setIsLoggedIn(true);
                 setUserAuth(decodedToken.userAuth);
@@ -72,35 +76,69 @@ function UserHeader() {
     return (
         <>
             <div className={styles.headerContainer}>
-                <div className={styles.innerContainer}>
-                    <Link to={'/company'} className={styles.containerText}>
+                <div
+                    className={styles.innerContainer}
+                    style={{ justifyContent: "start", }}
+                >
+                    <Link
+                        to={'/company'}
+                        className={styles.containerText}
+                    >
                         About
                     </Link>
-                    <Link to={"/products"} className={styles.containerText}>
+                    <Link
+                        to={"/products"}
+                        className={styles.containerText}
+                    >
                         Dog Food
                     </Link>
                 </div>
-                <div className={styles.mainContainer}>
-                    <Link to={'/'}>
-                        DogSeek
-                    </Link>
-                </div>
-                <div className={styles.innerContainer}>
-                    <div>
-
+                <Link
+                    to={'/'}
+                    className={styles.mainContainer}
+                >
+                    DogSeek
+                </Link>
+                <div
+                    className={styles.innerContainer}
+                    style={{ justifyContent: "end", }}
+                >
+                    <div
+                        aria-label="로그인 또는 로그아웃"
+                        className={styles.containerText}
+                        onClick={isLoggedIn ? handleLogout : () => navigate("/login")}
+                    >
+                        {isLoggedIn ? "Logout" : "Login"}
                     </div>
-                    <a aria-label="로그인 또는 로그아웃" className={styles.rightText} onClick={isLoggedIn ? handleLogout : () => navigate("/login")}>{isLoggedIn ? "Logout" : "Login"}</a>
-                    {userAuth === "ADMIN" ? (
-                        <a aria-label='회원가입 또는 AdminPage' className={styles.rightText} onClick={() => navigate("/admin")}>AdminPage</a>
-                    ) : (userAuth === "USER" && isLoggedIn ?
+                    {userAuth === "ADMIN" ?
                         (
-                            <a aria-label='마이페이지' className={styles.rightText} onClick={handleMypage}>MyPage</a>
-                        ) : (
-                            <a aria-label='회원가입 또는 마이페이지' className={styles.rightText} onClick={() => navigate("/signup")}>SignUp</a>
-                        )
-                    )}
+                            <div
+                                aria-label='회원가입 또는 AdminPage'
+                                className={styles.containerText}
+                                onClick={() => navigate("/admin")}>
+                                AdminPage
+                            </div>
+                        ) : (userAuth === "USER" && isLoggedIn ?
+                            (
+                                <div
+                                    aria-label='마이페이지'
+                                    className={styles.containerText}
+                                    onClick={handleMypage}
+                                >
+                                    MyPage
+                                </div>
+                            ) : (
+                                <div
+                                    aria-label='회원가입 또는 마이페이지'
+                                    className={styles.containerText}
+                                    onClick={() => navigate("/signup")}
+                                >
+                                    SignUp
+                                </div>
+                            )
+                        )}
                 </div>
-            </div>
+            </div >
         </>
     )
 }

@@ -1,24 +1,29 @@
-import styles from './MostProducts.module.css'
-import { GetAPINotToken } from "../../api/RestAPIs";
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from 'swiper/modules';
-import React, {useState, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
+
+import { GetAPIwoToken } from "../../api/RestAPIs";
+
+import styles from './MostProducts.module.css'
 
 const MostProducts = () => {
 
-    const navigate = useNavigate();
-    const [most, setMost] = useState([]);
-    
-    const mostProducts = async () => {
+    const [mostList, setMostList] = useState([]);
 
-        const mostProductsAddress = "/products/most-products"
-        const mostProductsResponse = await GetAPINotToken(mostProductsAddress);
-        setMost(mostProductsResponse.products.Popular)
-    };
+    const navigate = useNavigate();
 
     useEffect(() => {
-        mostProducts();
+
+        const mostProducts = async () => {
+
+            const response = await GetAPIwoToken('/products/most');
+
+            return response.products.slice(0, 10);
+        };
+
+        mostProducts().then(res => setMostList(res));
     }, []);
 
     const formatPrice = (price) => {
@@ -45,7 +50,7 @@ const MostProducts = () => {
     const onClick = (prodCode, age, size, cook, prodIngra, prodEffi) => {
         const ingra = prodIngra.split(",")[0];
         const disease = prodEffi.split(",")[0];
-        navigate ("/product", {
+        navigate("/product", {
             state: {
                 prodCode: prodCode,
                 age: age,
@@ -54,13 +59,12 @@ const MostProducts = () => {
                 ingra: ingra,
                 disease: disease,
                 allergy: ""
-            } 
+            }
         });
     };
 
-
-    return(
-        <div style={{width:"940px", margin:"0 auto"}}>
+    return (
+        <div style={{ width: "940px", margin: "0 auto" }}>
             <Swiper
                 modules={[Autoplay, Navigation]}
                 spaceBetween={30}
@@ -68,41 +72,39 @@ const MostProducts = () => {
                 autoplay={true}
                 navigation={{ clickable: true }}
                 className="mySwiper"
-                style={{"--swiper-theme-color":"#63C54A"}}
+                style={{ "--swiper-theme-color": "#63C54A" }}
             >
-            {most
-            .slice(0, 10)
-            .map(most => (
-                <SwiperSlide  key={most.prodCode}>
-                    <div className={styles.productsBox2} onClick={() => onClick(most.prodCode, most.prodAge, most.prodRecom, most.prodCook, most.prodIngra, most.prodEffi)}>
-                        <img src={most.prodImage} style={{width:"282px"}}/>
-                        <div className={styles.productHover}>
-                            <div style={{display:"flex", justifyContent:"center", marginTop:"70px"}}>
-                                <p style={{color:"white", fontWeight:"bold"}}>가격</p>
-                                <p style={{color:"white", marginLeft:"10px", fontWeight:"bold"}}>￦{formatPrice(most.prodPrice)}</p>
+                {mostList.map(most => (
+                    <SwiperSlide key={most.prodCode}>
+                        <div className={styles.productsBox2} onClick={() => onClick(most.prodCode, most.prodAge, most.prodRecom, most.prodCook, most.prodIngra, most.prodEffi)}>
+                            <img src={most.prodImage} style={{ width: "282px" }} />
+                            <div className={styles.productHover}>
+                                <div style={{ display: "flex", justifyContent: "center", marginTop: "70px" }}>
+                                    <p style={{ color: "white", fontWeight: "bold" }}>가격</p>
+                                    <p style={{ color: "white", marginLeft: "10px", fontWeight: "bold" }}>￦{formatPrice(most.prodPrice)}</p>
+                                </div>
+                                <div style={{ display: "flex", justifyContent: "center" }}>
+                                    <p style={{ color: "white", fontWeight: "bold" }}>제조사</p>
+                                    <p style={{ color: "white", marginLeft: "10px", fontWeight: "bold" }}>{most.prodManufac}</p>
+                                </div>
                             </div>
-                            <div style={{display:"flex", justifyContent:"center"}}>
-                                <p style={{color:"white", fontWeight:"bold"}}>제조사</p>
-                                <p style={{color:"white", marginLeft:"10px", fontWeight:"bold"}}>{most.prodManufac}</p>
+                            <div style={{ display: "flex" }}>
+                                <p style={{ margin: "0", fontSize: "16px", fontWeight: "bold" }}>평점</p>
+                                <img style={{ width: "79px", height: "15px", marginTop: "5px", marginLeft: "10px" }} src={getStarImage(most.prodGrade)} alt={`${most.prodGrade} stars`} />
+                            </div>
+                            <div style={{ display: "flex" }}>
+                                <p style={{ margin: "0", fontSize: "16px", fontWeight: "bold", width: "55px" }}>제품명</p>
+                                <p className={styles.prodText}>{most.prodName}</p>
+                            </div>
+                            <div style={{ display: "flex" }}>
+                                <p style={{ margin: "0", fontSize: "16px", fontWeight: "bold", width: "78px" }}>제품기능</p>
+                                <p className={styles.prodText}>{most.prodEffi}</p>
                             </div>
                         </div>
-                        <div style={{display:"flex"}}>
-                            <p style={{margin:"0", fontSize:"16px", fontWeight:"bold"}}>평점</p>
-                            <img style={{width:"79px", height:"15px", marginTop:"5px", marginLeft:"10px"}} src={getStarImage(most.prodGrade)} alt={`${most.prodGrade} stars`}/>
-                        </div>
-                        <div style={{display:"flex"}}>
-                            <p style={{margin:"0", fontSize:"16px", fontWeight:"bold", width:"55px"}}>제품명</p>
-                            <p className={styles.prodText}>{most.prodName}</p>
-                        </div>
-                        <div style={{display:"flex"}}>
-                            <p style={{margin:"0", fontSize:"16px", fontWeight:"bold", width:"78px"}}>제품기능</p>
-                            <p className={styles.prodText}>{most.prodEffi}</p>
-                        </div>
-                    </div>
-                </SwiperSlide>
-            ))}
+                    </SwiperSlide>
+                ))}
             </Swiper>
-            </div>
+        </div>
     );
 }
 

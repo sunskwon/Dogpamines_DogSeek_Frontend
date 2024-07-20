@@ -1,0 +1,38 @@
+.container{
+    width: 1020px;
+    /* height: 400px; */
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    padding: 80px;
+}
+
+.container img {
+    height: 300px;
+    margin-left: 200px;
+}
+
+.box{
+    padding-top: 60px;
+}
+
+.text{
+    font-weight: bold;
+    font-size: 28px;
+    color: #005600;
+}
+
+.button{
+    width: 140px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background-color: #005600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+}

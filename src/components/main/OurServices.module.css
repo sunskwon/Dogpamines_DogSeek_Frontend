@@ -1,0 +1,36 @@
+.container {
+    width: 1100px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.container span {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.iconContainer {
+    width: 930px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+}
+
+.icon img {
+    width: 70px;
+    margin-top: 15px;
+}
+
+.icon p {
+    font-size: 16px;
+    color: #999999;
+}
