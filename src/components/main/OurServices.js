@@ -30,7 +30,7 @@ function OurServices({ setModalOpen }) {
                     </div>
                     <div
                         className={styles.icon}
-                        onClick={() => navigate('/dict')}
+                        onClick={() => navigate('/dog')}
                     >
                         <img
                             src='/images/common/Dog.png'

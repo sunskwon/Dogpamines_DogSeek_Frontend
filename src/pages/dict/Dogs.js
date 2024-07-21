@@ -1,12 +1,14 @@
-import styles from './Dict.module.css';
 import React, { useState, useEffect } from "react";
-
 import { Link } from "react-router-dom";
 
 import { GetAPINotToken } from "../../api/RestAPIs"
+
+import DogList from "../../components/dogs/DogList";
 import DictModal from "../../components/dict/DictModal"
 
-function Dict() {
+import styles from './Dogs.module.css';
+
+function Dogs() {
 
     const [isSmallModalOpen, setIsSmallModalOpen] = useState(true);
     const [isMediumModalOpen, setIsMediumModalOpen] = useState(true);
@@ -109,30 +111,30 @@ function Dict() {
         return dogs.filter(dog => dog.dogSize === size);
     };
 
-
     return (
         <>
+            <DogList />
             <div className={styles.container1}>
                 <div className={styles.title}>
                     <span className={styles.titletext1}> 견종에 대해 찾아보세요.</span>
                     <span className={styles.titletext2}>반려견 품종의 특징과 요구사항에 대한 전문적인 정보를 찾아보세요. <br />
                         스크롤 또는 검색 기능을 사용해 원하는 견종에 대한 정보를 찾을 수 있습니다. </span>
                     <img className={styles.img} src='https://blog.kakaocdn.net/dn/IHtYc/btsIBa6j4gj/k48pkVhUBmPo9kg7Qbh5fk/img.png' />
-                    <div style={{display:"flex"}}>
-                    <form className={styles.form} onSubmit={searchSubmitHandler}>
-                        <input
-                            className={styles.search}
-                            type="text"
-                            name="dogName"
-                            placeholder="Search"
-                            value={search.dogName}
-                            onChange={valueChangeHandler}
-                        />
-                        <button className={styles.searchButton} type="submit">
-                            <img value={search.dogName} src='/images/dict/Search.png' />
-                        </button>
-                    </form>
-                    <button className={styles.allSearch} onClick={allSearchHandler}>전체</button>
+                    <div style={{ display: "flex" }}>
+                        <form className={styles.form} onSubmit={searchSubmitHandler}>
+                            <input
+                                className={styles.search}
+                                type="text"
+                                name="dogName"
+                                placeholder="Search"
+                                value={search.dogName}
+                                onChange={valueChangeHandler}
+                            />
+                            <button className={styles.searchButton} type="submit">
+                                <img value={search.dogName} src='/images/dict/Search.png' />
+                            </button>
+                        </form>
+                        <button className={styles.allSearch} onClick={allSearchHandler}>전체</button>
                     </div>
                 </div>
             </div>
@@ -242,4 +244,4 @@ function Dict() {
     )
 }
 
-export default Dict;
+export default Dogs;

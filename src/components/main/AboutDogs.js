@@ -25,7 +25,7 @@ function AboutDogs() {
                         </p>
                         <div
                             className={styles.button}
-                            onClick={() => navigate('/dict')}
+                            onClick={() => navigate('/dog')}
                         >
                             더 알아가기
                         </div>

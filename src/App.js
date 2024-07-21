@@ -1,17 +1,9 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import UserLayout from "./layouts/UserLayout.js"
-import Board from "./pages/board/Board.js";
-import PostDetail from "./pages/board/BoardPost.js";
-import BoardWriting from "./pages/board/BoardWriting.js"
-import BoardUpdate from "./pages/board/BoardUpdate.js"
-import Curation from "./pages/curation/Curation.js";
-import Company from "./pages/etc/Company.js";
+
 import Main from "./pages/Main";
-import Products from "./pages/products/Products.js";
-import ProductDetail from "./pages/products/ProductDetail.js";
-import Mypage from "./pages/mypage/Mypage.js";
-import Mydog from "./pages/mypage/Mydog.js"
+
 import Login from "./pages/auth/Login.js";
 import SignUp from "./pages/auth/SignUp.js";
 import SignUpIdentity from "./pages/auth/SignUpIdentity.js";
@@ -19,10 +11,9 @@ import SignUpInfo from "./pages/auth/SignUpInfo.js";
 import SignUpComplete from "./pages/auth/SignUpComplete.js";
 import FindEmail from "./pages/auth/FindEmail.js";
 import FindPwd from "./pages/auth/FindPwd.js";
-import Terms from "./pages/etc/Terms.js";
-import PrivacyPolicy from "./pages/etc/PrivacyPolicy.js";
-import Dict from "./pages/dict/Dict.js";
-import DictDetail from "./pages/dict/DictDetail.js";
+import ReleaseSleep from "./pages/auth/ReleaseSleep.js";
+
+import Curation from "./pages/curation/Curation.js";
 import CurationSizeSelect from "./pages/curation/CurationSizeSelect.js";
 import CurationSelectAge from "./pages/curation/CurationSelectAge.js";
 import CurationSelectNeut from "./pages/curation/CurationSelectNeut.js";
@@ -31,7 +22,25 @@ import CurationSelectDisease from "./pages/curation/CurationSelectDisease.js";
 import CurationSelectIngra from "./pages/curation/CurationSelectIngra.js";
 import CurationSelectCook from "./pages/curation/CurationSelectCook.js";
 import CurationResult from "./pages/curation/CurationResult.js";
+
+import Products from "./pages/products/Products.js";
+import ProductDetail from "./pages/products/ProductDetail.js";
+
+import Dogs from "./pages/dict/Dogs.js";
+import DictDetail from "./pages/dict/DictDetail.js";
 import AnimalRegist from "./pages/animalRegist/AnimalRegist.js";
+
+import Board from "./pages/board/Board.js";
+import PostDetail from "./pages/board/BoardPost.js";
+import BoardWriting from "./pages/board/BoardWriting.js"
+import BoardUpdate from "./pages/board/BoardUpdate.js"
+
+import Company from "./pages/etc/Company.js";
+import Terms from "./pages/etc/Terms.js";
+import PrivacyPolicy from "./pages/etc/PrivacyPolicy.js";
+
+import Mypage from "./pages/mypage/Mypage.js";
+import Mydog from "./pages/mypage/Mydog.js"
 
 import UserPublicChat from "./pages/chat/UserPublicChat.js";
 import UserPrivateChat from "./pages/chat/UserPrivateChat.js";
@@ -56,7 +65,6 @@ import AdminChatList from "./pages/admin/chat/AdminChatList.js";
 import AdminChat from "./pages/admin/chat/AdminChat.js";
 
 import NotFound from "./pages/common/NotFound.js";
-import ReleaseSleep from "./pages/auth/ReleaseSleep.js";
 import ErrorBoundary from "./pages/common/Errorboundary.js";
 
 function App() {
@@ -66,6 +74,7 @@ function App() {
         <Routes>
           <Route path="/" element={<UserLayout />}>
             <Route index element={<Main />} />
+            
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/signup-identity" element={<SignUpIdentity />} />
@@ -74,6 +83,7 @@ function App() {
             <Route path="/find-email" element={<FindEmail />} />
             <Route path="/find-pwd" element={<FindPwd />} />
             <Route path="/release/sleep" element={<ReleaseSleep/>}/>
+
             <Route path="/curation" element={<Curation />} />
             <Route path="/curation-size" element={<CurationSizeSelect />} />
             <Route path="/curation-age" element={<CurationSelectAge />} />
@@ -83,20 +93,25 @@ function App() {
             <Route path="/curation-ingra" element={<CurationSelectIngra />} />
             <Route path="/curation-cook" element={<CurationSelectCook />} />
             <Route path="/curation-result" element={<CurationResult />} />
+            
             <Route path="/products" element={<Products />} />
             <Route path="/product" element={<ProductDetail />} />
-            <Route path="/dict" element={<Dict />} />
+            
+            <Route path="/dogs" element={<Dogs />} />
             <Route path="/dict/:dogName" element={<DictDetail />} />
             <Route path="/animal-info" element={<AnimalRegist />} />
+            
             <Route path="/board" element={<Board />} />
             <Route path="/post/:code" element={<PostDetail />} />
             <Route path="/board/add" element={<BoardWriting />} />
             <Route path="/board/edit" element={<BoardUpdate />} />
+            
             <Route path="/company" element={<Company />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            
             <Route path="/my-page" element={<Mypage />} />
             <Route path="/my-dog" element={<Mydog />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
 
             <Route path="/public-chat" element={<UserPublicChat />} />
             <Route path="/private-chat" element={<UserPrivateChat />} />

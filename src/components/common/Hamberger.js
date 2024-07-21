@@ -53,7 +53,7 @@ function Hamberger() {
                         <div className={styles.buttons}>
                             <div
                                 className={styles.button__container}
-                                onClick={() => navigate('/dict')}
+                                onClick={() => navigate('/dog')}
                             >
                                 <img src='/images/common/Dog.png'></img>
                             </div>
