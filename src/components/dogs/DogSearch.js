@@ -1,6 +1,20 @@
 import styles from './DogSearch.module.css';
 
-function DogSearch({ search, setSearch }) {
+function DogSearch({ searchCriteria, setSearchCriteria, boolSearch, setBoolSearch }) {
+
+    const onChangeHandler = e => {
+
+        setSearchCriteria({
+            ...searchCriteria,
+            [e.target.name]: e.target.value
+        })
+    };
+
+    const onSubmitHandler = e => {
+
+        e.preventDefault();
+        setBoolSearch(!boolSearch);
+    }
 
     return (
         <>
@@ -10,13 +24,15 @@ function DogSearch({ search, setSearch }) {
                     <span>반려견 견종에 대한 정보를 찾아보세요</span>
                     <div className={styles.searchBox}>
                         <button>전체</button>
-                        <form>
+                        <form onSubmit={onSubmitHandler}>
                             <input
                                 type='text'
                                 name='input'
                                 placeholder='Search'
+                                value={searchCriteria.input}
+                                onChange={onChangeHandler}
                             />
-                            <button>
+                            <button type='submit'>
                                 <img
                                     src='/images/dict/Search.png'
                                     alt='search'

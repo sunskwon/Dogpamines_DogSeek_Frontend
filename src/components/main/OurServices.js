@@ -1,4 +1,4 @@
-import { useNavigate, NavLink, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './OurServices.module.css';
 
@@ -30,7 +30,7 @@ function OurServices({ setModalOpen }) {
                     </div>
                     <div
                         className={styles.icon}
-                        onClick={() => navigate('/dog')}
+                        onClick={() => navigate('/dogs')}
                     >
                         <img
                             src='/images/common/Dog.png'

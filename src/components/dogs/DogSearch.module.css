@@ -68,5 +68,6 @@
 }
 
 .searchBox form button {
-    margin-right: 0;
+    width: 30px;
+    margin-right: 10px;
 }

@@ -1,0 +1,33 @@
+.container {
+    width: 1180px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+}
+
+.textBox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.textBox img {
+    width: 30px;
+    margin-right: 10px;
+}
+
+.box {
+    width: 900px;
+    margin: 0 auto;
+}
+
+.text {
+    font-weight: bold;
+    font-size: 16px;
+    color: #005600;
+}
+
+.cardList {
+    display: grid;
+    grid-template-columns: 300px 300px 300px;
+}

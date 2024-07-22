@@ -3,35 +3,92 @@ import { useState, useEffect } from 'react';
 import { GetAPIwoToken } from '../../api/RestAPIs';
 
 import DogSearch from './DogSearch';
-
-import styles from './DogList.module.css';
+import SmallDogList from './SmallDogList';
+import MediumDogList from './MediumDogList';
+import LargeDogList from './LargeDogList';
 
 function DogList() {
 
-    const [dogList, setDogList] = useState([]);
-    const [search, setSearch] = useState();
+    const [searchCriteria, setSearchCriteria] = useState({
+        type: 'dogName',
+        input: ' '
+    });
+    const [boolSearch, setBoolSearch] = useState(false);
+    const [smallDogList, setSmallDogList] = useState([]);
+    const [mediumDogList, setMediumDogList] = useState([]);
+    const [largeDogList, setLargeDogList] = useState([]);
+    const [emptyDogList, setEmptyDogList] = useState(false);
+
+    const fetch = async (address) => {
+
+        const response = await GetAPIwoToken(address);
+
+        return response.dict;
+    };
+
+    const separate = (dogList) => {
+
+        if (dogList.length === 0) {
+
+            setEmptyDogList(true);
+        } else {
+
+            setSmallDogList(dogList.filter(dog => dog.dogSize === '소형견'))
+            setMediumDogList(dogList.filter(dog => dog.dogSize === '중형견'))
+            setLargeDogList(dogList.filter(dog => dog.dogSize === '대형견'))
+        }
+    };
 
     useEffect(() => {
 
-        const call = async () => {
+        window.scrollTo(0, 0);
 
-            const response = await GetAPIwoToken('/dict');
-
-            return response.dict;
-        };
-
-        call().then(res => setDogList(res));
+        fetch('/dict')
+            .then(res => separate(res));
     }, []);
 
-    console.log(dogList);
+    useEffect(() => {
+
+        window.scrollTo(0, 0);
+
+        fetch(`/dict/search?type=${searchCriteria.type}&input=${searchCriteria.input}`)
+            .then(res => separate(res));
+
+        setSearchCriteria({ type: 'dogName', input: '' });
+    }, [boolSearch]);
 
     return (
         <>
             <DogSearch
-                search={search}
-                setSearch={setSearch}
+                searchCriteria={searchCriteria}
+                setSearchCriteria={setSearchCriteria}
+                boolSearch={boolSearch}
+                setBoolSearch={setBoolSearch}
             />
-            <hr style={{ width: "1180px", backgroundColor: "#D4D4D4", }} />
+            {emptyDogList ? (
+                <>
+                    <p>empty</p>
+                </>
+            ) : (
+                <>
+                    {
+                        smallDogList.length > 0 &&
+                        <SmallDogList
+                            dogList={smallDogList}
+                        />
+                    }
+                    {mediumDogList.length > 0 &&
+                        <MediumDogList
+                            dogList={mediumDogList}
+                        />
+                    }
+                    {largeDogList.length > 0 &&
+                        <LargeDogList
+                            dogList={largeDogList}
+                        />
+                    }
+                </>
+            )}
         </>
     );
 }
