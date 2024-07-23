@@ -27,7 +27,7 @@ import Products from "./pages/products/Products.js";
 import ProductDetail from "./pages/products/ProductDetail.js";
 
 import Dogs from "./pages/dict/Dogs.js";
-import DictDetail from "./pages/dict/DictDetail.js";
+
 import AnimalRegist from "./pages/animalRegist/AnimalRegist.js";
 
 import Board from "./pages/board/Board.js";
@@ -98,7 +98,7 @@ function App() {
             <Route path="/product" element={<ProductDetail />} />
             
             <Route path="/dogs" element={<Dogs />} />
-            <Route path="/dict/:dogName" element={<DictDetail />} />
+
             <Route path="/animal-info" element={<AnimalRegist />} />
             
             <Route path="/board" element={<Board />} />

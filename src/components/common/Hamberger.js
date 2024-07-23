@@ -1,12 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
 import styles from './Hamberger.module.css';
 
 function Hamberger() {
-
-    const [showButton, setShowButton] = useState(true);
 
     const [modalOpen, setModalOpen] = useState(false);
 
@@ -25,12 +23,11 @@ function Hamberger() {
         document.body.style.overflow = 'hidden';
     } else {
         document.body.style.overflow = 'auto';
-    }
+    };
 
-
-    return showButton && (
+    return (
         <>
-        {
+            {
                 modalOpen &&
                 <div className={styles.modalContainer}>
                     <div className={styles.modalContent}>
@@ -53,7 +50,13 @@ function Hamberger() {
                         <div className={styles.buttons}>
                             <div
                                 className={styles.button__container}
-                                onClick={() => navigate('/dog')}
+                                onClick={() => navigate('/animal-info')}
+                            >
+                                <img src='/images/common/Search.png'></img>
+                            </div>
+                            <div
+                                className={styles.button__container}
+                                onClick={() => navigate('/dogs')}
                             >
                                 <img src='/images/common/Dog.png'></img>
                             </div>
@@ -68,12 +71,6 @@ function Hamberger() {
                                 onClick={() => navigate('/board')}
                             >
                                 <img src='/images/common/Notepad.png'></img>
-                            </div>
-                            <div
-                                className={styles.button__container}
-                                onClick={() => navigate('/animal-info')}
-                            >
-                                <img src='/images/common/Search.png'></img>
                             </div>
                             <div
                                 className={styles.button__container}

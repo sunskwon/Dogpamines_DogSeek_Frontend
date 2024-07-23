@@ -1,10 +1,18 @@
 import styles from './DogCard.module.css';
 
-function DogCard({ dog }) {
+function DogCard({ dog, setDogCode }) {
+
+    const onClickHandler = () => {
+        
+        setDogCode(dog.dogCode);
+    };
 
     return (
         <>
-            <div className={styles.cardBox}>
+            <div
+                className={styles.cardBox}
+                onClick={onClickHandler}
+            >
                 <img
                     src={dog.dogImage}
                     alt={dog.dogName}

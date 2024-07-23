@@ -4,7 +4,7 @@ import DogCard from './DogCard';
 
 import styles from './DogList.module.css';
 
-function LargeDogList({ dogList }) {
+function LargeDogList({ dogList, setDogCode }) {
 
     const [boxOpen, setBoxOpen] = useState(true);
 
@@ -30,6 +30,7 @@ function LargeDogList({ dogList }) {
                                     <DogCard
                                         key={dog.dogCode}
                                         dog={dog}
+                                        setDogCode={setDogCode}
                                     />
                                 )
                             )}

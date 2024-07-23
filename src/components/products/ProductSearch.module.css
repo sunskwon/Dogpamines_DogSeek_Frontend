@@ -1,0 +1,140 @@
+.container {
+    width: 1120px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+.wrapBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.searchBox {
+    width: 500px;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid #d4d4d4;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* position: relative; */
+}
+
+.searchBox input {
+    width: 450px;
+    height: 35px;
+    border-radius: 10px;
+    border: 0;
+    outline: none;
+    margin-right: 10px;
+    padding-left: 10px;
+}
+
+.searchBox button {
+    width: 35px;
+    height: 35px;
+    border-radius: 10px;
+    background-color: white;
+    border: 0;
+    cursor: pointer;
+}
+
+.verticalLine {
+    width: 1px;
+    height: 30px;
+    background-color: #d4d4d4;
+    border: 0;
+    box-sizing: border-box;
+    margin: 0 5px;
+}
+
+.filter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+}
+
+.filter img {
+    position: relative;
+    top: 7px;
+    left: 190px;
+    cursor: pointer;
+}
+
+.filter:hover .hoverFilter {
+    display: inline-flex;
+}
+
+.hoverFilter {
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid #d4d4d4;
+    padding: 30px 30px;
+    display: none;
+    position: relative;
+    top: 20px;
+    z-index: 2;
+}
+
+.filterContents hr {
+    height: 1px;
+    background-color: #d4d4d4;
+    border: 0;
+    margin: 10px 0;
+}
+
+.subtitle {
+    font-weight: bold;
+    font-size: 16px;
+    margin: 0 5px;
+}
+
+.selectWrapBox {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.selectWrapBox p {
+    border-radius: 10px;
+    border: 1px solid #d4d4d4;
+    margin: 0 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.buttonBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    width: 100px;
+    height: 35px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-weight: bold;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 40px;
+    cursor: pointer;
+}
+
+.cancel {
+    background-color: white;
+    border: 1px solid #005600;
+    color: #999999;
+}
+
+.accept {
+    background-color: #005600;
+    border: 0;
+    color: white;
+}

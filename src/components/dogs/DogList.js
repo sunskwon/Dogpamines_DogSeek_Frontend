@@ -7,13 +7,16 @@ import SmallDogList from './SmallDogList';
 import MediumDogList from './MediumDogList';
 import LargeDogList from './LargeDogList';
 
-function DogList() {
+import styles from './DogList.module.css';
+
+function DogList({ setDogCode }) {
 
     const [searchCriteria, setSearchCriteria] = useState({
         type: 'dogName',
         input: ' '
     });
     const [boolSearch, setBoolSearch] = useState(false);
+    const [boolRefresh, setBoolRefresh] = useState(false);
     const [smallDogList, setSmallDogList] = useState([]);
     const [mediumDogList, setMediumDogList] = useState([]);
     const [largeDogList, setLargeDogList] = useState([]);
@@ -27,6 +30,8 @@ function DogList() {
     };
 
     const separate = (dogList) => {
+
+        setEmptyDogList(false);
 
         if (dogList.length === 0) {
 
@@ -57,6 +62,12 @@ function DogList() {
         setSearchCriteria({ type: 'dogName', input: '' });
     }, [boolSearch]);
 
+    useEffect(() => {
+
+        fetch('/dict')
+            .then(res => separate(res));
+    }, [boolRefresh]);
+
     return (
         <>
             <DogSearch
@@ -64,10 +75,15 @@ function DogList() {
                 setSearchCriteria={setSearchCriteria}
                 boolSearch={boolSearch}
                 setBoolSearch={setBoolSearch}
+                boolRefresh={boolRefresh}
+                setBoolRefresh={setBoolRefresh}
             />
             {emptyDogList ? (
                 <>
-                    <p>empty</p>
+                    <div className={styles.errorContainer} >
+                        <img src='/images/animal/cuteDog.png' alt='error' />
+                        <p>검색된 견종이 없습니다</p>
+                    </div>
                 </>
             ) : (
                 <>
@@ -75,16 +91,19 @@ function DogList() {
                         smallDogList.length > 0 &&
                         <SmallDogList
                             dogList={smallDogList}
+                            setDogCode={setDogCode}
                         />
                     }
                     {mediumDogList.length > 0 &&
                         <MediumDogList
                             dogList={mediumDogList}
+                            setDogCode={setDogCode}
                         />
                     }
                     {largeDogList.length > 0 &&
                         <LargeDogList
                             dogList={largeDogList}
+                            setDogCode={setDogCode}
                         />
                     }
                 </>

@@ -1,6 +1,6 @@
 import styles from './DogSearch.module.css';
 
-function DogSearch({ searchCriteria, setSearchCriteria, boolSearch, setBoolSearch }) {
+function DogSearch({ searchCriteria, setSearchCriteria, boolSearch, setBoolSearch, boolRefresh, setBoolRefresh }) {
 
     const onChangeHandler = e => {
 
@@ -23,12 +23,12 @@ function DogSearch({ searchCriteria, setSearchCriteria, boolSearch, setBoolSearc
                     <p>견종에 대해 찾아보세요</p>
                     <span>반려견 견종에 대한 정보를 찾아보세요</span>
                     <div className={styles.searchBox}>
-                        <button>전체</button>
+                        <button onClick={() => setBoolRefresh(!boolRefresh)}>전체</button>
                         <form onSubmit={onSubmitHandler}>
                             <input
                                 type='text'
                                 name='input'
-                                placeholder='Search'
+                                placeholder='견종명을 입력하세요'
                                 value={searchCriteria.input}
                                 onChange={onChangeHandler}
                             />

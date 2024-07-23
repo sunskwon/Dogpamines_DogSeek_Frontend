@@ -1,0 +1,74 @@
+.container {
+    width: 1180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    margin-bottom: 30px;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 16px;
+    color: #005600;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #63c54a;
+}
+
+.boxes {
+    display: flex;
+    margin-bottom: 30px;
+}
+
+.physicsBoxes {
+    display: flex;
+}
+
+.physicsBox {
+    width: 200px;
+    margin: 0 30px;
+}
+
+.physicsBox hr {
+    width: 95%;
+}
+
+.contentBox p {
+    font-size: 16px;
+    color: #999999;
+}
+
+.contentBox span {
+    font-size: 16px;
+    color: #999999;
+    padding-left: 10px;
+}
+
+.diseaseBox {
+    width: 240px;
+    margin: 0 30px;
+}
+
+
+.overflowBox {
+    height: 150px;
+}
+
+.overflowBox p {
+    font-size: 16px;
+    color: #999999;
+    padding-left: 10px;
+}
+
+.ageBox {
+    width: 200px;
+    margin: 0 30px;
+}
+
+.ageBox {
+    font-size: 16px;
+    color: #999999;
+}

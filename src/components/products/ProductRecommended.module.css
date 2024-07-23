@@ -1,0 +1,14 @@
+.container {
+    width: 1120px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+.titleBox {
+    margin-left: 80px;
+}
+
+.titleBox span {
+    font-weight: bold;
+    font-size: 24px;
+}
