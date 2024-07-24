@@ -105,6 +105,24 @@ export async function PostAPI(address, Object) {
     );
 };
 
+export async function PostAPIwoToken(address, Object) {
+
+    const baseUrl = process.env.REACT_APP_SPRING_SERVER;
+    const url = `${baseUrl}${address}`;
+
+    return (
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+                'Access-Cross-Allow-Origin': '*',
+            },
+            body: JSON.stringify(Object),
+        })
+    );
+};
+
 export async function PutAPI(address, Object) {
 
     const baseUrl = process.env.REACT_APP_SPRING_SERVER;

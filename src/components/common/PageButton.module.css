@@ -1,0 +1,44 @@
+.buttonBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.button {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border: 1px solid #d4d4d4;
+    box-sizing: border-box;
+    margin: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.selectedButton {
+    width: 30px;
+    height: 30px;
+    background-color: #005600;
+    border: 0;
+    box-sizing: border-box;
+    margin: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+}
+
+.hiddenButton {
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    margin: 2px;
+    visibility: hidden;
+}

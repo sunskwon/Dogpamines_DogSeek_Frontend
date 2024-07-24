@@ -1,6 +1,6 @@
 import styles from './ProductSearch.module.css';
 
-function ProductSearch({ searchCriteria, setSearchCriteria }) {
+function ProductSearch({ searchCriteria, setSearchCriteria, boolSearch, setBoolSearch }) {
 
     const onChangeHandler = (e) => {
 
@@ -8,13 +8,32 @@ function ProductSearch({ searchCriteria, setSearchCriteria }) {
             ...searchCriteria,
             [e.target.name]: e.target.value
         })
-    }
+    };
+
+    const onSubmitHandler = e => {
+
+        e.preventDefault();
+        setBoolSearch(!boolSearch);
+    };
 
     return (
         <>
             <div className={styles.container}>
+                <div className={styles.welcomeBox}>
+                    <div className={styles.textBox}>
+                        <p>반려견에게 맞는 사료를 찾아보세요</p>
+                        <span>다양한 조건의 사료를 검색하세요</span>
+                    </div>
+                    <img
+                        src='/images/product/Dog.png'
+                        alt='강아지'
+                    />
+                </div>
                 <div className={styles.wrapBox}>
-                    <form className={styles.searchBox}>
+                    <form
+                        className={styles.searchBox}
+                        onSubmit={onSubmitHandler}
+                    >
                         <input
                             type='text'
                             name='input'

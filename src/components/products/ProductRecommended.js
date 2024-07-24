@@ -1,4 +1,4 @@
-import MostProducts from './MostProducts';
+import ProductPopular from './ProductPopular';
 
 import styles from './ProductRecommended.module.css';
 
@@ -11,7 +11,7 @@ function ProductRecommended() {
                     <span style={{ color: "#63C54A" }}>DogSeek</span>
                     <span>Recommendation</span>
                 </div>
-                <MostProducts />
+                <ProductPopular />
             </div>
         </>
     );

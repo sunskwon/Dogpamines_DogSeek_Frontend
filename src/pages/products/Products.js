@@ -13,8 +13,6 @@ import Paginations from "react-js-pagination";
 
 import ProductList from '../../components/products/ProductList';
 
-import MostProducts from "../../components/products/MostProducts";
-
 import styles from "./Products.module.css"
 
 function Products() {
@@ -150,7 +148,7 @@ function Products() {
     return (
         <>
             <ProductList />
-            <div style={{ width: "1180px", margin: "0 auto" }}>
+            {/* <div style={{ width: "1180px", margin: "0 auto" }}>
                 <div className={styles.box}>
                     <div style={{ position: "relative", display: "inline-block" }}>
                         <input type="text" className={styles.searchBox} placeholder="키워드를 입력해주세요" name='value' onChange={searchText} onKeyPress={onSubmitSearch} maxLength={26} />
@@ -341,12 +339,6 @@ function Products() {
                         </div>
                     }
                 </div>
-                <hr style={{ width: "1180px", marginTop: "45px", border: "1px solid #D4D4D4" }} />
-                <div style={{ display: "flex", marginTop: "50px", marginLeft: "100px" }}>
-                    <p style={{ fontSize: "36px", fontWeight: "bold", margin: "0" }}>DogSeek</p>
-                    <p style={{ fontSize: "36px", fontWeight: "bold", color: "#63C54A", margin: "0", marginLeft: "10px" }}>Most Recommend</p>
-                </div>
-                <MostProducts />
                 <div style={{ display: "flex" }}>
                     <p style={{ fontSize: "36px", fontWeight: "bold", margin: "0", marginLeft: "100px", marginTop: "50px" }}>ALL</p>
                     <div style={{ display: "flex", marginLeft: "20px", marginTop: "65px" }}>
@@ -405,7 +397,7 @@ function Products() {
                     nextPageText={"›"}
                     onChange={handlePageChange}
                 />
-            </div>
+            </div> */}
         </>
     )
 }
