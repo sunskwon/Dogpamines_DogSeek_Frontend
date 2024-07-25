@@ -4,14 +4,13 @@ import ProductRecommended from './ProductRecommended';
 import ProductSearch from './ProductSearch';
 import ProductAll from './ProductAll';
 
-import styles from './ProductList.module.css';
-
 function ProductList() {
 
+    // const [maxPrice, setMaxPrice] = useState(0);
     const [searchCriteria, setSearchCriteria] = useState({
         type: 'prodName',
         input: '',
-        prodPrice: '',
+        prodPrice: 0,
         prodAge: '',
         prodEffi: '',
         prodRecom: '',
@@ -30,12 +29,15 @@ function ProductList() {
             <ProductRecommended />
             <hr style={{ width: "1100px", }} />
             <ProductSearch
+                // maxPrice={maxPrice}
+                // setMaxPrice={setMaxPrice}
                 searchCriteria={searchCriteria}
                 setSearchCriteria={setSearchCriteria}
                 boolSearch={boolSearch}
                 setBoolSearch={setBoolSearch}
             />
             <ProductAll
+                // setMaxPrice={setMaxPrice}
                 searchCriteria={searchCriteria}
                 setSearchCriteria={setSearchCriteria}
                 boolSearch={boolSearch}

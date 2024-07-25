@@ -65,7 +65,6 @@ export async function GetAPIWCookie(address) {
             'Accept': '*/*',
             'Access-Cross-Allow-Origin': '*',
             'Identifier': cookie.load('Identifier') ? cookie.load('Identifier') : '',
-            "Authorization": window.localStorage.getItem("accessToken"),
         },
     });
 

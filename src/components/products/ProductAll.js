@@ -7,7 +7,7 @@ import PageButton from '../common/PageButton';
 
 import styles from './ProductAll.module.css';
 
-function ProductAll({ searchCriteria, setSearchCriteria, boolSearch }) {
+function ProductAll({ maxPrice, setMaxPrice, searchCriteria, setSearchCriteria, boolSearch }) {
 
     const [products, setProducts] = useState([]);
     const [sliceProducts, setSliceProducts] = useState([]);
@@ -34,6 +34,7 @@ function ProductAll({ searchCriteria, setSearchCriteria, boolSearch }) {
 
     useEffect(() => {
 
+
         window.scrollTo(0, 0);
         setEmptyProducts(false);
 
@@ -41,7 +42,16 @@ function ProductAll({ searchCriteria, setSearchCriteria, boolSearch }) {
 
             setEmptyProducts(true);
         } else {
+            
+            // const findMaxPrice = products.reduce((prev, value) => {
+            //     return prev.prodPrice >= value.prodPrice ? prev : value
+            // });
 
+            // setMaxPrice(findMaxPrice.prodPrice);
+            // setSearchCriteria({
+            //     ...searchCriteria,
+            //     prodPrice: findMaxPrice.prodPrice
+            // });
             setSliceProducts(products.slice(16 * (page - 1), 16 * page));
         };
     }, [products, page, boolSort]);
@@ -61,14 +71,8 @@ function ProductAll({ searchCriteria, setSearchCriteria, boolSearch }) {
 
         setPage(1);
         setSearchCriteria({
-            type: 'prodName',
+            ...searchCriteria,
             input: '',
-            prodPrice: '',
-            prodAge: '',
-            prodEffi: '',
-            prodRecom: '',
-            prodCook: '',
-            prodSize: ''
         });
     }, [boolSearch]);
 
@@ -110,22 +114,9 @@ function ProductAll({ searchCriteria, setSearchCriteria, boolSearch }) {
                     defaultValue='select'
                     onChange={onChangeHandler}
                 >
-                    <option
-                        value='select'
-                        disabled
-                    >
-                        선택
-                    </option>
-                    <option
-                        value='priceDesc'
-                    >
-                        가격 높은순
-                    </option>
-                    <option
-                        value='priceAsc'
-                    >
-                        가격 낮은순
-                    </option>
+                    <option value='select' disabled>선택</option>
+                    <option value='priceDesc'>가격 높은순</option>
+                    <option value='priceAsc' >가격 낮은순</option>
                 </select>
             </div>
             <div className={styles.productsBox}>

@@ -1,17 +1,29 @@
+import { useNavigate } from 'react-router-dom';
+
 import styles from './ProductCard.module.css';
 
 function ProductCard({ product }) {
 
+    const navigate = useNavigate();
+
     const priceFormat = (price) => {
 
         return new Intl.NumberFormat('ko-KR').format(price);
-    }
+    };
+
+    const onClickHandler = () => {
+
+        navigate('/products', {
+            state: { prodCode: product.prodCode }
+        });
+    };
 
     return (
         <>
             <div className={styles.container}>
                 <div
                     className={styles.cardBox}
+                    onClick={onClickHandler}
                 >
                     <div className={styles.imageBox}>
                         <img

@@ -1,13 +1,34 @@
+import { useState } from 'react';
+
 import styles from './ProductSearch.module.css';
 
-function ProductSearch({ searchCriteria, setSearchCriteria, boolSearch, setBoolSearch }) {
+function ProductSearch({ maxPrice, searchCriteria, setSearchCriteria, boolSearch, setBoolSearch }) {
+
+    const recomList = ['소형견', '중형견', '대형견'];
+    const ageList = ['유아기', '청년기', '노년기'];
+    const cookList = ['건식', '습식', '화식', '소프트'];
+    const sizeList = ['8', '10', '13'];
+    const effiList = ['관절', '면역', '식욕증진', '저알러지', '영양공급', '비타민', '다이어트', '눈물자국'];
 
     const onChangeHandler = (e) => {
 
         setSearchCriteria({
             ...searchCriteria,
             [e.target.name]: e.target.value
-        })
+        });
+    };
+
+    const onClickHandler = () => {
+
+        setSearchCriteria({
+            ...searchCriteria,
+            prodPrice: maxPrice ?? 0,
+            prodAge: '',
+            prodEffi: '',
+            prodRecom: '',
+            prodCook: '',
+            prodSize: ''
+        });
     };
 
     const onSubmitHandler = e => {
@@ -58,58 +79,131 @@ function ProductSearch({ searchCriteria, setSearchCriteria, boolSearch, setBoolS
                             className={styles.filterIcon}
                         />
                         <div className={styles.hoverFilter}>
-                            <form className={styles.filterContents}>
+                            <form
+                                className={styles.filterContents}
+                                onSubmit={onSubmitHandler}
+                            >
                                 <p className={styles.subtitle}>크기</p>
                                 <hr />
                                 <div className={styles.selectWrapBox}>
-                                    <p>소형견</p>
-                                    <p>중형견</p>
-                                    <p>대형견</p>
+                                    {recomList.map((recom, index) => (
+                                        <div key={index}>
+                                            <label
+                                                htmlFor={recom}
+                                                className={searchCriteria.prodRecom === recom ? styles.selected : styles.selectable}
+                                            >
+                                                {recom}
+                                            </label>
+                                            <input
+                                                type='radio'
+                                                id={recom}
+                                                name='prodRecom'
+                                                value={recom}
+                                                onChange={onChangeHandler}
+                                            />
+                                        </div>
+                                    ))}
                                 </div>
                                 <p className={styles.subtitle}>나이</p>
                                 <hr />
                                 <div className={styles.selectWrapBox}>
-                                    <p>유아기</p>
-                                    <p>청년기</p>
-                                    <p>노년기</p>
+                                    {ageList.map((age, index) => (
+                                        <div key={index}>
+                                            <label
+                                                htmlFor={age}
+                                                className={searchCriteria.prodAge === age ? styles.selected : styles.selectable}
+                                            >
+                                                {age}
+                                            </label>
+                                            <input
+                                                type='radio'
+                                                id={age}
+                                                name='prodAge'
+                                                value={age}
+                                                onChange={onChangeHandler}
+                                            />
+                                        </div>
+                                    ))}
                                 </div>
                                 <p className={styles.subtitle}>조리방식</p>
                                 <hr />
                                 <div className={styles.selectWrapBox}>
-                                    <p>건식</p>
-                                    <p>습식</p>
-                                    <p>화식</p>
-                                    <p>소프트</p>
+                                    {cookList.map((cook, index) => (
+                                        <div key={index}>
+                                            <label
+                                                htmlFor={cook}
+                                                className={searchCriteria.prodCook === cook ? styles.selected : styles.selectable}
+                                            >
+                                                {cook}
+                                            </label>
+                                            <input
+                                                type='radio'
+                                                id={cook}
+                                                name='prodCook'
+                                                value={cook}
+                                                onChange={onChangeHandler}
+                                            />
+                                        </div>
+                                    ))}
                                 </div>
                                 <p className={styles.subtitle}>입자크기</p>
                                 <hr />
                                 <div className={styles.selectWrapBox}>
-                                    <p>8mm 미만</p>
-                                    <p>8 ~ 13mm</p>
-                                    <p>13mm 이상</p>
+                                    {sizeList.map((size, index) => (
+                                        <div key={index}>
+                                            <label
+                                                htmlFor={size}
+                                                className={searchCriteria.prodSize === size ? styles.selected : styles.selectable}
+                                            >
+                                                ~{size}mm
+                                            </label>
+                                            <input
+                                                type='radio'
+                                                id={size}
+                                                name='prodSize'
+                                                value={size}
+                                                onChange={onChangeHandler}
+                                            />
+                                        </div>
+                                    ))}
                                 </div>
                                 <p className={styles.subtitle}>제품기능</p>
                                 <hr />
                                 <div className={styles.selectWrapBox}>
-                                    <p>관절</p>
-                                    <p>면역</p>
-                                    <p>식욕증진</p>
-                                    <p>저알러지</p>
-                                    <p>영양공급</p>
-                                    <p>비타민</p>
-                                    <p>다이어트</p>
-                                    <p>눈물자국</p>
+                                    {effiList.map((effi, index) => (
+                                        <div key={index}>
+                                            <label
+                                                htmlFor={effi}
+                                                className={searchCriteria.prodEffi === effi ? styles.selected : styles.selectable}
+                                            >
+                                                {effi}
+                                            </label>
+                                            <input
+                                                type='radio'
+                                                id={effi}
+                                                name='prodEffi'
+                                                value={effi}
+                                                onChange={onChangeHandler}
+                                            />
+                                        </div>
+                                    ))}
                                 </div>
-                                <p className={styles.subtitle}>가격</p>
+                                {/* <p className={styles.subtitle}>최대 금액 ({searchCriteria.prodPrice}원)</p>
                                 <hr />
                                 <div className={styles.selectWrapBox}>
-                                    <p>소형견</p>
-                                    <p>중형견</p>
-                                    <p>대형견</p>
-                                </div>
+                                    <input
+                                        type='range'
+                                        name='prodPrice'
+                                        min={0}
+                                        max={maxPrice}
+                                        value={searchCriteria.prodPrice}
+                                        onChange={onChangeHandler}
+                                    />
+                                </div> */}
                                 <div className={styles.buttonBox}>
                                     <div
                                         className={`${styles.button} ${styles.cancel}`}
+                                        onClick={onClickHandler}
                                     >
                                         취소
                                     </div>
