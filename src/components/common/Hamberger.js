@@ -52,36 +52,54 @@ function Hamberger() {
                                 className={styles.button__container}
                                 onClick={() => navigate('/animal-info')}
                             >
-                                <img src='/images/common/Search.png'></img>
+                                <img
+                                    src='/images/common/Search.png'
+                                    alt=''
+                                />
                             </div>
                             <div
                                 className={styles.button__container}
                                 onClick={() => navigate('/dogs')}
                             >
-                                <img src='/images/common/Dog.png'></img>
+                                <img
+                                    src='/images/common/Dog.png'
+                                    alt=''
+                                />
                             </div>
                             <div
                                 className={styles.button__container}
                                 onClick={curation}
                             >
-                                <img src='/images/common/DogBowl.png'></img>
+                                <img
+                                    src='/images/common/DogBowl.png'
+                                    alt=''
+                                />
                             </div>
                             <div
                                 className={styles.button__container}
-                                onClick={() => navigate('/board')}
+                                onClick={() => navigate('/boards')}
                             >
-                                <img src='/images/common/Notepad.png'></img>
+                                <img
+                                    src='/images/common/Notepad.png'
+                                    alt=''
+                                />
                             </div>
                             <div
                                 className={styles.button__container}
                                 onClick={() => navigate('/public-chat')}
                             >
-                                <img src='/images/common/Chat.png'></img>
+                                <img
+                                    src='/images/common/Chat.png'
+                                    alt=''
+                                />
                             </div>
                         </div>
                         <div className={styles.button}>
                             <div className={styles.button__container}>
-                                <img src='/images/common/BulletedList.png' />
+                                <img
+                                    src='/images/common/BulletedList.png'
+                                    alt=''
+                                />
                             </div>
                         </div>
                     </div>

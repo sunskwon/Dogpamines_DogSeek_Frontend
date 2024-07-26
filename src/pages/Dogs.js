@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import DogList from "../../components/dogs/DogList";
-import Dog from '../../components/dogs/Dog';
+import DogList from "../components/dogs/DogList";
+import Dog from '../components/dogs/Dog';
 
 function Dogs() {
 

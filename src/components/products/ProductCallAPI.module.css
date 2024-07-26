@@ -1,0 +1,36 @@
+.container {
+    width: 960px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+.warningBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.warningBox p {
+    font-weight: bold;
+    font-size: 14px;
+    text-decoration: underline;
+    margin: 0;
+}
+
+.titleBox {
+    display: flex;
+    align-items: center;
+    margin: 30px auto;
+}
+
+.titleBox p {
+    font-weight: bold;
+    font-size: 24px;
+    margin: 0;
+}
+
+.searchedBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

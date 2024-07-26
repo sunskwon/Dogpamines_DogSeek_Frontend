@@ -1,4 +1,5 @@
 import cookie from "react-cookies";
+import axios from 'axios';
 
 export function GetAPIwoToken(address) {
 
@@ -524,3 +525,21 @@ export const callUpdateSleep = async (userId) => {
         return result;
     }
 }
+
+export const CallShopAPI = async (name) => {
+
+    return await axios
+        .get(`/v1/search/shop.json?query=${name}&display=10&start=1&sort=sim`,
+            {
+                headers: {
+                    "X-Naver-Client-Id": process.env.REACT_APP_NAVER_CLIENT_ID,
+                    "X-Naver-Client-Secret": process.env.REACT_APP_NAVER_CLIENT_SECRET,
+                    'Accept': '*/*',
+                    'Access-Cross-Allow-Origin': '*',
+                },
+            })
+        .then(res => (res.data.items).sort((a, b) => a.lprice - b.lprice))
+        .catch(e => {
+            console.log('Api Not Found', e)
+        });
+};

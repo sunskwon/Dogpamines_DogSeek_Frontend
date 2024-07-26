@@ -4,7 +4,11 @@
     padding: 40px;
 }
 
-.container span {
+.titleBox {
+    margin-left: 80px;
+}
+
+.titleBox span {
     font-weight: bold;
     font-size: 20px;
 }

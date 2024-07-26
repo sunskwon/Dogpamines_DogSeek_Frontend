@@ -1,4 +1,158 @@
 .container {
-    width: 1180px;
+    width: 960px;
     margin: 0 auto;
+    padding: 30px;
+}
+
+.nameBox {
+    display: flex;
+    align-items: center;
+}
+
+.nameBox img{
+    padding-top: 5px;
+    width: 35px;
+    height: 35px;
+    cursor: pointer;
+}
+
+.nameBox p {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.infoBox {
+    display: flex;
+    align-items: center;
+}
+
+.infoBox img {
+    width: 400px;
+    height: 400px;
+    object-fit: contain;
+}
+
+.textBox {
+    padding: 30px;
+}
+
+.manufac {
+    font-weight: bold;
+    font-size: 16px;
+    color: #999999;
+    margin: 10px auto;
+}
+
+.price {
+    font-weight: bold;
+    font-size: 16px;
+    margin: 10px auto;
+}
+
+.textWrap {
+    display: flex;
+    align-items: center;
+}
+
+.titleBox p {
+    width: 80px;
+    font-weight: bold;
+    font-size: 14px;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+}
+
+.contentBox {
+    display: flex;
+    align-items: center;
+}
+
+.contentBox p {
+    display: flex;
+    align-items: center;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.selected {
+    background-color: #005600;
+    border: 0;
+    color: white;
+}
+
+.selectable {
+    background-color: white;
+    border: 1px solid #d4d4d4;
+    color: #999999;
+    cursor: pointer;
+}
+
+.contentBox span {
+    font-weight: bold;
+    font-size: 14px;
+    color: #999999;
+    margin: 10px auto;
+    padding: 0;
+}
+
+.contentBox a {
+    font-weight: normal;
+    font-size: 14px;
+    color: #70B2DE;
+    margin: 10px auto;
+}
+
+.hoverWrap {
+    position: relative;
+}
+
+.ellipsisBox {
+    width: 400px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 10px auto;
+}
+
+.ellipsisBox span {
+    font-weight: bold;
+    font-size: 14px;
+    color: #999999;
+    margin: 10px auto;
+    padding: 0;
+}
+
+.ellipsisBox p {
+    font-weight: bold;
+    font-size: 14px;
+    color: #70B2DE;
+    margin: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.hoverBox {
+    width: 400px;
+    background-color: white;
+    display: none;
+    position: absolute;
+    top: 0;
+}
+
+.hoverBox span {
+    font-weight: bold;
+    font-size: 14px;
+    color: #999999;
+    margin: 10px auto;
+}
+
+.hoverWrap:hover .hoverBox {
+    display: inline-flex
 }

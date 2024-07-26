@@ -1,0 +1,71 @@
+.container {
+    width: 800px;
+    border-radius: 10px;
+    border: 1px solid #d4d4d4;
+    box-sizing: border-box;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    margin: 5px auto;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.container p {
+    width: 60px;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 5px;
+}
+
+.container span {
+    font-size: 16px;
+    margin: 5px;
+    padding: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.sellerBox {
+    width: 150px;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    margin: 10px auto;
+}
+
+.sellerBox span {
+    width: 90px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.nameBox {
+    width: 400px;
+    display: flex;
+    align-items: center;
+    margin: 10px auto;
+}
+
+.nameBox span {
+    width: 340px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.priceBox {
+    width: 150px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin: 10px auto;
+}
+
+.priceBox span {
+    width: 90px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

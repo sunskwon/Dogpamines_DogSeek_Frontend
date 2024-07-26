@@ -16,7 +16,7 @@ function UsersBest() {
     return (
         <>
             <div className={styles.container}>
-                <div style={{ marginLeft: "80px", }}>
+                <div className={styles.titleBox}>
                     <span>User's</span>
                     <span style={{ color: "#63C54A", }}>Best</span>
                 </div>

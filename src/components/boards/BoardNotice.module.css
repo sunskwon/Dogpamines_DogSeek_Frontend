@@ -1,0 +1,18 @@
+.container {
+    width: 1180px;
+    margin: 0 auto;
+}
+
+.container hr {
+    width: 95%;
+}
+
+.titleBox {
+    margin-left: 30px;
+}
+
+.titleBox p {
+    font-weight: bold;
+    font-size: 24px;
+    margin: 0;
+}

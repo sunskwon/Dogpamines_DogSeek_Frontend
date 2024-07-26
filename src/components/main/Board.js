@@ -9,10 +9,10 @@ function Board() {
     return (
         <>
             <div className={styles.container}>
-                <img 
-                src='/images/main/boards1.png'
-                alt='댕댕이들이 사는 이야기'
-                onClick={() => navigate('/board')} />
+                <img
+                    src='/images/main/boards1.png'
+                    alt='댕댕이들이 사는 이야기'
+                    onClick={() => navigate('/boards')} />
             </div>
         </>
     );

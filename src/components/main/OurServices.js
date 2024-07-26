@@ -50,7 +50,7 @@ function OurServices({ setModalOpen }) {
                     </div>
                     <div
                         className={styles.icon}
-                        onClick={() => navigate('/board')}
+                        onClick={() => navigate('/boards')}
                     >
                         <img
                             src='/images/common/Notepad.png'

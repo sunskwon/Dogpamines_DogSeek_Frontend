@@ -23,14 +23,13 @@ import CurationSelectIngra from "./pages/curation/CurationSelectIngra.js";
 import CurationSelectCook from "./pages/curation/CurationSelectCook.js";
 import CurationResult from "./pages/curation/CurationResult.js";
 
-import Products from "./pages/products/Products.js";
-import ProductDetail from "./pages/products/ProductDetail.js";
+import Products from "./pages/Products.js";
 
-import Dogs from "./pages/dict/Dogs.js";
+import Dogs from "./pages/Dogs.js";
 
 import AnimalRegist from "./pages/animalRegist/AnimalRegist.js";
 
-import Board from "./pages/board/Board.js";
+import Boards from "./pages/Boards.js";
 import PostDetail from "./pages/board/BoardPost.js";
 import BoardWriting from "./pages/board/BoardWriting.js"
 import BoardUpdate from "./pages/board/BoardUpdate.js"
@@ -95,13 +94,12 @@ function App() {
             <Route path="/curation-result" element={<CurationResult />} />
             
             <Route path="/products" element={<Products />} />
-            <Route path="/product" element={<ProductDetail />} />
             
             <Route path="/dogs" element={<Dogs />} />
 
             <Route path="/animal-info" element={<AnimalRegist />} />
             
-            <Route path="/board" element={<Board />} />
+            <Route path="/boards" element={<Boards />} />
             <Route path="/post/:code" element={<PostDetail />} />
             <Route path="/board/add" element={<BoardWriting />} />
             <Route path="/board/edit" element={<BoardUpdate />} />
