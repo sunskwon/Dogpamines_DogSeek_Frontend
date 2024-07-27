@@ -1,6 +1,6 @@
 .container {
     width: 1180px;
-    margin: 0 auto;
+    margin: 10px auto;
 }
 
 .container hr {
@@ -15,4 +15,9 @@
     font-weight: bold;
     font-size: 24px;
     margin: 0;
+}
+
+.noticeList {
+    width: 95%;
+    margin: 0 auto;
 }

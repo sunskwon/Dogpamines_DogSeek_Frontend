@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 
 import { GetAPIwoToken } from '../../api/RestAPIs';
 
-import BoardNotice from './BoardNotice';
+import BoardNoticeList from './BoardNoticeList';
+import BoardPostList from './BoardPostList';
 
 import styles from './BoardList.module.css';
 
@@ -13,21 +14,26 @@ function BoardWelcome() {
 
     useEffect(() => {
 
-        const fetch = async (address) => {
+        const fetch = async () => {
 
-            return await GetAPIwoToken(address);
+            const response = await GetAPIwoToken('/boards');
+
+            return response.boards;
         };
 
         window.scrollTo(0, 0);
 
-        fetch('/notice')
-            .then(res => setNoticeList(res.notice));
-        fetch('/board')
-            .then(res => setPostList(res.board));
-    }, []);
+        fetch()
+            .then(res => res.filter(post => post.postStatus !== 'N'))
+            .then(res => {
 
-    console.log(noticeList);
-    console.log(postList);
+                const notices = res.filter(post => post.postCategory === '공지');
+                const posts = res.filter(post => post.postCategory === '자유');
+
+                setNoticeList(notices);
+                setPostList(posts);
+            });
+    }, []);
 
     return (
         <>
@@ -35,8 +41,14 @@ function BoardWelcome() {
                 <img
                     src='/images/board/dogsa.png'
                     alt='댕댕이들이 사는 이야기'
+                    className={styles.welcomeImg}
                 />
-                <BoardNotice />
+                <BoardNoticeList
+                    noticeList={noticeList}
+                />
+                <BoardPostList
+                    postList={postList}
+                />
             </div>
         </>
     );

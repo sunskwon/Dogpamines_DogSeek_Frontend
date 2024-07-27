@@ -12,14 +12,8 @@ import styles from "./board/Board.module.css";
 
 function Boards() {
 
-    // 공지 토글 on
-    const [isOneNoticeOpen, setIsOneNoticeOpen] = useState(false);
-    const [isTwoNoticeOpen, setIsTwoNoticeOpen] = useState(false);
-    const [isThreeNoticeOpen, setIsThreeNoticeOpen] = useState(false);
-
     // 공지 및 검색 데이터
     const [notices, setNotices] = useState([]);
-    const [noticePage, setNoticePage] = useState(1);
 
     // 자유 및 검색 데이터
     const [posts, setPosts] = useState([]);
@@ -29,11 +23,6 @@ function Boards() {
 
     // 검색
     const [search, setSearch] = useState('');
-
-    // 공지사항 토글
-    const toggleOneModal = () => setIsOneNoticeOpen(prevState => !prevState);
-    const toggleTwoModal = () => setIsTwoNoticeOpen(prevState => !prevState);
-    const toggleThreeModal = () => setIsThreeNoticeOpen(prevState => !prevState);
 
     // navigate
     const navigate = useNavigate();
@@ -114,22 +103,14 @@ function Boards() {
     };
 
     // 한페이지에 몇개의 게시물
-    const ITEMS_PER_PAGE = 3;
     const ITEMS_PER_PAGE2 = 5;
 
     return (
         <>
             <BoardList />
             <div className={styles.board_container}>
-                <div className={styles.notice_all}>
-                    <div>
-                        <p className={styles.noticeTitle}>Notices</p>
-                    </div>
-                </div>
-
                 <div className={styles.toggle}>
-                    {
-                        modalOpen &&
+                    {modalOpen &&
                         <div className={styles.modalContainer}>
                             <div className={styles.modalContent}>
                                 <div className={styles.allBox}>
@@ -145,45 +126,6 @@ function Boards() {
                             </div>
                         </div>
                     }
-                    {notices.slice((noticePage - 1) * ITEMS_PER_PAGE, noticePage * ITEMS_PER_PAGE).map((notice, index) => (
-                        <div key={index}>
-                            <hr color="D4D4D4" />
-                            <div>
-                                <button
-                                    className={styles.notice_toggle}
-                                    onClick={() => {
-                                        if (index === 0) toggleOneModal();
-                                        if (index === 1) toggleTwoModal();
-                                        if (index === 2) toggleThreeModal();
-                                    }}>
-                                    {index === 0 && (isOneNoticeOpen ? '-' : '+')}
-                                    {index === 1 && (isTwoNoticeOpen ? '-' : '+')}
-                                    {index === 2 && (isThreeNoticeOpen ? '-' : '+')}
-                                    <span className={styles.notice_head}>{notice.postTitle}</span>
-                                </button>
-                            </div>
-                            {index === 0 && isOneNoticeOpen && (
-                                <div className={styles.notice_content}>{notice.postContext}</div>
-                            )}
-                            {index === 1 && isTwoNoticeOpen && (
-                                <div className={styles.notice_content}>{notice.postContext}</div>
-                            )}
-                            {index === 2 && isThreeNoticeOpen && (
-                                <div className={styles.notice_content}>{notice.postContext}</div>
-                            )}
-                        </div>
-                    ))}
-                    <hr color="D4D4D4" />
-                    {/* 공지사항 페이징 */}
-                    <Paginations
-                        activePage={noticePage}
-                        itemsCountPerPage={ITEMS_PER_PAGE}
-                        totalItemsCount={notices.length}
-                        pageRangeDisplayed={5}
-                        prevPageText={"‹"}
-                        nextPageText={"›"}
-                        onChange={page => setNoticePage(page)}
-                    />
                 </div>
 
                 <div className={styles.board_title}>
