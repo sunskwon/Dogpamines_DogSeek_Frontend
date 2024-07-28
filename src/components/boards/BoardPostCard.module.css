@@ -1,0 +1,33 @@
+.cardBox {
+    width: 1080px;
+    border-radius: 10px;
+    border: 1px solid #d4d4d4;
+    box-sizing: border-box;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    margin: 12px auto;
+    padding: 20px;
+}
+
+.cardBox p {
+    margin: 5px 0;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 16px;
+    color: #005600;
+}
+
+.context {
+    font-size: 16px;
+    color: #999999;
+}
+
+.infoBox {
+    display: flex;
+    justify-content: space-between;
+}
+
+.infoBox p {
+    font-size: 16px;
+}

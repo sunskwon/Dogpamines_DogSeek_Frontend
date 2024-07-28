@@ -21,8 +21,8 @@ function BoardNotice({ noticeList }) {
                 <div className={styles.titleBox}>
                     <p>Notices</p>
                 </div>
-                <hr />
                 <div className={styles.noticeList}>
+                    <hr />
                     {slicedNotice.map(notice => (
                         <BoardNoticeCard
                             key={notice.postCode}

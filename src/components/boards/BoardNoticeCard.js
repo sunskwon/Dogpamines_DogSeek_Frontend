@@ -27,7 +27,7 @@ function BoardNoticeCard({ notice }) {
                 <div className={styles.contentBox}>
                     <p>{notice.postContext}</p>
                 </div>
-                <hr />
+                <hr/>
             </div>
         </>
     ) : (

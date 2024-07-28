@@ -11,20 +11,23 @@ function BoardWelcome() {
 
     const [noticeList, setNoticeList] = useState([]);
     const [postList, setPostList] = useState([]);
+    const [searchCriteria, setSearchCriteria] = useState({
+        type: 'postTitle',
+        input: ''
+    });
+    const [boolSearch, setBoolSearch] = useState(false);
+
+    const fetch = async (address) => {
+
+        return await GetAPIwoToken(address);
+    };
 
     useEffect(() => {
 
-        const fetch = async () => {
-
-            const response = await GetAPIwoToken('/boards');
-
-            return response.boards;
-        };
-
         window.scrollTo(0, 0);
 
-        fetch()
-            .then(res => res.filter(post => post.postStatus !== 'N'))
+        fetch('/boards')
+            .then(res => res.boards.filter(post => post.postStatus !== 'N'))
             .then(res => {
 
                 const notices = res.filter(post => post.postCategory === '공지');
@@ -34,6 +37,25 @@ function BoardWelcome() {
                 setPostList(posts);
             });
     }, []);
+
+    useEffect(() => {
+
+        window.scrollTo(0, 0);
+
+        fetch(`/boards/search?type=${searchCriteria.input}`)
+            .then(res => res.boards.filter(post => post.postStatus !== 'N'))
+            .then(res => {
+
+                const posts = res.filter(post => post.postCategory === '자유');
+
+                setPostList(posts);
+            });
+
+        setSearchCriteria({
+            ...searchCriteria,
+            input: ''
+        });
+    }, [boolSearch]);
 
     return (
         <>
@@ -48,6 +70,10 @@ function BoardWelcome() {
                 />
                 <BoardPostList
                     postList={postList}
+                    searchCriteria={searchCriteria}
+                    setSearchCriteria={setSearchCriteria}
+                    boolSearch={boolSearch}
+                    setBoolSearch={setBoolSearch}
                 />
             </div>
         </>
