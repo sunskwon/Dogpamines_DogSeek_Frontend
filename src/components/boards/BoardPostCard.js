@@ -1,10 +1,22 @@
 import styles from './BoardPostCard.module.css';
 
-function BoardPostCard({ post }) {
+function BoardPostCard({ post, setModalOpen }) {
+
+    const onClickHandler = () => {
+
+        if (localStorage.getItem('accessToken')) {
+
+        } else {
+            setModalOpen(true);
+        };
+    };
 
     return (
         <>
-            <div className={styles.cardBox}>
+            <div
+                className={styles.cardBox}
+                onClick={onClickHandler}
+            >
                 <p className={styles.title}>{post.postTitle}</p>
                 <p className={styles.context}>{post.postContext}</p>
                 <div className={styles.infoBox}>

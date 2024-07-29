@@ -16,9 +16,28 @@
     height: 260px;
     border-radius: 10px;
     background-color: white;
-    padding: 20px;
+    padding: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
     text-align: center;
+}
+
+.textBox {
+    margin-top: 80px;
+}
+
+.textBox p {
+    font-weight: bold;
+    font-size: 16px;
+    color: #005600;
+    margin: 0;
+}
+
+.buttonBox {
+    width: 270px;
+    gap: 30px;
+    margin: 0 auto;
+    margin-top: 60px;
+    display: flex;
 }
 
 .modalCancelButton {

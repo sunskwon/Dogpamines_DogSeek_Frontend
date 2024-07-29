@@ -5,7 +5,7 @@ import PageButton from '../common/PageButton';
 
 import styles from './BoardPostList.module.css';
 
-function BoardPostList({ postList, searchCriteria, setSearchCriteria, boolSearch, setBoolSearch }) {
+function BoardPostList({ postList, searchCriteria, setSearchCriteria, boolSearch, setBoolSearch, setModalOpen }) {
 
     const [slicedPostList, setSlicedPostList] = useState([]);
     const [page, setPage] = useState(1);
@@ -38,6 +38,15 @@ function BoardPostList({ postList, searchCriteria, setSearchCriteria, boolSearch
         setBoolSearch(!boolSearch);
     };
 
+    const onClickHandler = () => {
+
+        if (localStorage.getItem('accessToken')) {
+
+        } else {
+            setModalOpen(true);
+        };
+    };
+
     return (
         <>
             <div className={styles.container}>
@@ -65,7 +74,10 @@ function BoardPostList({ postList, searchCriteria, setSearchCriteria, boolSearch
                                     />
                                 </button>
                             </form>
-                            <div className={styles.button}>
+                            <div
+                                className={styles.button}
+                                onClick={onClickHandler}
+                            >
                                 <p>글쓰기</p>
                             </div>
                         </div>
@@ -83,6 +95,7 @@ function BoardPostList({ postList, searchCriteria, setSearchCriteria, boolSearch
                                     <BoardPostCard
                                         key={post.postCode}
                                         post={post}
+                                        setModalOpen={setModalOpen}
                                     />
                                 ))}
                             </div>

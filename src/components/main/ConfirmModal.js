@@ -8,8 +8,7 @@ function ConfirmModal({ modalOpen, setModalOpen, modalBackground }) {
 
     return (
         <>
-            {
-                modalOpen &&
+            {modalOpen &&
                 <div
                     className={styles.modalContainer}
                     ref={modalBackground}

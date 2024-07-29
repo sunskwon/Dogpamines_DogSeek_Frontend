@@ -4,6 +4,7 @@ import { GetAPIwoToken } from '../../api/RestAPIs';
 
 import BoardNoticeList from './BoardNoticeList';
 import BoardPostList from './BoardPostList';
+import BoardDeniedModal from './BoardDeniedModal';
 
 import styles from './BoardList.module.css';
 
@@ -16,6 +17,7 @@ function BoardWelcome() {
         input: ''
     });
     const [boolSearch, setBoolSearch] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
 
     const fetch = async (address) => {
 
@@ -74,6 +76,11 @@ function BoardWelcome() {
                     setSearchCriteria={setSearchCriteria}
                     boolSearch={boolSearch}
                     setBoolSearch={setBoolSearch}
+                    setModalOpen={setModalOpen}
+                />
+                <BoardDeniedModal
+                    modalOpen={modalOpen}
+                    setModalOpen={setModalOpen}
                 />
             </div>
         </>
