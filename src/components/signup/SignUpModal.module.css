@@ -1,43 +1,29 @@
 .modal {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 26%);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 3;
 }
-.modalContent button {
-    margin: 10px;
-}
-
 
 .modalContent {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
     width: 500px;
     height: 260px;
+    border-radius: 10px;
+    background: white;
+    padding: 20px;
     text-align: center;
     grid-template-rows: 2fr 1fr;
 }
 
-.modalContent>button {
+.modalContent button {
     margin: 10px;
-    border-radius: 10px;
-    width: 120px;
-    height: 38px;
-    background-color: #005600;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    border: none;
-    cursor: pointer;
 }
-
 
 .iconContainer {
     margin-top: 45px;
@@ -47,6 +33,7 @@
     width: 64px;
     height: 64px;
 }
+
 .modalTextContainer {
     width: 500px;
     height: 50px;
@@ -56,24 +43,26 @@
 }
 
 .modalTextContainer>p {
-    justify-content: center;
-    color: #000;
-    font-size: 16px;
     font-weight: 600;
+    font-size: 16px;
+    color: #000;
+    justify-content: center;
 }
 
 .btnContainer {
+    gap: 30px;
     display: flex;
     justify-content: center;
-    gap: 22px;
-    /* margin-top: 120px; */
     margin-bottom: 20px;
 }
 
 .btnContainer>button {
-    width: 112px;
-    height: 32px;
-    border-radius: 5px;
+    width: 120px;
+    height: 35px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-weight: bold;
+    font-size: 16px;
     cursor: pointer;
 }
 

@@ -1,9 +1,18 @@
-import styles from './SignUpInfo.module.css';
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+
+import { useNavigate } from 'react-router-dom';
+
 import { callRegisterAPI, checkAPI } from '../../api/RestAPIs';
 
-function SignUpInfo() {
+import NickConfirmation from './NickConfirmation';
+import PwdConfirmation from './PwdConfirmation';
+
+import styles from './ThirdStep.module.css';
+
+function ThirdStep({ setStep, signup, setSignup }) {
+
+    const [boolNickConfirm, setBoolNickConfirm] = useState(false);
+    const [boolPwdConfirm, setBoolPwdConfirm] = useState(false);
 
     const [user, setUser] = useState({
         userId: '',
@@ -11,11 +20,6 @@ function SignUpInfo() {
         password: '',
         rePassword: '',
         phone: ''
-    });
-
-    const [checkNick, setCheckNick] = useState({
-        type: '',
-        info: ''
     });
 
     const [checkPhone, setCheckPhone] = useState({
@@ -43,26 +47,18 @@ function SignUpInfo() {
     const [showRePwdTxt, setShowRePwdTxt] = useState(false);
     const [showRePwdError, setShowRePwdError] = useState(false);
 
-    const [showConfirmed, setShowConfirmed] = useState(true);
     const [showCheck, setShowCheck] = useState(false);
 
-    const location = useLocation();
-
-    const { email } = location.state;
+    // const email = signup.email;
+    const email = 'sunskwon@gmail.com';
 
     const navigate = useNavigate();
 
-    // 닉네임 정규식(2자 이상 7자 이하/ 한글, 영어, 숫자 사용 가능/ 한글 초성 및 모음은 허가하지 않음)
-    const nickRegEx = /^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,7}$/;
     // 비밀번호 정규식(최소 8자 및 최대 12자, 영문자 or 숫자 or 특수문자 2가지 이상 조합)
     const pwdRegEx = /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,12}$/;
     // 연락처('-' 사용)
     const phoneRegEx = /^01([0|1|6|7|8|9])-([0-9]{3,4})-([0-9]{4})$/;
 
-    const onNickChange = (e) => {
-        setUser({ ...user, nick: e.target.value });
-        setCheckNick({ ...checkNick, type: 'nick', info: e.target.value });
-    };
     const onPwdChange = (e) => {
         const temp = e.target.value;
 
@@ -94,24 +90,6 @@ function SignUpInfo() {
     const onPhoneChange = (e) => {
         setUser({ ...user, phone: e.target.value });
         setCheckPhone({ ...checkPhone, type: 'phone', info: e.target.value });
-    }
-
-    const onClickConfirm = async () => {
-        // 닉네임 유효성 검사
-        if (nickRegEx.test(user.nick)) {
-            // 닉네임 중복 여부 확인 로직 (백에서 처리)
-            const result = await checkAPI(checkNick);
-
-            if (result === 'true') {
-                setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '사용 가능한 닉네임 입니다.' });
-                setShowCheck(true);
-                setShowConfirmed(false);
-            } else {
-                setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '중복된 닉네임 입니다.' });
-            }
-        } else {
-            setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '닉네임 형식이 올바르지 않습니다.' });
-        }
     }
 
     const onClickHide = () => {
@@ -174,24 +152,6 @@ function SignUpInfo() {
     return (
         <>
             <div className={styles.container}>
-                <div className={styles.titleBox}>
-                    <p>회원가입</p>
-                </div>
-                <div className={styles.seqBox}>
-                    <hr />
-                    <div className={styles.wrapper}>
-                        <div className={styles.circle1}>1</div>
-                        <div className={styles.circle2}>2</div>
-                        <div className={styles.circle3}>3</div>
-                        <div className={styles.circle4}>4</div>
-                    </div>
-                </div>
-                <div className={styles.txtBox}>
-                    <p>약관동의</p>
-                    <p>본인인증</p>
-                    <p>정보입력</p>
-                    <p>가입완료</p>
-                </div>
                 <div className={styles.subTitleBox}>
                     <p>정보입력</p>
                 </div>
@@ -206,22 +166,15 @@ function SignUpInfo() {
                 </div>
                 <div className={styles.inputBoxes}>
                     <div className={styles.emailBox}>
-                        <label>아이디(이메일)</label>
+                        <p>아이디(이메일)</p>
                         <span>{email}</span>
                     </div>
-                    <div className={styles.nickBox}>
-                        <label>닉네임</label>
-                        <div className={styles.nickInputTxtBox}>
-                            <input value={user.nick} onChange={onNickChange}></input>
-                            <p>한글, 영문, 숫자 사용 가능 2~7자 이내</p>
-                        </div>
-                        {showConfirmed && (
-                            <button type='submit' onClick={onClickConfirm}>중복확인</button>
-                        )}
-                        {showCheck && (
-                            <img src='./images/auth/check_icon.png' alt='check_icon'></img>
-                        )}
-                    </div>
+                    <NickConfirmation
+                        signup={signup}
+                        setSignup={setSignup}
+                        boolNickConfirm={boolNickConfirm}
+                        setBoolNickConfirm={setBoolNickConfirm}
+                    />
                     <div className={styles.pwdBox}>
                         <label>비밀번호</label>
                         <div className={styles.pwdInputBox}>
@@ -263,7 +216,7 @@ function SignUpInfo() {
                 <div className={styles.buttonContainer}>
                     <button className={styles.leftBtn} onClick={handleCancel}>취소</button>
                     <button disabled={!showCheck || !showPwdTxt || !showRePwdTxt || !user.phone}
-                            className={styles.rightBtn} onClick={onClickComplete}>완료</button>
+                        className={styles.rightBtn} onClick={onClickComplete}>완료</button>
                 </div>
                 {modal.state && (
                     <div className={styles.modal}>
@@ -294,4 +247,4 @@ function SignUpInfo() {
     );
 }
 
-export default SignUpInfo;
+export default ThirdStep;

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import styles from './ConsentToUse.module.css';
 
@@ -6,20 +6,19 @@ function ConsentToUse() {
 
     const [modalOpen, setModalOpen] = useState(false);
 
-    if (modalOpen) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = 'auto';
+    useEffect(() => {
+
+        document.body.style.overflow = modalOpen ? 'hidden' : 'auto';
+    }, [modalOpen]);
+
+    const onClickHandler = () => {
+
+        setModalOpen(prev => !prev);
     };
 
     return (
         <>
-            <div className={styles.checkboxContainer}>
-                
-                <span
-                    onClick={() => setModalOpen(true)}
-                >+</span>
-            </div>
+            <span onClick={onClickHandler}>+</span>
             {modalOpen && (
                 <div className={styles.modal}>
                     <div className={styles.termsContent}>
@@ -119,12 +118,9 @@ function ConsentToUse() {
                                 ▶ 경찰청 사이버안전국 : 182 (http://cyberbureau.police.go.kr)<br />
                             </span>
                         </div>
-                        <button
-                        // onClick={closeTerm2Modal}
-                        >확인</button>
+                        <button onClick={onClickHandler}>확인</button>
                     </div>
                 </div>
-
             )}
         </>
     );

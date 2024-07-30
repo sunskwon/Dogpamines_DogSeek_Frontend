@@ -5,8 +5,6 @@ import UserLayout from "./layouts/UserLayout.js"
 import Main from "./pages/Main";
 
 import SignUp from "./pages/SignUp.js";
-import SignUpIdentity from "./pages/auth/SignUpIdentity.js";
-import SignUpInfo from "./pages/auth/SignUpInfo.js";
 import SignUpComplete from "./pages/auth/SignUpComplete.js";
 
 import Login from "./pages/auth/Login.js";
@@ -76,8 +74,6 @@ function App() {
             <Route index element={<Main />} />
             
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/signup-identity" element={<SignUpIdentity />} />
-            <Route path="/signup-info" element={<SignUpInfo />} />
             <Route path="/signup-complete" element={<SignUpComplete />} />
             
             <Route path="/login" element={<Login />} />

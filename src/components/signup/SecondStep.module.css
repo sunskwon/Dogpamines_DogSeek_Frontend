@@ -1,0 +1,70 @@
+* {
+    font-family: 'Noto Sans KR', 'Poppins';
+}
+
+.container {
+    display: flex;
+    width: 1180px;
+    margin: 0 auto;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.subTitleBox {
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.subTitleBox>p {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.inputBoxes {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 100px;
+    width: 588px;
+    height: 94px;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+.buttonContainer>button {
+    width: 120px;
+    height: 35px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-weight: 16px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.leftBtn {
+    background-color: white;
+    border: 1px solid #D4D4D4;
+    color: #999999;
+}
+
+.rightBtn {
+    background-color: #005600;
+    border: 0;
+    color: white;
+}
+
+.rightBtn:disabled {
+    background-color: #6A8E5E;
+    cursor: default;
+}
