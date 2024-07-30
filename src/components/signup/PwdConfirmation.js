@@ -7,8 +7,15 @@ function PwdConfirmation() {
             <div className={styles.pwdBox}>
                 <label>비밀번호</label>
                 <div className={styles.pwdInputBox}>
-                    <input type={pwdType} value={user.password} onChange={onPwdChange}></input>
-                    <div className={styles.pwdHideBox} onClick={onClickHide}>
+                    <input
+                        type={pwdType}
+                        value={user.password}
+                        onChange={onPwdChange}
+                    />
+                    <div
+                        className={styles.pwdHideBox}
+                        onClick={onClickHide}
+                    >
                         {pwdHide ?
                             (<img src='./images/auth/pwd_hide.png' alt='pwd_hide'></img>)
                             : (<img src='./images/auth/pwd_eye.png' alt='pwd_eye'></img>)
@@ -21,8 +28,15 @@ function PwdConfirmation() {
             <div className={styles.pwdReBox}>
                 <label>비밀번호 확인</label>
                 <div className={styles.pwdReInputBox}>
-                    <input type={rePwdType} name={user.rePassword} onChange={onPwdReChange}></input>
-                    <div className={styles.rePwdHideBox} onClick={onClickReHide}>
+                    <input
+                        type={rePwdType}
+                        name={user.rePassword}
+                        onChange={onPwdReChange}
+                    />
+                    <div
+                        className={styles.rePwdHideBox}
+                        onClick={onClickReHide}
+                    >
                         {rePwdHide ?
                             (<img src='./images/auth/pwd_hide.png' alt='pwd_hide'></img>)
                             : (<img src='./images/auth/pwd_eye.png' alt='pwd_eye'></img>)
