@@ -1,10 +1,14 @@
-import styles from "./Login.module.css";
 import React, { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
+
 import { callLoginAPI } from "../../api/RestAPIs";
+
 import { jwtDecode } from 'jwt-decode';
 
-function Login() {
+import styles from "./SignIn.module.css";
+
+function SignIn() {
 
     const [user, setUser] = useState({
         userId: '',
@@ -145,4 +149,4 @@ function Login() {
     )
 }
 
-export default Login;
+export default SignIn;

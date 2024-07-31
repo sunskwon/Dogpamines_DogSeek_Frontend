@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 
-import { GetAPIwoToken, PostAPIwoToken } from '../../api/RestAPIs';
+import { GetAPIwoToken, PostAPIwoToken } from '../../../api/RestAPIs';
 
-import ProductCard from './ProductCard';
-import PageButton from '../common/PageButton';
+import ProductCard from '../ProductCard';
+import PageButton from '../../common/PageButton';
 
 import styles from './ProductAll.module.css';
 

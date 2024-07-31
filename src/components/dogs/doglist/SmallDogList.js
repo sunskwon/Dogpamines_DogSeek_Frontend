@@ -2,9 +2,9 @@ import { useState } from 'react';
 
 import DogCard from './DogCard';
 
-import styles from './DogList.module.css';
+import styles from '../DogList.module.css';
 
-function LargeDogList({ dogList, setDogCode }) {
+function SmallDogList({ dogList, setDogCode }) {
 
     const [boxOpen, setBoxOpen] = useState(true);
 
@@ -21,7 +21,7 @@ function LargeDogList({ dogList, setDogCode }) {
                             src={boxOpen ? '/images/dict/Minus.png' : '/images/dict/Plus.png'}
                             alt={boxOpen ? 'minus' : 'plus'}
                         />
-                        <p className={styles.text}>대형</p>
+                        <p className={styles.text}>소형</p>
                     </div>
                     {boxOpen &&
                         <div className={styles.cardList}>
@@ -42,4 +42,4 @@ function LargeDogList({ dogList, setDogCode }) {
     );
 }
 
-export default LargeDogList;
+export default SmallDogList;

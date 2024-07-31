@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 
 import { GetAPIwoToken } from '../../api/RestAPIs';
 
-import BoardNoticeList from './BoardNoticeList';
-import BoardPostList from './BoardPostList';
-import BoardDeniedModal from './BoardDeniedModal';
+import BoardNoticeList from './boardlist/BoardNoticeList';
+import BoardPostList from './boardlist/BoardPostList';
+import BoardDeniedModal from './boardlist/BoardDeniedModal';
 
 import styles from './BoardList.module.css';
 

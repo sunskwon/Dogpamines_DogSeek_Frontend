@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { CallShopAPI } from '../../api/RestAPIs';
+import { CallShopAPI } from '../../../api/RestAPIs';
 
 import ProductSearchedCard from './ProductSearchedCard';
 

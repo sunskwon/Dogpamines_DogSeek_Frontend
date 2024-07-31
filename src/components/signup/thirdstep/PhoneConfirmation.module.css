@@ -1,0 +1,121 @@
+.phoneBox {
+    width: 680px;
+    height: 36px;
+    margin-left: 18px;
+    display: flex;
+}
+
+.phoneBox>label {
+    width: 130px;
+    font-size: 14px;
+}
+
+.phoneInputBox>p {
+    font-weight: 400;
+    font-size: 8px;
+    color: #999999;
+}
+
+.inputBox {
+    display: flex;
+}
+
+.inputBox>input {
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid #D4D4D4;
+    box-sizing: border-box;
+    margin-right: 30px;
+    padding-left: 10px;
+}
+
+.confirmBox {
+    width: 110px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.confirm>img {
+    width: 21px;
+    height: 20px;
+}
+
+.inputBox>button {
+    width: 110px;
+    height: 30px;
+    border-radius: 10px;
+    background-color: white;
+    border: 1px solid #005600;
+    box-sizing: border-box;
+    font-weight: 500;
+    font-size: 14px;
+    color: #005600;
+    cursor: pointer;
+}
+
+.modal {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+}
+
+.modalContent {
+    width: 500px;
+    height: 260px;
+    border-radius: 10px;
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    grid-template-rows: 2fr 1fr;
+}
+
+.iconContainer {
+    margin-top: 45px;
+}
+
+.iconContainer>img {
+    width: 64px;
+    height: 64px;
+}
+
+.modalTextContainer {
+    width: 500px;
+    height: 50px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+.modalTextContainer>p {
+    font-weight: 600;
+    font-size: 16px;
+    color: #000;
+}
+
+.btnContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.btnContainer>button {
+    width: 120px;
+    height: 35px;
+    border-radius: 10px;
+    background-color: #005600;
+    border: 0;
+    box-sizing: border-box;
+    margin: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+}

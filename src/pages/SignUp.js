@@ -1,19 +1,26 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import SignUpSteps from '../components/signup/SignUpSteps';
 import FirstStep from '../components/signup/FirstStep';
 import SecondStep from '../components/signup/SecondStep';
 import ThirdStep from '../components/signup/ThirdStep';
+import FourthStep from '../components/signup/FourthStep';
 
 function SignUp() {
 
-    const [step, setStep] = useState(3);
+    const [step, setStep] = useState(1);
     const [signup, setSignup] = useState({
         email: '',
         nick: '',
         pwd: '',
+        pwdConfirmation: '',
         phone: '',
     });
+
+    useEffect(() => {
+        
+        window.scrollTo(0, 0);
+    }, [step]);
 
     return (
         <>
@@ -38,6 +45,9 @@ function SignUp() {
                     signup={signup}
                     setSignup={setSignup}
                 />
+            }
+            {step === 4 &&
+                <FourthStep />
             }
         </>
     );

@@ -5,9 +5,8 @@ import UserLayout from "./layouts/UserLayout.js"
 import Main from "./pages/Main";
 
 import SignUp from "./pages/SignUp.js";
-import SignUpComplete from "./pages/auth/SignUpComplete.js";
 
-import Login from "./pages/auth/Login.js";
+import Login from "./pages/Login.js";
 import FindEmail from "./pages/auth/FindEmail.js";
 import FindPwd from "./pages/auth/FindPwd.js";
 import ReleaseSleep from "./pages/auth/ReleaseSleep.js";
@@ -74,7 +73,6 @@ function App() {
             <Route index element={<Main />} />
             
             <Route path="/signup" element={<SignUp />} />
-            <Route path="/signup-complete" element={<SignUpComplete />} />
             
             <Route path="/login" element={<Login />} />
             <Route path="/find-email" element={<FindEmail />} />

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import TermsOfUse from './TermsOfUse';
-import ConsentToUse from './ConsentToUse';
+import TermsOfUse from './firststep/TermsOfUse';
+import ConsentToUse from './firststep/ConsentToUse';
 import SignUpModal from './SignUpModal';
 
 import styles from './FirstStep.module.css';

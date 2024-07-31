@@ -1,4 +1,4 @@
-import ProductPopular from './ProductPopular';
+import ProductPopular from '../ProductPopular';
 
 import styles from './ProductRecommended.module.css';
 

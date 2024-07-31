@@ -1,0 +1,43 @@
+.pwdBox {
+    width: 680px;
+    height: 36px;
+    margin-left: 18px;
+    display: flex;
+}
+
+.pwdBox>label {
+    width: 130px;
+    font-size: 14px;
+    margin: 0;
+}
+
+.inputBox {
+    display: flex;
+    align-items: center;
+    position: inherit;
+}
+
+.inputBox>input {
+    width: 200px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid #D4D4D4;
+    box-sizing: border-box;
+    padding-left: 10px;
+}
+
+.pwdInputBox>p {
+    font-weight: 400;
+    font-size: 8px;
+    color: #999999;
+}
+
+.pwdHideBox {
+    position: relative;
+    right: 25px;
+}
+
+.pwdHideBox>img {
+    width: 14px;
+    cursor: pointer;
+}

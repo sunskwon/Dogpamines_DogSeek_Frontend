@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 import { GetAPIWCookie, GetAPIwoToken } from "../../api/RestAPIs";
 
-import ProductDetail from "./ProductDetail";
-import ProductCallAPI from './ProductCallAPI';
-import ProductSimilar from './ProductSimilar';
-import ProductComparison from './ProductComparison';
+import ProductDetail from "./product/ProductDetail";
+import ProductCallAPI from './product/ProductCallAPI';
+import ProductSimilar from './product/ProductSimilar';
+import ProductComparison from './product/ProductComparison';
 
 import styles from './Product.module.css';
 

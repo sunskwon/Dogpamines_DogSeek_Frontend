@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 
 import { GetAPIwoToken } from '../../api/RestAPIs';
 
-import DogSearch from './DogSearch';
-import SmallDogList from './SmallDogList';
-import MediumDogList from './MediumDogList';
-import LargeDogList from './LargeDogList';
+import DogSearch from './doglist/DogSearch';
+import SmallDogList from './doglist/SmallDogList';
+import MediumDogList from './doglist/MediumDogList';
+import LargeDogList from './doglist/LargeDogList';
 
 import styles from './DogList.module.css';
 

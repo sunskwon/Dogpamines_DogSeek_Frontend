@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 import BoardNoticeCard from './BoardNoticeCard';
-import PageButton from '../common/PageButton';
+import PageButton from '../../common/PageButton';
 
 import styles from './BoardNoticeList.module.css';
 

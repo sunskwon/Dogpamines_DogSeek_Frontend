@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react';
 
 import { GetAPIwoToken } from '../../api/RestAPIs';
 
-import DogSummary from './DogSummary';
-import DogDetail from './DogDetail';
-import DogCharacter from './DogCharacter';
+import DogSummary from './dog/DogSummary';
+import DogDetail from './dog/DogDetail';
+import DogCharacter from './dog/DogCharacter';
 
 import styles from './Dog.module.css';
 

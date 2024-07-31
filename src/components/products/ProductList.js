@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 
-import ProductRecommended from './ProductRecommended';
-import ProductSearch from './ProductSearch';
-import ProductAll from './ProductAll';
+import ProductRecommended from './productlist/ProductRecommended';
+import ProductSearch from './productlist/ProductSearch';
+import ProductAll from './productlist/ProductAll';
 
 function ProductList() {
 

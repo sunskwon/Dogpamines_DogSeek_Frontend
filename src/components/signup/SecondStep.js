@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-import EmailVerification from './EmailVerification';
-import EmailConfirmation from './EmailConfirmation';
+import EmailVerification from './secondstep/EmailVerification';
+import EmailConfirmation from './secondstep/EmailConfirmation';
 import SignUpModal from './SignUpModal';
 
 import styles from './SecondStep.module.css';

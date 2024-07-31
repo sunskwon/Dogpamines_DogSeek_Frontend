@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { PostAPIwoToken } from '../../api/RestAPIs';
+import { PostAPIwoToken } from '../../../api/RestAPIs';
 
 import styles from './EmailVerification.module.css';
 
