@@ -1,10 +1,16 @@
-import { callChangePwd, callEmailVerification, callEmailVerify, checkAPI } from '../../api/RestAPIs';
-import style from './FindPwd.module.css';
-import React, { useState } from 'react';
+import { useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 
+import { callChangePwd, callEmailVerification, callEmailVerify, checkAPI } from '../../api/RestAPIs';
 
-function FindPwd() {
+import IdConfirmation from './findpwd/IdConfirmation';
+
+import style from './FindPwd.module.css';
+
+function FindPwd({ user, setUser }) {
+
+    const [isIdConfirmed, setIsIdConfirmed] = useState(false);
 
     const [checkId, setCheckId] = useState({
         type: '',
@@ -33,7 +39,7 @@ function FindPwd() {
     const [showRePwdTxt, setShowRePwdTxt] = useState(false);
     const [showRePwdError, setShowRePwdError] = useState(false);
 
-    const onIdChange = (e) => setCheckId({...checkId, type: 'email', info: e.target.value});
+    const onIdChange = (e) => setCheckId({ ...checkId, type: 'email', info: e.target.value });
     const onNumChange = (e) => setAuthNum(e.target.value);
 
     const navigate = useNavigate();
@@ -51,7 +57,7 @@ function FindPwd() {
     // 비밀번호 정규식(최소 8자 및 최대 12자, 영문자 or 숫자 or 특수문자 2가지 이상 조합)
     const pwdRegEx = /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,12}$/;
 
-    const onClickSend = async() => {
+    const onClickSend = async () => {
         if (checkId.info.length !== 0) {
             const emailCheck = emailRegEx.test(checkId.info);
             if (emailCheck) {
@@ -78,7 +84,7 @@ function FindPwd() {
         }
     }
 
-    const onClickNumCheck = async() => {
+    const onClickNumCheck = async () => {
 
         if (authNum.length !== 0) {
             console.log(`authNum.length : ${authNum.length}`)
@@ -91,7 +97,7 @@ function FindPwd() {
 
                     setShowIdVerify(false);
                     setShowUpdatePwd(true);
-                    
+
                 } else {
                     setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '인증번호를 확인해주세요.' }); // 인증 실패
                 }
@@ -114,11 +120,11 @@ function FindPwd() {
             setShowPwdDefault(true);
         }
 
-        setUserPwd({...userPwd, password: temp});
+        setUserPwd({ ...userPwd, password: temp });
     }
     const onPwdReChange = (e) => {
         const temp = e.target.value;
-        setUserPwd({...userPwd, rePassword: temp});
+        setUserPwd({ ...userPwd, rePassword: temp });
         if (userPwd.password === temp) {
             setShowRePwdDefault(false);
             setShowRePwdError(false);
@@ -153,7 +159,7 @@ function FindPwd() {
         }
     }
 
-    const onClickChange = async() => {
+    const onClickChange = async () => {
         if (userPwd.password.length !== 0) {
             if (userPwd.rePassword.length !== 0) {
                 if (showRePwdTxt) {
@@ -179,10 +185,6 @@ function FindPwd() {
         setModal({ ...modal, state: true, isCheck: false, isOneBtn: false, text: '비밀번호 변경을 취소하시겠습니까?' });
     }
 
-    const onClickMoveFindId = () => {
-        navigate('/find-email');
-    }
-
     const closeModal = () => {
         setModal({ ...modal, state: false, type: false, text: '' });
         if (modal.type) {
@@ -195,16 +197,19 @@ function FindPwd() {
         navigate('/'); // 메인 페이지로 이동
     };
 
-    return(
-
+    return (
         <>
-            <div className={style.container}>
-                <div className={style.box}>
-                <div className={style.findBox}>
-                        <div className={style.findId} onClick={onClickMoveFindId}>아이디 찾기</div>
-                        <div className={style.findPw}>비밀번호 찾기</div>
-                    </div>
-                    {showIdVerify && (
+            <div className={style.findPwdBox}>
+                {isIdConfirmed ?
+                    <>
+                    </>
+                    :
+                    <IdConfirmation
+                        user={user}
+                        setUser={setUser}
+                    />
+                }
+                {showIdVerify && (
                     <div className={style.infoBox}>
                         <div className={style.idBox}>
                             <label>아이디</label>
@@ -217,21 +222,21 @@ function FindPwd() {
                             <button onClick={onClickNumCheck}>확인</button>
                         </div>
                     </div>
-                    )}
-                    {showUpdatePwd && (
+                )}
+                {showUpdatePwd && (
                     <div className={style.infoBox}>
                         <div className={style.pwdBox}>
                             <label>비밀번호</label>
                             <div className={style.pwdInputBox}>
                                 <input type={pwdType} value={userPwd.password} placeholder='비밀번호를 입력해주세요.' onChange={onPwdChange}></input>
                                 <div className={style.pwdHideBox} onClick={onClickHide}>
-                                    {pwdHide ? 
-                                    (<img src='./images/auth/pwd_hide.png' alt='pwd_hide'></img>) 
-                                    : (<img src='./images/auth/pwd_eye.png' alt='pwd_eye'></img>)
+                                    {pwdHide ?
+                                        (<img src='./images/auth/pwd_hide.png' alt='pwd_hide'></img>)
+                                        : (<img src='./images/auth/pwd_eye.png' alt='pwd_eye'></img>)
                                     }
                                 </div>
-                                { showPwdDefault && (<p>영문, 숫자, 특수문자 중 두 종류 이상 8~12자 이내</p>)}
-                                { showPwdTxt && (<p style={{color: "#63C54A", fontWeight: "500"}}>사용가능한 비밀번호입니다.</p>)}
+                                {showPwdDefault && (<p>영문, 숫자, 특수문자 중 두 종류 이상 8~12자 이내</p>)}
+                                {showPwdTxt && (<p style={{ color: "#63C54A", fontWeight: "500" }}>사용가능한 비밀번호입니다.</p>)}
                             </div>
                         </div>
                         <div className={style.pwdReBox}>
@@ -239,52 +244,50 @@ function FindPwd() {
                             <div className={style.pwdReInputBox}>
                                 <input type={rePwdType} value={userPwd.rePassword} placeholder='확인을 위해 다시 입력하시기 바랍니다.' onChange={onPwdReChange}></input>
                                 <div className={style.rePwdHideBox} onClick={onClickReHide}>
-                                    {rePwdHide ? 
-                                    (<img src='./images/auth/pwd_hide.png' alt='pwd_hide'></img>) 
-                                    : (<img src='./images/auth/pwd_eye.png' alt='pwd_eye'></img>)
+                                    {rePwdHide ?
+                                        (<img src='./images/auth/pwd_hide.png' alt='pwd_hide'></img>)
+                                        : (<img src='./images/auth/pwd_eye.png' alt='pwd_eye'></img>)
                                     }
                                 </div>
-                                { showRePwdDefault && (<p></p>)}
-                                { showRePwdTxt && (<p style={{color: "#63C54A", fontWeight: "500"}}>비밀번호와 일치합니다.</p>)}
-                                { showRePwdError &&  (<p style={{color: "#FF0000", fontWeight: "500"}}>비밀번호와 일치하지 않습니다.</p>)}
+                                {showRePwdDefault && (<p></p>)}
+                                {showRePwdTxt && (<p style={{ color: "#63C54A", fontWeight: "500" }}>비밀번호와 일치합니다.</p>)}
+                                {showRePwdError && (<p style={{ color: "#FF0000", fontWeight: "500" }}>비밀번호와 일치하지 않습니다.</p>)}
                             </div>
-                            
+
                         </div>
                         <div className={style.buttonContainer}>
                             <button className={style.cancelBtn} onClick={onClickCancel}>취소</button>
                             <button className={style.updateBtn} onClick={onClickChange}>변경하기</button>
                         </div>
-                
-                    </div>
-                    )}
-                </div>
-                {modal.state && (
-                    <div className={style.modal}>
-                        <div className={style.modalContent}>
-                            <div className={style.iconContainer}>
-                                {modal.isCheck ? (
-                                    <img src='./images/auth/modal_check.png' alt='modal_check'></img>
-                                ) : (
-                                    <img src='./images/auth/exclamationmark_circle.png' alt='exclamation_circle'></img>
-                                )}
-                            </div>
-                            <div className={style.modalTextContainer}>
-                                <p>{modal.text}</p>
-                            </div>
-                            {modal.isOneBtn ? (
-                                <button onClick={closeModal}>닫기</button>
-                            ) : (
-                                <div className={style.btnContainer}>
-                                    <button className={style.leftBtn} onClick={confirmCancel}>예</button>
-                                    <button className={style.rightBtn} onClick={closeModal}>아니오</button>
-                                </div>
-                            )}
-                        </div>
+
                     </div>
                 )}
             </div>
+            {modal.state && (
+                <div className={style.modal}>
+                    <div className={style.modalContent}>
+                        <div className={style.iconContainer}>
+                            {modal.isCheck ? (
+                                <img src='./images/auth/modal_check.png' alt='modal_check'></img>
+                            ) : (
+                                <img src='./images/auth/exclamationmark_circle.png' alt='exclamation_circle'></img>
+                            )}
+                        </div>
+                        <div className={style.modalTextContainer}>
+                            <p>{modal.text}</p>
+                        </div>
+                        {modal.isOneBtn ? (
+                            <button onClick={closeModal}>닫기</button>
+                        ) : (
+                            <div className={style.btnContainer}>
+                                <button className={style.leftBtn} onClick={confirmCancel}>예</button>
+                                <button className={style.rightBtn} onClick={closeModal}>아니오</button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
         </>
-
     );
 }
 

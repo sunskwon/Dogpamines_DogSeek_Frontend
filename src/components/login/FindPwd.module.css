@@ -2,80 +2,13 @@
     font-family: 'Noto Sans KR', 'Poppins';
 }
 
-.container{
+.findPwdBox {
+    width: 400px;
+    height: 300px;
     display: flex;
-    width: 1180px;
-    margin: 0 auto;
-    justify-content: center;
-    min-height: calc(100vh - 218px);
-}
-
-.box {
-    display: flex;
-    width: 500px;
-    height: 360px;
-    border-radius: 12px;
-    border-color: #005600;
-    border-width: 2px;
-    border-style: solid;
-    margin-top: 14%;
-    margin-bottom: 8%;
-    box-shadow: 0px 2px 5px 0px #A6C4A6;
-    /* align-content: space-evenly; */
-    /* justify-items: center; */
     flex-direction: column;
-}
-
-.findBox {
-    display: flex;
-    width: 100%;
-    height: 84px;
-    align-content: space-between;
-    text-align: center;
-    /* border-bottom: 1px #005600 solid; */
-}
-
-.findBox>div {
-    display: block;
-    width: 50%;
-    height: 35%;
-    margin-top: 40px;
-    margin-bottom: 30px;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.findBox>div:hover {
-    text-decoration: underline;
-    font-weight: bold;
-}
-
-.findId {
-    border-right: 1px solid #D4D4D4;
-    color: #999999;
-    font-weight: 400;
-    /* border-bottom: 1px solid #005600; */
-}
-
-.findPw {
-    color: #63C54A;
-    font-weight: bold;
-}
-
-
-.titleBox {
-    display: block;
-    width: 100%;
-    height: 60px;
-    margin-top: 50px;
-    justify-content: center;
-    text-align: center;
-}
-
-.title {
-    color: #63C54A;
-    font-weight: bold;
-    font-size: 24px;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .infoBox {

@@ -1,0 +1,76 @@
+.container {
+    width: 1180px;
+    height: 650px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.outerBox {
+    width: 490px;
+    border-radius: 10px;
+    border: 1px solid #005600;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: -40px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.actionBox {
+    display: flex;
+    align-items: center;
+}
+
+.actionBox p {
+    width: 120px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.selected {
+    font-weight: bold;
+    color: #63c54a;
+}
+
+.selectable {
+    font-weight: 600;
+    color: #999999;
+    cursor: pointer;
+}
+
+.selectable:hover {
+    text-decoration: underline;
+}
+
+.verticalLine {
+    width: 2px;
+    height: 25px;
+    background-color: #D4D4D4;
+    border: 0;
+    margin: auto 20px;
+}
+
+.titleBox {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: 24px;
+    color: #63c54a;
+}
+
+.signupBox {
+    width: 400px;
+    display: flex;
+    align-items: center;
+}
+
+.signupBox p {
+    font-weight: 500;
+    font-size: 14px;
+}

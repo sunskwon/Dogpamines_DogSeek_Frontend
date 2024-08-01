@@ -2,7 +2,7 @@
     font-family: 'Noto Sans KR', 'Poppins';
 }
 
-.signinBox {
+.findEmailBox {
     width: 400px;
     height: 300px;
     display: flex;
@@ -44,28 +44,42 @@
     padding: 0 10px;
 }
 
-.inputBox>input::placeholder {
-    font-weight: 500;
-    font-size: 14px;
+.wrapBox>p {
+    font-size: 12px;
+    font-weight: 400;
     color: #999999;
+    margin-top: -1px;
+    padding-left: 10px;
 }
 
 .buttonBox {
     width: 100%;
     height: 60px;
     margin-top: 20px;
+    display: flex;
+    gap: 30px;
 }
 
 .buttonBox>button {
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    background-color: #005600;
-    border: none;
+    box-sizing: border-box;
     font-weight: 600;
     font-size: 16px;
-    color: white;
     cursor: pointer;
+}
+
+.leftBtn {
+    background-color: white;
+    border: 1px solid #d4d4d4;
+    color: #999999;
+}
+
+.rightBtn {
+    background-color: #005600;
+    border: 1px solid #005600;
+    color: white;
 }
 
 .modal {
@@ -81,7 +95,7 @@
     z-index: 3;
 }
 
-.sleepModalContent {
+.modalContent {
     width: 500px;
     height: 260px;
     border-radius: 10px;
@@ -91,39 +105,56 @@
     grid-template-rows: 2fr 1fr;
 }
 
-.sleepModalContent>button {
-    width: 120px;
-    height: 35px;
-    border-radius: 10px;
-    background-color: #005600;
-    border: none;
-    margin: 10px;
-    font-weight: bold;
-    font-size: 16px;
-    color: white;
-    cursor: pointer;
-}
-
-.iconContainer {
-    margin-top: 45px;
-}
-
 .iconContainer>img {
     width: 64px;
     height: 64px;
 }
 
 .modalTextContainer {
-    width: 500px;
-    height: 50px;
+    width: 300px;
     margin: 0 auto;
-    margin-top: 30px;
-    align-items: center;
+    margin: 20px auto;
 }
 
 .modalTextContainer>p {
+    font-weight: 500;
+    font-size: 16px;
+    color: #999999;
+}
+
+.wrapTextBox {
+    width: 100%;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+.wrapTextBox span {
+    margin: 0 5px;
+    font-weight: 500;
+    font-size: 16px;
+    color: #999999;
+}
+
+.wrapTextBox p {
+    margin: 0;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.modalButtonContainer {
+    margin: 20px auto;
+    gap: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.modalButtonContainer>button {
+    width: 120px;
+    height: 35px;
+    border-radius: 10px;
+    box-sizing: border-box;
     font-weight: 600;
     font-size: 16px;
-    color: #000;
-    justify-content: center;
+    cursor: pointer;
 }

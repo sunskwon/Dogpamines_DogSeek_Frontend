@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
@@ -6,30 +6,37 @@ import { callLoginAPI } from "../../api/RestAPIs";
 
 import { jwtDecode } from 'jwt-decode';
 
+import LoginModal from './LoginModal';
+
 import styles from "./SignIn.module.css";
 
-function SignIn() {
+function SignIn({ user, setUser, setIsReleaseSleep }) {
 
-    const [user, setUser] = useState({
-        userId: '',
-        userPass: '',
-    });
-
-    const [modal, setModal] = useState({
-        state: false,
-        text: '',
-    });
-
-    const [sleepModal, setSleepModal] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalText, setModalText] = useState('');
+    const [sleepModalOpen, setSleepModalOpen] = useState(false);
 
     const navigate = useNavigate();
 
-    const onEmailChange = (e) => setUser({ ...user, userId: e.target.value });
-    const onPwdChange = (e) => setUser({ ...user, userPass: e.target.value });
+    const onChangeHandler = e => {
 
-    const onClickLogin = async () => {
-        window.scrollTo(0,0);
-        if (user.userId.length !== 0 && user.userPass.length !== 0) {
+        setUser({
+            ...user,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const onSubmitHandler = async e => {
+
+        e.preventDefault();
+        console.log(user.userId);
+        console.log(user.userId.length);
+
+        if (user.userId.length === 0) {
+            setModalText('아이디(이메일)을 입력하세요');
+        } else if (user.userPass.length === 0) {
+            setModalText('비밀번호를 입력하세요');
+        } else {
 
             const response = await callLoginAPI({ user });
 
@@ -37,116 +44,90 @@ function SignIn() {
 
                 // 토큰 디코딩
                 const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
-
                 const userAuth = decodedToken.userAuth;
 
                 if (userAuth === 'ADMIN') {
-                    navigate('/admin');
+                    return navigate('/admin');
                 } else if (userAuth === 'USER') {
-                    navigate('/');
-                    window.location.reload();
+                    return navigate('/');
                 } else {
-                    setModal({ ...modal, state: true, text: '올바르지 않은 접근입니다.' });
-                }
-
+                    setModalText('올바르지 않은 접근입니다');
+                };
             } else if (response === 'SLEEP') {
-                setModal({ ...modal, state: true, text: '회원님의 계정은 현재 휴면 상태 입니다.' });
-                setSleepModal(true);
+                setSleepModalOpen(true);
             } else {
-                setModal({ ...modal, state: true, text: '일치하는 회원 정보가 없습니다.' });
-            }
-        } else if (user.userId.length !== 0 && user.userPass.length === 0) {
-            setModal({ ...modal, state: true, text: '비밀번호를 입력해주세요.' });
-        } else {
-            setModal({ ...modal, state: true, text: '아이디(이메일)을 입력해주세요.' });
-        }
-    }
+                setModalText('일치하는 회원 정보가 없습니다');
+            };
+        };
 
-    // Enter키 사용
-    const activeEnter = (e) => {
-        if (e.key === "Enter") {
-            onClickLogin();
-        }
-    }
+        setModalOpen(true);
+    };
 
-    const onClickFind = () => {
-        navigate('/find-email');
-    }
-
-    const closeModal = () => {
-        setModal({ ...modal, state: false, text: '' });
-        window.location.reload();
-    }
-
-    const onClickSleep = () => {
-        navigate('/release/sleep', {
-            state: {
-                id: user.userId
-            }
-        });
+    const onClickHandler = () => {
+        
+        setIsReleaseSleep(true);
     }
 
     return (
-
         <>
-            <div className={styles.container}>
-                <div className={styles.box}>
-                    <div className={styles.titleBox}>
-                        <p className={styles.title}>DogSeek</p>
+            <div className={styles.signinBox}>
+                <form
+                    className={styles.inputBox}
+                    onSubmit={onSubmitHandler}
+                >
+                    <div className={styles.wrapBox}>
+                        <label>ID(E-MAIL)</label>
+                        <input
+                            type="email"
+                            name='userId'
+                            placeholder="아이디(이메일)를 입력하세요."
+                            value={user.userId}
+                            onChange={onChangeHandler}
+                            autoFocus
+                        />
                     </div>
-                    <div className={styles.infoBox}>
-                        {/* id */}
-                        <div className={styles.idBox}>
-                            <p>ID(EMAIL)</p>
-                            <input placeholder="아이디를 입력해주세요." name={user.userId} type="email" onChange={onEmailChange} onKeyDown={activeEnter} autoFocus></input>
+                    <div className={styles.wrapBox}>
+                        <label>PASSWORD</label>
+                        <input
+                            type="password"
+                            name='userPass'
+                            placeholder="비밀번호를 입력해주세요."
+                            onChange={onChangeHandler}
+                        />
+                    </div>
+                    <div className={styles.buttonBox}>
+                        <button
+                            type="submit"
+                            onClick={onSubmitHandler}
+                        >
+                            로그인
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <LoginModal
+                modalOpen={modalOpen}
+                setModalOpen={setModalOpen}
+                modalText={modalText}
+            />
+            {sleepModalOpen && (
+                <div className={styles.modal}>
+                    <div className={styles.sleepModalContent}>
+                        <div className={styles.iconContainer}>
+                            <img
+                                src='./images/auth/auth_sleep.png'
+                                alt='auth_sleep'
+                            />
                         </div>
-                        {/* pwd */}
-                        <div className={styles.pwdBox}>
-                            <p>PASSWORD</p>
-                            <input placeholder="비밀번호를 입력해주세요." name={user.userPass} type="password" onChange={onPwdChange} onKeyDown={activeEnter}></input>
+                        <div className={styles.modalTextContainer}>
+                            <p>회원님의 계정은 현재 휴면 상태 입니다</p>
                         </div>
-                        <div className={styles.findBox} onClick={onClickFind}>
-                            <p>아이디/비밀번호 찾기</p>
-                        </div>
-                        <div className={styles.loginBtnBox}>
-                            <button type="submit" onClick={onClickLogin}>로그인</button>
-                        </div>
-                        <hr></hr>
-                        <div className={styles.signUpBox}>
-                            <span>독식계정이 없으신가요?</span>
-                            <span><a href="/signup">회원가입 하기</a></span>
-                        </div>
+                        <button onClick={onClickHandler}>휴면 해제 하기</button>
                     </div>
                 </div>
-                {modal.state && (
-                    <div className={styles.modal}>
-                        <div className={styles.modalContent}>
-                            <div className={styles.iconContainer}>
-                                <img src='./images/auth/exclamationmark_circle.png' alt='exclamation_circle'></img>
-                            </div>
-                            <div className={styles.modalTextContainer}>
-                                <p>{modal.text}</p>
-                            </div>
-                            <button onClick={closeModal}>닫기</button>
-                        </div>
-                    </div>
-                )}
-                {sleepModal && (
-                    <div className={styles.modal}>
-                        <div className={styles.sleepModalContent}>
-                            <div className={styles.iconContainer}>
-                                <img src='./images/auth/auth_sleep.png' alt='auth_sleep'></img>
-                            </div>
-                            <div className={styles.modalTextContainer}>
-                                <p>회원님의 계정은 현재 휴면 상태 입니다.</p>
-                            </div>
-                            <button onClick={onClickSleep}>휴면 해제 하기</button>
-                        </div>
-                    </div>
-                )}
-            </div>
+            )}
         </>
-    )
+    );
 }
 
 export default SignIn;
