@@ -56,3 +56,22 @@
     color: #005600;
     cursor: pointer;
 }
+
+.buttonBox {
+    width: 100%;
+    height: 160px;
+    margin-top: 20px;
+}
+
+.buttonBox>button {
+    visibility: hidden;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: #005600;
+    border: none;
+    font-weight: 600;
+    font-size: 16px;
+    color: white;
+    cursor: pointer;
+}

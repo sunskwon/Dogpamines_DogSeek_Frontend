@@ -22,8 +22,6 @@ function FindPwd({ user, setUser }) {
         rePassword: ''
     });
 
-    const [authNum, setAuthNum] = useState("");
-    const [showIdVerify, setShowIdVerify] = useState(true);
     const [showUpdatePwd, setShowUpdatePwd] = useState(false);
 
     const [pwdHide, setPwdHide] = useState(true);
@@ -39,9 +37,6 @@ function FindPwd({ user, setUser }) {
     const [showRePwdTxt, setShowRePwdTxt] = useState(false);
     const [showRePwdError, setShowRePwdError] = useState(false);
 
-    const onIdChange = (e) => setCheckId({ ...checkId, type: 'email', info: e.target.value });
-    const onNumChange = (e) => setAuthNum(e.target.value);
-
     const navigate = useNavigate();
 
     const [modal, setModal] = useState({
@@ -52,62 +47,10 @@ function FindPwd({ user, setUser }) {
         text: '',
     });
 
-    // email 정규식
-    const emailRegEx = /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
+
     // 비밀번호 정규식(최소 8자 및 최대 12자, 영문자 or 숫자 or 특수문자 2가지 이상 조합)
     const pwdRegEx = /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,12}$/;
 
-    const onClickSend = async () => {
-        if (checkId.info.length !== 0) {
-            const emailCheck = emailRegEx.test(checkId.info);
-            if (emailCheck) {
-                const result = await checkAPI(checkId);
-                console.log(`id check result : ${result}`);
-
-                if (result === 'false') {
-                    const type = 'findPw';
-                    const sendResult = await callEmailVerification(checkId.info, type);
-                    if (sendResult === 'true') {
-                        setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '인증번호가 발송되었습니다.' });
-                    } else {
-                        setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '인증번호 발송 실패.' });
-                    }
-                } else {
-                    setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '존재하지 않는 아이디 입니다.' });
-                }
-
-            } else {
-                setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '이메일 형식이 올바르지 않습니다.' });
-            }
-        } else {
-            setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '아이디를 입력해주세요.' });
-        }
-    }
-
-    const onClickNumCheck = async () => {
-
-        if (authNum.length !== 0) {
-            console.log(`authNum.length : ${authNum.length}`)
-            if (authNum.length === 6) {
-                const result = await callEmailVerify(checkId.info, authNum);
-
-                if (result === 'true') {
-
-                    setModal({ ...modal, state: true, isCheck: true, isOneBtn: true, text: '이메일 인증 완료!' });
-
-                    setShowIdVerify(false);
-                    setShowUpdatePwd(true);
-
-                } else {
-                    setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '인증번호를 확인해주세요.' }); // 인증 실패
-                }
-            } else {
-                setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '인증번호는 6자리 입니다.' });
-            }
-        } else {
-            setModal({ ...modal, state: true, isCheck: false, isOneBtn: true, text: '인증번호를 입력해주세요.' });
-        }
-    }
 
     const onPwdChange = (e) => {
         const temp = e.target.value;
@@ -207,22 +150,9 @@ function FindPwd({ user, setUser }) {
                     <IdConfirmation
                         user={user}
                         setUser={setUser}
+                        setIsIdConfirmed={setIsIdConfirmed}
                     />
                 }
-                {showIdVerify && (
-                    <div className={style.infoBox}>
-                        <div className={style.idBox}>
-                            <label>아이디</label>
-                            <input type='email' value={checkId.info} placeholder='아이디(이메일)를 입력해주세요.' onChange={onIdChange}></input>
-                            <button onClick={onClickSend}>전송</button>
-                        </div>
-                        <div className={style.numBox}>
-                            <label>인증번호</label>
-                            <input value={authNum} placeholder='6자리 인증번호를 입력해주세요.' onChange={onNumChange}></input>
-                            <button onClick={onClickNumCheck}>확인</button>
-                        </div>
-                    </div>
-                )}
                 {showUpdatePwd && (
                     <div className={style.infoBox}>
                         <div className={style.pwdBox}>
