@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { callChangePwd, callEmailVerification, callEmailVerify, checkAPI } from '../../api/RestAPIs';
 
 import IdConfirmation from './findpwd/IdConfirmation';
+import ResetPwd from './findpwd/ResetPwd';
 
 import style from './FindPwd.module.css';
 
@@ -144,8 +145,7 @@ function FindPwd({ user, setUser }) {
         <>
             <div className={style.findPwdBox}>
                 {isIdConfirmed ?
-                    <>
-                    </>
+                    <ResetPwd />
                     :
                     <IdConfirmation
                         user={user}
@@ -153,7 +153,7 @@ function FindPwd({ user, setUser }) {
                         setIsIdConfirmed={setIsIdConfirmed}
                     />
                 }
-                {showUpdatePwd && (
+                {true && (
                     <div className={style.infoBox}>
                         <div className={style.pwdBox}>
                             <label>비밀번호</label>
