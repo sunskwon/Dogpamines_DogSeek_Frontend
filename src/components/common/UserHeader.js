@@ -9,14 +9,14 @@ import styles from './UserHeader.module.css'
 
 function UserHeader() {
 
+    const token = window.localStorage.getItem("accessToken");
+
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [userAuth, setUserAuth] = useState(null);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-
-        const token = window.localStorage.getItem("accessToken");
 
         if (token && typeof token === 'string') {
 
@@ -34,7 +34,7 @@ function UserHeader() {
             setIsLoggedIn(false);
             setUserAuth(null);
         }
-    }, []);
+    }, [token]);
 
     const clearLocalStorageAndLogout = () => {
         const keys = ['accessToken', 'refreshToken'];

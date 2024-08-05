@@ -143,6 +143,25 @@ export async function PutAPI(address, Object) {
     );
 };
 
+export async function PutAPIwoToken(address, Object) {
+
+    const baseUrl = process.env.REACT_APP_SPRING_SERVER;
+    const url = `${baseUrl}${address}`;
+    const accessToken = await GetValidAccessToken();
+
+    return (
+        fetch(url, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': '*/*',
+                'Access-Cross-Allow-Origin': '*',
+            },
+            body: JSON.stringify(Object),
+        })
+    );
+};
+
 export async function DeleteAPI(address) {
 
     const baseUrl = process.env.REACT_APP_SPRING_SERVER;
