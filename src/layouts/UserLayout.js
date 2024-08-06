@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 import UserHeader from "../components/common/UserHeader";
 import Footer from "../components/common/Footer";
 import ChatButton from "../components/chat/ChatButton";
-import TopBtn from "../components/common/Topbtn";
+import TopButton from "../components/common/Topbutton";
 import Hamberger from "../components/common/Hamberger";
 
 import styles from "./UserLayout.module.css";
@@ -24,7 +24,7 @@ function UserLayout() {
                         <Hamberger />
                     </div>
                     <div className={styles.wrapContent}>
-                        <TopBtn />
+                        <TopButton />
                     </div>
                 </div>
             </div>

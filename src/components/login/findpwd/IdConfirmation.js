@@ -2,7 +2,6 @@ import { useState } from 'react';
 
 import { PostAPIwoToken } from '../../../api/RestAPIs';
 
-import LoginModal from '../LoginModal';
 import CommonModal from '../../common/CommonModal';
 
 import styles from './IdConfirmation.module.css';
@@ -18,6 +17,7 @@ function IdConfirmation({ user, setUser, setIsIdConfirmed }) {
         type: '',
         text: '',
     });
+    const [modalOnClickFunction, setModalOnClickFunction] = useState(null);
     const [verifyNumber, setVerifyNumber] = useState('');
 
     const onIdChangeHandler = e => {
@@ -44,11 +44,9 @@ function IdConfirmation({ user, setUser, setIsIdConfirmed }) {
 
         if (user.userId.length === 0) {
 
-            // setModalText('아이디를 입력하세요');
             setModal({ open: true, type: 'warning', text: '아이디를 입력하세요' });
         } else if (!emailRegEx.test(user.userId)) {
 
-            // setModalText('이메일 형식이 올바르지 않습니다');
             setModal({ open: true, type: 'warning', text: '이메일 형식이 올바르지 않습니다' });
         } else {
 
@@ -59,7 +57,6 @@ function IdConfirmation({ user, setUser, setIsIdConfirmed }) {
 
             if (response.headers.get('Result') === 'true') {
 
-                // setModalText('존재하지 않는 아이디 입니다');
                 setModal({ open: true, type: 'warning', text: '존재하지 않는 아이디입니다' });
             } else {
 
@@ -70,11 +67,9 @@ function IdConfirmation({ user, setUser, setIsIdConfirmed }) {
 
                 if (result.status === 200) {
 
-                    // setModalText('인증번호가 발송되었습니다');
                     setModal({ open: true, type: 'allowed', text: '인증번호가 발송됐습니다' });
                 } else {
 
-                    // setModalText('인증번호 발송에 실패했습니다');
                     setModal({ open: true, type: 'warning', text: '인증번호 발송에 실패했습니다' });
                 };
             };
@@ -89,11 +84,9 @@ function IdConfirmation({ user, setUser, setIsIdConfirmed }) {
 
         if (verifyNumber.length === 0) {
 
-            // setModalText('인증번호를 입력하세요');
             setModal({ open: true, type: 'warning', text: '인증번호를 입력하세요' });
         } else if (verifyNumber.length !== 6) {
 
-            // setModalText('인증번호는 6자리 입니다');
             setModal({ open: true, type: 'warning', text: '인증번호는 6자리입니다' });
         } else {
 
@@ -104,18 +97,13 @@ function IdConfirmation({ user, setUser, setIsIdConfirmed }) {
 
             if (response.headers.get('Result') === 'true') {
 
-                // setModalText('이메일 인증 완료!');
                 setModal({ open: true, type: 'transfer', text: '이메일 인증 완료!' });
-                // setModalOnClickHandler(() => setIsIdConfirmed());
-                // setIsIdConfirmed(true);
+                setModalOnClickFunction(() => () => setIsIdConfirmed(true));
             } else {
 
-                // setModalText('인증번호를 확인해주세요'); // 인증 실패
                 setModal({ open: true, type: 'warning', text: '인증번호를 확인해주세요' });
             }
         };
-
-        // setModalOpen(true);
     };
 
     return (
@@ -125,7 +113,7 @@ function IdConfirmation({ user, setUser, setIsIdConfirmed }) {
                 onSubmit={onIdSubmitHandler}
             >
                 <div className={styles.wrapBox}>
-                    <label>ID(E-MAIL)</label>
+                    <label>ID (E-MAIL)</label>
                     <div className={styles.checkBox}>
                         <input
                             type='email'
@@ -174,15 +162,10 @@ function IdConfirmation({ user, setUser, setIsIdConfirmed }) {
                     로그인
                 </button>
             </div>
-            {/* <LoginModal
-                modalOpen={modalOpen}
-                setModalOpen={setModalOpen}
-                modalText={modalText}
-            /> */}
             <CommonModal
                 modal={modal}
                 setModal={setModal}
-                modalOnClickHandler={() => setIsIdConfirmed(true)}
+                modalOnClickFunction={modalOnClickFunction}
             />
         </>
     );

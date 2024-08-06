@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
 
 import { PutAPIwoToken } from '../../../api/RestAPIs';
@@ -8,7 +7,7 @@ import CommonModal from '../../common/CommonModal';
 
 import styles from './ResetPwd.module.css'
 
-function ResetPwd({ user, setUser }) {
+function ResetPwd({ user, setUser, setIsIdConfirmed, setIsFindPwd }) {
 
     const pwdRegEx = /^(?!((?:[A-Za-z]+)|(?:[~!@#$%^&*()_+=]+)|(?:[0-9]+))$)[A-Za-z\d~!@#$%^&*()_+=]{8,12}$/;
 
@@ -20,6 +19,7 @@ function ResetPwd({ user, setUser }) {
         type: '',
         text: '',
     });
+    const [modalOnClickFunction, setModalOnClickFunction] = useState(null);
 
     const navigate = useNavigate();
 
@@ -40,7 +40,11 @@ function ResetPwd({ user, setUser }) {
 
         e.preventDefault();
 
-        setModal({ open: true, type: 'transfer', text: '비밀번호 변경을 취소합니다' });
+        setModal({ open: true, type: 'confirm', text: '비밀번호 변경을 취소합니다' });
+        setModalOnClickFunction(() => () => {
+            setIsIdConfirmed(false);
+            setIsFindPwd(false);
+        });
     };
 
     const onSubmitHandler = async e => {
@@ -66,6 +70,7 @@ function ResetPwd({ user, setUser }) {
             if (response.status === 201) {
 
                 setModal({ open: true, type: 'transfer', text: '비밀번호 변경 완료!' });
+                setModalOnClickFunction(() => () => setIsFindPwd(false));
             } else {
 
                 setModal({ open: true, type: 'notice', text: '비밀번호 변경 실패!' });
@@ -77,7 +82,7 @@ function ResetPwd({ user, setUser }) {
         <>
             <form
                 className={styles.inputBox}
-                // onSubmit={onSubmitHandler}
+            // onSubmit={onSubmitHandler}
             >
                 <div className={styles.wrapBox}>
                     <label>비밀번호</label>
@@ -161,7 +166,7 @@ function ResetPwd({ user, setUser }) {
             <CommonModal
                 modal={modal}
                 setModal={setModal}
-                modalOnClickHandler={() => navigate('/')}
+                modalOnClickFunction={modalOnClickFunction}
             />
         </>
     );

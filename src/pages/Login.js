@@ -1,10 +1,10 @@
 import { useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
 
 import SignIn from "../components/login/SignIn";
 import FindEmail from '../components/login/FindEmail';
 import FindPwd from '../components/login/FindPwd';
+import ReleaseSleep from '../components/login/ReleaseSleep';
 
 import styles from './Login.module.css';
 
@@ -16,7 +16,7 @@ function Login() {
     });
     const [isFindId, setIsFindId] = useState(false);
     const [isFindPwd, setIsFindPwd] = useState(false);
-    const [isReleaseSleep, setIsReleaseSleep] = useState(false);
+    const [isReleaseSleep, setIsReleaseSleep] = useState(true);
 
     const navigate = useNavigate();
 
@@ -70,10 +70,16 @@ function Login() {
                             <FindPwd
                                 user={user}
                                 setUser={setUser}
+                                setIsFindPwd={setIsFindPwd}
                             />
                             :
                             isReleaseSleep ?
                                 <>
+                                    <ReleaseSleep
+                                        user={user}
+                                        setUser={setUser}
+                                        setIsReleaseSleep={setIsReleaseSleep}
+                                    />
                                 </>
                                 :
                                 <SignIn

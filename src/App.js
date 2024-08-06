@@ -7,7 +7,6 @@ import Main from "./pages/Main";
 import SignUp from "./pages/SignUp.js";
 
 import Login from "./pages/Login.js";
-import ReleaseSleep from "./pages/auth/ReleaseSleep.js";
 
 import Curation from "./pages/curation/Curation.js";
 import CurationSizeSelect from "./pages/curation/CurationSizeSelect.js";
@@ -73,7 +72,6 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             
             <Route path="/login" element={<Login />} />
-            <Route path="/release/sleep" element={<ReleaseSleep/>}/>
 
             <Route path="/curation" element={<Curation />} />
             <Route path="/curation-size" element={<CurationSizeSelect />} />

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-
 import { useNavigate } from 'react-router-dom';
 
 import { callLoginAPI } from "../../api/RestAPIs";
@@ -7,6 +6,7 @@ import { callLoginAPI } from "../../api/RestAPIs";
 import { jwtDecode } from 'jwt-decode';
 
 import LoginModal from './LoginModal';
+import CommonModal from '../../components/common/CommonModal';
 
 import styles from "./SignIn.module.css";
 
@@ -14,6 +14,12 @@ function SignIn({ user, setUser, setIsReleaseSleep }) {
 
     const [modalOpen, setModalOpen] = useState(false);
     const [modalText, setModalText] = useState('');
+    const [modal, setModal] = useState({
+        open: false,
+        type: '',
+        text: '',
+    });
+    const [modalOnClickFunction, setModalOnClickFunction] = useState();
     const [sleepModalOpen, setSleepModalOpen] = useState(false);
 
     const navigate = useNavigate();
@@ -29,20 +35,24 @@ function SignIn({ user, setUser, setIsReleaseSleep }) {
     const onSubmitHandler = async e => {
 
         e.preventDefault();
-        console.log(user.userId);
-        console.log(user.userId.length);
 
         if (user.userId.length === 0) {
-            setModalText('아이디(이메일)을 입력하세요');
+            setModal({
+                open: true,
+                type: 'notice',
+                text: '아이디(이메일)를 입력하세요',
+            });
         } else if (user.userPass.length === 0) {
-            setModalText('비밀번호를 입력하세요');
+            setModal({
+                open: true,
+                type: 'notice',
+                text: '비밀번호를 입력하세요'
+            });
         } else {
-
             const response = await callLoginAPI({ user });
 
             if (response === 'true') {
 
-                // 토큰 디코딩
                 const decodedToken = jwtDecode(window.localStorage.getItem("accessToken"));
                 const userAuth = decodedToken.userAuth;
 
@@ -51,20 +61,26 @@ function SignIn({ user, setUser, setIsReleaseSleep }) {
                 } else if (userAuth === 'USER') {
                     return navigate('/');
                 } else {
-                    setModalText('올바르지 않은 접근입니다');
+                    setModal({
+                        open: true,
+                        type: 'notice',
+                        text: '올바르지 않은 접근입니다'
+                    });
                 };
             } else if (response === 'SLEEP') {
                 setSleepModalOpen(true);
             } else {
-                setModalText('일치하는 회원 정보가 없습니다');
+                setModal({
+                    open: true,
+                    type: 'notice',
+                    text: '일치하는 회원 정보가 없습니다'
+                });
             };
         };
-
-        setModalOpen(true);
     };
 
     const onClickHandler = () => {
-        
+
         setIsReleaseSleep(true);
     }
 
@@ -109,6 +125,11 @@ function SignIn({ user, setUser, setIsReleaseSleep }) {
                 modalOpen={modalOpen}
                 setModalOpen={setModalOpen}
                 modalText={modalText}
+            />
+            <CommonModal
+                modal={modal}
+                setModal={setModal}
+                modalOnClickFunction={modalOnClickFunction}
             />
             {sleepModalOpen && (
                 <div className={styles.modal}>

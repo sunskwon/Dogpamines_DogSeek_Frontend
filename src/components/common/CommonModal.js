@@ -1,6 +1,6 @@
 import styles from './CommonModal.module.css';
 
-function LoginModal({ modal, setModal, modalOnClickHandler }) {
+function LoginModal({ modal, setModal, modalOnClickFunction }) {
 
     return (
         <>
@@ -34,7 +34,7 @@ function LoginModal({ modal, setModal, modalOnClickHandler }) {
                                     </button>
                                     <button
                                         className={styles.acceptButton}
-                                        onClick={() => modalOnClickHandler()}
+                                        onClick={modalOnClickFunction}
                                     >
                                         확인
                                     </button>
@@ -42,21 +42,17 @@ function LoginModal({ modal, setModal, modalOnClickHandler }) {
                                 :
                                 modal.type === 'transfer' ?
                                     <button
-                                        className={styles.allowButton}
+                                        className={styles.acceptButton}
                                         onClick={() => {
                                             setModal({ ...modal, open: false })
-                                            modalOnClickHandler()
+                                            modalOnClickFunction()
                                         }}>
                                         닫기
                                     </button>
                                     :
                                     <button
-                                        className={styles.allowButton}
-                                        onClick={() => {
-
-                                            // modalOnClickHandler ? modalOnClickHandler : 'none'
-                                            setModal({ ...modal, open: false })
-                                        }}
+                                        className={styles.acceptButton}
+                                        onClick={() => setModal({ ...modal, open: false })}
                                     >
                                         닫기
                                     </button>

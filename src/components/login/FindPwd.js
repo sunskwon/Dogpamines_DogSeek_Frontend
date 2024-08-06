@@ -5,7 +5,7 @@ import ResetPwd from './findpwd/ResetPwd';
 
 import style from './FindPwd.module.css';
 
-function FindPwd({ user, setUser }) {
+function FindPwd({ user, setUser, setIsFindPwd }) {
 
     const [isIdConfirmed, setIsIdConfirmed] = useState(false);
 
@@ -16,6 +16,8 @@ function FindPwd({ user, setUser }) {
                     <ResetPwd
                         user={user}
                         setUser={setUser}
+                        setIsIdConfirmed={setIsIdConfirmed}
+                        setIsFindPwd={setIsFindPwd}
                     />
                     :
                     <IdConfirmation
