@@ -8,7 +8,7 @@ import SignUp from "./pages/SignUp.js";
 
 import Login from "./pages/Login.js";
 
-import Curation from "./pages/curation/Curation.js";
+import Curation from "./pages/Curation.js";
 import CurationSizeSelect from "./pages/curation/CurationSizeSelect.js";
 import CurationSelectAge from "./pages/curation/CurationSelectAge.js";
 import CurationSelectNeut from "./pages/curation/CurationSelectNeut.js";

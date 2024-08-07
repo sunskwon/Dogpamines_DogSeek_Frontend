@@ -16,7 +16,7 @@ function Login() {
     });
     const [isFindId, setIsFindId] = useState(false);
     const [isFindPwd, setIsFindPwd] = useState(false);
-    const [isReleaseSleep, setIsReleaseSleep] = useState(true);
+    const [isReleaseSleep, setIsReleaseSleep] = useState(false);
 
     const navigate = useNavigate();
 
