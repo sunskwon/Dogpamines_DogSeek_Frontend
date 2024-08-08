@@ -14,25 +14,40 @@
 }
 
 .barBox{
+    width: 1000px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     position: inherit;
 }
 
-.dogBox {
-    width: 1000px;
+.progressBox {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    flex-direction: column;
+    align-items: end;
+    margin-bottom: -20px;
+}
+
+.progressBox>img {
+    width: 40px;
+    display: flex;
+    justify-content: end;
+    margin-bottom: 20px;
 }
 
 .progressBar {
+    height: 20px;
+    border-radius: 10px;
+    background-color: #005600;
+    margin: 0 auto;
+}
+
+.bar {
     width: 960px;
     height: 20px;
     border-radius: 10px;
     background-color: #005600;
     opacity: 10%;
     box-sizing: border-box;
-    margin-top: 20px;
+    margin: 0 auto;
 }

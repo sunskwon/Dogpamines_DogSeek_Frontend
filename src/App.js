@@ -9,7 +9,6 @@ import SignUp from "./pages/SignUp.js";
 import Login from "./pages/Login.js";
 
 import Curation from "./pages/Curation.js";
-import CurationSizeSelect from "./pages/curation/CurationSizeSelect.js";
 import CurationSelectAge from "./pages/curation/CurationSelectAge.js";
 import CurationSelectNeut from "./pages/curation/CurationSelectNeut.js";
 import CurationSelectAllergy from "./pages/curation/CurationSelectAllergy.js";
@@ -74,7 +73,6 @@ function App() {
             <Route path="/login" element={<Login />} />
 
             <Route path="/curation" element={<Curation />} />
-            <Route path="/curation-size" element={<CurationSizeSelect />} />
             <Route path="/curation-age" element={<CurationSelectAge />} />
             <Route path="/curation-neut" element={<CurationSelectNeut />} />
             <Route path="/curation-allergy" element={<CurationSelectAllergy />} />

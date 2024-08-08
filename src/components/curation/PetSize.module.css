@@ -1,0 +1,81 @@
+.container {
+    width: 1180px;
+    height: 425px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contentBox {
+    height: 340px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+.contentBox>label {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    border: 1px solid #D4D4D4;
+    box-sizing: border-box;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.contentBox>input {
+    display: none;
+}
+
+.circle {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #6A8E5E;
+    border: 0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.circle>img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+}
+
+label>p {
+    font-weight: bold;
+    font-size: 16px;
+    color: #999999;
+    margin: 0;
+    margin-top: 10px
+}
+
+
+.buttonBox>button {
+    width: 200px;
+    height: 35px;
+    border-radius: 10px;
+    background-color: #005600;
+    border: 0;
+    box-sizing: border-box;
+    font-weight: bold;
+    font-size: 16px;
+    color: white;
+    margin-top: 50px;
+    cursor: pointer;
+}
+
+.buttonBox>button:disabled {
+    background-color: #6A8E5E;
+    cursor: default;
+}
