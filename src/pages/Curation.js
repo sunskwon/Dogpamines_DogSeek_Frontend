@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import CurationSteps from '../components/curation/CurationSteps';
 import PetInfo from '../components/curation/PetInfo';
 import PetSize from '../components/curation/PetSize';
+import PetAge from '../components/curation/PetAge';
 
 function Curation() {
 
@@ -13,7 +14,13 @@ function Curation() {
         breed: '',
         weight: '',
         size: '',
+        age: '',
     });
+
+    useEffect(() => {
+
+        console.log(curation);
+    }, [step]);
 
     return (
         <>
@@ -21,23 +28,26 @@ function Curation() {
                 step={step}
                 curation={curation}
             />
-            {step === 1 ?
+            {step === 1 &&
                 <PetInfo
                     curation={curation}
                     setCuration={setCuration}
                     setStep={setStep}
                 />
-                :
-                (step === 2 ?
-                    <PetSize
-                        curation={curation}
-                        setCuration={setCuration}
-                        setStep={setStep}
-                    />
-                    :
-                    <>
-                    </>
-                )
+            }
+            {step === 2 &&
+                <PetSize
+                    curation={curation}
+                    setCuration={setCuration}
+                    setStep={setStep}
+                />
+            }
+            {step === 3 &&
+                <PetAge
+                    curation={curation}
+                    setCuration={setCuration}
+                    setStep={setStep}
+                />
             }
         </>
     );

@@ -10,8 +10,9 @@ function CurationSteps({ step, curation }) {
     useEffect(() => {
 
         switch (step) {
-            case(1): setText('당신의 강아지를 소개해주세요'); break;
-            case(2): setText(`${curation.name}는/은 어디에 속해 있나요?`); break;
+            case 1: setText('당신의 강아지를 소개해주세요'); break;
+            case 2:
+            case 3: setText(`${curation.name}는/은 어디에 속해 있나요?`); break;
         };
 
         setBarWidth(120 * (step - 1));

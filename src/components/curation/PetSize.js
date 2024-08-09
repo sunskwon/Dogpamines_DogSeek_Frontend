@@ -21,7 +21,10 @@ function CurationSizeSelect({ curation, setCuration, setStep }) {
         <>
             <div className={styles.container}>
                 <div className={styles.contentBox}>
-                    <label htmlFor='small'>
+                    <label
+                        htmlFor='small'
+                        className={curation.size === '소형' ? styles.selected : styles.selectable}
+                    >
                         <div className={styles.circle}>
                             <img
                                 src='./images/curation/smallDog.png'
@@ -37,7 +40,10 @@ function CurationSizeSelect({ curation, setCuration, setStep }) {
                         value='소형'
                         onChange={onChangeHandler}
                     />
-                    <label htmlFor='medium'>
+                    <label
+                        htmlFor='medium'
+                        className={curation.size === '중형' ? styles.selected : styles.selectable}
+                    >
                         <div className={styles.circle}>
                             <img
                                 src='./images/curation/middleDog.png'
@@ -53,7 +59,10 @@ function CurationSizeSelect({ curation, setCuration, setStep }) {
                         value='중형'
                         onChange={onChangeHandler}
                     />
-                    <label htmlFor='large'>
+                    <label
+                        htmlFor='large'
+                        className={curation.size === '대형' ? styles.selected : styles.selectable}
+                    >
                         <div className={styles.circle}>
                             <img
                                 src='./images/curation/bigDog.png'
